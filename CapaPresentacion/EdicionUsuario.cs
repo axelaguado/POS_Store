@@ -16,19 +16,40 @@ namespace WindowsFormsApp1.CapaPresentacion
     public partial class EdicionUsuario : GestionUsuario
     {
         private Usuario user_edit;
+        private string permisos;
 
-        public EdicionUsuario(Usuario _usuario)
+        public EdicionUsuario(Usuario _usuario, string _permisos)
         {
             InitializeComponent();
 
             this.user_edit = _usuario;
+            this.permisos = _permisos;
 
             this.CargarDatosUsuarioEdit(this.user_edit);
-            this.DescativarControlesNoEdit();   
+            this.DesactivarControlesNoEdit();   
 
+        }
+
+        private void DesactivarControlesNoEdit()
+        {
+            // Desactivamos controles que contengan datos que no puedan ser modificados.
+            // Datos persona. 
+            if (this.permisos == "Gerente")
+            {
+                this.TBGUUsername.Enabled = false;
+                this.COMBOBTipoUsuario.Enabled = false;
+            }
+
+        }
+        private void DescativarControlesNoEditGerente()
+        {
+            // Desactivamos controles que contengan datos que no puedan ser modificados.
+            // Datos usuario.
+            this.TBGUUsername.Enabled = false;
+            this.COMBOBTipoUsuario.Enabled = false; 
         } 
 
-        private void DescativarControlesNoEdit()
+        private void DescativarControlesNoEditAdministrador()
         {
             // Desactivamos controles que contengan datos que no puedan ser modificados.
             // Datos persona.
@@ -41,7 +62,6 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             this.DTPFechaNacimiento.Enabled = false;
         }
-
         private void CargarDatosUsuarioEdit(Usuario _usuario)
         {
 
@@ -522,9 +542,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
 
             return estado; 
-        }
-
-         
+        } 
     }
 }
 

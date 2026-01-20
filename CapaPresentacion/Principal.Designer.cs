@@ -51,6 +51,7 @@
             this.BGestionEmpleados = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PContenidos = new System.Windows.Forms.Panel();
+            this.BBienvenida = new System.Windows.Forms.Button();
             this.PHeaderPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBMinimizar)).BeginInit();
@@ -63,6 +64,7 @@
             // PHeaderPrincipal
             // 
             this.PHeaderPrincipal.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.PHeaderPrincipal.Controls.Add(this.BBienvenida);
             this.PHeaderPrincipal.Controls.Add(this.PBMaximizar);
             this.PHeaderPrincipal.Controls.Add(this.PBMinimizar);
             this.PHeaderPrincipal.Controls.Add(this.PBRestaurar);
@@ -336,6 +338,19 @@
             this.PContenidos.Size = new System.Drawing.Size(692, 418);
             this.PContenidos.TabIndex = 0;
             // 
+            // BBienvenida
+            // 
+            this.BBienvenida.AutoSize = true;
+            this.BBienvenida.FlatAppearance.BorderSize = 0;
+            this.BBienvenida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BBienvenida.Location = new System.Drawing.Point(3, 4);
+            this.BBienvenida.Name = "BBienvenida";
+            this.BBienvenida.Size = new System.Drawing.Size(83, 23);
+            this.BBienvenida.TabIndex = 5;
+            this.BBienvenida.Text = "button1";
+            this.BBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BBienvenida.UseVisualStyleBackColor = true;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,6 +363,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Principal";
             this.PHeaderPrincipal.ResumeLayout(false);
+            this.PHeaderPrincipal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBMinimizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBRestaurar)).EndInit();
@@ -373,7 +389,6 @@
         private System.Windows.Forms.Button BVentas;
         private System.Windows.Forms.Button BGestionProductos;
         private System.Windows.Forms.Button BGestionClientes;
-        private System.Windows.Forms.Button BGestionEmpleados;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
@@ -382,5 +397,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button BGestionEmpleados;
+        private System.Windows.Forms.Button BBienvenida;
     }
 }

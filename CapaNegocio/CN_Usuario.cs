@@ -11,6 +11,7 @@ using WindowsFormsApp1.CapaPresentacion;
 using System.Data.Entity.Infrastructure;
 using System.Windows.Forms;
 using System.Runtime.Remoting.Contexts;
+using System.Threading;
 
 
 namespace WindowsFormsApp1.CapaNegocio
@@ -179,40 +180,157 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-            public void loginUsuario(string username, string contraseña)
+        public List<Usuario> listarUsuariosActivos()
+        {
+            UsuarioDAO nuevo = new UsuarioDAO();
+
+            List<Usuario> lista = nuevo.listar_UsuariosActivos();
+
+            if (lista == null)
             {
-
-                // Buscamos el usuario por su username para verificar que existe.
-
-                Usuario encontrado = this.buscar_usuario_username(username);
-
-                // Si el usuario no fue encontrado o la contraseña no coincide se lanza una excepcion.
-                if (encontrado == null || !this.VerificarPassword(contraseña, encontrado.contraseña))
-                {
-                    throw new UnauthorizedAccessException("Usuario y/o contraseña incorrectos");
-                }
-
-            } 
-
-
-            public List<Usuario> listarUsuariosTipo(int _tipo)
-            {
-                UsuarioDAO usuario = new UsuarioDAO();
-                List<Usuario> lista = new List<Usuario>();
-
-                lista = usuario.listar_Usuarios().Where(u => u.tipo_perfil == _tipo).ToList();
-
-                if (lista == null)
-                {
-                    throw new Exception("No se han encontrado elementos.");
-                }
-                else
-                {
-                    return lista;
-                }
+                throw new Exception("No se han encontrado elementos.");
             }
+            else
+            {
+                return lista;
+            }
+        }
 
-            public Usuario updateUser(Usuario datos_modificar)
+        public List<Usuario> listarUsuariosInactivos()
+        {
+            UsuarioDAO nuevo = new UsuarioDAO();
+
+            List<Usuario> lista = nuevo.listar_UsuariosInactivos();
+
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+        public Usuario loginUsuario(string username, string contraseña)
+        {
+
+            // Buscamos el usuario por su username para verificar que existe. 
+            Usuario encontrado = this.buscar_usuario_username(username);     
+
+            // Si el usuario no fue encontrado o la contraseña no coincide se lanza una excepcion.    
+            if (encontrado == null || !this.VerificarPassword(contraseña, encontrado.contraseña))    
+            {    
+                throw new UnauthorizedAccessException("Usuario y/o contraseña incorrectos");   
+            }         
+
+            return encontrado;
+        } 
+
+
+         public List<Usuario> listarUsuariosTipo(int _tipo) 
+         { 
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>();
+
+            lista = usuario.listar_UsuariosPorTipo(_tipo); 
+
+            if (lista == null)    
+            {    
+                throw new Exception("No se han encontrado elementos.");    
+            }    
+            else    
+            {    
+                return lista;    
+            }    
+         }
+
+        public List<Usuario> listarUsuariosGenerotipo(int _tipo, string _genero)
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>();
+
+            lista = usuario.listar_UsuarioPorGeneroTipo(_tipo, _genero);
+
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+
+        public List<Usuario> listarUsuariosDni(int _dni)
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>();
+
+            lista = usuario.listar_UsuariosDni(_dni);
+
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+
+        public async Task<List<Usuario>> listarUsuariosDniEstado(int _dni,bool state, CancellationToken token)
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>(); 
+
+            lista = await usuario.listar_UsuariosDniEstado(_dni, state, token);
+              
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+
+
+        public async Task<List<Usuario>> listarUsuariosNombreEstado(string nombre, bool state, CancellationToken token)
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>();
+
+            lista = await usuario.listar_UsuariosNombreEstado(nombre, state, token);
+
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+
+        public List<Usuario> listarUsuariosGenero(string _genero)
+        {
+            UsuarioDAO usuario = new UsuarioDAO();
+            List<Usuario> lista = new List<Usuario>();
+
+            lista = usuario.listar_UsuariosPorGenero(_genero);
+
+            if (lista == null)
+            {
+                throw new Exception("No se han encontrado elementos.");
+            }
+            else
+            {
+                return lista;
+            }
+        }
+
+        public Usuario updateUser(Usuario datos_modificar)
             {
                 UsuarioDAO usuario = new UsuarioDAO();
                 Usuario usuarioActual = usuario.buscar_usuario_id(datos_modificar.id_persona);

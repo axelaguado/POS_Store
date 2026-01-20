@@ -588,8 +588,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                     errorProvider1.SetError(controlesEncontrados[0], error.Value);
                 }
             }
-        } 
-
+        }
+         
     }
 }
 

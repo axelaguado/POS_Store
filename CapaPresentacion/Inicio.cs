@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms; 
 using System.Drawing.Drawing2D;
 using WindowsFormsApp1.CapaNegocio;
+using WindowsFormsApp1.CapaEntidad;
 
 namespace WindowsFormsApp1.CapaPresentacion
 {
@@ -71,12 +72,21 @@ namespace WindowsFormsApp1.CapaPresentacion
                     var contraseña = TBContraseña.Text;
 
                     CN_Usuario usuario = new CN_Usuario();
-                    usuario.loginUsuario(username, contraseña);
+                    Usuario encontrado = usuario.loginUsuario(username, contraseña);
 
-                    Principal principal = new Principal();
-                    principal.Show();
-                    
-                    this.Hide();
+                    if (encontrado != null) {
+                        // Inicializar la session.
+                        Session datosSession = new Session();
+                        datosSession.nombre = encontrado.persona.nombre_persona;
+                        datosSession.apellido = encontrado.persona.apellido_persona;
+                        datosSession.tipo_perfil = encontrado.tipo_usuario.descripcion_tipo;
+                        datosSession.username = encontrado.username;
+
+                        Principal principal = new Principal(datosSession);
+                        principal.Show();
+
+                        this.Hide();
+                    }
                 }
                 catch (UnauthorizedAccessException na) 
                 { 
