@@ -8,6 +8,9 @@ using WindowsFormsApp1.CapaEntidad;
 using System.Data.Entity;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Data.Entity.Migrations;
+using System.ComponentModel;
+using System.Threading;
+using System.Net;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -61,6 +64,102 @@ namespace WindowsFormsApp1.CapaDatos
                                        .OrderBy(u => u.persona.apellido_persona)
                                        .ToList(); 
         }
+
+        public List<Usuario> listar_UsuariosActivos()
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.estado == true)
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        }
+
+        public List<Usuario> listar_UsuariosInactivos()
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.estado == false)
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        }
+
+        public async Task<List<Usuario>> listar_UsuariosDniEstado(int dni, bool state, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+
+                return await context.Usuarios.Include(u => u.persona)
+                                       .Include(u => u.persona.direccion)
+                                       .Include(u => u.tipo_usuario)
+                                       .Where(u => (u.persona.dni_persona.ToString().StartsWith(dni.ToString())) && u.estado == state)   
+                                       .OrderBy(u => u.persona.apellido_persona)
+                                       .ToListAsync(token);
+        }
+
+        public async Task<List<Usuario>> listar_UsuariosNombreEstado(string _nombre,bool state, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+
+                return await context.Usuarios.Include(u => u.persona)
+                                       .Include(u => u.persona.direccion)
+                                       .Include(u => u.tipo_usuario)
+                                       .Where(u => (u.persona.nombre_persona.StartsWith(_nombre) || u.persona.apellido_persona.StartsWith(_nombre)) && u.estado == state)
+                                       .OrderBy(u => u.persona.apellido_persona)
+                                       .ToListAsync(token);
+        }
+
+        public List<Usuario> listar_UsuariosDni(int _dni)
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.persona.dni_persona.ToString().StartsWith(_dni.ToString()))
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        }
+
+        public List<Usuario> listar_UsuariosPorTipo(int _tipo)
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.tipo_perfil == _tipo)
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        }
+
+        public List<Usuario> listar_UsuariosPorGenero(string _genero)
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.persona.sexo == _genero)
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        }
+
+        public List<Usuario> listar_UsuarioPorGeneroTipo(int _tipo, string _genero)
+        {
+            using (var context = new MiDbContext())
+
+                return context.Usuarios.Include(u => u.persona)
+                                           .Include(u => u.persona.direccion)
+                                           .Include(u => u.tipo_usuario)
+                                           .Where(u => u.persona.sexo == _genero && u.tipo_perfil == _tipo) 
+                                           .OrderBy(u => u.persona.apellido_persona)
+                                           .ToList();
+        } 
 
         public Usuario buscar_usuario_id(int _id)
         {

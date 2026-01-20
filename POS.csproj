@@ -78,7 +78,8 @@
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
-    <Compile Include="CapaEntidad\Interface1.cs" />
+    <Compile Include="CapaEntidad\Session.cs" />
+    <Compile Include="CapaEntidad\IConfigForm.cs" />
     <Compile Include="CapaNegocio\CN_Direccion.cs" />
     <Compile Include="CapaEntidad\Direccion.cs" />
     <Compile Include="CapaEntidad\Venta.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="CapaPresentacion\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controlador\AppContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">

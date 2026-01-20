@@ -16,11 +16,26 @@ namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Principal : Form
     {
-        public Principal()
-        {
-            InitializeComponent();
 
+        private Session session;
+
+        public Principal(Session datosSession)
+        {
+            this.session = datosSession;    
+            InitializeComponent(); 
+            cargarPBienvenida();
         }
+
+        public void cargarPBienvenida()
+        {
+            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido + "   ▼";   
+
+            if (this.session.tipo_perfil.Equals("Empleado"))
+            {
+                BGestionEmpleados.Enabled = false; 
+            }   
+        }
+
 
         private void BMinimizar_Click(object sender, EventArgs e)
         {
@@ -91,8 +106,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Esto es útil cuando no sabes con certeza si el objeto que estás recibiendo es un Form,
             // y quieres hacer una conversión segura sin que se lance una excepción si la conversión falla.
-            Form fh = formHijo as Form;
-
+            Form fh = formHijo as Form; 
 
             fh.TopLevel = false;
             fh.Dock = DockStyle.Fill;
@@ -101,10 +115,15 @@ namespace WindowsFormsApp1.CapaPresentacion
         }
 
         private void BGestionEmpleados_Click(object sender, EventArgs e)
-        { 
+        {  
             this.AbrirFormHijo(new Listado(this));
             BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
         }
+
+        public string GetSessionTypeUser()
+        {
+            return this.session.tipo_perfil;
+        } 
          
     }
  }

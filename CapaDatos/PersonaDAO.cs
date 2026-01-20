@@ -99,8 +99,9 @@ namespace WindowsFormsApp1.CapaDatos
             {
                 return context.Personas.FirstOrDefault(p => p.dni_persona == _dni);
             }
-        } 
+        }
 
+       
         // -- UPDATE --
         public Persona update_persona(Persona datos_modificados)
         {

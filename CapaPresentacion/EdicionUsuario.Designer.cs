@@ -57,6 +57,7 @@
             // 
             // LTitulo
             // 
+            this.LTitulo.Location = new System.Drawing.Point(10, 9);
             this.LTitulo.Text = "Editar Usuario ";
             // 
             // PInfoContacto
