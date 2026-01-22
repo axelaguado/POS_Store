@@ -143,7 +143,6 @@
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.IndianRed;
             this.dataGridView1.Location = new System.Drawing.Point(23, 383);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -433,7 +432,6 @@
             this.BTBuscar.TabIndex = 3;
             this.BTBuscar.Text = "Buscar";
             this.BTBuscar.UseVisualStyleBackColor = false;
-             
             // 
             // BTNuevo
             // 

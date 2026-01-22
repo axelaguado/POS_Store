@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PHeaderPrincipal = new System.Windows.Forms.Panel();
+            this.BBienvenida = new System.Windows.Forms.Button();
             this.PBMaximizar = new System.Windows.Forms.PictureBox();
             this.PBMinimizar = new System.Windows.Forms.PictureBox();
             this.PBRestaurar = new System.Windows.Forms.PictureBox();
@@ -51,7 +52,10 @@
             this.BGestionEmpleados = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PContenidos = new System.Windows.Forms.Panel();
-            this.BBienvenida = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.BTGestionPedidos = new System.Windows.Forms.Button();
+            this.BTGastos = new System.Windows.Forms.Button();
             this.PHeaderPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBMinimizar)).BeginInit();
@@ -75,6 +79,19 @@
             this.PHeaderPrincipal.Size = new System.Drawing.Size(900, 32);
             this.PHeaderPrincipal.TabIndex = 0;
             this.PHeaderPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PHeaderPrincipal_MouseDown);
+            // 
+            // BBienvenida
+            // 
+            this.BBienvenida.AutoSize = true;
+            this.BBienvenida.FlatAppearance.BorderSize = 0;
+            this.BBienvenida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BBienvenida.Location = new System.Drawing.Point(3, 4);
+            this.BBienvenida.Name = "BBienvenida";
+            this.BBienvenida.Size = new System.Drawing.Size(83, 23);
+            this.BBienvenida.TabIndex = 5;
+            this.BBienvenida.Text = "button1";
+            this.BBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BBienvenida.UseVisualStyleBackColor = true;
             // 
             // PBMaximizar
             // 
@@ -132,6 +149,10 @@
             // PMenu
             // 
             this.PMenu.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.PMenu.Controls.Add(this.BTGastos);
+            this.PMenu.Controls.Add(this.BTGestionPedidos);
+            this.PMenu.Controls.Add(this.panel9);
+            this.PMenu.Controls.Add(this.panel2);
             this.PMenu.Controls.Add(this.panel3);
             this.PMenu.Controls.Add(this.panel4);
             this.PMenu.Controls.Add(this.panel5);
@@ -151,14 +172,14 @@
             this.PMenu.Location = new System.Drawing.Point(0, 32);
             this.PMenu.Margin = new System.Windows.Forms.Padding(5);
             this.PMenu.Name = "PMenu";
-            this.PMenu.Size = new System.Drawing.Size(208, 418);
+            this.PMenu.Size = new System.Drawing.Size(208, 536);
             this.PMenu.TabIndex = 1;
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel3.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel3.Location = new System.Drawing.Point(0, 374);
+            this.panel3.Location = new System.Drawing.Point(0, 492);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(12, 32);
             this.panel3.TabIndex = 1;
@@ -166,7 +187,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel4.Location = new System.Drawing.Point(0, 324);
+            this.panel4.Location = new System.Drawing.Point(0, 434);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(12, 32);
             this.panel4.TabIndex = 1;
@@ -174,7 +195,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel5.Location = new System.Drawing.Point(0, 275);
+            this.panel5.Location = new System.Drawing.Point(0, 380);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(12, 32);
             this.panel5.TabIndex = 1;
@@ -182,7 +203,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel6.Location = new System.Drawing.Point(0, 230);
+            this.panel6.Location = new System.Drawing.Point(0, 233);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(12, 32);
             this.panel6.TabIndex = 1;
@@ -220,7 +241,7 @@
             this.BCerrarPrincipal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BCerrarPrincipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BCerrarPrincipal.ForeColor = System.Drawing.SystemColors.Control;
-            this.BCerrarPrincipal.Location = new System.Drawing.Point(12, 374);
+            this.BCerrarPrincipal.Location = new System.Drawing.Point(12, 492);
             this.BCerrarPrincipal.Name = "BCerrarPrincipal";
             this.BCerrarPrincipal.Size = new System.Drawing.Size(196, 32);
             this.BCerrarPrincipal.TabIndex = 8;
@@ -235,7 +256,7 @@
             this.BBackUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BBackUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BBackUp.ForeColor = System.Drawing.SystemColors.Control;
-            this.BBackUp.Location = new System.Drawing.Point(12, 324);
+            this.BBackUp.Location = new System.Drawing.Point(12, 434);
             this.BBackUp.Name = "BBackUp";
             this.BBackUp.Size = new System.Drawing.Size(196, 32);
             this.BBackUp.TabIndex = 7;
@@ -250,7 +271,7 @@
             this.BReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BReportes.ForeColor = System.Drawing.SystemColors.Control;
-            this.BReportes.Location = new System.Drawing.Point(12, 275);
+            this.BReportes.Location = new System.Drawing.Point(12, 380);
             this.BReportes.Name = "BReportes";
             this.BReportes.Size = new System.Drawing.Size(196, 32);
             this.BReportes.TabIndex = 6;
@@ -265,7 +286,7 @@
             this.BVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BVentas.ForeColor = System.Drawing.SystemColors.Control;
-            this.BVentas.Location = new System.Drawing.Point(12, 230);
+            this.BVentas.Location = new System.Drawing.Point(12, 332);
             this.BVentas.Name = "BVentas";
             this.BVentas.Size = new System.Drawing.Size(196, 32);
             this.BVentas.TabIndex = 5;
@@ -335,28 +356,62 @@
             this.PContenidos.ForeColor = System.Drawing.SystemColors.ControlText;
             this.PContenidos.Location = new System.Drawing.Point(208, 32);
             this.PContenidos.Name = "PContenidos";
-            this.PContenidos.Size = new System.Drawing.Size(692, 418);
+            this.PContenidos.Size = new System.Drawing.Size(692, 536);
             this.PContenidos.TabIndex = 0;
             // 
-            // BBienvenida
+            // panel2
             // 
-            this.BBienvenida.AutoSize = true;
-            this.BBienvenida.FlatAppearance.BorderSize = 0;
-            this.BBienvenida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BBienvenida.Location = new System.Drawing.Point(3, 4);
-            this.BBienvenida.Name = "BBienvenida";
-            this.BBienvenida.Size = new System.Drawing.Size(83, 23);
-            this.BBienvenida.TabIndex = 5;
-            this.BBienvenida.Text = "button1";
-            this.BBienvenida.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BBienvenida.UseVisualStyleBackColor = true;
+            this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel2.Location = new System.Drawing.Point(0, 283);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(12, 32);
+            this.panel2.TabIndex = 9;
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel9.Location = new System.Drawing.Point(0, 332);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(12, 32);
+            this.panel9.TabIndex = 10;
+            // 
+            // BTGestionPedidos
+            // 
+            this.BTGestionPedidos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTGestionPedidos.FlatAppearance.BorderSize = 0;
+            this.BTGestionPedidos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTGestionPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTGestionPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTGestionPedidos.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 233);
+            this.BTGestionPedidos.Name = "BTGestionPedidos";
+            this.BTGestionPedidos.Size = new System.Drawing.Size(196, 32);
+            this.BTGestionPedidos.TabIndex = 11;
+            this.BTGestionPedidos.Text = "Gestion de Pedidos ";
+            this.BTGestionPedidos.UseVisualStyleBackColor = true;
+            this.BTGestionPedidos.Click += new System.EventHandler(this.BTGestionPedidos_Click);
+            // 
+            // BTGastos
+            // 
+            this.BTGastos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTGastos.FlatAppearance.BorderSize = 0;
+            this.BTGastos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTGastos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTGastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTGastos.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTGastos.Location = new System.Drawing.Point(12, 283);
+            this.BTGastos.Name = "BTGastos";
+            this.BTGastos.Size = new System.Drawing.Size(196, 32);
+            this.BTGastos.TabIndex = 12;
+            this.BTGastos.Text = "Gastos";
+            this.BTGastos.UseVisualStyleBackColor = true;
             // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(900, 450);
+            this.ClientSize = new System.Drawing.Size(900, 568);
             this.Controls.Add(this.PContenidos);
             this.Controls.Add(this.PMenu);
             this.Controls.Add(this.PHeaderPrincipal);
@@ -399,5 +454,9 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button BGestionEmpleados;
         private System.Windows.Forms.Button BBienvenida;
+        private System.Windows.Forms.Button BTGastos;
+        private System.Windows.Forms.Button BTGestionPedidos;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel2;
     }
 }

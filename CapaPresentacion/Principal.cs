@@ -15,8 +15,7 @@ using WindowsFormsApp1.CapaEntidad;
 namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Principal : Form
-    {
-
+    { 
         private Session session;
 
         public Principal(Session datosSession)
@@ -24,6 +23,19 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.session = datosSession;    
             InitializeComponent(); 
             cargarPBienvenida();
+        }
+
+        // Permiteel despalzamiento del formulario por la pantalla.
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int IParam);
+         
+        private void PHeaderPrincipal_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
         public void cargarPBienvenida()
@@ -34,8 +46,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 BGestionEmpleados.Enabled = false; 
             }   
-        }
-
+        } 
 
         private void BMinimizar_Click(object sender, EventArgs e)
         {
@@ -53,8 +64,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (this.PContenidos.Controls[0] is IConfigForm formHijo)
             {
                 formHijo.MantenerPanelesPrincipales();
-            }
-
+            } 
         }
 
         private void PBMaximizar_Click(object sender, EventArgs e)
@@ -72,30 +82,18 @@ namespace WindowsFormsApp1.CapaPresentacion
                 { 
                     formHijo.CentrarPanelesPrincipales();  
                 }
-            }
-      
-        }
-         
+            } 
+        } 
 
         private void PBCerrarPrincipal_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
+        } 
 
-
-        // Permiteel despalzamiento del formulario por la pantalla.
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int IParam);
-
-        private void PHeaderPrincipal_MouseDown(object sender, MouseEventArgs e)
+        public string GetSessionTypeUser()
         {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
-        }
-
+            return this.session.tipo_perfil;
+        } 
 
         public void AbrirFormHijo(object formHijo)
         {
@@ -119,11 +117,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.AbrirFormHijo(new Listado(this));
             BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
         }
-
-        public string GetSessionTypeUser()
+        
+        private void BTGestionPedidos_Click(object sender, EventArgs e)
         {
-            return this.session.tipo_perfil;
+           // this.AbrirFormHijo(new GestionPedidos(this));
+           // BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
         } 
-         
+        
     }
  }

@@ -98,6 +98,12 @@
     <Compile Include="CapaPresentacion\EdicionUsuario.Designer.cs">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\GestionPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionPedido.Designer.cs">
+      <DependentUpon>GestionPedido.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\GestionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +133,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionPedido.resx">
+      <DependentUpon>GestionPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionUsuario.resx">
       <DependentUpon>GestionUsuario.cs</DependentUpon>

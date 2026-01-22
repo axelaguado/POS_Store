@@ -27,6 +27,6 @@ namespace WindowsFormsApp1.CapaEntidad
         // Propiedad de navegaciion
 
         [ForeignKey("id_persona")]
-        public Persona persona { get; set; }
+        public Persona persona { get; set; }  
     }
 }
