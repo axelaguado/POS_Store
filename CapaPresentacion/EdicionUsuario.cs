@@ -92,23 +92,31 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.TBTelefono.Text = Convert.ToString(_usuario.persona.telefono);
 
             // Cargamos los datos de direccion.  
+            this.TBCalle.Text = _usuario.persona.direccion.calle;
+            this.TBAltura.Text = Convert.ToString(_usuario.persona.direccion.altura);
+
+            /*
+               
+            // Cargamos los datos de direccion.  
             this.TBCalle.Text = _usuario.persona.direccion.FirstOrDefault().calle;
 
             this.TBAltura.Text = Convert.ToString(_usuario.persona.direccion.FirstOrDefault().altura);
 
+            */
+
             // Preguntamos si hay un piso establecido para activar los botones
-            if (!string.IsNullOrEmpty(_usuario.persona.direccion.FirstOrDefault().piso))
+            if (!string.IsNullOrEmpty(_usuario.persona.direccion.piso))
             {
 
                 // Indicamos que es departamento.
                 this.CBDepartamento.Checked = true;
 
                 //Asignamos el valor de los combobox piso y depto y eliminamos el mensaje del errorProvider
-                this.COMBOBPiso.Text = Convert.ToString(_usuario.persona.direccion.FirstOrDefault()?.piso);
+                this.COMBOBPiso.Text = Convert.ToString(_usuario.persona.direccion.piso);
                 this.errorProvider1.SetError(COMBOBPiso, "");
 
 
-                this.COMBOBDepto.Text = Convert.ToString(_usuario.persona.direccion.FirstOrDefault()?.depto);
+                this.COMBOBDepto.Text = Convert.ToString(_usuario.persona.direccion.depto);
                 this.errorProvider1.SetError(COMBOBDepto, "");
             }
 
@@ -199,7 +207,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     {    
                         // Actualizar las entidades.
                         persona.updatePersona(user_edit.persona);
-                        direccion.updateDireccion(user_edit.persona.direccion.FirstOrDefault());
+                        direccion.updateDireccion(user_edit.persona.direccion);
                         usuario.updateUser(user_edit); // Hay que ver que pasa con el hash de la contraseña
 
                         MessageBox.Show("Los datos han sido actualizados correctamente.", "Actualizado", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -241,32 +249,32 @@ namespace WindowsFormsApp1.CapaPresentacion
             bool estado = true;
 
             // Modificacion calle. 
-            if (!(this.user_edit.persona.direccion.FirstOrDefault()?.calle == this.TBCalle.Text))
+            if (!(this.user_edit.persona.direccion.calle == this.TBCalle.Text))
             {
                 modificadoCalle = true;
             }
 
             //Modificacion altura
-            if (!(this.user_edit.persona.direccion.FirstOrDefault()?.altura == Convert.ToInt16(this.TBAltura.Text)))
+            if (!(this.user_edit.persona.direccion.altura == Convert.ToInt16(this.TBAltura.Text)))
             {
                 modificadoAltura = true;
             }
 
             // Modificacion piso/depto. 
             // En caso que no haya asignado un departamento en la direccion y que el combo box presente un cambio.
-            if ( string.IsNullOrEmpty(this.user_edit.persona.direccion.FirstOrDefault()?.piso) && this.COMBOBPiso.SelectedIndex != -1)
+            if ( string.IsNullOrEmpty(this.user_edit.persona.direccion.piso) && this.COMBOBPiso.SelectedIndex != -1)
             {
                 modificadoDepartamento = true;
             }
 
             // En caso de que haya asignado un departamento y se haya cambiado ya sea el piso o el depto. 
-            if (this.user_edit.persona.direccion.FirstOrDefault()?.piso != this.COMBOBPiso.Text || this.user_edit.persona.direccion.FirstOrDefault()?.depto != this.COMBOBDepto.SelectedIndex + 1)
+            if (this.user_edit.persona.direccion.piso != this.COMBOBPiso.Text || this.user_edit.persona.direccion.depto != this.COMBOBDepto.SelectedIndex + 1)
             {
                 modificadoDepartamento = true;
             }  
 
             // En caso que haya asignado un departamento y se busca eliminar el mismo.
-            if (!string.IsNullOrEmpty(this.user_edit.persona.direccion.FirstOrDefault()?.piso) && this.CBDepartamento.Checked) 
+            if (!string.IsNullOrEmpty(this.user_edit.persona.direccion.piso) && this.CBDepartamento.Checked) 
             {
                 modificadoDepartamento = true;
             }
@@ -282,7 +290,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
                 else
                 {
-                    this.user_edit.persona.direccion.FirstOrDefault().calle = this.TBCalle.Text;
+                    this.user_edit.persona.direccion.calle = this.TBCalle.Text;
                 }
             }
 
@@ -297,7 +305,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
                 else
                 {
-                    this.user_edit.persona.direccion.FirstOrDefault().altura = Convert.ToInt16(this.TBAltura.Text);
+                    this.user_edit.persona.direccion.altura = Convert.ToInt16(this.TBAltura.Text);
                 }
 
             }
@@ -306,14 +314,14 @@ namespace WindowsFormsApp1.CapaPresentacion
             { 
                 if (this.CBDepartamento.Checked == true)  
                 { 
-                    this.user_edit.persona.direccion.FirstOrDefault().piso = this.COMBOBPiso.Text;
-                    this.user_edit.persona.direccion.FirstOrDefault().depto = this.COMBOBDepto.SelectedIndex + 1;
+                    this.user_edit.persona.direccion.piso = this.COMBOBPiso.Text;
+                    this.user_edit.persona.direccion.depto = this.COMBOBDepto.SelectedIndex + 1;
                 } 
 
                 if (this.CBDepartamento.Checked == false) 
                 {
-                    this.user_edit.persona.direccion.FirstOrDefault().piso = null;
-                    this.user_edit.persona.direccion.FirstOrDefault().depto = 0;
+                    this.user_edit.persona.direccion.piso = null;
+                    this.user_edit.persona.direccion.depto = 0;
                 }
                 
             } 

@@ -30,8 +30,7 @@ namespace WindowsFormsApp1.CapaDatos
             {  
                 context.Direcciones.Add(direccion);
                 context.SaveChanges();
-                return direccion.id_direccion;  
-                
+                return direccion.id_direccion; 
             }
         }
 

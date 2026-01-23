@@ -213,10 +213,20 @@ namespace WindowsFormsApp1.CapaPresentacion
                     MessageBox.Show("Se encontraron errores, verifique los datos ingresados.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 }
-                else
-                { 
+                else 
+                {  
                     try {
+                          
+                        int idDireccion = direccion.CrearDireccion(nuevaDireccion);
 
+                        nuevaPersona.id_direccion = idDireccion; /*  nuevaPersona.id_direccion = direccion.CrearDireccion(nuevaDireccion); */
+                        int idPersona = persona.CrearPersona(nuevaPersona);
+
+                        nuevoUsuario.id_persona = idPersona;
+                        usuario.CrearUsuario(nuevoUsuario);
+
+                        /*
+                          
                         // Se crea una nueva persona en la BDD. 
                         int idPersona = persona.CrearPersona(nuevaPersona);
 
@@ -229,6 +239,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                         nuevoUsuario.id_persona = idPersona;
                         usuario.CrearUsuario(nuevoUsuario); 
 
+                        */
 
                         MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                     

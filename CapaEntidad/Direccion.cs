@@ -12,10 +12,8 @@ namespace WindowsFormsApp1.CapaEntidad
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_direccion { get; set; }
- 
-        public int id_persona { get; set; }
-
+        public int id_direccion { get; set; } 
+   
         public string calle { get; set; }
 
         public int altura { get; set; }
@@ -24,9 +22,9 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public int depto { get; set; } 
 
-        // Propiedad de navegaciion
-
-        [ForeignKey("id_persona")]
-        public Persona persona { get; set; }  
+        // Propiedad de navegaciion  
+        public ICollection<Persona> persona { get; set; } 
     }
+
+
 }

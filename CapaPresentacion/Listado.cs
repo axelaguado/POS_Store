@@ -112,7 +112,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         }
 
         public object LoadTable(List<Usuario> _lista)
-        { 
+        {
             var tabla = _lista.Select((usuario, index) => new
             {
                 Indice = index + 1,
@@ -123,13 +123,13 @@ namespace WindowsFormsApp1.CapaPresentacion
                 TipoUsuario = usuario.tipo_usuario.descripcion_tipo,
                 Telefono = usuario.persona.telefono,
                 Email = usuario.persona.email,
-                Calle = usuario.persona.direccion.FirstOrDefault()?.calle,  // Usa ?. para evitar errores si la dirección es null
-                Altura = usuario.persona.direccion.FirstOrDefault()?.altura,
-                Piso = usuario.persona.direccion.FirstOrDefault()?.piso == null ? "-" : usuario.persona.direccion.FirstOrDefault()?.piso,
-                Depto = usuario.persona.direccion.FirstOrDefault()?.depto == 0 ? "-" : usuario.persona.direccion.FirstOrDefault()?.depto.ToString(),
+                Calle = usuario.persona.direccion.calle,  // Usa ?. para evitar errores si la dirección es null
+                Altura = usuario.persona.direccion.altura,
+                Piso = usuario.persona.direccion.piso == null ? "-" : usuario.persona.direccion.piso,
+                Depto = usuario.persona.direccion.depto == 0 ? "-" : usuario.persona.direccion.depto.ToString(),
             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
-            
+
             return tabla;
         }
 
@@ -212,8 +212,8 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Cargo siempre el username como metodo de busqueda.
             CN_Usuario usuarios = new CN_Usuario();
-            List<Usuario> listado = usuarios.listarUsuarios(); 
-            string username = (string)dgt.Rows[filaIndex].Cells["Usuario"].Value; 
+            List<Usuario> listado = usuarios.listarUsuarios();
+            string username = (string)dgt.Rows[filaIndex].Cells["Usuario"].Value;
             Usuario user_editar = listado.FirstOrDefault(u => u.username == username);
 
             // Dependiendo de la columna, ejecutar acciones
@@ -227,10 +227,10 @@ namespace WindowsFormsApp1.CapaPresentacion
                 );
 
                 if (confirmacionEditar == DialogResult.Yes)
-                { 
+                {
                     // Buscamos el usuario de la fila seleccionada para cargar sus datos
                     // ? Falopa total hacer ese listado, deberia llamar al metodo en la CN que traiga el elemento y no la lista.
-                    
+
                     string permisos = this.principal.GetSessionTypeUser();
 
                     if (user_editar != null)
@@ -254,8 +254,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                 );
 
                 if (confirmacionBorrar == DialogResult.Yes)
-                { 
-                    user_editar.estado = false; 
+                {
+                    user_editar.estado = false;
 
                     usuarios.updateUser(user_editar);
 
@@ -273,7 +273,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 );
 
                 if (confirmacionActivar == DialogResult.Yes)
-                { 
+                {
                     user_editar.estado = true;
 
                     usuarios.updateUser(user_editar);
@@ -294,7 +294,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 textBox.Text = "";
             }
-        } 
+        }
 
         private async void TBBuscar_TextChanged(object sender, EventArgs e)
         {
@@ -310,15 +310,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     if (int.TryParse(this.TBBuscar.Text, out _))
                     {
-                        int dni = Convert.ToInt32(TBBuscar.Text);  
+                        int dni = Convert.ToInt32(TBBuscar.Text);
 
-                        this.LoadTableUserActive(await usuario.listarUsuariosDniEstado(dni, true, cts.Token)); 
-                        this.LoadTableUserInactive(await usuario.listarUsuariosDniEstado(dni, false, cts.Token)); 
+                        this.LoadTableUserActive(await usuario.listarUsuariosDniEstado(dni, true, cts.Token));
+                        this.LoadTableUserInactive(await usuario.listarUsuariosDniEstado(dni, false, cts.Token));
                     }
 
 
                     if (!int.TryParse(this.TBBuscar.Text, out _) && !this.TBBuscar.Text.Equals((" Buscar por dni o nombre ...")))
-                    { 
+                    {
                         this.LoadTableUserActive(await usuario.listarUsuariosNombreEstado(this.TBBuscar.Text, true, cts.Token));
                         this.LoadTableUserInactive(await usuario.listarUsuariosNombreEstado(this.TBBuscar.Text, false, cts.Token));
                     }
@@ -328,6 +328,24 @@ namespace WindowsFormsApp1.CapaPresentacion
                     // La consulta fue cancelada, no hacemos nada   
                 }
             }
-        } 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Direccion nuevaDireccion = new Direccion();
+            CN_Direccion direccion = new CN_Direccion();    
+
+            nuevaDireccion.calle = "Av Junin";
+            nuevaDireccion.altura = 4220;
+
+            try
+            {
+                direccion.CrearDireccion(nuevaDireccion);
+            }
+            catch (TaskCanceledException ex) 
+            {
+                MessageBox.Show("Error :" + ex.Message); 
+            }   
+        }
     }
 }

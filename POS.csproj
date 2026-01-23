@@ -77,7 +77,11 @@
     <Compile Include="CapaDatos\MiDbContext.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
+    <Compile Include="CapaEntidad\Articulo.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
+    <Compile Include="CapaEntidad\Detalle_pedido.cs" />
+    <Compile Include="CapaEntidad\Pedido.cs" />
+    <Compile Include="CapaEntidad\Proveedor.cs" />
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
     <Compile Include="CapaNegocio\CN_Direccion.cs" />

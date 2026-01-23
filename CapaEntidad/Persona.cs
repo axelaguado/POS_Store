@@ -26,14 +26,19 @@ namespace WindowsFormsApp1.CapaEntidad
         
         public long telefono { get; set; }
 
-        public string sexo { get; set; }  
+        public string sexo { get; set; }
 
-        // Propiedad de navegacion.
+        public int id_direccion { get; set; }
+
+        // Propiedad de navegacion. 
+        [ForeignKey("id_direccion")]
+        public Direccion direccion { get; set; } 
+
         public Cliente cliente { get; set; }
 
         public Usuario usuario { get; set; }
  
-        public ICollection<Direccion> direccion { get; set; }
+       
 
     }
 

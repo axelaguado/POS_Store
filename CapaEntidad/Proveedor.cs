@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    internal class Proveedor
+    public class Proveedor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  
@@ -23,6 +23,15 @@ namespace WindowsFormsApp1.CapaEntidad
         public string telefono { get; set; }
 
         public string email { get; set; }
+
+        public int id_direccion { get; set; }
+
+        // ------------------------------------------
+
+        [ForeignKey("id_direccion")]
+
+        public Direccion direccion { get; set; }    
+
 
     }
 }

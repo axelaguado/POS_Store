@@ -41,8 +41,7 @@ namespace WindowsFormsApp1.CapaDatos
             { 
                 context.Usuarios.Add(usuario);
                 context.SaveChanges(); 
-                return usuario.id_persona;
-                 
+                return usuario.id_persona; 
             }
         }
          
@@ -206,6 +205,10 @@ namespace WindowsFormsApp1.CapaDatos
 
                 if (usuario_modificar != null)
                 {
+                    // Attach: Le dice al contexto que comience a rastrear la entidad (usuario_modificar) y la marca como UNCHANGED por defecto.
+                    // Si luego se modifican propiedades dek ibjeto usuario_modificar, EF detectara los cambios y cambiara el estado de la entidad a MODIFIED.
+                    // Cuando se llama a SavChanges solo se ejecutaran las consultas UPDATE para los campos que realmente se cambiaron.
+                     
                     // Entry: Proporciona acceso a la información sobre el estado de la entidad (usuario_modificar) en el contexto de EF.
                     //        Esto incluye su estado (por ejemplo, Unchanged, Modified, Deleted, etc.) y sus valores actuales y originales.
                     // CurrentValues --> propiedad de entry que devuelve los valores actuales.

@@ -38,6 +38,8 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Tipo_usuario> Tipo_Usuarios { get; set; }
 
+        public DbSet<Proveedor> Proveedores { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Tipo_Usuario
@@ -54,7 +56,11 @@ namespace WindowsFormsApp1.CapaDatos
             // Persona
             // Definir entidad
             var personaConfig = modelBuilder.Entity<Persona>();
-            
+
+            personaConfig.HasRequired(p => p.direccion) // La persona tiene una dirección
+                         .WithMany(d => d.persona) // La dirección puede tener muchas personas
+                         .HasForeignKey(p => p.id_direccion); // FK en Persona
+
             // Configurar propiedades
             personaConfig.Property(p => p.dni_persona).IsRequired();
             personaConfig.Property(p => p.nombre_persona).HasMaxLength(100).IsRequired();
@@ -71,11 +77,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Direccion
             // Definir entidad
             var direccionConfig = modelBuilder.Entity<Direccion>();
-
-            // Configurar clave primaria
-            direccionConfig.HasRequired(d => d.persona)
-                           .WithMany(p => p.direccion)  // Persona puede tener o no una dirección.
-                           .Map(m => m.MapKey("FK_direccion_persona"));
+             
 
             // Configurar propiedades
             direccionConfig.Property( d => d.calle).IsRequired().HasMaxLength(100);
@@ -136,6 +138,25 @@ namespace WindowsFormsApp1.CapaDatos
 
             // --------------------------------------------
 
+            var proveedorConfig = modelBuilder.Entity<Proveedor>();
+
+            // Configuracion de ralaciones.
+           // proveedorConfig.HasRequired(p => p.direccion)
+             //              .WithRequiredPrincipal(d => d.proveedor)
+               //            .Map(m => m.MapKey("FK_proveedor_direccion"));
+
+            // Configuracion de propeidades.
+            proveedorConfig.Property(p => p.razon_social).IsRequired();
+            proveedorConfig.Property(p => p.nombre_nomercial).IsOptional();
+            proveedorConfig.Property(p => p.cod_postal).IsRequired();
+            proveedorConfig.Property(p => p.telefono).IsRequired();
+            proveedorConfig.Property(p => p.email).IsRequired();
+             
+            // Otros mapeos.
+            proveedorConfig.ToTable("Proveedor");
+
+
+            // --------------------------------------------
             // Producto
             // Definir entidad
             var productoConfig = modelBuilder.Entity<Producto>();
