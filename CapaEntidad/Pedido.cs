@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    internal class Pedido
+    public class Pedido
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,11 +17,11 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public int id_proveedor { get; set; }   
 
-        public DateTime fecha_solicitud {  get; set; }  
+        public DateTime fecha_emision {  get; set; }  
 
         public decimal monto_total { get; set; }
 
-        public string estado { get; set; }
+        public int estado { get; set; }
 
         // ------------------------------------------------------
 
@@ -29,9 +29,7 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public Proveedor proveedor { get; set; } 
 
-        public ICollection<Detalle_pedido> detalles { get; set; }   
-
-
+        public ICollection<Detalle_pedido> detalle_pedido { get; set; } 
 
     }
 }

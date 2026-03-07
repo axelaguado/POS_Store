@@ -11,6 +11,7 @@ namespace WindowsFormsApp1.CapaDatos
 {
     public class DireccionDAO
     {
+        //Inyeccion de dependencias.
         // READONLY --> Hace que dicho atriubto no puede ser modificado.
         //private readonly MiDbContext _context;
 

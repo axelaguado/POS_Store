@@ -12,6 +12,8 @@ namespace WindowsFormsApp1.CapaEntidad
 {
     public class CN_Direccion
     {
+        private Dictionary<string, string> erroresDireccion = new Dictionary<string, string>();  
+
 
         public int CrearDireccion(Direccion _direccion)
         {
@@ -68,6 +70,53 @@ namespace WindowsFormsApp1.CapaEntidad
             }
            
             return errores; 
+
+        }
+
+        public bool ValidarBool_Direccion(Direccion _direccion) 
+        { 
+
+            if (_direccion == null)
+            {
+                erroresDireccion.Add("Direccion", "Los datos del domicilio no son validos");
+                return false;
+            }
+
+            // Validaciones para el atributo calle. 
+            if (string.IsNullOrEmpty(_direccion.calle))
+            {
+                erroresDireccion.Add("TBCalle", "El campo calle es obligatorio.");
+                return false;
+            }
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(_direccion.calle, @"^[a-zA-Z0-9.\s]+$"))
+            {
+                erroresDireccion.Add("TBCalle", "El campo solo debe contener caracteres alfabeticos-numericos-puntos y espacios (exceptuando la 'ñ').");
+                return false;
+            }
+            else if (_direccion.calle.Length > 100)
+            {
+                erroresDireccion.Add("TBCalle", "El campo calle supera el numero (100) de caracteres permitido");
+                return false;
+            }
+
+            // Validaciones para el atributo altura. 
+            if (string.IsNullOrEmpty(Convert.ToString(_direccion.altura)))
+            {
+                erroresDireccion.Add("TBAltura", "El campo altura es obligatorio.");
+                return false;
+            }
+            else if (!int.TryParse(Convert.ToString(_direccion.altura), out _))
+            {
+                erroresDireccion.Add("TBAltura", "El campo altura solo acepta caracteres numericos.");
+                return false;
+            }
+            else if (_direccion.altura < 0)
+            {
+                erroresDireccion.Add("TBAltura", "El campo altura no debe ser un valor negativo.");
+                return false;
+            }
+
+            return true;
 
         }
 
@@ -149,8 +198,7 @@ namespace WindowsFormsApp1.CapaEntidad
             {
                 return lista;
             }
-        }
-
+        } 
 
     }
 }

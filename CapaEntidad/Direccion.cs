@@ -23,7 +23,9 @@ namespace WindowsFormsApp1.CapaEntidad
         public int depto { get; set; } 
 
         // Propiedad de navegaciion  
-        public ICollection<Persona> persona { get; set; } 
+        public ICollection<Persona> persona { get; set; }
+
+        public ICollection<Proveedor> proveedor { get; set; }
     }
 
 

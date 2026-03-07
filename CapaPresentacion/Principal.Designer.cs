@@ -36,6 +36,10 @@
             this.PBRestaurar = new System.Windows.Forms.PictureBox();
             this.PBCerrarPrincipal = new System.Windows.Forms.PictureBox();
             this.PMenu = new System.Windows.Forms.Panel();
+            this.BTGastos = new System.Windows.Forms.Button();
+            this.BTGestionPedidos = new System.Windows.Forms.Button();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -52,10 +56,6 @@
             this.BGestionEmpleados = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PContenidos = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.BTGestionPedidos = new System.Windows.Forms.Button();
-            this.BTGastos = new System.Windows.Forms.Button();
             this.PHeaderPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBMinimizar)).BeginInit();
@@ -174,6 +174,53 @@
             this.PMenu.Name = "PMenu";
             this.PMenu.Size = new System.Drawing.Size(208, 536);
             this.PMenu.TabIndex = 1;
+            // 
+            // BTGastos
+            // 
+            this.BTGastos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTGastos.FlatAppearance.BorderSize = 0;
+            this.BTGastos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTGastos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTGastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTGastos.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTGastos.Location = new System.Drawing.Point(12, 283);
+            this.BTGastos.Name = "BTGastos";
+            this.BTGastos.Size = new System.Drawing.Size(196, 32);
+            this.BTGastos.TabIndex = 12;
+            this.BTGastos.Text = "Gastos";
+            this.BTGastos.UseVisualStyleBackColor = true;
+            // 
+            // BTGestionPedidos
+            // 
+            this.BTGestionPedidos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTGestionPedidos.FlatAppearance.BorderSize = 0;
+            this.BTGestionPedidos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTGestionPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTGestionPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTGestionPedidos.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 233);
+            this.BTGestionPedidos.Name = "BTGestionPedidos";
+            this.BTGestionPedidos.Size = new System.Drawing.Size(196, 32);
+            this.BTGestionPedidos.TabIndex = 11;
+            this.BTGestionPedidos.Text = "Gestion de Pedidos ";
+            this.BTGestionPedidos.UseVisualStyleBackColor = true;
+            this.BTGestionPedidos.Click += new System.EventHandler(this.BTGestionPedidos_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel9.Location = new System.Drawing.Point(0, 332);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(12, 32);
+            this.panel9.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel2.Location = new System.Drawing.Point(0, 283);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(12, 32);
+            this.panel2.TabIndex = 9;
             // 
             // panel3
             // 
@@ -358,53 +405,7 @@
             this.PContenidos.Name = "PContenidos";
             this.PContenidos.Size = new System.Drawing.Size(692, 536);
             this.PContenidos.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel2.Location = new System.Drawing.Point(0, 283);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(12, 32);
-            this.panel2.TabIndex = 9;
-            // 
-            // panel9
-            // 
-            this.panel9.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel9.Location = new System.Drawing.Point(0, 332);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(12, 32);
-            this.panel9.TabIndex = 10;
-            // 
-            // BTGestionPedidos
-            // 
-            this.BTGestionPedidos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BTGestionPedidos.FlatAppearance.BorderSize = 0;
-            this.BTGestionPedidos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTGestionPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTGestionPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTGestionPedidos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 233);
-            this.BTGestionPedidos.Name = "BTGestionPedidos";
-            this.BTGestionPedidos.Size = new System.Drawing.Size(196, 32);
-            this.BTGestionPedidos.TabIndex = 11;
-            this.BTGestionPedidos.Text = "Gestion de Pedidos ";
-            this.BTGestionPedidos.UseVisualStyleBackColor = true;
-            this.BTGestionPedidos.Click += new System.EventHandler(this.BTGestionPedidos_Click);
-            // 
-            // BTGastos
-            // 
-            this.BTGastos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BTGastos.FlatAppearance.BorderSize = 0;
-            this.BTGastos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTGastos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTGastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTGastos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTGastos.Location = new System.Drawing.Point(12, 283);
-            this.BTGastos.Name = "BTGastos";
-            this.BTGastos.Size = new System.Drawing.Size(196, 32);
-            this.BTGastos.TabIndex = 12;
-            this.BTGastos.Text = "Gastos";
-            this.BTGastos.UseVisualStyleBackColor = true;
+             
             // 
             // Principal
             // 

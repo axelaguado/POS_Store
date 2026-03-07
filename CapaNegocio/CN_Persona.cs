@@ -67,8 +67,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 else if (context.buscar_persona_dni(_persona.dni_persona) != null)
                 {
                     errores.Add("TBDni", "El dni ingresado ya existe.");
-                }
-
+                } 
 
             // Validaciones para campo nombre.
 
@@ -84,9 +83,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 {
                     errores.Add("TBNombre", "El campo nombre solo puede contener letras y espacios.");
                 }
-
-
-    
+                 
                 // Validaciones para campo apellido.
 
                 if (string.IsNullOrEmpty(_persona.apellido_persona))
@@ -100,10 +97,8 @@ namespace WindowsFormsApp1.CapaNegocio
                 else if (!System.Text.RegularExpressions.Regex.IsMatch(_persona.apellido_persona, @"^[a-zA-Z\s]+$"))
                 {
                     errores.Add("TBApellido", "El campo apellido solo puede contener letras y espacios.");
-                }
-                
-
-
+                } 
+                 
                 // Validaciones para campo fecha_nacimiento.
 
                 // Falta rigurosidad con respecto de los mesese y dias.
@@ -119,9 +114,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 if (edad < 18)
                 {
                      errores.Add("DTPFechaNacimiento", "La fecha de nacimiento corresponde a un menor de 18 años.");
-                }
-               
-
+                } 
 
                 // Validaciones para campo email.
 

@@ -8,24 +8,27 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    internal class Detalle_pedido
+    public class Detalle_pedido
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_detalle { get; set; }
 
-        public int id_pedido { get; set; }
-         
-        public Articulo articulo { get; set; }  
+        public int id_pedido { get; set; } 
+
+        public int id_articulo { get; set; }    
 
         public int cantidad { get; set; }
-
-        public decimal subtotal { get; set; }
-
+         
         // ---------------------------------------------- 
         
         [ForeignKey("id_pedido")]
         
-        public Pedido pedido { get; set; }  
+        public Pedido pedido { get; set; }
+
+        [ForeignKey("id_articulo")]
+        
+        public Articulo articulo { get; set; }
+
     }
 }

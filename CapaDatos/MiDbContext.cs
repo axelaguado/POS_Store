@@ -40,6 +40,12 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Proveedor> Proveedores { get; set; }
 
+        public DbSet<Detalle_pedido> Detalles_pedido { get; set; }
+
+        public DbSet<Pedido> Pedidos { get; set; }
+
+        public DbSet<Articulo> Articulos { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Tipo_Usuario
@@ -140,23 +146,86 @@ namespace WindowsFormsApp1.CapaDatos
 
             var proveedorConfig = modelBuilder.Entity<Proveedor>();
 
-            // Configuracion de ralaciones.
-           // proveedorConfig.HasRequired(p => p.direccion)
-             //              .WithRequiredPrincipal(d => d.proveedor)
-               //            .Map(m => m.MapKey("FK_proveedor_direccion"));
+            // Confiuracion PK.
+
+            // Confiuracion de relaciones.
+            proveedorConfig.HasRequired(p => p.direccion) // La persona tiene una dirección
+                           .WithMany(d => d.proveedor) // La dirección puede tener muchas personas
+                           .HasForeignKey(p => p.id_direccion); // FK en Proveedor
 
             // Configuracion de propeidades.
-            proveedorConfig.Property(p => p.razon_social).IsRequired();
-            proveedorConfig.Property(p => p.nombre_nomercial).IsOptional();
+            proveedorConfig.Property(p => p.razon_social).IsOptional();
+            proveedorConfig.Property(p => p.CUIT).IsOptional();
+            proveedorConfig.Property(p => p.nombre_comercial).IsRequired();
             proveedorConfig.Property(p => p.cod_postal).IsRequired();
-            proveedorConfig.Property(p => p.telefono).IsRequired();
-            proveedorConfig.Property(p => p.email).IsRequired();
-             
+            proveedorConfig.Property(p => p.telefono).IsOptional();
+            proveedorConfig.Property(p => p.email).IsOptional();
+            proveedorConfig.Property(p => p.sitio_web).IsOptional();
+
             // Otros mapeos.
             proveedorConfig.ToTable("Proveedor");
 
+            // --------------------------------------------
+
+            var pedidoConfig = modelBuilder.Entity<Pedido>();
+
+            // Confiuracion PK.
+            pedidoConfig.HasKey(p => p.id_pedido);
+
+            // Configuracion de relaciones.
+            pedidoConfig.HasRequired(p => p.proveedor) // El pedido tiene un proveedor
+                           .WithMany(p => p.pedido) // El proveedor puede tener muchos pedidos
+                           .HasForeignKey(p => p.id_proveedor); // FK en Pedido
+
+            // Configuracion de propeidades.
+            pedidoConfig.Property(p => p.fecha_emision).IsRequired();
+            pedidoConfig.Property(p => p.monto_total).IsRequired();
+            pedidoConfig.Property(p => p.estado).IsRequired(); 
+
+            // Otros mapeos.
+            pedidoConfig.ToTable("Pedido");
 
             // --------------------------------------------
+
+            var articuloConfig = modelBuilder.Entity<Articulo>();
+
+            // Confiuracion PK.
+            articuloConfig.HasKey(a => a.id_articulo);
+
+            // Configuracion de propeidades.
+            articuloConfig.Property(a => a.marca_articulo).IsOptional();
+            articuloConfig.Property(a => a.nombre_articulo).IsOptional(); 
+            articuloConfig.Property(a => a.descripcion_articulo).IsOptional();
+            articuloConfig.Property(a => a.contenido_articulo).IsOptional();
+            articuloConfig.Property(a => a.precio_unitario).IsRequired();
+
+            // Otros mapeos.
+            articuloConfig.ToTable("Articulo");
+
+            // --------------------------------------------
+
+            var detalleConfig = modelBuilder.Entity<Detalle_pedido>();
+
+            // Configuracion PK.
+            detalleConfig.HasKey(d => d.id_detalle);
+
+            // Configuracion de relaciones. 
+            detalleConfig.HasRequired(d => d.articulo)
+                         .WithMany(a => a.detalle_pedido)
+                         .HasForeignKey(d => d.id_articulo);
+
+            detalleConfig.HasRequired(d => d.pedido)
+                         .WithMany(p => p.detalle_pedido)
+                         .HasForeignKey(d => d.id_pedido);
+
+            // Configuracion de propeidades. 
+            detalleConfig.Property(d => d.cantidad).IsRequired();
+
+            // Otros mapeos.
+            detalleConfig.ToTable("Detalle_pedido");
+
+            // --------------------------------------------
+
             // Producto
             // Definir entidad
             var productoConfig = modelBuilder.Entity<Producto>();

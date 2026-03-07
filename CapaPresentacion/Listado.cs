@@ -33,6 +33,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void CentrarPanelesPrincipales()
         {
             // Centra el panel en función del tamaño del formulario
+            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.PListado.Left = (this.ClientSize.Width - this.PListado.Width) / 2;
         }
 
@@ -40,6 +42,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void MantenerPanelesPrincipales()
         {
             // Centra el panel en función del tamaño del formulario
+            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.PListado.Left = 2;
         }
 
@@ -78,8 +82,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnBorrar.UseColumnTextForButtonValue = true;
             btnColumnBorrar.FlatStyle = FlatStyle.Standard;
             DGVLista.Columns.Add(btnColumnBorrar);
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.Red;
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.Red;
+            DGVLista.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.IndianRed;
+            DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.IndianRed;
         }
 
         public void LoadTableUserInactive(List<Usuario> _lista)
@@ -107,8 +111,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnActivar.UseColumnTextForButtonValue = true;
             btnColumnActivar.FlatStyle = FlatStyle.Standard;
             dataGridView1.Columns.Add(btnColumnActivar);
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.BackColor = Color.DarkTurquoise;
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.DarkTurquoise;
+            dataGridView1.Columns["CActivar"].HeaderCell.Style.BackColor = Color.LightBlue;
+            dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.LightBlue;
         }
 
         public object LoadTable(List<Usuario> _lista)
@@ -139,6 +143,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.principal.AbrirFormHijo(gestion);
         }
 
+        // El filtro esta funcionando sin tener en cuenta el estado por lo tanto se carga todo en la tabla de usuarios no eliminados.
         private void BTNFiltrar_Click(object sender, EventArgs e)
         {
             int tipo = this.COMBOBTipoUsuario.SelectedIndex + 1;
@@ -149,9 +154,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             List<Usuario> listaGenero = new List<Usuario>();
             List<Usuario> todos = new List<Usuario>();
 
-            // Si se utilizan los dos filtros
-
-
+            // Si se utilizan los dos filtros 
             if (!(string.IsNullOrEmpty(genero)) && (tipo > 0))
             {
                 todos = usuario.listarUsuariosGenerotipo(tipo, genero);
@@ -185,6 +188,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.LoadTableUserActive(todos);
 
         }
+
         /*
         public void limpiarFiltros() 
         {
@@ -347,5 +351,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 MessageBox.Show("Error :" + ex.Message); 
             }   
         }
+
+        
     }
 }
