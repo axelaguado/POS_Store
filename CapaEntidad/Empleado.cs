@@ -8,21 +8,16 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    public class Cliente
+    public class Empleado
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_cliente { get; set; }
-    
+        public int id_empleado { get; set; }
+
         public int id_persona { get; set; }
 
-        // Propiedad de navegacion.
-        [ForeignKey("id_persona")]
-        public virtual Persona persona { get; set; }
-
-        public virtual ICollection<Venta> compra { get; set; }
-
+        // Propiedades de navegacion
+        [ForeignKey ("id_persona")]
+        public Persona persona { get; set; }      
     }
 }
-
-

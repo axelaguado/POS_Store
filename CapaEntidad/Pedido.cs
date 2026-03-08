@@ -15,19 +15,21 @@ namespace WindowsFormsApp1.CapaEntidad
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_pedido { get; set; }
 
-        public int id_proveedor { get; set; }   
+        public int id_proveedor { get; set; }
+
+        public int id_estado { get; set; }
 
         public DateTime fecha_emision {  get; set; }  
 
-        public decimal monto_total { get; set; }
+        public decimal monto_total { get; set; } 
 
-        public int estado { get; set; }
+        // Propiedades de navegacion.
 
-        // ------------------------------------------------------
+        [ForeignKey("id_proveedor")] 
+        public Proveedor proveedor { get; set; }
 
-        [ForeignKey("id_proveedor")]
-
-        public Proveedor proveedor { get; set; } 
+        [ForeignKey("estado")]
+        public Estado_Pedido estado { get; set; }
 
         public ICollection<Detalle_pedido> detalle_pedido { get; set; } 
 

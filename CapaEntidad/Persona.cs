@@ -12,34 +12,24 @@ namespace WindowsFormsApp1.CapaEntidad
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_persona { get; set; }
- 
-        public int dni_persona { get; set; }
+        public int id_persona { get; set; }  
 
-        public string nombre_persona { get; set; }
+        // Propiedad de navegacion.  
+        public ICollection<Direccion> direcciones { get; set; }
+          
+        public ICollection<Contacto> contactos { get; set; }
 
-        public string apellido_persona{ get; set; }
+        // Roles que puede tener una persona.
+        public Empleado empleado { get; set; }
 
-        public DateTime fecha_nacimiento{ get; set; }
+        public Cliente cliente { get; set; } 
 
-        public string email { get; set; }
-        
-        public long telefono { get; set; }
+        public Proveedor proveedor { get; set; }    
 
-        public string sexo { get; set; }
+        // Tipos de persona 
+        public PersonaFisica persona_fisica { get; set; }
 
-        public int id_direccion { get; set; }
-
-        // Propiedad de navegacion. 
-        [ForeignKey("id_direccion")]
-        public Direccion direccion { get; set; } 
-
-        public Cliente cliente { get; set; }
-
-        public Usuario usuario { get; set; }
- 
-       
-
+        public PersonaJuridica persona_juridica { get; set; }  
     }
 
 }

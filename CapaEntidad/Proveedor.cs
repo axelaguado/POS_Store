@@ -14,30 +14,13 @@ namespace WindowsFormsApp1.CapaEntidad
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]  
         public int id_proveedor {get; set;}
 
-        public string razon_social { get; set; }
+        public int id_persona {get; set;} 
 
-        public long CUIT {  get; set; }
+        // Propiedades de navegacion
 
-        public string nombre_comercial {  get; set; }
+        [ForeignKey("id_persona")] 
+        public Persona persona { get; set; }
 
-        public int cod_postal {  get; set; }
-
-        public long telefono { get; set; }
-
-        public string email { get; set; }
-
-        public string sitio_web { get; set; }
-
-        public int id_direccion { get; set; }
-
-        // ------------------------------------------
-
-        [ForeignKey("id_direccion")]
-
-        public Direccion direccion { get; set; }
-
-        public ICollection<Pedido> pedido { get; set; }
-
-
+        public ICollection<Pedido> pedido { get; set; } 
     }
 }

@@ -12,8 +12,11 @@ namespace WindowsFormsApp1.CapaEntidad
 {
     public class Usuario
     {
-        [Key] 
-        public int id_persona { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id_usuario {  get; set; }     
+        
+        public int id_empleado { get; set; }
 
         public string username { get; set; }
 
@@ -24,12 +27,11 @@ namespace WindowsFormsApp1.CapaEntidad
         public bool estado { get; set; }
 
         // Propiedad de navegacion.
-        [ForeignKey("tipo_perfil")]
-        public Tipo_usuario tipo_usuario { get; set; }  
+        [ForeignKey("id_empleado")]
+        public Empleado empleado { get; set; }
 
-        [ForeignKey("id_persona")]
-        public Persona persona { get; set; }    
-    
+        [ForeignKey("tipo_perfil")]
+        public Tipo_usuario tipo_usuario { get; set; }   
         //public ICollection<Venta> ventas { get; set; }
     }
 }
