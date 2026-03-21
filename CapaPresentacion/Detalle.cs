@@ -25,7 +25,7 @@ using iTextSharp.tool.xml.html;
 namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Detalle : Form
-    {
+    { 
         private Pedido pedido; 
 
         public Detalle(Pedido _pedido)
@@ -54,17 +54,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             string id = Convert.ToString(this.pedido.id_pedido);
             int cifras = id.Count();
 
-            string nro = "#00000000";  
+            string nro = "#00000000";   
 
             this.LNroPedido.Text = nro.Insert(10 - cifras, id);  
-            this.LRazonSocial.Text = this.pedido.proveedor.razon_social;
-            this.LNomComer.Text = this.pedido.proveedor.nombre_comercial;
-            this.LCuit.Text = Convert.ToString(this.pedido.proveedor.CUIT);
-            this.LDireccion.Text = this.pedido.proveedor.direccion?.calle + " " + this.pedido.proveedor.direccion?.altura ;
-            this.LCodPostal.Text = Convert.ToString(this.pedido.proveedor.cod_postal);
-            this.LTelefono.Text = Convert.ToString(this.pedido.proveedor.telefono);
+            this.LRazonSocial.Text = this.pedido.proveedor.persona.persona_juridica.razon_social;
+            this.LNomComer.Text = this.pedido.proveedor.persona.persona_juridica.nombre_comercial;
+            this.LCuit.Text = Convert.ToString(this.pedido.proveedor.persona.persona_juridica.cuit);
+            this.LDireccion.Text = (this.pedido.proveedor.persona.direcciones.FirstOrDefault().calle + " " + this.pedido.proveedor.persona.direcciones.FirstOrDefault().altura);
+            this.LCodPostal.Text = Convert.ToString(this.pedido.proveedor.persona.direcciones.FirstOrDefault().cod_postal);
+            this.LTelefono.Text = Convert.ToString(this.pedido.proveedor.persona.contactos.FirstOrDefault().telefono);
             this.LFechaPedido.Text = Convert.ToString(this.pedido.fecha_emision);
-            this.LEstado.Text = this.GetEstado(this.pedido.estado); 
+            this.LEstado.Text = this.pedido.estado_pedido.descripcion_estado;
         } 
 
        public object cargarDGVDetalle(ICollection<Detalle_pedido> _lista)
@@ -93,24 +93,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             this.LTotalPedido.Text = "Total: $" + Convert.ToString(this.pedido.monto_total);
         }
-
-        public string GetEstado(int _estado) 
-        {
-            string estado = string.Empty;
-             
-            if (_estado == 1) 
-            {
-                estado = "Pendiente";
-            }
-
-            if (_estado == 2) 
-            {
-                estado = "Recibido";
-            }
-
-            return estado;
-        }
-
+         
         private void BCerrar_Click(object sender, EventArgs e)
         {
             this.Close();   
@@ -149,15 +132,15 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Reemplazar los marcadores en el HTML con los datos del proveedor y del pedido
             Texto_Html = Texto_Html.Replace("@NumeroPedido", nro.Insert(10 - cifras, id));
             Texto_Html = Texto_Html.Replace("@FechaEmision", this.pedido.fecha_emision.ToString());
-            Texto_Html = Texto_Html.Replace("@Estado", this.GetEstado(this.pedido.estado));
+            Texto_Html = Texto_Html.Replace("@Estado", this.pedido.estado_pedido.descripcion_estado);
             // -----
-            Texto_Html = Texto_Html.Replace("@RazonSocial", this.pedido.proveedor.razon_social);
-            Texto_Html = Texto_Html.Replace("@NombreComercial", this.pedido.proveedor.nombre_comercial);
-            Texto_Html = Texto_Html.Replace("@Cuit", this.pedido.proveedor.CUIT.ToString());
+            Texto_Html = Texto_Html.Replace("@RazonSocial", this.pedido.proveedor.persona.persona_juridica.razon_social);
+            Texto_Html = Texto_Html.Replace("@NombreComercial", this.pedido.proveedor.persona.persona_juridica.nombre_comercial);
+            Texto_Html = Texto_Html.Replace("@Cuit", this.pedido.proveedor.persona.persona_juridica.cuit.ToString());
             // -----
-            Texto_Html = Texto_Html.Replace("@Direccion", this.pedido.proveedor.direccion.calle + ", " + this.pedido.proveedor.direccion.altura);
-            Texto_Html = Texto_Html.Replace("@CodigoPostal", this.pedido.proveedor.cod_postal.ToString());
-            Texto_Html = Texto_Html.Replace("@Telefono", this.pedido.proveedor.telefono.ToString());
+            Texto_Html = Texto_Html.Replace("@Direccion", this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.calle + " " + this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.altura); 
+            Texto_Html = Texto_Html.Replace("@CodigoPostal", this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.cod_postal.ToString());
+            Texto_Html = Texto_Html.Replace("@Telefono", this.pedido.proveedor.persona.contactos.FirstOrDefault()?.telefono.ToString());
 
             // Construir las filas de la tabla con los productos comprados
             StringBuilder filas = new StringBuilder();
@@ -202,6 +185,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     8. Se cierra el documento
                     9. Se libera el archivo
                 */
+             
                 using (FileStream stream = new FileStream(savefile.FileName, FileMode.Create))
                 {
                     Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25); 
@@ -221,7 +205,6 @@ namespace WindowsFormsApp1.CapaPresentacion
                     MessageBox.Show("El detalle del pedido se guardo correctamente.");
                 }
             } 
-        } 
-         
+        }    
     }
 }

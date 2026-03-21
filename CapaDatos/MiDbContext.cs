@@ -10,6 +10,7 @@ using System.Reflection.Emit;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Data.Entity.ModelConfiguration;
 using System.Net.Http.Headers;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -18,81 +19,167 @@ namespace WindowsFormsApp1.CapaDatos
 
         //El constructor llama al constructor base (DbContext) y pasa un nombre de cadena de conexión ("MiDbContext").
         //Esto indica a Entity Framework qué cadena de conexión utilizar para conectarse a la base de datos.
-        public MiDbContext() : base("name=MiDbContext"){ 
-        
+        public MiDbContext() : base("name=MiDbContext")
+        {
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        public DbSet<Cliente> Clientes { get; set; }
-
-        public DbSet<Direccion> Direcciones { get; set; }
-
-        public DbSet<Usuario> Usuarios { get; set; }
+        // Seccion Persona.
+        public DbSet<prueba> Pruebas { get; set; }
 
         public DbSet<Persona> Personas { get; set; }
 
-        public DbSet<Producto> Productos { get; set; }
+        public DbSet<PersonaFisica> PersonasFisicas { get; set; }
 
-        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<PersonaJuridica> PersonasJuridicas { get; set; }
 
-        public DbSet<Detalle_venta> Detalle_Ventas { get; set; }
+        // Seccion Roles. 
+        public DbSet<Cliente> Clientes { get; set; }
 
-        public DbSet<Tipo_usuario> Tipo_Usuarios { get; set; }
+        public DbSet<Empleado> Empleados { get; set; }
 
         public DbSet<Proveedor> Proveedores { get; set; }
 
+        public DbSet<Usuario> Usuarios { get; set; } 
+         
+        // Informacion Persona y Usuario. 
+        public DbSet<Direccion> Direcciones { get; set; }
+
+        public DbSet<Contacto> Contactos { get; set; }
+
+        public DbSet<Tipo_usuario> Tipo_Usuarios { get; set; } 
+
+        // Proceso Pedido.  
+        public DbSet<Articulo> Articulos { get; set; } 
+
         public DbSet<Detalle_pedido> Detalles_pedido { get; set; }
 
-        public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; } 
 
-        public DbSet<Articulo> Articulos { get; set; }
+        public DbSet<Estado_Pedido> Estados_pedido { get; set; }
+
+        // Proceso Venta. 
+        public DbSet<Producto> Productos { get; set; }
+
+        public DbSet<Detalle_venta> Detalle_Ventas { get; set; }
+
+        public DbSet<Venta> Ventas { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // Tipo_Usuario
-            // Definir entidad
-            var tipoUsuarioConfig = modelBuilder.Entity<Tipo_usuario>(); 
+            // Prueba.
+            // Definir entidad.
+            var pruebaConfig = modelBuilder.Entity<prueba>();
 
-            // Configurar propiedades
-            tipoUsuarioConfig.Property(t => t.descripcion_tipo).HasMaxLength(50).IsRequired();
+            // Primary Key.
+            pruebaConfig.HasKey(p => p.id_prueba);
 
-            // Otros mapeos
-            tipoUsuarioConfig.ToTable("Tipo_usuario");
+            // Otros mapeos.
+            pruebaConfig.ToTable("Prueba");
 
-            // --------------------------------------------------------------
-            // Persona
-            // Definir entidad
+            // ----------------------------------------------------- 
+
+            // Persona.
+            // Definir entidad.
             var personaConfig = modelBuilder.Entity<Persona>();
 
-            personaConfig.HasRequired(p => p.direccion) // La persona tiene una dirección
-                         .WithMany(d => d.persona) // La dirección puede tener muchas personas
-                         .HasForeignKey(p => p.id_direccion); // FK en Persona
+            // Primary Key.
+            personaConfig.HasKey(p => p.id_persona); 
+
+            // Otros mapeos.
+            personaConfig.ToTable("Persona");
+             
+            // ----------------------------------------------------- 
+            // PersonaFisica
+            // Definir entidad
+            var fisicaConfig = modelBuilder.Entity<PersonaFisica>();
+
+            // Primary Key.
+            fisicaConfig.HasKey(f => f.id_persona);
+
+            // Relaciones
+            fisicaConfig.HasRequired(f => f.persona) // La persona_fisica tiene una persona.
+                        .WithOptional(p => p.persona_fisica); // La persona debe tener una persona_fisica.
 
             // Configurar propiedades
-            personaConfig.Property(p => p.dni_persona).IsRequired();
-            personaConfig.Property(p => p.nombre_persona).HasMaxLength(100).IsRequired();
-            personaConfig.Property(p => p.apellido_persona).HasMaxLength(100).IsRequired();
-            personaConfig.Property(p => p.fecha_nacimiento).IsRequired();
-            personaConfig.Property(p => p.email).IsRequired(); 
-            personaConfig.Property(p => p.telefono).IsRequired();
-            personaConfig.Property(p => p.sexo).IsRequired();
-            
+            fisicaConfig.Property(f => f.id_persona).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            fisicaConfig.Property(f => f.dni_persona).IsRequired();
+            fisicaConfig.Property(f => f.nombre_persona).HasMaxLength(100).IsRequired();
+            fisicaConfig.Property(f => f.apellido_persona).HasMaxLength(100).IsRequired();
+            fisicaConfig.Property(f => f.fecha_nacimiento).IsRequired();
+            fisicaConfig.Property(f => f.sexo).IsRequired();
+
             // Otros mapeos
-            personaConfig.ToTable("Persona");
+            fisicaConfig.ToTable("Persona_fisica");
 
             // -----------------------------------------------------
+            // PersonaJuridica
+            // Definir entidad
+            var juridicaConfig = modelBuilder.Entity<PersonaJuridica>();
+
+            //
+            juridicaConfig.HasKey(f => f.id_persona);
+
+            juridicaConfig.HasRequired(j => j.persona) // La persona_juridica tiene una persona.
+                          .WithOptional(p => p.persona_juridica); // La persona debe tener una persona_juridica
+
+            // Configurar propiedades
+            juridicaConfig.Property(j => j.id_persona).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            juridicaConfig.Property(j => j.razon_social).HasMaxLength(100).IsRequired();
+            juridicaConfig.Property(j => j.nombre_comercial).HasMaxLength(100).IsRequired();
+            juridicaConfig.Property(p => p.cuit).IsRequired();
+
+            // Otros mapeos
+            juridicaConfig.ToTable("Persona_juridica");
+
+            // -----------------------------------------------------
+
             // Direccion
             // Definir entidad
             var direccionConfig = modelBuilder.Entity<Direccion>();
-             
+
+            // Primary Key
+            direccionConfig.HasKey(d => d.id_direccion);
+
+            // Relacion con Persona. 
+            direccionConfig.HasRequired(d => d.persona)
+                           .WithMany(p => p.direcciones)
+                           .HasForeignKey(d => d.id_persona) 
+                           .WillCascadeOnDelete(false);
 
             // Configurar propiedades
-            direccionConfig.Property( d => d.calle).IsRequired().HasMaxLength(100);
-            direccionConfig.Property( d => d.altura).IsRequired();
-            direccionConfig.Property( d => d.piso).IsOptional();
-            direccionConfig.Property( d => d.depto).IsOptional();
+            direccionConfig.Property(d => d.cod_postal).IsRequired();
+            direccionConfig.Property(d => d.calle).IsRequired().HasMaxLength(100);
+            direccionConfig.Property(d => d.altura).IsRequired();
+            direccionConfig.Property(d => d.piso).IsOptional();
+            direccionConfig.Property(d => d.depto).IsOptional();
 
             // Otros mapeos
             direccionConfig.ToTable("Direccion");
+
+            // -----------------------------------------------------
+
+            // Contacto
+            // Definir entidad
+            var contactoConfig = modelBuilder.Entity<Contacto>();
+
+            // Primary Key
+            contactoConfig.HasKey(c => c.id_contacto);
+
+            // Relacion con Persona. 
+            contactoConfig.HasRequired(c => c.persona)
+                          .WithMany(p => p.contactos)
+                          .HasForeignKey(c => c.id_persona) 
+                          .WillCascadeOnDelete(false); 
+
+            // Configurar propiedades
+            contactoConfig.Property(c => c.telefono).IsRequired();
+            contactoConfig.Property(c => c.email).IsRequired().HasMaxLength(100);
+            contactoConfig.Property(c => c.sitio_web).HasMaxLength(100);
+
+            // Otros mapeos
+            contactoConfig.ToTable("Contacto");
 
             // -----------------------------------------------------
 
@@ -103,70 +190,96 @@ namespace WindowsFormsApp1.CapaDatos
             // Configurar clave primaria
             clienteConfig.HasKey(c => c.id_cliente);
 
-            // Configurar propiedades
-            clienteConfig.Property(c => c.id_persona).IsRequired();
-
             // Configurar relaciones
-            clienteConfig.HasRequired(c => c.persona)// Cliente requiere una Persona
-                         .WithOptional(p => p.cliente);
-
+            clienteConfig.HasRequired(c => c.persona) // Cliente requiere una Persona.
+                         .WithMany(p => p.clientes)
+                         .HasForeignKey(c => c.id_persona); // Persona puede instanciarse sin un cliente.
+                        
             // Otros mapeos
             clienteConfig.ToTable("Cliente");
 
             // ---------------------------------------
 
-            // Ususario
+            // Empleado
             // Definir entidad
-            var usuarioConfig = modelBuilder.Entity<Usuario>();
-             
-            // Configurar propiedades
-            usuarioConfig.Property(u => u.id_persona).IsRequired();
-            usuarioConfig.Property( u => u.username).HasMaxLength(100).IsRequired();
-            usuarioConfig.Property( u => u.contraseña).HasMaxLength(100).IsRequired();
-            usuarioConfig.Property( u => u.tipo_perfil).IsRequired();
-            usuarioConfig.Property(u => u.estado).IsRequired();
+            var empleadoConfig = modelBuilder.Entity<Empleado>();
+
+            // Configurar clave primaria
+            empleadoConfig.HasKey(c => c.id_empleado);
 
             // Configurar relaciones
-            // Relacion entre usuario y tipo_usuario.
-            usuarioConfig.HasRequired(u => u.tipo_usuario)
-                         .WithMany(tp => tp.usuario)
-                         .Map(m => m.MapKey("FK_usuario_tipo"));
-
-            // Relacion entre usuario y persona.
-            usuarioConfig.HasRequired(u => u.persona)
-                         .WithOptional(p => p.usuario) 
-                         .Map( m => m.MapKey("FK_usuario_persona"));
-
-            // Falta la relacion con Venta.
-
+            empleadoConfig.HasRequired(e => e.persona)
+                             .WithMany(p => p.empleados)
+                             .HasForeignKey(e => e.id_persona);
+             
             // Otros mapeos
-            usuarioConfig.ToTable("Usuario");
+            empleadoConfig.ToTable("Empleado");
 
-            // --------------------------------------------
-
+            // ---------------------------------------
+            // Proveedor
+            // Definir entidad
             var proveedorConfig = modelBuilder.Entity<Proveedor>();
 
-            // Confiuracion PK.
+            // Primary Key
+            proveedorConfig.HasKey(pr => pr.id_proveedor);
 
             // Confiuracion de relaciones.
-            proveedorConfig.HasRequired(p => p.direccion) // La persona tiene una dirección
-                           .WithMany(d => d.proveedor) // La dirección puede tener muchas personas
-                           .HasForeignKey(p => p.id_direccion); // FK en Proveedor
-
-            // Configuracion de propeidades.
-            proveedorConfig.Property(p => p.razon_social).IsOptional();
-            proveedorConfig.Property(p => p.CUIT).IsOptional();
-            proveedorConfig.Property(p => p.nombre_comercial).IsRequired();
-            proveedorConfig.Property(p => p.cod_postal).IsRequired();
-            proveedorConfig.Property(p => p.telefono).IsOptional();
-            proveedorConfig.Property(p => p.email).IsOptional();
-            proveedorConfig.Property(p => p.sitio_web).IsOptional();
+            proveedorConfig.HasRequired(pr => pr.persona) // El proveedor reuqiere una persona 
+                           .WithMany(p => p.proveedores)
+                           .HasForeignKey(pr => pr.id_persona); 
 
             // Otros mapeos.
             proveedorConfig.ToTable("Proveedor");
 
             // --------------------------------------------
 
+            // Ususario
+            // Definir entidad
+            var usuarioConfig = modelBuilder.Entity<Usuario>();
+
+            // Primary Key
+            usuarioConfig.HasKey(u => u.id_usuario);
+
+            // Configurar relaciones
+            // Relacion entre usuario y tipo_usuario.
+            usuarioConfig.HasRequired(u => u.tipo_usuario)
+                         .WithMany(tp => tp.usuarios)
+                         .HasForeignKey(u => u.tipo_perfil)
+                         .WillCascadeOnDelete(false);
+
+            usuarioConfig.HasRequired(u => u.empleado)
+                         .WithMany(e => e.usuarios)
+                         .HasForeignKey(u => u.id_empleado)
+                         .WillCascadeOnDelete(false);
+
+            // Configurar propiedades 
+            usuarioConfig.Property(u => u.username).HasMaxLength(100).IsRequired();
+            usuarioConfig.Property(u => u.contraseña).HasMaxLength(100).IsRequired();
+            usuarioConfig.Property(u => u.tipo_perfil).IsRequired();
+            usuarioConfig.Property(u => u.estado).IsRequired();
+             
+            // Otros mapeos
+            usuarioConfig.ToTable("Usuario");
+
+            // -------------------------------------------- 
+
+            // Tipo_Usuario
+            // Definir entidad
+            var tipoUsuarioConfig = modelBuilder.Entity<Tipo_usuario>();
+
+            // Primary Key
+            tipoUsuarioConfig.HasKey(t => t.id_tipo);
+
+            // Configurar propiedades
+            tipoUsuarioConfig.Property(t => t.descripcion_tipo).HasMaxLength(50).IsRequired();
+
+            // Otros mapeos
+            tipoUsuarioConfig.ToTable("Tipo_usuario");
+
+            // ----------------------------------------------------- 
+            
+            // Pedido
+            // Definir entidad 
             var pedidoConfig = modelBuilder.Entity<Pedido>();
 
             // Confiuracion PK.
@@ -174,18 +287,51 @@ namespace WindowsFormsApp1.CapaDatos
 
             // Configuracion de relaciones.
             pedidoConfig.HasRequired(p => p.proveedor) // El pedido tiene un proveedor
-                           .WithMany(p => p.pedido) // El proveedor puede tener muchos pedidos
-                           .HasForeignKey(p => p.id_proveedor); // FK en Pedido
+                        .WithMany(p => p.pedido) // El proveedor puede tener muchos pedidos
+                        .HasForeignKey(p => p.id_proveedor)  // FK en Pedido
+                        .WillCascadeOnDelete(false);
+
+            pedidoConfig.HasRequired(p => p.estado_pedido) // El pedido tiene un proveedor
+                        .WithMany(e => e.pedido) // El proveedor puede tener muchos pedidos
+                        .HasForeignKey(p => p.estado)  // FK en Pedido
+                        .WillCascadeOnDelete(false);
 
             // Configuracion de propeidades.
             pedidoConfig.Property(p => p.fecha_emision).IsRequired();
-            pedidoConfig.Property(p => p.monto_total).IsRequired();
-            pedidoConfig.Property(p => p.estado).IsRequired(); 
+            pedidoConfig.Property(p => p.monto_total).IsRequired(); 
+            pedidoConfig.Property(p => p.estado).IsRequired();
 
             // Otros mapeos.
             pedidoConfig.ToTable("Pedido");
 
             // --------------------------------------------
+
+            // Detalle_pedido
+            // Definir entidad 
+            var detalleConfig = modelBuilder.Entity<Detalle_pedido>();
+
+            // Configuracion PK.
+            detalleConfig.HasKey(d => d.id_detalle);
+
+            // Configuracion de relaciones. 
+            detalleConfig.HasRequired(d => d.articulo)
+                         .WithMany(a => a.detalle_pedido)
+                         .HasForeignKey(d => d.id_articulo)
+                         .WillCascadeOnDelete(false);
+
+            detalleConfig.HasRequired(d => d.pedido)
+                         .WithMany(p => p.detalle_pedido)
+                         .HasForeignKey(d => d.id_pedido)
+                         .WillCascadeOnDelete(false);
+
+            // Configuracion de propeidades. 
+            detalleConfig.Property(d => d.cantidad).IsRequired();
+
+            // Otros mapeos.
+            detalleConfig.ToTable("Detalle_pedido");
+
+            // --------------------------------------------
+
 
             var articuloConfig = modelBuilder.Entity<Articulo>();
 
@@ -203,29 +349,10 @@ namespace WindowsFormsApp1.CapaDatos
             articuloConfig.ToTable("Articulo");
 
             // --------------------------------------------
-
-            var detalleConfig = modelBuilder.Entity<Detalle_pedido>();
-
-            // Configuracion PK.
-            detalleConfig.HasKey(d => d.id_detalle);
-
-            // Configuracion de relaciones. 
-            detalleConfig.HasRequired(d => d.articulo)
-                         .WithMany(a => a.detalle_pedido)
-                         .HasForeignKey(d => d.id_articulo);
-
-            detalleConfig.HasRequired(d => d.pedido)
-                         .WithMany(p => p.detalle_pedido)
-                         .HasForeignKey(d => d.id_pedido);
-
-            // Configuracion de propeidades. 
-            detalleConfig.Property(d => d.cantidad).IsRequired();
-
-            // Otros mapeos.
-            detalleConfig.ToTable("Detalle_pedido");
+             
+            // Falta a partir de aca, aunque aun no esta terminado el modelo.
 
             // --------------------------------------------
-
             // Producto
             // Definir entidad
             var productoConfig = modelBuilder.Entity<Producto>();
@@ -293,6 +420,7 @@ namespace WindowsFormsApp1.CapaDatos
             */
 
             // Otros mapeos
+             
             ventaConfig.ToTable("Ventas");
 
             // -------------------------------------------------------
@@ -320,7 +448,9 @@ namespace WindowsFormsApp1.CapaDatos
 
             // Otros mapeos
             detalleVentaConfig.ToTable("Detalles_Ventas");
+            
         }
+             
     }
     
 }

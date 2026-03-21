@@ -20,7 +20,7 @@ namespace WindowsFormsApp1.CapaEntidad
         [ForeignKey("id_persona")]
         public virtual Persona persona { get; set; }
 
-        public virtual ICollection<Venta> compra { get; set; }
+        public virtual ICollection<Venta> compras { get; set; }
 
     }
 }

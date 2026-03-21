@@ -8,18 +8,10 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    public class Empleado
+    public class prueba
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_empleado { get; set; }
-
-        public int id_persona { get; set; }
-
-        // Propiedades de navegacion 
-        [ForeignKey("id_persona")]
-        public Persona persona { get; set; }      
-
-        public ICollection<Usuario> usuarios { get; set; }
-    } 
+        public int id_prueba { get; set; } 
+    }
 }

@@ -17,6 +17,6 @@ namespace WindowsFormsApp1.CapaEntidad
         public string descripcion_tipo { get; set;}
 
         // Propiedad de navegacion.
-        public ICollection<Usuario> usuario { get; set;}
+        public ICollection<Usuario> usuarios { get; set;}
     }
 }

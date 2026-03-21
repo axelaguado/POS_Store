@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 namespace WindowsFormsApp1.CapaEntidad
 {
     public class PersonaJuridica
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    { 
         public int id_persona { get; set; }
 
         public string razon_social { get; set; }

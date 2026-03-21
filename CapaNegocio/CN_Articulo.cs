@@ -12,19 +12,21 @@ namespace WindowsFormsApp1.CapaNegocio
 {
     public class CN_Articulo
     {
-        private Dictionary<string, string> errores;
+        private Dictionary<string, string> validacion;
 
         public CN_Articulo() 
-        { 
-            this.errores = new Dictionary<string, string>();
+        {
+            this.validacion = new Dictionary<string, string>();
         }
 
-        public int CrearArticulo(Articulo _articulo)
-        { 
-            // Si pasa la validacion se ejecuta.
-
-            ArticuloDAO articuloDAO = new ArticuloDAO();
-            return articuloDAO.Crear_articulo(_articulo); // Retornar el ID del articulop.
+        public void CrearArticulo(Articulo _articulo)
+        {
+            using (var context = new MiDbContext())
+            { 
+                // Si pasa la validacion se ejecuta. 
+                ArticuloDAO articuloDAO = new ArticuloDAO(context);
+                articuloDAO.Crear_articulo(_articulo); // Retornar el ID del articulop.
+            } 
         }
 
         public bool validarArticulo(Articulo _ariculo)
@@ -56,7 +58,7 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (string.IsNullOrEmpty(_marca))
             {
-                 errores.Add("TBMarca", "El campo Marca no puede estar vacio.");
+                 validacion.Add("TBMarca", "El campo Marca no puede estar vacio.");
                  return false;
             }
              
@@ -67,7 +69,7 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (string.IsNullOrEmpty(_nombre))
             {
-                errores.Add("TBNombreArticulo", "El campo Marca no puede estar vacio.");
+                validacion.Add("TBNombreArticulo", "El campo Marca no puede estar vacio.");
                 return false;
             }
 
@@ -78,7 +80,7 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (string.IsNullOrEmpty(_contenido))
             {
-                errores.Add("TBContenido", "El campo Marca no puede estar vacio.");
+                validacion.Add("TBContenido", "El campo Marca no puede estar vacio.");
                 return false;
             }
 
@@ -89,16 +91,29 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (_precio < 0)
             {
-                errores.Add("TBPrecio", "El campo Precio no puede ser negativo.");
+                validacion.Add("TBPrecio", "El campo Precio no puede ser negativo.");
                 return false;
             } 
 
             return true;
-        } 
+        }
 
-        public Dictionary<string, string> mostrarErrores()
+        public bool ValidarCarrito(List<Articulo> _articulos)
+        {  
+            foreach (Articulo item in _articulos)
+            {
+                if (!this.validarArticulo(item))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public Dictionary<string, string> GetErrors()
         {
-            return this.errores;
+            return this.validacion;
         }
 
     }

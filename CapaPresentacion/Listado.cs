@@ -12,12 +12,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaEntidad;
 using WindowsFormsApp1.CapaNegocio;
+using WindowsFormsApp1.DTO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Listado : Form, IConfigForm
-    {
+    { 
         private Principal principal;
         private CancellationTokenSource cts;
 
@@ -50,14 +51,14 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void cargarLista()
         {
             CN_Usuario nuevo = new CN_Usuario();
-            List<Usuario> listaActivos = nuevo.listarUsuariosActivos();
-            List<Usuario> listaInactivos = nuevo.listarUsuariosInactivos();
+            List<UsuarioDTO> listaActivos = nuevo.listarUsuariosActivosDTO();
+            List<UsuarioDTO> listaInactivos = nuevo.listarUsuariosInactivosDTO();
 
             this.LoadTableUserActive(listaActivos);
             this.LoadTableUserInactive(listaInactivos);
         }
 
-        public void LoadTableUserActive(List<Usuario> _lista)
+        public void LoadTableUserActive(List<UsuarioDTO> _lista)
         {
             this.DGVLista.DataSource = null;
             this.DGVLista.Columns.Clear();
@@ -86,7 +87,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.IndianRed;
         }
 
-        public void LoadTableUserInactive(List<Usuario> _lista)
+        public void LoadTableUserInactive(List<UsuarioDTO> _lista)
         {
             this.dataGridView1.DataSource = null;
             this.dataGridView1.Columns.Clear();
@@ -115,22 +116,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.LightBlue;
         }
 
-        public object LoadTable(List<Usuario> _lista)
+        public object LoadTable(List<UsuarioDTO> _lista)
         {
             var tabla = _lista.Select((usuario, index) => new
             {
                 Indice = index + 1,
-                Apellido = usuario.persona.apellido_persona,
-                Nombre = usuario.persona.nombre_persona,  // Se asigna el Nombre a la columna "Nombre"
-                Dni = usuario.persona.dni_persona, // Se asigna el valor del DNI a la columna "DNI"
+                Apellido = usuario.apellido,
+                Nombre = usuario.nombre,  // Se asigna el Nombre a la columna "Nombre"
+                Dni = usuario.dni, // Se asigna el valor del DNI a la columna "DNI"
                 Usuario = usuario.username,
-                TipoUsuario = usuario.tipo_usuario.descripcion_tipo,
-                Telefono = usuario.persona.telefono,
-                Email = usuario.persona.email,
-                Calle = usuario.persona.direccion.calle,  // Usa ?. para evitar errores si la dirección es null
-                Altura = usuario.persona.direccion.altura,
-                Piso = usuario.persona.direccion.piso == null ? "-" : usuario.persona.direccion.piso,
-                Depto = usuario.persona.direccion.depto == 0 ? "-" : usuario.persona.direccion.depto.ToString(),
+                TipoUsuario = usuario.descripcion_tipo,
+                Telefono = usuario.telefono,
+                Email = usuario.email,
+                Calle = usuario.calle,
+                Altura = usuario.altura,
+                Piso = usuario.piso == null ? "-" : usuario.piso.ToString(),
+                Depto = usuario.depto == 0 ? "-" : usuario.depto.ToString() 
             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
 
@@ -152,7 +153,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             CN_Usuario usuario = new CN_Usuario();
             List<Usuario> listaTipo = new List<Usuario>();
             List<Usuario> listaGenero = new List<Usuario>();
-            List<Usuario> todos = new List<Usuario>();
+            List<UsuarioDTO> todos = new List<UsuarioDTO>();
 
             // Si se utilizan los dos filtros 
             if (!(string.IsNullOrEmpty(genero)) && (tipo > 0))
@@ -187,9 +188,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Si no muestra la lista vacia.
             this.LoadTableUserActive(todos);
 
-        }
+        } 
 
-        /*
         public void limpiarFiltros() 
         {
             // Limpio los botones.
@@ -199,8 +199,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.COMBOBGenero.SelectedIndex = -1;
             this.COMBOBGenero.Text = "Seleccionar";
         }  
-        */
-
+         
         private void DGVLista_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgt = sender as DataGridView;
@@ -215,10 +214,11 @@ namespace WindowsFormsApp1.CapaPresentacion
             int filaIndex = e.RowIndex;
 
             // Cargo siempre el username como metodo de busqueda.
-            CN_Usuario usuarios = new CN_Usuario();
-            List<Usuario> listado = usuarios.listarUsuarios();
             string username = (string)dgt.Rows[filaIndex].Cells["Usuario"].Value;
-            Usuario user_editar = listado.FirstOrDefault(u => u.username == username);
+            CN_Usuario usuarios = new CN_Usuario();
+            Usuario user_editar = usuarios.buscar_usuario_username(username);
+            // List<Usuario> listado = usuarios.listarUsuarios(); 
+            // Usuario user_editar = listado.FirstOrDefault(u => u.username == username);
 
             // Dependiendo de la columna, ejecutar acciones
             if (nombreColumna == "CEditar")
@@ -229,24 +229,24 @@ namespace WindowsFormsApp1.CapaPresentacion
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
-
+                 
                 if (confirmacionEditar == DialogResult.Yes)
                 {
                     // Buscamos el usuario de la fila seleccionada para cargar sus datos
                     // ? Falopa total hacer ese listado, deberia llamar al metodo en la CN que traiga el elemento y no la lista.
 
-                    string permisos = this.principal.GetSessionTypeUser();
+                    string permiso = this.principal.GetSessionTypeUser();
 
                     if (user_editar != null)
                     {
-                        EdicionUsuario editar = new EdicionUsuario(user_editar, permisos);
+                        EdicionUsuario editar = new EdicionUsuario(user_editar, permiso);
                         this.principal.AbrirFormHijo(editar);
                     }
                     else
                     {
                         MessageBox.Show("No se ha encontrado el usuario", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                }
+                } 
             }
             else if (nombreColumna == "CBorrar")
             {
@@ -261,7 +261,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     user_editar.estado = false;
 
-                    usuarios.updateUser(user_editar);
+                    usuarios.UpdateUser(user_editar);
 
                     MessageBox.Show($"Borrar usuario en la fila {filaIndex + 1}");
                     // Aquí puedes llamar al método para eliminar el usuario de la base de datos
@@ -280,7 +280,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     user_editar.estado = true;
 
-                    usuarios.updateUser(user_editar);
+                    usuarios.UpdateUser(user_editar);
 
                     MessageBox.Show($"Activar usuario en la fila {filaIndex + 1}");
                     // Aquí puedes llamar al método para eliminar el usuario de la base de datos
@@ -306,7 +306,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             cts = new CancellationTokenSource(); // Crea un nuevo token de cancelación
 
             CN_Usuario usuario = new CN_Usuario();
-            List<Usuario> lista = new List<Usuario>();
+            List<UsuarioDTO> lista = new List<UsuarioDTO>();
 
             if (!string.IsNullOrWhiteSpace(this.TBBuscar.Text))
             {
@@ -350,8 +350,6 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 MessageBox.Show("Error :" + ex.Message); 
             }   
-        }
-
-        
+        } 
     }
 }

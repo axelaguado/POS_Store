@@ -9,25 +9,23 @@ using System.Threading.Tasks;
 using System.Drawing;
 
 namespace WindowsFormsApp1.CapaEntidad
-{
+{ 
     public class PersonaFisica
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    { 
         public int id_persona { get; set; } 
 
         public int dni_persona { get; set; }
 
         public string nombre_persona { get; set; }
 
-        public string aèllido_persona { get; set; }
+        public string apellido_persona { get; set; }
 
         public DateTime fecha_nacimiento { get; set; }
 
         public string sexo { get; set; }
 
-        // Propiedades de navegacion
+        // Propiedades de navegacion. 
         [ForeignKey("id_persona")]
         public Persona persona { get; set; } 
-    }
+    } 
 }

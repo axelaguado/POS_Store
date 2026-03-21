@@ -210,6 +210,7 @@
             this.COMBOBPiso.Name = "COMBOBPiso";
             this.COMBOBPiso.Size = new System.Drawing.Size(40, 21);
             this.COMBOBPiso.TabIndex = 35;
+             
             this.COMBOBPiso.Validating += new System.ComponentModel.CancelEventHandler(this.COMBOBPiso_Validating);
             // 
             // TBCalle

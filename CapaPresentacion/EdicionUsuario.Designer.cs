@@ -104,17 +104,16 @@
             // 
             // TBGUContraseña
             // 
-            this.TBGUContraseña.Visible = false;
+            this.TBGUContraseña.CausesValidation = false;
             // 
             // TBGURepetir
             // 
-            this.TBGURepetir.Visible = false;
+            this.TBGURepetir.CausesValidation = false;
             // 
             // TBNuevaContraseña
             // 
             this.TBNuevaContraseña.Location = new System.Drawing.Point(382, 95);
             this.TBNuevaContraseña.Name = "TBNuevaContraseña";
-            this.TBNuevaContraseña.PasswordChar = '*';
             this.TBNuevaContraseña.Size = new System.Drawing.Size(123, 20);
             this.TBNuevaContraseña.TabIndex = 40;
             this.TBNuevaContraseña.Validating += new System.ComponentModel.CancelEventHandler(this.TBGUNuevaContraseña_Validating);
@@ -160,6 +159,7 @@
             // 
             this.TBEUContraseña.Location = new System.Drawing.Point(382, 46);
             this.TBEUContraseña.Name = "TBEUContraseña";
+            this.TBEUContraseña.PasswordChar = '*';
             this.TBEUContraseña.Size = new System.Drawing.Size(123, 20);
             this.TBEUContraseña.TabIndex = 42;
             this.TBEUContraseña.Validating += new System.ComponentModel.CancelEventHandler(this.TBGUContraseña_Validating);

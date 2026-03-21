@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Deployment.Internal;
 using System.Drawing;
 using System.Drawing.Printing;
@@ -19,24 +20,23 @@ using WindowsFormsApp1.CapaNegocio;
 namespace WindowsFormsApp1.CapaPresentacion
 {   
     public partial class GestionPedido : Form, IConfigForm
-    {
-
+    {  
         // Internal: El tipo o miembro es accesible solo dentro del mismo ensamblado (proyecto).
         // Partial: Permite dividir la definición de una misma clase en varios archivos.
 
         public Principal principal;
         private List<ItemCarrito> articulos;
-        private Dictionary<string, string> validacion;
+        private bool load_errorProvider;
 
         public GestionPedido(Principal _principal)
         {
             InitializeComponent();
             this.principal = _principal;
-            this.articulos = new List<ItemCarrito>();
-            this.validacion = new Dictionary<string, string>();
+            this.articulos = new List<ItemCarrito>();  
             this.cargarPanelPedido(); 
             this.loadPedidoPendientes();
             this.loadPedidoConfirmados();
+            this.CargarCBRazonSocial();
         }
 
         public void cargarPanelPedido()
@@ -107,7 +107,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.TBAltura.Text = string.Empty;
             this.TBCodPostal.Text = string.Empty;
 
-            CHKBDepto.Checked = true; 
+            CHKBDepto.Checked = false; 
 
             CBPiso.SelectedIndex = -1; 
             CBDepto.SelectedIndex = -1; 
@@ -204,109 +204,171 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
         }
 
-        private void BTRegistrarPedido_Click(object sender, EventArgs e)
-        {  
-            CN_Pedido pedido = new CN_Pedido();
-            CN_DetallePedido detalle = new CN_DetallePedido();
-            CN_Proveedor proveedor = new CN_Proveedor();
-            CN_Direccion direccion = new CN_Direccion();
+        public void CargarCBRazonSocial()
+        {
+            CN_Proveedor proveedor = new CN_Proveedor(); 
+            this.CBRazonSocial.DataSource = proveedor.ObtenerProveedores(); 
+            this.CBRazonSocial.DisplayMember = "razon_social";
+            this.CBRazonSocial.ValueMember = "id_proveedor";
 
-            List<int> id_articulos = new List<int>();
-
-             
-            if (this.ValidateChildren()) 
-            {
-                // Cargamos la Direccion.
-                Direccion nuevaDireccion = this.cargarDireccion(); 
-
-                // Cargamos el Proveedor. 
-                Proveedor nuevoProveedor = new Proveedor
-                {
-                    razon_social = CBRazonSocial.Text,
-                    nombre_comercial = TBNombreComercial.Text,
-                    CUIT = Convert.ToInt64(TBCuit.Text),
-                    cod_postal = Convert.ToInt16(TBCodPostal.Text),
-                    telefono = Convert.ToInt64(TBTelefono.Text),
-                    email = TBEmail.Text,
-                    sitio_web = TBSitioWeb.Text
-                    // nuevoProveedor.id_direccion = 12;
-                }; 
-
-                // Cargamos el Pedido.
-                // Es necesario conocer el monto total del carrito. 
-                Pedido nuevoPedido = new Pedido
-                {
-                    // id_proveedor = id_nuevoProveedor;
-                    fecha_emision = DateTime.Now,
-                    monto_total = this.montoCarrito(),
-                    estado = 1 // Estado pendiente
-                };
-
-                // Mapeamos los items del carrito a entidades articulos para poder validarlos.
-                List<Articulo> itemsMapeados = this.MapearItems();
-
-                // Cargamos cada detalle correspondiente a cada articulo.
-                List<Detalle_pedido> detallesPedido = this.cargarDetallesPedido();
-
-                // Ahora hay que validar toda la garcha esta.
-                bool validacionDireccion = direccion.ValidarBool_Direccion(nuevaDireccion);
-                bool validacionProveedor = proveedor.ValidarProveedor(nuevoProveedor);
-                bool validacionPedido = pedido.ValidarPedido(nuevoPedido);
-                bool validacionCarrito = this.ValidarCarrito(itemsMapeados);
-                bool validacionDetalle = this.ValidarDetalles(detallesPedido);
-
-                bool validacion = validacionDireccion && validacionProveedor && validacionPedido && validacionCarrito && validacionDetalle;
-
-                if(!validacion)
-                {
-                    // Mostrar errores en el errorProvider. 
-                    this.cargarErrores(proveedor.mostrarErrores());  
-                    MessageBox.Show("No se pudo registrar el pedido, verifique los datos cargados nuevamente.");
-                }
-                else
-                {
-                    try
-                    {
-                        // Creamos la direccion y recuperamos el id para asociarla con el nuevo proveedor. 
-                        int id_direccion = direccion.CrearDireccion(nuevaDireccion);
-
-                        // Cargamos el id de la direccion en los datos del proveedor. Y recuperamos el id del proveedor, posterior a la creaciom.
-                        nuevoProveedor.id_direccion = id_direccion;
-                        int id_proveedor = proveedor.CrearProveedor(nuevoProveedor);  
-
-                        // Cargamos el id del proveedor en el pedido, y volvemos a repetir la creacion y recupero de id.
-                        nuevoPedido.id_proveedor = id_proveedor;
-                        int id_pedido = pedido.CrearPedido(nuevoPedido);
-
-                        // Ese id_pedido recuperado se lo debemos asignar a cada uno de los detalles. Pero antes creamos los articulos.
-                        id_articulos = this.cargarArticuloID(itemsMapeados);
-
-                        this.crearDetallesPedido(detallesPedido, id_articulos, id_pedido);
-
-                        this.restaurarControlsPArticulo();
-                        this.restaurarControlsPProveedor(); 
-                        this.ClearTablaPedido();
-                        MessageBox.Show("El pedido ha sido registrado correctamente.");
-
-                    } 
-                    catch (ArgumentException ex) 
-                    {
-                        MessageBox.Show("Error de validacion: " + ex.Message);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
-                }
-            }
-            else 
-            {
-                MessageBox.Show("Ha ocurrido un error y no se puede registrar el pedido, vrifique los datos proporcionados");
-            }
-
+            this.CBRazonSocial.DropDownStyle = ComboBoxStyle.DropDown;
+            this.CBRazonSocial.SelectedIndex = -1; 
         }
 
-        public void cargarErrores(Dictionary<string, string> validacion)
+        private void CBRazonSocial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            long id_proveedor = 0;
+
+            if (this.CBRazonSocial.ValueMember != string.Empty && this.CBRazonSocial.SelectedIndex != -1) 
+            {  
+                id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue);
+                MessageBox.Show("id_proveedor: " + id_proveedor);
+            }
+
+            CN_Proveedor proveedor = new CN_Proveedor();
+
+            Proveedor encontrado = proveedor.ObtenerProveedor(id_proveedor);
+
+            // Faltaria deshabilitar los controles. 
+            if(encontrado != null) 
+            {
+                this.CBRazonSocial.Enabled = false;
+                this.LRazonSocial.ForeColor = Color.Gray; 
+
+                this.TBNombreComercial.Text = encontrado.persona.persona_juridica.nombre_comercial;
+                this.LNombreComercial.ForeColor = Color.Gray;
+                this.TBNombreComercial.Enabled = false;
+                this.TBCuit.Text = Convert.ToString(encontrado.persona.persona_juridica.cuit);
+                this.LCUIT.ForeColor = Color.Gray;
+                this.TBCuit.Enabled = false;
+
+                this.TBTelefono.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.telefono);
+                this.LTelefono.ForeColor = Color.Gray;
+                this.TBTelefono.Enabled = false;
+                this.TBEmail.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.email == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.email);
+                this.LEmail.ForeColor = Color.Gray;
+                this.TBEmail.Enabled = false;
+                this.TBSitioWeb.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.sitio_web == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.sitio_web);
+                this.LSitioWeb.ForeColor = Color.Gray;
+                this.TBSitioWeb.Enabled = false;
+
+                this.TBCodPostal.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.cod_postal);
+                this.LCodPostal.ForeColor = Color.Gray;
+                this.TBCodPostal.Enabled = false;
+                this.TBCalle.Text = encontrado.persona.direcciones.FirstOrDefault()?.calle;
+                this.LCalle.ForeColor = Color.Gray;
+                this.TBCalle.Enabled = false;
+                this.TBAltura.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.altura);
+                this.LAltura.ForeColor = Color.Gray;
+                this.TBAltura.Enabled = false;
+
+                this.CBDepto.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == 0 ? "" : Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.depto);
+                this.LDepto.ForeColor = Color.Gray;
+                this.CBDepto.Enabled = false;
+                this.CBPiso.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == null ? "" : encontrado.persona.direcciones.FirstOrDefault()?.piso;
+                this.LPiso.ForeColor = Color.Gray;
+                this.CBPiso.Enabled = false;
+
+                this.LDepartamento.ForeColor = Color.Gray; 
+                this.CHKBDepto.Enabled = false; 
+            } 
+        } 
+
+        public void cargarEntidades(PersonaJuridica _personaJuridica, Direccion _direccion, Contacto _contacto, Pedido _pedido, List<Detalle_pedido> _detalle, List<Articulo> _items) 
+        {
+            // Cargamos la direccion.
+            this.cargarDireccion(_direccion);
+
+            // // Cargamos la Persona Juridica. 
+            _personaJuridica.razon_social = CBRazonSocial.Text; 
+            _personaJuridica.nombre_comercial = TBNombreComercial.Text;
+            _personaJuridica.cuit = Convert.ToInt64(TBCuit.Text);
+
+            // Cargamos el Contacto. 
+            _contacto.telefono = Convert.ToInt64(TBTelefono.Text);
+            _contacto.email = TBEmail.Text;
+            _contacto.sitio_web = TBSitioWeb.Text;
+             
+            // Cargamos el Pedido. 
+            _pedido.fecha_emision = DateTime.Now;
+            _pedido.monto_total = this.montoCarrito();
+            _pedido.estado = 2; // Estado pendiente 
+
+            // Mapeamos los items del carrito a entidades articulos para poder validarlos.
+            this.MapearItems(_items);
+
+            // Cargamos cada detalle correspondiente a cada articulo.
+            this.cargarDetallesPedido(_detalle); 
+        }
+         
+        private void BTRegistrarPedido_Click(object sender, EventArgs e)
+        {
+            this.load_errorProvider = false;
+            long id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue);
+
+            if (this.ValidateChildren())
+            {
+                if (this.load_errorProvider)
+                {
+                    return;
+                }
+            } 
+
+            // Proveedor.
+            PersonaJuridica nuevaPersonaFisica = new PersonaJuridica();
+            Contacto nuevoContacto = new Contacto();
+            Direccion nuevaDireccion = new Direccion();
+
+            // Articulos.
+            List<Articulo> items = new List<Articulo>(); 
+            // Detalles.
+            List<Detalle_pedido> detallesPedido = new List<Detalle_pedido>(); 
+            // Pedido.
+            Pedido nuevoPedido = new Pedido();
+
+            this.cargarEntidades(nuevaPersonaFisica, nuevaDireccion, nuevoContacto, nuevoPedido, detallesPedido, items);
+
+            try
+            { 
+                CN_Proveedor proveedor = new CN_Proveedor();
+                CN_Pedido pedido = new CN_Pedido(); 
+
+                Proveedor ProveedorCreado = proveedor.CrearProveedorCompleto(nuevaPersonaFisica, nuevaDireccion, nuevoContacto); 
+
+                if (ProveedorCreado != null) 
+                {
+                    int resultadoPedido = pedido.CrearPedidoCompleto(ProveedorCreado, nuevoPedido, items, detallesPedido);
+
+                    if (resultadoPedido != 0)
+
+                    MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } 
+                else
+                {
+                    this.mostrarErrores(proveedor.GetErrors());
+                    this.mostrarErrores(pedido.GetErrors());
+                    MessageBox.Show("Verififque que los datos suministrados sean correctos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }   
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Error de validación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var entityErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var error in entityErrors.ValidationErrors)
+                    {
+                        MessageBox.Show(
+                            "Propiedad: " + error.PropertyName +
+                            "\nError: " + error.ErrorMessage);
+                    }
+                }
+            }  
+        }
+
+        public void mostrarErrores(Dictionary<string, string> validacion)
         {
             if (validacion != null)
             {
@@ -316,26 +378,10 @@ namespace WindowsFormsApp1.CapaPresentacion
                     errorProvider1.SetError(controlesEncontrados[0], error.Value);
                 }
             }
-        }
+        } 
 
-        private void crearDetallesPedido(List<Detalle_pedido> _detallesPedido, List<int> id_articulos,int id_pedido) 
-        {
-            int i = 0;
-            CN_DetallePedido detalle = new CN_DetallePedido();
-
-            foreach (Detalle_pedido item in _detallesPedido) 
-            { 
-                item.id_pedido = id_pedido;
-                item.id_articulo = id_articulos[i];
-                detalle.CrearDetalle(item);
-                i ++; 
-                // falta crear el pedido jijooo.
-            }
-        }  
-
-        public List<Detalle_pedido> cargarDetallesPedido() 
-        {
-            List<Detalle_pedido> detallesCargados = new List<Detalle_pedido>();
+        public void cargarDetallesPedido(List<Detalle_pedido> _detalles) 
+        { 
 
             foreach (ItemCarrito item in articulos)
             {
@@ -344,38 +390,29 @@ namespace WindowsFormsApp1.CapaPresentacion
                     cantidad = item.cantidad  
                 };
 
-                detallesCargados.Add(detalle);
+                _detalles.Add(detalle);
             }
-             
-            return detallesCargados;    
+              
         }
 
-        public Direccion cargarDireccion() 
+        public void cargarDireccion(Direccion _direccion) 
         {
             // Cargamos la Direccion.
             if (this.CHKBDepto.Checked == true)
-            {
-                Direccion nuevaDireccion = new Direccion
-                {
-                    // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
-                    calle = TBCalle.Text,
-                    altura = Convert.ToInt16(TBAltura.Text),
-                    piso = CBPiso.Text,
-                    depto = Convert.ToInt16(CBDepto.Text)
-                };
-
-                return nuevaDireccion;
+            { 
+                // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
+                _direccion.cod_postal = Convert.ToInt16(TBCodPostal.Text);
+                _direccion.calle = TBCalle.Text;
+                _direccion.altura = Convert.ToInt16(TBAltura.Text);
+                _direccion.piso = CBPiso.Text;
+                _direccion.depto = Convert.ToInt16(CBDepto.Text);
+                 
             }
             else
             {
-                Direccion nuevaDireccion = new Direccion
-                {
-                    // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
-                    calle = TBCalle.Text,
-                    altura = Convert.ToInt16(TBAltura.Text),
-                };
-
-                return nuevaDireccion;
+                _direccion.cod_postal = Convert.ToInt16(TBCodPostal.Text);
+                _direccion.calle = TBCalle.Text;
+                _direccion.altura = Convert.ToInt16(TBAltura.Text);
             } 
         }
 
@@ -396,10 +433,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             return monto_pedido;        
         } 
          
-        private List<Articulo> MapearItems() 
-        {
-            List<Articulo> articulosMapeados = new List<Articulo>();    
-
+        private void MapearItems(List<Articulo> _items) 
+        { 
             foreach (ItemCarrito item in articulos)
             {
                 Articulo articulo = new Articulo
@@ -411,77 +446,32 @@ namespace WindowsFormsApp1.CapaPresentacion
                     precio_unitario = item.precio_unitario
                 };
 
-                articulosMapeados.Add(articulo); 
-            }
-
-            return articulosMapeados; 
+                _items.Add(articulo); 
+            } 
         }
-
-        private List<int> cargarArticuloID(List<Articulo> _articulos)
-        {
-            CN_Articulo negocioArticulo = new CN_Articulo();
-            List<int> id_articulos = new List<int>();
-
-            foreach (Articulo item in _articulos)
-            {
-                id_articulos.Add(negocioArticulo.CrearArticulo(item));
-            }
-
-            return id_articulos;
-        }
-
-        private bool ValidarCarrito(List<Articulo> _articulos) 
-        {
-            CN_Articulo articulo = new CN_Articulo();   
-
-            foreach (Articulo item in _articulos) 
-            {
-                if (!articulo.validarArticulo(item)) 
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private bool ValidarDetalles(List<Detalle_pedido> _detallesPedido)
-        {
-            CN_DetallePedido detallePeiddo = new CN_DetallePedido();
-
-            foreach (Detalle_pedido item in _detallesPedido)
-            {
-                if (!detallePeiddo.validarDetalle(item))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
+         
         // Debemos realizar las validaciones de los controles asociados a proveedor, pedido, detalle y articulo. 
-        // Validaciones para el Panel articulo.
-
+        // Validaciones para el Panel articulo. 
         private void TBMarca_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(TBMarca.Text))
             {
                 errorProvider1.SetError(this.TBMarca, "El campo Marca no puede estar vacio.");
-                e.Cancel = true;
+                this.load_errorProvider = true;
             } 
             else
             {
                 errorProvider1.SetError(this.TBMarca, "");
             }
 
-        }
+        } 
 
         private void TBNombreArticulo_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(TBNombreArticulo.Text))
             {
                 errorProvider1.SetError(this.TBNombreArticulo, "El campo Nombre no puede estar vacio.");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -495,6 +485,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBContenido.Text))
             {
                 errorProvider1.SetError(this.TBContenido, "El campo Contenido no puede estar vacio.");
+                this.load_errorProvider = true;
             } 
             else
             {
@@ -508,10 +499,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBPrecio.Text)) 
             {
                 errorProvider1.SetError(this.TBPrecio, "El campo Precio no puede estar vacio.");
+                this.load_errorProvider = true;
             }
             else if (!decimal.TryParse(this.TBPrecio.Text, out _)) 
             {
                 errorProvider1.SetError(this.TBPrecio, "El campo Precio debe contener un valor numerico.");
+                this.load_errorProvider = true;
             }
             else 
             {
@@ -524,11 +517,13 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (string.IsNullOrEmpty(TBCantidad.Text))
             {
-                errorProvider1.SetError(this.TBPrecio, "El campo Cantidad no puede estar vacio.");
+                errorProvider1.SetError(this.TBCantidad, "El campo Cantidad no puede estar vacio.");
+                this.load_errorProvider = true;
             }
             else if (!int.TryParse(this.TBCantidad.Text, out _))
             {
                 errorProvider1.SetError(this.TBCantidad, "El campo Cantidad debe contener un valor numerico.");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -546,9 +541,11 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 CBDepto.Enabled = true;
                 errorProvider1.SetError(CBDepto, "Debe seleccionar el departamento");
+                this.load_errorProvider = true;
 
                 CBPiso.Enabled = true;
                 errorProvider1.SetError(CBPiso, "Debe seleccionar el piso");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -569,11 +566,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBCalle.Text))
             {
                 errorProvider1.SetError(TBCalle, "El campo Calle no puede estar vacio.");
-
+                this.load_errorProvider = true; 
             } 
             else if (!System.Text.RegularExpressions.Regex.IsMatch(TBCalle.Text, @"^[a-zA-Z0-9.\s]+$"))
             {
                 errorProvider1.SetError(TBCalle, "El campo solo debe contener caracteres alfabeticos-numericos-puntos y espacios (exceptuando la 'ñ').");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -587,11 +585,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBAltura.Text))
             {
                 errorProvider1.SetError(TBAltura, "Este campo es obligatorio.");
-
+                this.load_errorProvider = true; 
             }
             else if (!int.TryParse(TBAltura.Text, out _))
             {
                 errorProvider1.SetError(TBAltura, "El campo solo debe contener caracteres numericos.");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -607,6 +606,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 if (CBPiso.SelectedIndex == -1)
                 {
                     errorProvider1.SetError(CBPiso, "Seleccione el numero de piso.");
+                    this.load_errorProvider = true;
                 }
                 else
                 {
@@ -629,6 +629,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 if (this.CBDepto.SelectedIndex == -1)
                 {
                     errorProvider1.SetError(CBDepto, "Seleccione el numero de departamento.");
+                    this.load_errorProvider = true;
                 }
                 else
                 {
@@ -646,9 +647,15 @@ namespace WindowsFormsApp1.CapaPresentacion
         // Proveedor
         private void CBRazonSocial_Validating(object sender, CancelEventArgs e)
         {
-            if(!System.Text.RegularExpressions.Regex.IsMatch(this.CBRazonSocial.Text, @"^[a-zA-Z0-9._%+\-\s]+$")) 
+            if (string.IsNullOrEmpty(CBRazonSocial.Text))
+            {
+                errorProvider1.SetError(CBRazonSocial, "El campo Razon Social no puede estar vacio.");
+                this.load_errorProvider = true;
+            }
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.CBRazonSocial.Text, @"^[a-zA-Z0-9._%+\-\s]+$")) 
             {
                 errorProvider1.SetError(CBRazonSocial, "El campo Razon Social solo permite caracteres alfabeticos, numericos y los siguientes (-, _, +, %");
+                this.load_errorProvider = true;
             }
             else  
             {
@@ -661,11 +668,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Validaciones para campo Nombre Comercial. 
             if (string.IsNullOrEmpty(TBNombreComercial.Text))
             {
-                 errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial no puede estar vacio.");  
+                 errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial no puede estar vacio.");
+                 this.load_errorProvider = true;
             }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBNombreComercial.Text, @"^[a-zA-Z0-9._%+\-\s]+$")) 
             {
-                errorProvider1.SetError(TBNombreComercial, "El campo Razon Social solo permite caracteres alfabeticos, numericos y los siguientes (-, _, +, %");
+                errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial solo permite caracteres alfabeticos, numericos y los siguientes (-, _, +, %");
+                this.load_errorProvider = true;
+            }
+            else 
+            {
+                errorProvider1.SetError(TBNombreComercial, "");  
             }
         }
 
@@ -680,10 +693,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (!long.TryParse(TBCuit.Text, out _))
             {
                 errorProvider1.SetError(TBCuit, "El campo CUIT solo puede contener valores numericos");
+                this.load_errorProvider = true;
             }
             else if (Convert.ToInt64(TBCuit.Text) > 999999999999)
             {
                 errorProvider1.SetError(TBCuit, "El campo CUIT solo puede contener 11 cifras");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -693,10 +708,15 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         protected void TBTelefono_Validating(object sender, CancelEventArgs e)
         {
-            
-            if (!long.TryParse(TBTelefono.Text, out _))
+            if (string.IsNullOrEmpty(TBTelefono.Text))
+            {
+                errorProvider1.SetError(TBTelefono, "El campo Telefono no puede estar vacio.");
+                this.load_errorProvider = true;
+            }
+            else if (!long.TryParse(TBTelefono.Text, out _))
             {
                 errorProvider1.SetError(TBTelefono, "El campo solo debe contener caracteres numericos.");
+                this.load_errorProvider = true;
             }
             else
             {
@@ -705,10 +725,18 @@ namespace WindowsFormsApp1.CapaPresentacion
         }
 
         protected void TBEmail_Validating(object sender, CancelEventArgs e)
-        { 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(TBEmail.Text, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+        {
+            if (!string.IsNullOrEmpty(TBEmail.Text))
             {
-                errorProvider1.SetError(TBEmail, "La direccion email no cumple con el formato.(direccion@example.com)");
+                if (!System.Text.RegularExpressions.Regex.IsMatch(TBEmail.Text, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+                {
+                    errorProvider1.SetError(TBEmail, "La direccion email no cumple con el formato.(direccion@example.com)");
+                    this.load_errorProvider = true;
+                }
+                else
+                {
+                    errorProvider1.SetError(TBEmail, "");
+                }
             }
             else
             {
@@ -718,9 +746,17 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void TBSitioWeb_Validating(object sender, CancelEventArgs e)
         {
-            if (!System.Text.RegularExpressions.Regex.IsMatch(TBSitioWeb.Text, @"www\.[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"))
+            if (!string.IsNullOrEmpty(TBSitioWeb.Text)) 
             {
-                errorProvider1.SetError(TBSitioWeb, "El Sitio Web ingresado no tiene un formato estandar de dominio (www.example.com).");
+                if (!System.Text.RegularExpressions.Regex.IsMatch(TBSitioWeb.Text, @"www\.[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"))
+                {
+                    errorProvider1.SetError(TBSitioWeb, "El Sitio Web ingresado no tiene un formato estandar de dominio (www.example.com).");
+                    this.load_errorProvider = true;
+                }
+                else 
+                {
+                    errorProvider1.SetError(TBSitioWeb, "");
+                }
             }
             else 
             {
@@ -734,18 +770,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBCodPostal.Text))
             {
                 errorProvider1.SetError(TBCodPostal, "El campo Codigo Postal no puede estar vacio.");
-                 
-
+                this.load_errorProvider = true;
             }
             else if (!int.TryParse(TBCodPostal.Text, out _))
             {
                 errorProvider1.SetError(TBCodPostal, "El campo Codigo Postal debe contener un valor numerico.");
-                 
+                this.load_errorProvider = true; 
             }
             else if (Convert.ToDecimal(TBCodPostal.Text) > 9999) 
             {
                 errorProvider1.SetError(TBCodPostal, "El campo Codigo Postal no puede tener mas de 4 cifras.");
-                 
+                this.load_errorProvider = true; 
             }
             else 
             {
@@ -758,9 +793,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.restaurarControlsPProveedor();
             this.restaurarControlsPArticulo();
             this.ClearTablaPedido(); 
-        }
+        } 
 
-        /*
         private void DGVPedidosPendientes_Resize(object sender, EventArgs e)
         {
             if(this.principal.WindowState == FormWindowState.Maximized)
@@ -775,16 +809,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                 this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             }
            
-        } 
-        */ 
-
+        }  
+        
         // Tabla Pedidos Pendientes.
         public object LoadTablePedidosPendientesConfirmados(List<Pedido> _pedidos)
         {
             var tabla = _pedidos.Select((pedido, index) => new
             { 
                 NroPedido = pedido.id_pedido,
-                Proveedor = pedido.proveedor.nombre_comercial,
+                Proveedor = pedido.proveedor.persona.persona_juridica.nombre_comercial,
                 Monto = pedido.monto_total 
             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
@@ -918,7 +951,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                 int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
                 Pedido encontrado = pedido.BuscarPedido(id_pedido);
 
-                if(encontrado != null){
+                if(encontrado != null)
+                {
                     Detalle detalle = new Detalle(encontrado);
                     detalle.Show(); 
                 } 
@@ -938,8 +972,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-         * */
-
-
+         */
+          
     }
 }

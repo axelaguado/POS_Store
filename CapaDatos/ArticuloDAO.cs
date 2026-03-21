@@ -9,18 +9,26 @@ namespace WindowsFormsApp1.CapaDatos
 {
     public class ArticuloDAO
     {
-        public int Crear_articulo(Articulo articulo)
-        { 
+        private readonly MiDbContext _context;
 
-            // Al usar el bloque using, el contexto MiDbContext es desechado automáticamente cuando termina el bloque de código.
-            using (var context = new MiDbContext())
-            {
-                context.Articulos.Add(articulo);
-                context.SaveChanges();
-                return articulo.id_articulo;
-
-            }
+        public ArticuloDAO(MiDbContext context)
+        {
+            _context = context;
         }
 
-    }
+        public void Crear_articulo(Articulo articulo)
+        {
+            _context.Articulos.Add(articulo);  
+        }
+
+        public List<Articulo> Crear_articulos(List<Articulo> _articulos)
+        {
+            foreach (Articulo item in _articulos)
+            {
+                _context.Articulos.Add(item); 
+            }
+
+            return _articulos;
+        }
+    } 
 }

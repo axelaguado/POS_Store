@@ -14,13 +14,15 @@ namespace WindowsFormsApp1.CapaEntidad
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_contacto { get; set; }
 
+        public int id_persona { get; set; }
+
         public long telefono { get; set; }
 
         public string email {  get; set; }
         
         public string sitio_web { get; set; }
 
-        // Propiedades de navegacion.
+        // Propiedades de navegacion. 
         public Persona persona { get; set; }
     }
 }

@@ -9,21 +9,21 @@ namespace WindowsFormsApp1.CapaDatos
 {
     internal class TipoUsuarioDAO
     {
+        private readonly MiDbContext _context;
+        public TipoUsuarioDAO(MiDbContext context) 
+        { 
+            this._context = context;
+        }
+
         // -- READ --
         public List<Tipo_usuario> listarTipos() 
-        {
-            using (var context = new MiDbContext())
-            {
-                return context.Tipo_Usuarios.ToList();
-            }
+        { 
+            return _context.Tipo_Usuarios.ToList(); 
         }    
 
         public Tipo_usuario buscar_tipo(int _tipo)
-        {
-            using (var context = new MiDbContext())
-            {
-                return context.Tipo_Usuarios.FirstOrDefault(tp => tp.id_tipo == _tipo);
-            }
+        { 
+            return _context.Tipo_Usuarios.FirstOrDefault(tp => tp.id_tipo == _tipo); 
         }
 
     }

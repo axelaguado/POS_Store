@@ -1,6 +1,8 @@
-﻿using System;
+﻿using iTextSharp.text.pdf.codec.wmf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaEntidad;
@@ -10,11 +12,13 @@ using static System.Collections.Specialized.BitVector32;
 namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class GestionUsuario : Form, IConfigForm
-    {   
+    {
+        protected bool load_ErrorProvider;
+
         public GestionUsuario( )
-        {  
+        {   
             InitializeComponent();
-            cargarElementosCB(); 
+            cargarElementosCB();  
         }
          
         private void cargarElementosCB()
@@ -26,7 +30,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 COMBOBDepto.Items.Add(i + 1); 
             }
              
-        } 
+        }  
 
         protected void CBDepartamento_CheckedChanged(object sender, EventArgs e)
         {
@@ -131,161 +135,124 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         } 
 
+        public void cargarEntidades(PersonaFisica nuevaPersonaFisica, Contacto nuevoContacto, Direccion nuevaDireccion, Usuario nuevoUsuario) 
+        {
+            // Trabajamos los radio button y los asignamos a la variable sexo. 
+            string sexo = string.Empty;
+
+            if (RBHombre.Checked)
+            {
+                sexo = "Hombre";
+            }
+            else if (RBMujer.Checked)
+            {
+                sexo = "Mujer";
+            }
+
+            // Manejamos los datos personales del nuevo usaurio. 
+            nuevaPersonaFisica.dni_persona = Convert.ToInt32(TBDni.Text);
+            nuevaPersonaFisica.nombre_persona = TBApellido.Text;
+            nuevaPersonaFisica.apellido_persona = TBApellido.Text;
+            nuevaPersonaFisica.fecha_nacimiento = DTPFechaNacimiento.Value;
+            nuevaPersonaFisica.sexo = sexo;
+
+            // Manejamos los datos de contacto.
+            nuevoContacto.telefono = Convert.ToInt64(TBTelefono.Text);
+            nuevoContacto.email = TBEmail.Text;
+             
+            // Aca tenemos un problema en como tratar el combo box depto y piso en caso de que estos datos no sean cargados.
+            // Por ejemplo COMBOBDepto es int y por lo tanto no puede ser null.
+            //
+            // Manejamos la direccion del nuevo usuario.  
+
+            if (this.CBDepartamento.Checked == true)
+            {
+                // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
+                nuevaDireccion.calle = TBCalle.Text;
+                nuevaDireccion.altura = Convert.ToInt16(TBAltura.Text);
+                nuevaDireccion.piso = COMBOBPiso.Text;
+                nuevaDireccion.depto = Convert.ToInt16(COMBOBDepto.Text);
+            }
+            else
+            { 
+                nuevaDireccion.calle = TBCalle.Text;  
+                nuevaDireccion.altura = Convert.ToInt16(TBAltura.Text);
+            }
+
+            // Manejamos los datos del usuario.
+            nuevoUsuario.username = TBGUUsername.Text;
+            nuevoUsuario.contraseña = TBGUContraseña.Text;
+            nuevoUsuario.tipo_perfil = (COMBOBTipoUsuario.SelectedIndex + 1);
+            nuevoUsuario.estado = Convert.ToBoolean(1); 
+        } 
+
         // Por el momento funciona correctamente, falta ver un poco mas lo que seria la validacion. 
         private void BRegistrarUsuario_Click(object sender, EventArgs e)
         {
+            this.load_ErrorProvider = false;
 
             if (this.ValidateChildren())
             {
-                // Trabajamos los radio button y los asignamos a la variable sexo. 
-                string sexo = string.Empty;
-
-                if (RBHombre.Checked)
+                if (this.load_ErrorProvider) 
                 {
-                    sexo = "Hombre";
+                    return;
                 }
-                else if (RBMujer.Checked)
-                {
-                    sexo = "Mujer";
-                }
+            } 
 
-                // Manejamos los datos personales del nuevo usaurio.
+            PersonaFisica nuevaPersonaFisica = new PersonaFisica();
+            Contacto nuevoContacto = new Contacto();
+            Direccion nuevaDireccion = new Direccion();
+            Usuario nuevoUsuario = new Usuario();
 
-                Persona nuevaPersona = new Persona
-                {
-                    dni_persona = Convert.ToInt32(TBDni.Text),
-                    nombre_persona = TBNombre.Text,
-                    apellido_persona = TBApellido.Text,
-                    fecha_nacimiento = DTPFechaNacimiento.Value,
-                    email = TBEmail.Text,
-                    telefono = Convert.ToInt64(TBTelefono.Text),
-                    sexo = sexo
-                };
-
-                CN_Persona persona = new CN_Persona();
-                var validacionPersona = persona.ValidarPersona(nuevaPersona);
-
-                //Aca tenemos un problema en como tratar el combo box depto y piso en caso de que estos datos no sean cargados.
-                //Por ejemplo COMBOBDepto es int y por lo tanto no puede ser null.
-                //
-                // Manejamos la direccion del nuevo usuario. 
-                Direccion nuevaDireccion = new Direccion();
-
-                if (this.CBDepartamento.Checked == true)
-                {
-                    // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
-                    nuevaDireccion.calle = TBCalle.Text;
-                    nuevaDireccion.altura = Convert.ToInt16(TBAltura.Text);
-                    nuevaDireccion.piso = COMBOBPiso.Text;
-                    nuevaDireccion.depto = Convert.ToInt16(COMBOBDepto.Text);
-                }
-                else
-                {
-                    // id_persona =  0, // Convert.ToInt32(validacionPersona["Exito"]),
-                    nuevaDireccion.calle = TBCalle.Text;
-
-                    // En caso de no ingresar un valor en el formulario y al ser altura un int salta una excepcion.
-                    nuevaDireccion.altura = Convert.ToInt16(TBAltura.Text);
-                }
-
-                CN_Direccion direccion = new CN_Direccion();
-                var validacionDireccion = direccion.ValidarDireccion(nuevaDireccion);
-
-                Usuario nuevoUsuario = new Usuario
-                {
-                    // id_persona = id_personaRegistrada,
-                    username = TBGUUsername.Text,
-                    contraseña = TBGUContraseña.Text,
-                    tipo_perfil = (COMBOBTipoUsuario.SelectedIndex + 1),
-                    estado = Convert.ToBoolean(1)
-                };
+            this.cargarEntidades(nuevaPersonaFisica, nuevoContacto, nuevaDireccion, nuevoUsuario); 
+             
+            try {
 
                 CN_Usuario usuario = new CN_Usuario();
-                var validacionUsuario = usuario.ValidarUsuario(nuevoUsuario);
 
-                // Validacion realizada por la capa negocio.
-                var validacionCompleta = this.unirDiccionarios(validacionPersona, validacionDireccion, validacionUsuario);
+                int resultado = usuario.CrearUsuarioCompleto(nuevaPersonaFisica, nuevoUsuario, nuevoContacto, nuevaDireccion);
                  
-                if (validacionCompleta.Count != 0)
+                if (resultado != 0)
                 {
-
-                    this.mostrarErrores(validacionCompleta);
-                    MessageBox.Show("Se encontraron errores, verifique los datos ingresados.", "Error",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-                }
-                else 
-                {  
-                    try {
-                          
-                        int idDireccion = direccion.CrearDireccion(nuevaDireccion);
-
-                        nuevaPersona.id_direccion = idDireccion; /*  nuevaPersona.id_direccion = direccion.CrearDireccion(nuevaDireccion); */
-                        int idPersona = persona.CrearPersona(nuevaPersona);
-
-                        nuevoUsuario.id_persona = idPersona;
-                        usuario.CrearUsuario(nuevoUsuario);
-
-                        /*
-                          
-                        // Se crea una nueva persona en la BDD. 
-                        int idPersona = persona.CrearPersona(nuevaPersona);
-
-                        // Se le asigna la id a direccion.
-                        nuevaDireccion.id_persona = idPersona;
-                        // Se crea la nueva direccion.
-                        direccion.CrearDireccion(nuevaDireccion);
-
-                        // Se crea el nuevo usuario.
-                        nuevoUsuario.id_persona = idPersona;
-                        usuario.CrearUsuario(nuevoUsuario); 
-
-                        */
-
-                        MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-                    
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        MessageBox.Show($"Error de validación: " + ex.Message , "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
+                    MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }  
+                else
+                {
+                    this.mostrarErrores(usuario.GetErrors());
+                    MessageBox.Show("Los datos suministrados no son correctos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } 
 
             }
-            else
+            catch (ArgumentException ex)
             {
-                MessageBox.Show("Ha surgido un error y no se pudo registrar el usuario.");
-            }
-
+                MessageBox.Show($"Error de validación: " + ex.Message , "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            } 
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                foreach (var entityErrors in ex.EntityValidationErrors)
+                {
+                    foreach (var error in entityErrors.ValidationErrors)
+                    {
+                        MessageBox.Show(
+                            "Propiedad: " + error.PropertyName +
+                            "\nError: " + error.ErrorMessage);
+                    }
+                }
+            } 
+            catch (Exception ex) 
+            {
+                MessageBox.Show("Execpcion: " + ex.InnerException + " -- " + ex.Source + " / " + ex.TargetSite);
+            } 
         }  
-
-        private bool ValidateControls()
-        {
-            // Innecesaria primer linea.
-            // GestionUsuario FormgestionUsuario = this;
-            return this.ValidateChildren(); 
-
-        }
 
         private void TBDni_Validating(object sender, CancelEventArgs e)
         {
 
             if (string.IsNullOrEmpty(TBDni.Text))
             {
-                errorProvider1.SetError(TBDni, "Este campo es obligatorio.");
-                
-            }
-            else if (!long.TryParse(TBDni.Text, out _))
-            {
-                errorProvider1.SetError(TBDni, "El campo DNI debe ser un valor numerico.");
-            }
-            else if (TBDni.Text.Length > 8)
-            {
-                errorProvider1.SetError(TBDni, "El campo DNI no puede contener mas de 8 caracteres.");
-            }
+                errorProvider1.SetError(TBDni, "Este campo es obligatorio."); 
+                this.load_ErrorProvider = true;
+            } 
             else
             {
                 errorProvider1.SetError(TBDni, "");
@@ -298,13 +265,9 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             if (string.IsNullOrEmpty(TBNombre.Text))
             {
-                errorProvider1.SetError(TBNombre, "Este campo es obligatorio.");
-                
-            }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(TBNombre.Text, @"^[a-zA-Z\s]+$"))
-            {
-                errorProvider1.SetError(TBNombre, "El campo solo puede contener letras.");
-            }
+                errorProvider1.SetError(TBNombre, "Este campo es obligatorio."); 
+                this.load_ErrorProvider = true;
+            } 
             else
             {
                 errorProvider1.SetError(TBNombre, "");
@@ -316,17 +279,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             if (string.IsNullOrEmpty(TBApellido.Text))
             {
-                errorProvider1.SetError(TBApellido, "Este campo es obligatorio.");
-                 
-            }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(TBApellido.Text, @"^[a-zA-Z\s]+$"))
-            {
-                errorProvider1.SetError(TBApellido, "El campo solo puede contener letras.");
-            }
+                errorProvider1.SetError(TBApellido, "Este campo es obligatorio."); 
+                this.load_ErrorProvider = true;
+            } 
             else
             {
-                errorProvider1.SetError(TBApellido, "");
-
+                errorProvider1.SetError(TBApellido, ""); 
             }
         }
 
@@ -340,8 +298,8 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             if (edad < 18)
             {
-                errorProvider1.SetError(DTPFechaNacimiento, "La fecha seleccionada corresponde a un menor de 18 años.");
-                 
+                errorProvider1.SetError(DTPFechaNacimiento, "La fecha seleccionada corresponde a un menor de 18 años."); 
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -353,13 +311,9 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (string.IsNullOrEmpty(TBGUUsername.Text))
             {
-                errorProvider1.SetError(TBGUUsername, "El campo Usuario es obligatorio.");
-                e.Cancel = true;
-            }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(TBGUUsername.Text, @"^[a-zA-Z\d]+$"))
-            {
-                errorProvider1.SetError(TBGUUsername, "El campo no debe contener espacios.");
-            }
+                errorProvider1.SetError(TBGUUsername, "El campo Usuario es obligatorio."); 
+                this.load_ErrorProvider = true;
+            } 
             else
             {
                 errorProvider1.SetError(TBGUUsername, "");
@@ -370,7 +324,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (COMBOBTipoUsuario.SelectedIndex == -1)
             {
-                errorProvider1.SetError(COMBOBTipoUsuario, "Debe seleccionar un tipo de usuario.");
+                errorProvider1.SetError(COMBOBTipoUsuario, "Debe seleccionar un tipo de usuario."); 
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -382,16 +337,18 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (string.IsNullOrEmpty(TBGUContraseña.Text))
             {
-                errorProvider1.SetError(TBGUContraseña, "El campo Contraseña es obligatorio");
-                 
+                errorProvider1.SetError(TBGUContraseña, "El campo Contraseña es obligatorio"); 
+                this.load_ErrorProvider = true;
             }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(TBGUContraseña.Text, @"\d"))
             {
-                errorProvider1.SetError(TBGUContraseña, "La contraseña debe contener al menos un caracter nuemerico");
+                errorProvider1.SetError(TBGUContraseña, "La contraseña debe contener al menos un caracter nuemerico"); 
+                this.load_ErrorProvider = true;
             }
             else if (!string.IsNullOrEmpty(TBGURepetir.Text) && !TBGUContraseña.Text.Equals(TBGURepetir.Text))
             {
-                errorProvider1.SetError(TBGURepetir, "Las contraseñas no coinciden.");
+                errorProvider1.SetError(TBGURepetir, "Las contraseñas no coinciden."); 
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -406,12 +363,14 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 if (string.IsNullOrEmpty(TBGURepetir.Text))
                 {
-                    errorProvider1.SetError(TBGURepetir, "El campo Repetir Contraseña es obligatorio");
-                     
+                    errorProvider1.SetError(TBGURepetir, "El campo Repetir Contraseña es obligatorio"); 
+                    this.load_ErrorProvider = true;
+
                 }
                 else if (!TBGUContraseña.Text.Equals(TBGURepetir.Text))
                 {
-                    errorProvider1.SetError(TBGURepetir, "Las contraseñas deben ser iguales.");
+                    errorProvider1.SetError(TBGURepetir, "Las contraseñas deben ser iguales."); 
+                    this.load_ErrorProvider = true;
                 }
                 else
                 {
@@ -420,7 +379,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
             else
             {
-                errorProvider1.SetError(TBGURepetir, "Debe ingresar una contraseña");
+                errorProvider1.SetError(TBGURepetir, "Debe ingresar una contraseña"); 
+                this.load_ErrorProvider = true;
             }
         }
 
@@ -429,11 +389,14 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBEmail.Text))
             {
                 errorProvider1.SetError(TBEmail, "Este campo es obligatorio.");
-                
+                MessageBox.Show("Soy mail");
+                this.load_ErrorProvider = true;
             }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(TBEmail.Text, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
             {
                 errorProvider1.SetError(TBEmail, "La direccion email no cumple con el formato.(direccion@example.com)");
+                MessageBox.Show("Soy mail");
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -446,11 +409,14 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBTelefono.Text))
             {
                 errorProvider1.SetError(TBTelefono, "Este campo es obligatorio.");
-                 
+                MessageBox.Show("Soy telefono");
+                this.load_ErrorProvider = true;
             }
             else if (!long.TryParse(TBTelefono.Text, out _))
             {
                 errorProvider1.SetError(TBTelefono, "El campo solo debe contener caracteres numericos.");
+                MessageBox.Show("Soy telefono");
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -464,12 +430,9 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBCalle.Text))
             {
                 errorProvider1.SetError(TBCalle, "Este campo es obligatorio.");
-                 
-            }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(TBCalle.Text, @"^[a-zA-Z\s]+$"))
-            {
-                errorProvider1.SetError(TBCalle, "El campo solo debe contener caracteres alfabeticos.");
-            }
+                MessageBox.Show("Soy calle");
+                this.load_ErrorProvider = true;
+            } 
             else
             {
                 errorProvider1.SetError(TBCalle, "");
@@ -482,11 +445,14 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBAltura.Text))
             {
                 errorProvider1.SetError(TBAltura, "Este campo es obligatorio.");
-               
+                MessageBox.Show("Soy altura");
+                this.load_ErrorProvider = true;
             }
             else if (!int.TryParse(TBAltura.Text, out _))
             {
                 errorProvider1.SetError(TBAltura, "El campo solo debe contener caracteres numericos.");
+                MessageBox.Show("Soy altura");
+                this.load_ErrorProvider = true;
             }
             else
             {
@@ -502,6 +468,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                 if (COMBOBPiso.SelectedIndex == -1)
                 {
                     errorProvider1.SetError(COMBOBPiso, "Seleccione el numero de piso.");
+                    MessageBox.Show("Soy piso");
+                    this.load_ErrorProvider = true;
                 }
                 else
                 {
@@ -523,7 +491,9 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 if (this.COMBOBDepto.SelectedIndex == -1)
                 {
-                    errorProvider1.SetError(COMBOBDepto, "Debe seleccionar el piso.");
+                    errorProvider1.SetError(COMBOBDepto, "Debe seleccionar el depto.");
+                    MessageBox.Show("Soy depto");
+                    this.load_ErrorProvider = true;
                 }
                 else
                 {
@@ -555,39 +525,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         }
 
-        // Ver que mierda hago con esto.
-        public Dictionary<string, string> unirDiccionarios(Dictionary<string, string> primero, Dictionary<string, string> segundo, Dictionary<string, string> tercero)
-        {
-            Dictionary<string, string> union = new Dictionary<string, string>();
-
-
-            if (primero != null)
-            {
-                foreach (var error in primero)
-                {
-                    union[error.Key] = error.Value; // Agrega o actualiza
-                }
-            }
-
-            if (segundo != null)
-            {
-                foreach (var error in segundo)
-                {
-                    union[error.Key] = error.Value; // Agrega o actualiza
-                }
-            }
-
-            if (tercero != null)
-            {
-                foreach (var error in tercero)
-                {
-                    union[error.Key] = error.Value;
-                }
-            }
-
-            return union;
-
-        } 
+        // Ver que mierda hago con esto. 
 
         public void mostrarErrores(Dictionary<string, string> validacion)
         {

@@ -1,67 +1,46 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using System.Runtime.Remoting.Contexts;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaDatos
 {
     public class ProveedorDAO
     {
-        public int Crear_proveedor(Proveedor proveedor)
+        private readonly MiDbContext _context;
+
+        public ProveedorDAO(MiDbContext context) 
+        { 
+            this._context = context;    
+        } 
+
+        public void Crear_proveedor(Proveedor proveedor)
         {
-            using (var context = new MiDbContext())
-            {
-                context.Proveedores.Add(proveedor);
-                context.SaveChanges();
-                return proveedor.id_proveedor;
-            }
+            _context.Proveedores.Add(proveedor);
         }
 
-        public Proveedor buscar_Razon(string _razonSocial)  
+        public List<ProveedorDTO> Get_proveedores() 
         {
-            using (var context = new MiDbContext())
-            {
-                return context.Proveedores.FirstOrDefault(p => p.razon_social == _razonSocial);
-
-            }
+            return _context.Proveedores.Select(p => new ProveedorDTO
+                                                    {
+                                                         id_proveedor = p.id_proveedor,
+                                                         razon_social = p.persona.persona_juridica.razon_social
+                                                    })
+                                        .ToList();
         }
 
-        public Proveedor buscar_Proveedor(long _cuit)
+        public Proveedor Get_proveedor(long id_proveedor)
         {
-            
-
-            using (var context = new MiDbContext())
-            {
-                return context.Proveedores.FirstOrDefault(p => p.CUIT == _cuit);
-
-            }
+            return _context.Proveedores.Include(p => p.persona)
+                                        .Include(p => p.persona.persona_juridica)
+                                        .Include(p => p.persona.contactos) 
+                                        .Include(p => p.persona.direcciones)
+                                        .FirstOrDefault(p => p.id_proveedor == id_proveedor);
         }
-
-        public Proveedor buscar_Telefono(long _telefono)
-        {
-            using (var context = new MiDbContext())
-            {    
-                return context.Proveedores.FirstOrDefault(p => p.telefono == _telefono); 
-            }
-        }
-
-        public Proveedor buscar_Email(string _email)
-        {
-            using (var context = new MiDbContext())
-            {
-                return context.Proveedores.FirstOrDefault(p => p.email.Equals(_email));
-            }
-        }
-
-        public Proveedor buscar_NombreComercial(string _nombre)
-        {
-            using (var context = new MiDbContext())
-            {
-                return context.Proveedores.FirstOrDefault(p => p.nombre_comercial.Equals(_nombre));
-            }
-        }
-
     }
 }
