@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -69,7 +70,7 @@ namespace WindowsFormsApp1.CapaDatos
 
             // Se debe hacer comprobaciones por cada entidad.
             if (pedido_modificar != null)
-           {
+            {
                 // Entry: Proporciona acceso a la información sobre el estado de la entidad (pedido_modificar) en el contexto de EF.
                 // Esto incluye su estado (por ejemplo, Unchanged, Modified, Deleted, etc.) y sus valores actuales y originales.
                 // CurrentValues --> propiedad de entry que devuelve los valores actuales.
@@ -80,21 +81,20 @@ namespace WindowsFormsApp1.CapaDatos
      
         } 
 
-        public void update_StateConfirmado(long id_pedido)
+        public void update_StateConfirmado(int id_pedido)
         {
-            Pedido pedido_modificar = _context.Pedidos.FirstOrDefault(p => p.id_pedido == id_pedido); 
-
+            Pedido pedido_modificar = _context.Pedidos.FirstOrDefault(p => p.id_pedido == id_pedido);
+             
             // Se debe hacer comprobaciones por cada entidad.
             if (pedido_modificar != null)
-            {
+            { 
                 // Entry: Proporciona acceso a la información sobre el estado de la entidad (pedido_modificar) en el contexto de EF.
                 // Esto incluye su estado (por ejemplo, Unchanged, Modified, Deleted, etc.) y sus valores actuales y originales.
                 // CurrentValues --> propiedad de entry que devuelve los valores actuales.
                 // SetValues: este metodo nos permite asignar/modificar valores al entry.
 
-                pedido_modificar.estado = 3; 
-            }
-
+                pedido_modificar.estado = 3;
+            } 
         } 
     }
 }

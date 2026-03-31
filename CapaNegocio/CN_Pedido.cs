@@ -55,7 +55,15 @@ namespace WindowsFormsApp1.CapaNegocio
                     // Algunas entidades que vamos a necesitar.     
                     PedidoDAO pedidoDAO = new PedidoDAO(context);
                     
-                    _pedido.proveedor = _proveedor;
+                    if (_proveedor.id_proveedor > 0) 
+                    { 
+                        _pedido.id_proveedor = _proveedor.id_proveedor;
+                    }
+                    else 
+                    {
+                        _pedido.proveedor = _proveedor;
+                    }
+                     
                     pedidoDAO.Crear_pedido(_pedido);
 
                     ArticuloDAO articuloDAO = new ArticuloDAO(context);
@@ -153,6 +161,7 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 PedidoDAO pedido = new PedidoDAO(context);
                 pedido.update_StateInactive(id_pedido);
+                context.SaveChanges();
             } 
         }
 
@@ -162,6 +171,7 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 PedidoDAO pedido = new PedidoDAO(context);
                 pedido.update_StateConfirmado(id_pedido);
+                context.SaveChanges();
             } 
         }
 

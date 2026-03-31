@@ -16,7 +16,9 @@ namespace WindowsFormsApp1.DTO
         
         public int dni { get; set; }
         
-        public string username { get; set; }
+        public string username { get; set; } 
+
+        public bool estado { get; set; }    
 
         public string descripcion_tipo { get; set; }
 

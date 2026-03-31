@@ -12,10 +12,13 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaEntidad;
 using WindowsFormsApp1.CapaNegocio;
+using WindowsFormsApp1.DTO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WindowsFormsApp1.CapaPresentacion
 {   
@@ -25,18 +28,21 @@ namespace WindowsFormsApp1.CapaPresentacion
         // Partial: Permite dividir la definición de una misma clase en varios archivos.
 
         public Principal principal;
+        private CancellationTokenSource cts;
         private List<ItemCarrito> articulos;
         private bool load_errorProvider;
+        private bool _cargandoCBRazonSocial;
 
         public GestionPedido(Principal _principal)
         {
             InitializeComponent();
             this.principal = _principal;
-            this.articulos = new List<ItemCarrito>();  
+            this.articulos = new List<ItemCarrito>();
+            this.cts = new CancellationTokenSource();
+            this.ConfigWindowState();
             this.cargarPanelPedido(); 
             this.loadPedidoPendientes();
-            this.loadPedidoConfirmados();
-            this.CargarCBRazonSocial();
+            this.loadPedidoConfirmados(); 
         }
 
         public void cargarPanelPedido()
@@ -51,7 +57,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             LArticulo.ForeColor = System.Drawing.Color.Gray;
             PArticulo.Hide();
         }
+         
+        public void ConfigWindowState() 
+        { 
+            if (this.principal.WindowState == FormWindowState.Maximized)
+            {
+                this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
 
+            if (this.principal.WindowState == FormWindowState.Normal)
+            {
+                this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
+        } 
+  
         public void CentrarPanelesPrincipales()
         {
             this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -62,9 +83,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void MantenerPanelesPrincipales()
         { 
             this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-             
-        } 
+            this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;  
+        }  
 
         private void LProveedor_Click(object sender, EventArgs e)
         {
@@ -97,6 +117,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         private void restaurarControlsPProveedor()
         {
             this.CBRazonSocial.SelectedIndex = -1;
+            this.CBRazonSocial.Text = string.Empty;
             
             this.TBNombreComercial.Text = string.Empty;
             this.TBCuit.Text = string.Empty;
@@ -116,8 +137,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         private void ClearTablaPedido()
         {     
             this.articulos.Clear();
-            this.loadArticulo();
-            
+            this.loadArticulo(); 
         }
 
         public object LoadTablePedido(List<ItemCarrito> _lista) 
@@ -152,8 +172,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnBorrar.UseColumnTextForButtonValue = true;
             btnColumnBorrar.FlatStyle = FlatStyle.Standard;
             this.DGVPedido.Columns.Add(btnColumnBorrar);
-            this.DGVPedido.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.Red;
-            this.DGVPedido.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.Red;
+            this.DGVPedido.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.LightCoral;
+            this.DGVPedido.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.LightCoral;
         }
          
         private void BTAgregarArticulo_Click(object sender, EventArgs e)
@@ -203,17 +223,77 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         }
-
-        public void CargarCBRazonSocial()
+         
+        public void CargarCBRazonSocial(List<ProveedorDTO> _lista, string text)
         {
-            CN_Proveedor proveedor = new CN_Proveedor(); 
-            this.CBRazonSocial.DataSource = proveedor.ObtenerProveedores(); 
-            this.CBRazonSocial.DisplayMember = "razon_social";
-            this.CBRazonSocial.ValueMember = "id_proveedor";
+            // Cuando escribo algo se muestar la lista
+            if (_lista != null)
+            {
+                this.CBRazonSocial.DropDownStyle = ComboBoxStyle.DropDown;
 
-            this.CBRazonSocial.DropDownStyle = ComboBoxStyle.DropDown;
-            this.CBRazonSocial.SelectedIndex = -1; 
+                this.CBRazonSocial.DisplayMember = "razon_social";
+                this.CBRazonSocial.ValueMember = "id_proveedor";
+
+                /*
+                    Internamente pasa esto:
+
+                    1. cambia DataSource
+                    2. cambia Text
+                    3. dispara TextChanged OTRA VEZ
+                 */
+
+                // La inhabilitacion es mejor tratar con alguna flag y no ahcer explicita --> puede generar errores.
+                this.CBRazonSocial.TextChanged -= new System.EventHandler(this.CBRazonSocial_TextChanged);
+                this.CBRazonSocial.SelectedIndexChanged -= new System.EventHandler(this.CBRazonSocial_SelectedIndexChanged); 
+                 
+                this.CBRazonSocial.DataSource = _lista;
+                this.CBRazonSocial.SelectedIndex = -1;
+                this.CBRazonSocial.Text = text; 
+                this.CBRazonSocial.SelectionStart = text.Length;  
+            }
         }
+
+        private async void CBRazonSocial_TextChanged(object sender, EventArgs e)
+        {  
+            cts.Cancel(); // Cancela la consulta anterior si aún está en proceso
+            cts = new CancellationTokenSource(); // Crea un nuevo token de cancelación
+
+            string text = this.CBRazonSocial.Text; 
+
+            CN_Proveedor proveedor = new CN_Proveedor(); 
+
+            if (!string.IsNullOrWhiteSpace(this.CBRazonSocial.Text))
+            {
+                try
+                { 
+                    this.CargarCBRazonSocial(await proveedor.listarProveedores(this.CBRazonSocial.Text, cts.Token), text);
+
+                    // La inhabilitacion es mejor tratar con alguna flag y no ahcer explicita --> puede generar errores.
+                    this.CBRazonSocial.TextChanged += new System.EventHandler(this.CBRazonSocial_TextChanged);
+                    this.CBRazonSocial.SelectedIndexChanged += new System.EventHandler(this.CBRazonSocial_SelectedIndexChanged);
+                }
+                catch (TaskCanceledException)
+                {
+                    // La consulta fue cancelada, no hacemos nada   
+                } 
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    foreach (var entityErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var error in entityErrors.ValidationErrors)
+                        {
+                            MessageBox.Show(
+                                "Propiedad: " + error.PropertyName +
+                                "\nError: " + error.ErrorMessage);
+                        } 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrio un problema en la busqeda, vuelva a intentar."); 
+                }
+            }
+        }  
 
         private void CBRazonSocial_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -221,8 +301,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             if (this.CBRazonSocial.ValueMember != string.Empty && this.CBRazonSocial.SelectedIndex != -1) 
             {  
-                id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue);
-                MessageBox.Show("id_proveedor: " + id_proveedor);
+                id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue); 
             }
 
             CN_Proveedor proveedor = new CN_Proveedor();
@@ -232,47 +311,93 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Faltaria deshabilitar los controles. 
             if(encontrado != null) 
             {
-                this.CBRazonSocial.Enabled = false;
-                this.LRazonSocial.ForeColor = Color.Gray; 
-
-                this.TBNombreComercial.Text = encontrado.persona.persona_juridica.nombre_comercial;
-                this.LNombreComercial.ForeColor = Color.Gray;
-                this.TBNombreComercial.Enabled = false;
-                this.TBCuit.Text = Convert.ToString(encontrado.persona.persona_juridica.cuit);
-                this.LCUIT.ForeColor = Color.Gray;
-                this.TBCuit.Enabled = false;
-
-                this.TBTelefono.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.telefono);
-                this.LTelefono.ForeColor = Color.Gray;
-                this.TBTelefono.Enabled = false;
-                this.TBEmail.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.email == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.email);
-                this.LEmail.ForeColor = Color.Gray;
-                this.TBEmail.Enabled = false;
-                this.TBSitioWeb.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.sitio_web == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.sitio_web);
-                this.LSitioWeb.ForeColor = Color.Gray;
-                this.TBSitioWeb.Enabled = false;
-
-                this.TBCodPostal.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.cod_postal);
-                this.LCodPostal.ForeColor = Color.Gray;
-                this.TBCodPostal.Enabled = false;
-                this.TBCalle.Text = encontrado.persona.direcciones.FirstOrDefault()?.calle;
-                this.LCalle.ForeColor = Color.Gray;
-                this.TBCalle.Enabled = false;
-                this.TBAltura.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.altura);
-                this.LAltura.ForeColor = Color.Gray;
-                this.TBAltura.Enabled = false;
-
-                this.CBDepto.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == 0 ? "" : Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.depto);
-                this.LDepto.ForeColor = Color.Gray;
-                this.CBDepto.Enabled = false;
-                this.CBPiso.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == null ? "" : encontrado.persona.direcciones.FirstOrDefault()?.piso;
-                this.LPiso.ForeColor = Color.Gray;
-                this.CBPiso.Enabled = false;
-
-                this.LDepartamento.ForeColor = Color.Gray; 
-                this.CHKBDepto.Enabled = false; 
+                this.DesactivarYCargarControlesPProveedor(encontrado); 
             } 
         } 
+
+        public void ActivarControlesPProveedor()
+        {
+            this.CBRazonSocial.Enabled = true;  
+            this.LRazonSocial.ForeColor = Color.White; 
+
+            this.TBNombreComercial.Enabled = true; 
+            this.LNombreComercial.ForeColor = Color.White; 
+
+            this.TBCuit.Enabled = true; 
+            this.LCUIT.ForeColor = Color.White;  
+
+            this.TBTelefono.Enabled = true; 
+            this.LTelefono.ForeColor = Color.White; 
+
+            this.TBEmail.Enabled = true; 
+            this.LEmail.ForeColor = Color.White; 
+
+            this.TBSitioWeb.Enabled = true; 
+            this.LSitioWeb.ForeColor = Color.White;  
+
+            this.TBCodPostal.Enabled = true; 
+            this.LCodPostal.ForeColor = Color.White; 
+
+            this.TBCalle.Enabled = true; 
+            this.LCalle.ForeColor = Color.White; 
+
+            this.TBAltura.Enabled = true; 
+            this.LAltura.ForeColor = Color.White; 
+
+            this.CBDepto.Enabled = true; 
+            this.LDepto.ForeColor = Color.White; 
+
+            this.CBPiso.Enabled = true; 
+            this.LPiso.ForeColor = Color.White; 
+
+            this.CHKBDepto.Enabled = true; 
+            this.LDepartamento.ForeColor = Color.White; 
+
+        }
+
+        public void DesactivarYCargarControlesPProveedor(Proveedor encontrado) 
+        {
+            this.CBRazonSocial.Enabled = false;
+            this.LRazonSocial.ForeColor = Color.Gray;
+
+            this.TBNombreComercial.Text = encontrado.persona.persona_juridica.nombre_comercial;
+            this.LNombreComercial.ForeColor = Color.Gray;
+            this.TBNombreComercial.Enabled = false;
+            this.TBCuit.Text = Convert.ToString(encontrado.persona.persona_juridica.cuit);
+            this.LCUIT.ForeColor = Color.Gray;
+            this.TBCuit.Enabled = false;
+
+            this.TBTelefono.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.telefono);
+            this.LTelefono.ForeColor = Color.Gray;
+            this.TBTelefono.Enabled = false;
+            this.TBEmail.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.email == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.email);
+            this.LEmail.ForeColor = Color.Gray;
+            this.TBEmail.Enabled = false;
+            this.TBSitioWeb.Text = Convert.ToString(encontrado.persona.contactos.FirstOrDefault()?.sitio_web == null ? "" : encontrado.persona.contactos.FirstOrDefault()?.sitio_web);
+            this.LSitioWeb.ForeColor = Color.Gray;
+            this.TBSitioWeb.Enabled = false;
+
+            this.TBCodPostal.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.cod_postal);
+            this.LCodPostal.ForeColor = Color.Gray;
+            this.TBCodPostal.Enabled = false;
+            this.TBCalle.Text = encontrado.persona.direcciones.FirstOrDefault()?.calle;
+            this.LCalle.ForeColor = Color.Gray;
+            this.TBCalle.Enabled = false;
+            this.TBAltura.Text = Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.altura);
+            this.LAltura.ForeColor = Color.Gray;
+            this.TBAltura.Enabled = false;
+
+            this.CBDepto.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == 0 ? "" : Convert.ToString(encontrado.persona.direcciones.FirstOrDefault()?.depto);
+            this.LDepto.ForeColor = Color.Gray;
+            this.CBDepto.Enabled = false;
+            this.CBPiso.Text = encontrado.persona.direcciones.FirstOrDefault()?.depto == null ? "" : encontrado.persona.direcciones.FirstOrDefault()?.piso;
+            this.LPiso.ForeColor = Color.Gray;
+            this.CBPiso.Enabled = false;
+
+            this.LDepartamento.ForeColor = Color.Gray;
+            this.CHKBDepto.Enabled = false; 
+        }
+
 
         public void cargarEntidades(PersonaJuridica _personaJuridica, Direccion _direccion, Contacto _contacto, Pedido _pedido, List<Detalle_pedido> _detalle, List<Articulo> _items) 
         {
@@ -303,8 +428,10 @@ namespace WindowsFormsApp1.CapaPresentacion
          
         private void BTRegistrarPedido_Click(object sender, EventArgs e)
         {
-            this.load_errorProvider = false;
-            long id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue);
+            this.load_errorProvider = false; 
+
+            // Capturamos el id_proveedor porque ValueMember = ("id_proveedor").
+            long id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue == null? 0 : this.CBRazonSocial.SelectedValue);
 
             if (this.ValidateChildren())
             {
@@ -314,11 +441,11 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             } 
 
-            // Proveedor.
-            PersonaJuridica nuevaPersonaFisica = new PersonaJuridica();
+            // Proveedor. 
+            PersonaJuridica nuevaPersonaJuridica = new PersonaJuridica();
             Contacto nuevoContacto = new Contacto();
-            Direccion nuevaDireccion = new Direccion();
-
+            Direccion nuevaDireccion = new Direccion(); 
+              
             // Articulos.
             List<Articulo> items = new List<Articulo>(); 
             // Detalles.
@@ -326,22 +453,33 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Pedido.
             Pedido nuevoPedido = new Pedido();
 
-            this.cargarEntidades(nuevaPersonaFisica, nuevaDireccion, nuevoContacto, nuevoPedido, detallesPedido, items);
+            this.cargarEntidades(nuevaPersonaJuridica, nuevaDireccion, nuevoContacto, nuevoPedido, detallesPedido, items);
 
             try
             { 
                 CN_Proveedor proveedor = new CN_Proveedor();
-                CN_Pedido pedido = new CN_Pedido(); 
-
-                Proveedor ProveedorCreado = proveedor.CrearProveedorCompleto(nuevaPersonaFisica, nuevaDireccion, nuevoContacto); 
+                CN_Pedido pedido = new CN_Pedido();
+                Proveedor ProveedorCreado = new Proveedor();
+                 
+                // Esta es la parte agregada. Por que mayor a cero? Porque al ser un campo IDENTITY (1, 1) arranca en 1 el id_proveedor capturado
+                if (id_proveedor > 0) 
+                { 
+                    ProveedorCreado = proveedor.ObtenerProveedor(id_proveedor);
+                }
+                else
+                { 
+                    ProveedorCreado = proveedor.CrearProveedorCompleto(nuevaPersonaJuridica, nuevaDireccion, nuevoContacto);
+                }  
 
                 if (ProveedorCreado != null) 
                 {
                     int resultadoPedido = pedido.CrearPedidoCompleto(ProveedorCreado, nuevoPedido, items, detallesPedido);
 
-                    if (resultadoPedido != 0)
-
-                    MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (resultadoPedido != 0) 
+                    {
+                        MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.loadPedidoPendientes();
+                    } 
                 } 
                 else
                 {
@@ -448,8 +586,166 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 _items.Add(articulo); 
             } 
+        } 
+
+        private void BTLimpiar_Click(object sender, EventArgs e)
+        {
+            this.restaurarControlsPProveedor();
+            this.ActivarControlesPProveedor();
+            this.restaurarControlsPArticulo(); 
+            this.ClearTablaPedido(); 
+        } 
+
+        // Tabla Pedidos Pendientes.
+        public object LoadTablePedidosPendientesConfirmados(List<Pedido> _pedidos)
+        {
+            var tabla = _pedidos.Select((pedido, index) => new
+            { 
+                NroPedido = pedido.id_pedido,
+                Proveedor = pedido.proveedor.persona.persona_juridica.nombre_comercial,
+                Monto = pedido.monto_total 
+            }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
+
+            return tabla;
         }
-         
+
+        public void loadPedidoPendientes()
+        {
+            CN_Pedido pendientes = new CN_Pedido();
+            List<Pedido> _listaPendientes = new List<Pedido>(); 
+
+            this.DGVPedidosPendientes.DataSource = null;
+            this.DGVPedidosPendientes.Columns.Clear();
+            this.DGVPedidosPendientes.Rows.Clear();
+
+            _listaPendientes = pendientes.PedidosPendientes(); 
+
+            this.DGVPedidosPendientes.DataSource = LoadTablePedidosPendientesConfirmados(_listaPendientes);
+
+            DataGridViewButtonColumn btnColumnDetalles = new DataGridViewButtonColumn();
+            btnColumnDetalles.Name = "CDetalles";
+            btnColumnDetalles.HeaderText = "Detalles";
+            btnColumnDetalles.Text = "Ver Detalles";
+            btnColumnDetalles.UseColumnTextForButtonValue = true;
+            btnColumnDetalles.FlatStyle = FlatStyle.Standard;
+            this.DGVPedidosPendientes.Columns.Add(btnColumnDetalles);
+            this.DGVPedidosPendientes.Columns["CDetalles"].HeaderCell.Style.BackColor = Color.PaleTurquoise;
+            this.DGVPedidosPendientes.Columns["CDetalles"].HeaderCell.Style.SelectionBackColor = Color.PaleTurquoise;
+
+            DataGridViewButtonColumn btnColumnRecibir = new DataGridViewButtonColumn();
+            btnColumnRecibir.Name = "CRecibir";
+            btnColumnRecibir.HeaderText = "Recibir";
+            btnColumnRecibir.Text = "Recibir";
+            btnColumnRecibir.UseColumnTextForButtonValue = true;
+            btnColumnRecibir.FlatStyle = FlatStyle.Standard;
+            this.DGVPedidosPendientes.Columns.Add(btnColumnRecibir);
+            this.DGVPedidosPendientes.Columns["CRecibir"].HeaderCell.Style.BackColor = Color.LightGreen;
+            this.DGVPedidosPendientes.Columns["CRecibir"].HeaderCell.Style.SelectionBackColor = Color.LightGreen;
+
+            DataGridViewButtonColumn btnColumnCancelar = new DataGridViewButtonColumn();
+            btnColumnCancelar.Name = "CCancelar";
+            btnColumnCancelar.HeaderText = "Cancelar";
+            btnColumnCancelar.Text = "Cancelar";
+            btnColumnCancelar.UseColumnTextForButtonValue = true;
+            btnColumnCancelar.FlatStyle = FlatStyle.Standard; 
+            this.DGVPedidosPendientes.Columns.Add(btnColumnCancelar);
+            this.DGVPedidosPendientes.Columns["CCancelar"].HeaderCell.Style.BackColor = Color.LightCoral;
+            this.DGVPedidosPendientes.Columns["CCancelar"].HeaderCell.Style.SelectionBackColor = Color.LightCoral;  
+        }
+
+        // Tabla Pedidos Confirmados.
+        public void loadPedidoConfirmados()
+        {
+            CN_Pedido confirmados = new CN_Pedido();
+            List<Pedido> _listaConfirmados = new List<Pedido>();
+
+            this.DGVPedidosConfirmados.DataSource = null;
+            this.DGVPedidosConfirmados.Columns.Clear();
+            this.DGVPedidosConfirmados.Rows.Clear();
+
+            _listaConfirmados = confirmados.PedidosConfirmados();
+
+            this.DGVPedidosConfirmados.DataSource = LoadTablePedidosPendientesConfirmados(_listaConfirmados);
+
+            DataGridViewButtonColumn btnColumnDetalles = new DataGridViewButtonColumn();
+            btnColumnDetalles.Name = "CDetalles";
+            btnColumnDetalles.HeaderText = "Detalles";
+            btnColumnDetalles.Text = "Ver Detalles";
+            btnColumnDetalles.UseColumnTextForButtonValue = true;
+            btnColumnDetalles.FlatStyle = FlatStyle.Standard;
+            this.DGVPedidosConfirmados.Columns.Add(btnColumnDetalles);
+            this.DGVPedidosConfirmados.Columns["CDetalles"].HeaderCell.Style.BackColor = Color.PaleTurquoise;
+            this.DGVPedidosConfirmados.Columns["CDetalles"].HeaderCell.Style.SelectionBackColor = Color.PaleTurquoise;  
+        }
+
+        // Evento CellClick para tratas las funcionalidades de los distintos botones
+        private void DGVPedidosPendientesConfirmados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView dgt = sender as DataGridView;
+             
+            CN_Pedido pedido = new CN_Pedido(); 
+
+            // Evitar clics en el encabezado
+            if (e.RowIndex < 0) return;
+
+            // Obtener el nombre de la columna clickeada
+            string nombreColumna = dgt.Columns[e.ColumnIndex].Name;
+
+            // Dependiendo de la columna, ejecutar acciones
+            if (nombreColumna == "CRecibir")
+            {
+                DialogResult confirmacionRecibir = MessageBox.Show(
+                        "¿Seguro que deseas confirmar la recepcion de este pedido?",
+                        "Confirmación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                );
+
+                if (confirmacionRecibir == DialogResult.Yes)
+                {
+                    int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
+                    pedido.ConfirmarPedido(id_pedido);
+                    this.loadPedidoPendientes();
+                    this.loadPedidoConfirmados();
+                    MessageBox.Show("Se confirmo la recepcion de el pedido numero: " + id_pedido + ", correctamente", "Confirmacion de recepcion.", MessageBoxButtons.OK); 
+                }
+            }
+
+            if (nombreColumna == "CCancelar")
+            { 
+                string mensaje = "A continuacion cancelara el pedido nro: " + dgt.Rows[e.RowIndex].Cells["NroPedido"].Value + ", por un monto de $" + dgt.Rows[e.RowIndex].Cells["Monto"].Value;
+
+                DialogResult confirmacionCancelar = MessageBox.Show(mensaje +
+                        " ¿Seguro que deseas cancelar este pedido?",
+                        "Confirmación",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning
+                );
+
+                if (confirmacionCancelar == DialogResult.Yes)
+                {
+                    int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
+                    pedido.CancelarPedido(id_pedido);
+                    this.loadPedidoPendientes();
+                    MessageBox.Show("El pedido numero: " + id_pedido + ", fue cancelado correctamente.", "Cancelacion de Pedido", MessageBoxButtons.OK);
+                } 
+            }
+
+            if (nombreColumna == "CDetalles")
+            { 
+                int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
+                Pedido encontrado = pedido.BuscarPedido(id_pedido);
+
+                if(encontrado != null)
+                {
+                    Detalle detalle = new Detalle(encontrado);
+                    detalle.Show(); 
+                } 
+                 
+            }
+
+        }
+
         // Debemos realizar las validaciones de los controles asociados a proveedor, pedido, detalle y articulo. 
         // Validaciones para el Panel articulo. 
         private void TBMarca_Validating(object sender, CancelEventArgs e)
@@ -458,13 +754,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 errorProvider1.SetError(this.TBMarca, "El campo Marca no puede estar vacio.");
                 this.load_errorProvider = true;
-            } 
+            }
             else
             {
                 errorProvider1.SetError(this.TBMarca, "");
             }
 
-        } 
+        }
 
         private void TBNombreArticulo_Validating(object sender, CancelEventArgs e)
         {
@@ -486,7 +782,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 errorProvider1.SetError(this.TBContenido, "El campo Contenido no puede estar vacio.");
                 this.load_errorProvider = true;
-            } 
+            }
             else
             {
                 errorProvider1.SetError(this.TBContenido, "");
@@ -496,17 +792,17 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void TBPrecio_Validating(object sender, CancelEventArgs e)
         {
-            if (string.IsNullOrEmpty(TBPrecio.Text)) 
+            if (string.IsNullOrEmpty(TBPrecio.Text))
             {
                 errorProvider1.SetError(this.TBPrecio, "El campo Precio no puede estar vacio.");
                 this.load_errorProvider = true;
             }
-            else if (!decimal.TryParse(this.TBPrecio.Text, out _)) 
+            else if (!decimal.TryParse(this.TBPrecio.Text, out _))
             {
                 errorProvider1.SetError(this.TBPrecio, "El campo Precio debe contener un valor numerico.");
                 this.load_errorProvider = true;
             }
-            else 
+            else
             {
                 errorProvider1.SetError(this.TBPrecio, "");
             }
@@ -557,8 +853,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 CBPiso.SelectedIndex = -1;
                 errorProvider1.SetError(CBPiso, "");
             }
-        }
-
+        } 
 
         protected void TBCalle_Validating(object sender, CancelEventArgs e)
         {
@@ -566,8 +861,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBCalle.Text))
             {
                 errorProvider1.SetError(TBCalle, "El campo Calle no puede estar vacio.");
-                this.load_errorProvider = true; 
-            } 
+                this.load_errorProvider = true;
+            }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(TBCalle.Text, @"^[a-zA-Z0-9.\s]+$"))
             {
                 errorProvider1.SetError(TBCalle, "El campo solo debe contener caracteres alfabeticos-numericos-puntos y espacios (exceptuando la 'ñ').");
@@ -585,7 +880,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(TBAltura.Text))
             {
                 errorProvider1.SetError(TBAltura, "Este campo es obligatorio.");
-                this.load_errorProvider = true; 
+                this.load_errorProvider = true;
             }
             else if (!int.TryParse(TBAltura.Text, out _))
             {
@@ -643,7 +938,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
 
         }
-        
+
         // Proveedor
         private void CBRazonSocial_Validating(object sender, CancelEventArgs e)
         {
@@ -652,12 +947,12 @@ namespace WindowsFormsApp1.CapaPresentacion
                 errorProvider1.SetError(CBRazonSocial, "El campo Razon Social no puede estar vacio.");
                 this.load_errorProvider = true;
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.CBRazonSocial.Text, @"^[a-zA-Z0-9._%+\-\s]+$")) 
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.CBRazonSocial.Text, @"^[a-zA-Z0-9._%+\-\s]+$"))
             {
                 errorProvider1.SetError(CBRazonSocial, "El campo Razon Social solo permite caracteres alfabeticos, numericos y los siguientes (-, _, +, %");
                 this.load_errorProvider = true;
             }
-            else  
+            else
             {
                 errorProvider1.SetError(CBRazonSocial, "");
             }
@@ -668,17 +963,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Validaciones para campo Nombre Comercial. 
             if (string.IsNullOrEmpty(TBNombreComercial.Text))
             {
-                 errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial no puede estar vacio.");
-                 this.load_errorProvider = true;
+                errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial no puede estar vacio.");
+                this.load_errorProvider = true;
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBNombreComercial.Text, @"^[a-zA-Z0-9._%+\-\s]+$")) 
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBNombreComercial.Text, @"^[a-zA-Z0-9._%+\-\s]+$"))
             {
                 errorProvider1.SetError(TBNombreComercial, "El campo Nombre Comercial solo permite caracteres alfabeticos, numericos y los siguientes (-, _, +, %");
                 this.load_errorProvider = true;
             }
-            else 
+            else
             {
-                errorProvider1.SetError(TBNombreComercial, "");  
+                errorProvider1.SetError(TBNombreComercial, "");
             }
         }
 
@@ -742,23 +1037,23 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 errorProvider1.SetError(TBEmail, "");
             }
-        } 
+        }
 
         private void TBSitioWeb_Validating(object sender, CancelEventArgs e)
         {
-            if (!string.IsNullOrEmpty(TBSitioWeb.Text)) 
+            if (!string.IsNullOrEmpty(TBSitioWeb.Text))
             {
                 if (!System.Text.RegularExpressions.Regex.IsMatch(TBSitioWeb.Text, @"www\.[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"))
                 {
                     errorProvider1.SetError(TBSitioWeb, "El Sitio Web ingresado no tiene un formato estandar de dominio (www.example.com).");
                     this.load_errorProvider = true;
                 }
-                else 
+                else
                 {
                     errorProvider1.SetError(TBSitioWeb, "");
                 }
             }
-            else 
+            else
             {
                 errorProvider1.SetError(TBSitioWeb, "");
             }
@@ -775,204 +1070,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             else if (!int.TryParse(TBCodPostal.Text, out _))
             {
                 errorProvider1.SetError(TBCodPostal, "El campo Codigo Postal debe contener un valor numerico.");
-                this.load_errorProvider = true; 
+                this.load_errorProvider = true;
             }
-            else if (Convert.ToDecimal(TBCodPostal.Text) > 9999) 
+            else if (Convert.ToDecimal(TBCodPostal.Text) > 9999)
             {
                 errorProvider1.SetError(TBCodPostal, "El campo Codigo Postal no puede tener mas de 4 cifras.");
-                this.load_errorProvider = true; 
+                this.load_errorProvider = true;
             }
-            else 
+            else
             {
                 errorProvider1.SetError(TBCodPostal, "");
             }
-        }
-
-        private void BTLimpiar_Click(object sender, EventArgs e)
-        {
-            this.restaurarControlsPProveedor();
-            this.restaurarControlsPArticulo();
-            this.ClearTablaPedido(); 
         } 
-
-        private void DGVPedidosPendientes_Resize(object sender, EventArgs e)
-        {
-            if(this.principal.WindowState == FormWindowState.Maximized)
-            {
-                this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            }
-
-            if (this.principal.WindowState == FormWindowState.Normal) 
-            { 
-                this.DGVPedidosPendientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                this.DGVPedidosConfirmados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            }
-           
-        }  
-        
-        // Tabla Pedidos Pendientes.
-        public object LoadTablePedidosPendientesConfirmados(List<Pedido> _pedidos)
-        {
-            var tabla = _pedidos.Select((pedido, index) => new
-            { 
-                NroPedido = pedido.id_pedido,
-                Proveedor = pedido.proveedor.persona.persona_juridica.nombre_comercial,
-                Monto = pedido.monto_total 
-            }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
-
-            return tabla;
-        }
-
-        public void loadPedidoPendientes()
-        {
-            CN_Pedido pendientes = new CN_Pedido();
-            List<Pedido> _listaPendientes = new List<Pedido>(); 
-
-            this.DGVPedidosPendientes.DataSource = null;
-            this.DGVPedidosPendientes.Columns.Clear();
-            this.DGVPedidosPendientes.Rows.Clear();
-
-            _listaPendientes = pendientes.PedidosPendientes(); 
-
-            this.DGVPedidosPendientes.DataSource = LoadTablePedidosPendientesConfirmados(_listaPendientes);
-
-            DataGridViewButtonColumn btnColumnDetalles = new DataGridViewButtonColumn();
-            btnColumnDetalles.Name = "CDetalles";
-            btnColumnDetalles.HeaderText = "Detalles";
-            btnColumnDetalles.Text = "Ver Detalles";
-            btnColumnDetalles.UseColumnTextForButtonValue = true;
-            btnColumnDetalles.FlatStyle = FlatStyle.Standard;
-            this.DGVPedidosPendientes.Columns.Add(btnColumnDetalles);
-            this.DGVPedidosPendientes.Columns["CDetalles"].HeaderCell.Style.BackColor = Color.LightBlue;
-            this.DGVPedidosPendientes.Columns["CDetalles"].HeaderCell.Style.SelectionBackColor = Color.LightBlue;
-
-            DataGridViewButtonColumn btnColumnRecibir = new DataGridViewButtonColumn();
-            btnColumnRecibir.Name = "CRecibir";
-            btnColumnRecibir.HeaderText = "Recibir";
-            btnColumnRecibir.Text = "Recibir";
-            btnColumnRecibir.UseColumnTextForButtonValue = true;
-            btnColumnRecibir.FlatStyle = FlatStyle.Standard;
-            this.DGVPedidosPendientes.Columns.Add(btnColumnRecibir);
-            this.DGVPedidosPendientes.Columns["CRecibir"].HeaderCell.Style.BackColor = Color.LightGreen;
-            this.DGVPedidosPendientes.Columns["CRecibir"].HeaderCell.Style.SelectionBackColor = Color.LightGreen;
-
-            DataGridViewButtonColumn btnColumnCancelar = new DataGridViewButtonColumn();
-            btnColumnCancelar.Name = "CCancelar";
-            btnColumnCancelar.HeaderText = "Cancelar";
-            btnColumnCancelar.Text = "Cancelar";
-            btnColumnCancelar.UseColumnTextForButtonValue = true;
-            btnColumnCancelar.FlatStyle = FlatStyle.Standard; 
-            this.DGVPedidosPendientes.Columns.Add(btnColumnCancelar);
-            this.DGVPedidosPendientes.Columns["CCancelar"].HeaderCell.Style.BackColor = Color.LightCoral;
-            this.DGVPedidosPendientes.Columns["CCancelar"].HeaderCell.Style.SelectionBackColor = Color.LightCoral;  
-        }
-
-        // Tabla Pedidos Confirmados.
-        public void loadPedidoConfirmados()
-        {
-            CN_Pedido confirmados = new CN_Pedido();
-            List<Pedido> _listaConfirmados = new List<Pedido>();
-
-            this.DGVPedidosConfirmados.DataSource = null;
-            this.DGVPedidosConfirmados.Columns.Clear();
-            this.DGVPedidosConfirmados.Rows.Clear();
-
-            _listaConfirmados = confirmados.PedidosConfirmados();
-
-            this.DGVPedidosConfirmados.DataSource = LoadTablePedidosPendientesConfirmados(_listaConfirmados);
-
-            DataGridViewButtonColumn btnColumnDetalles = new DataGridViewButtonColumn();
-            btnColumnDetalles.Name = "CDetalles";
-            btnColumnDetalles.HeaderText = "Detalles";
-            btnColumnDetalles.Text = "Ver Detalles";
-            btnColumnDetalles.UseColumnTextForButtonValue = true;
-            btnColumnDetalles.FlatStyle = FlatStyle.Standard;
-            this.DGVPedidosConfirmados.Columns.Add(btnColumnDetalles);
-            this.DGVPedidosConfirmados.Columns["CDetalles"].HeaderCell.Style.BackColor = Color.LightBlue;
-            this.DGVPedidosConfirmados.Columns["CDetalles"].HeaderCell.Style.SelectionBackColor = Color.LightBlue;  
-        }
-
-        // Evento CellClick para tratas las funcionalidades de los distintos botones
-        private void DGVPedidosPendientesConfirmados_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dgt = sender as DataGridView;
-             
-            CN_Pedido pedido = new CN_Pedido(); 
-
-            // Evitar clics en el encabezado
-            if (e.RowIndex < 0) return;
-
-            // Obtener el nombre de la columna clickeada
-            string nombreColumna = dgt.Columns[e.ColumnIndex].Name;
-
-            // Dependiendo de la columna, ejecutar acciones
-            if (nombreColumna == "CRecibir")
-            {
-                DialogResult confirmacionRecibir = MessageBox.Show(
-                        "¿Seguro que deseas confirmar la recepcion de este pedido?",
-                        "Confirmación",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning
-                );
-
-                if (confirmacionRecibir == DialogResult.Yes)
-                {
-                    int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
-                    pedido.ConfirmarPedido(id_pedido);
-                    this.loadPedidoPendientes();
-                    this.loadPedidoConfirmados();
-                    MessageBox.Show("Se confirmo la recepcion de el pedido numero: " + id_pedido + ", correctamente", "Confirmacion de recepcion.", MessageBoxButtons.OK); 
-                }
-            }
-
-            if (nombreColumna == "CCancelar")
-            { 
-                string mensaje = "A continuacion cancelara el pedido nro: " + dgt.Rows[e.RowIndex].Cells["NroPedido"].Value + ", por un monto de $" + dgt.Rows[e.RowIndex].Cells["Monto"].Value;
-
-                DialogResult confirmacionCancelar = MessageBox.Show(mensaje +
-                        " ¿Seguro que deseas cancelar este pedido?",
-                        "Confirmación",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Warning
-                );
-
-                if (confirmacionCancelar == DialogResult.Yes)
-                {
-                    int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value); 
-                    pedido.CancelarPedido(id_pedido);
-                    this.loadPedidoPendientes();
-                    MessageBox.Show("El pedido numero: " + id_pedido + ", fue cancelado correctamente.", "Cancelacion de Pedido", MessageBoxButtons.OK);
-                }
-            }
-
-            if (nombreColumna == "CDetalles")
-            { 
-                int id_pedido = Convert.ToInt32(dgt.Rows[e.RowIndex].Cells["NroPedido"].Value);
-                Pedido encontrado = pedido.BuscarPedido(id_pedido);
-
-                if(encontrado != null)
-                {
-                    Detalle detalle = new Detalle(encontrado);
-                    detalle.Show(); 
-                } 
-                 
-            }
-
-        }
-
-        /*
-         *  this.DGVPedido = new System.Windows.Forms.DataGridView();
-            this.dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-         */
-          
     }
 }

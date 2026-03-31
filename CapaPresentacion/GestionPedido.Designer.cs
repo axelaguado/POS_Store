@@ -955,6 +955,7 @@
             this.CBRazonSocial.TabIndex = 1;
             this.CBRazonSocial.SelectedIndexChanged += new System.EventHandler(this.CBRazonSocial_SelectedIndexChanged);
             this.CBRazonSocial.Validating += new System.ComponentModel.CancelEventHandler(this.CBRazonSocial_Validating);
+            this.CBRazonSocial.TextChanged += new System.EventHandler(this.CBRazonSocial_TextChanged);
             // 
             // LRazonSocial
             // 

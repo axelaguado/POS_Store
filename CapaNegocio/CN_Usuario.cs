@@ -369,25 +369,25 @@ namespace WindowsFormsApp1.CapaNegocio
         }
 
 
-        public List<UsuarioDTO> listarUsuariosTipo(int _tipo)
+        public List<UsuarioDTO> listarUsuariosTipo(int _tipo, bool _state)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
                 List<UsuarioDTO> lista = new List<UsuarioDTO>();
 
-                lista = usuario.listar_UsuariosPorTipo(_tipo);
+                lista = usuario.listar_UsuariosPorTipo(_tipo, _state);
 
                 return lista;
             }
         }
 
-        public List<UsuarioDTO> listarUsuariosGenerotipo(int _tipo, string _genero)
+        public List<UsuarioDTO> listarUsuariosGenerotipo(int _tipo, string _genero, bool _state)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = usuario.listar_UsuarioPorGeneroTipo(_tipo, _genero);
+                List<UsuarioDTO> lista = usuario.listar_UsuarioPorGeneroTipo(_tipo, _genero, _state);
 
                 return lista;
             }
@@ -427,12 +427,12 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        public List<UsuarioDTO> listarUsuariosGenero(string _genero)
+        public List<UsuarioDTO> listarUsuariosGenero(string _genero, bool _state)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = usuario.listar_UsuariosPorGenero(_genero);
+                List<UsuarioDTO> lista = usuario.listar_UsuariosPorGenero(_genero, _state);
 
                 return lista;
             }

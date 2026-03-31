@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaDatos;
 using WindowsFormsApp1.CapaEntidad;
@@ -15,7 +16,7 @@ namespace WindowsFormsApp1.CapaNegocio
 {
     public class CN_Proveedor
     {
-        Dictionary<string, string> validacion;
+        public Dictionary<string, string> validacion; 
 
         public CN_Proveedor()
         {
@@ -137,6 +138,17 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 ProveedorDAO proveedorDAO = new ProveedorDAO(context);
                 return proveedorDAO.Get_proveedor(id_proveedor);
+            }
+        }
+
+        public async Task<List<ProveedorDTO>> listarProveedores(string razon_social, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedor= new ProveedorDAO(context);   
+                List<ProveedorDTO> lista = await proveedor.listar_Proveedores(razon_social, token);
+
+                return lista;
             }
         }
     }

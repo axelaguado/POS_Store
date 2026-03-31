@@ -226,8 +226,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 this.user_edit.contraseña = TBNuevaContraseña.Text;
             } 
 
-            this.user_edit.tipo_perfil = (COMBOBTipoUsuario.SelectedIndex + 1);
-            this.user_edit.estado = Convert.ToBoolean(1);
+            this.user_edit.tipo_perfil = (COMBOBTipoUsuario.SelectedIndex + 1); 
         }
 
         private void BActualizarUsuario_Click(object sender, EventArgs e)

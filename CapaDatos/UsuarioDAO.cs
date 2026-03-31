@@ -14,6 +14,7 @@ using System.Net;
 using System.Runtime.Remoting.Contexts;
 using WindowsFormsApp1.DTO;
 using WindowsFormsApp1.CapaNegocio;
+using System.Diagnostics;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -160,7 +161,7 @@ namespace WindowsFormsApp1.CapaDatos
                                        .ToListAsync(token);
         }
 
-        public async Task<List<Usuario>> listar_UsuariosNombreEstado(string _nombre,bool state, CancellationToken token)
+        public async Task<List<Usuario>> listar_UsuariosNombreEstado(string _nombre, bool state, CancellationToken token)
         { 
             return await _context.Usuarios.Include(u => u.empleado)
                                        .Include(u => u.empleado.persona)
@@ -230,9 +231,9 @@ namespace WindowsFormsApp1.CapaDatos
                                        .ToList();
         }
 
-        public List<UsuarioDTO> listar_UsuariosPorTipo(int _tipo)
+        public List<UsuarioDTO> listar_UsuariosPorTipo(int _tipo, bool _state)
         {
-            return _context.Usuarios.Where(u => u.tipo_perfil == _tipo)
+            return _context.Usuarios.Where(u => u.tipo_perfil == _tipo && u.estado == _state)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .Select(u => new UsuarioDTO
                                        {
@@ -241,6 +242,7 @@ namespace WindowsFormsApp1.CapaDatos
                                            nombre = u.empleado.persona.persona_fisica.nombre_persona,
                                            dni = u.empleado.persona.persona_fisica.dni_persona,
                                            username = u.username,
+                                           estado = u.estado,
                                            descripcion_tipo = u.tipo_usuario.descripcion_tipo,
                                            telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
                                            email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
@@ -252,9 +254,9 @@ namespace WindowsFormsApp1.CapaDatos
                                        .ToList();
         }
 
-        public List<UsuarioDTO> listar_UsuariosPorGenero(string _genero)
+        public List<UsuarioDTO> listar_UsuariosPorGenero(string _genero, bool _state)
         {
-            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero)
+            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.estado == _state)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .Select(u => new UsuarioDTO
                                        {
@@ -263,6 +265,7 @@ namespace WindowsFormsApp1.CapaDatos
                                            nombre = u.empleado.persona.persona_fisica.nombre_persona,
                                            dni = u.empleado.persona.persona_fisica.dni_persona,
                                            username = u.username,
+                                           estado = u.estado,
                                            descripcion_tipo = u.tipo_usuario.descripcion_tipo,
                                            telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
                                            email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
@@ -274,9 +277,9 @@ namespace WindowsFormsApp1.CapaDatos
                                        .ToList();
         }
 
-        public List<UsuarioDTO> listar_UsuarioPorGeneroTipo(int _tipo, string _genero)
+        public List<UsuarioDTO> listar_UsuarioPorGeneroTipo(int _tipo, string _genero, bool _state)
         {
-            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.tipo_perfil == _tipo)
+            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.tipo_perfil == _tipo && u.estado == _state)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                         .Select(u => new UsuarioDTO
                                         {
@@ -285,6 +288,7 @@ namespace WindowsFormsApp1.CapaDatos
                                             nombre = u.empleado.persona.persona_fisica.nombre_persona,
                                             dni = u.empleado.persona.persona_fisica.dni_persona,
                                             username = u.username,
+                                            estado = u.estado,
                                             descripcion_tipo = u.tipo_usuario.descripcion_tipo,
                                             telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
                                             email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
@@ -292,7 +296,7 @@ namespace WindowsFormsApp1.CapaDatos
                                             altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                             piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                             depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
-                                        })
+                                        }) 
                                        .ToList();
         } 
 

@@ -18,7 +18,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Listado : Form, IConfigForm
-    { 
+    {
         private Principal principal;
         private CancellationTokenSource cts;
 
@@ -27,8 +27,23 @@ namespace WindowsFormsApp1.CapaPresentacion
             InitializeComponent();
             this.principal = _principal;
             this.cts = new CancellationTokenSource();
-            cargarLista();
+            this.ConfigWindowState();
+            this.cargarLista(); 
+        }
 
+        public void ConfigWindowState()
+        {
+            if (this.principal.WindowState == FormWindowState.Maximized)
+            {
+                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+
+            if (this.principal.WindowState == FormWindowState.Normal)
+            {
+                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            }
         }
 
         public void CentrarPanelesPrincipales()
@@ -37,8 +52,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.PListado.Left = (this.ClientSize.Width - this.PListado.Width) / 2;
-        }
-
+        } 
 
         public void MantenerPanelesPrincipales()
         {
@@ -73,8 +87,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnEditar.UseColumnTextForButtonValue = true;
             btnColumnEditar.FlatStyle = FlatStyle.Standard;
             DGVLista.Columns.Add(btnColumnEditar);
-            DGVLista.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Orange;
-            DGVLista.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Orange;
+            DGVLista.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Khaki;
+            DGVLista.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Khaki;
 
             DataGridViewButtonColumn btnColumnBorrar = new DataGridViewButtonColumn();
             btnColumnBorrar.Name = "CBorrar";
@@ -83,8 +97,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnBorrar.UseColumnTextForButtonValue = true;
             btnColumnBorrar.FlatStyle = FlatStyle.Standard;
             DGVLista.Columns.Add(btnColumnBorrar);
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.IndianRed;
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.IndianRed;
+            DGVLista.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.LightCoral;
+            DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.LightCoral;
         }
 
         public void LoadTableUserInactive(List<UsuarioDTO> _lista)
@@ -102,8 +116,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnEditar.UseColumnTextForButtonValue = true;
             btnColumnEditar.FlatStyle = FlatStyle.Standard;
             dataGridView1.Columns.Add(btnColumnEditar);
-            dataGridView1.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Orange;
-            dataGridView1.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Orange;
+            dataGridView1.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Khaki;
+            dataGridView1.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Khaki;
 
             DataGridViewButtonColumn btnColumnActivar = new DataGridViewButtonColumn();
             btnColumnActivar.Name = "CActivar";
@@ -112,8 +126,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             btnColumnActivar.UseColumnTextForButtonValue = true;
             btnColumnActivar.FlatStyle = FlatStyle.Standard;
             dataGridView1.Columns.Add(btnColumnActivar);
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.BackColor = Color.LightBlue;
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.LightBlue;
+            dataGridView1.Columns["CActivar"].HeaderCell.Style.BackColor = Color.LightGreen;
+            dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.LightGreen;
         }
 
         public object LoadTable(List<UsuarioDTO> _lista)
@@ -131,7 +145,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 Calle = usuario.calle,
                 Altura = usuario.altura,
                 Piso = usuario.piso == null ? "-" : usuario.piso.ToString(),
-                Depto = usuario.depto == 0 ? "-" : usuario.depto.ToString() 
+                Depto = usuario.depto == 0 ? "-" : usuario.depto.ToString()
             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
 
@@ -157,20 +171,19 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Si se utilizan los dos filtros 
             if (!(string.IsNullOrEmpty(genero)) && (tipo > 0))
-            {
-                todos = usuario.listarUsuariosGenerotipo(tipo, genero);
-                //this.limpiarFiltros();
-                this.LoadTableUserActive(todos);
+            {  
+                this.LoadTableUserActive(usuario.listarUsuariosGenerotipo(tipo, genero, true));
+                this.LoadTableUserInactive(usuario.listarUsuariosGenerotipo(tipo, genero, false));
             }
 
             // Si se utiliza el filtro tipoUsuario.
             if (string.IsNullOrEmpty(genero))
             {
                 if (tipo > 0)
-                {
-                    todos = usuario.listarUsuariosTipo(tipo);
+                { 
                     //this.limpiarFiltros();
-                    this.LoadTableUserActive(todos);
+                    this.LoadTableUserActive(usuario.listarUsuariosTipo(tipo, true));
+                    this.LoadTableUserInactive(usuario.listarUsuariosTipo(tipo, false));
                 }
             }
 
@@ -178,28 +191,25 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (tipo < 1)
             {
                 if (!string.IsNullOrEmpty(genero))
-                {
-                    todos = usuario.listarUsuariosGenero(genero);
+                {     
                     //this.limpiarFiltros();
-                    this.LoadTableUserActive(todos);
+                    this.LoadTableUserActive(usuario.listarUsuariosGenero(genero, true));
+                    this.LoadTableUserInactive(usuario.listarUsuariosGenero(genero, false));
                 }
-            }
+            } 
 
-            // Si no muestra la lista vacia.
-            this.LoadTableUserActive(todos);
+        }
 
-        } 
-
-        public void limpiarFiltros() 
+        public void limpiarFiltros()
         {
             // Limpio los botones.
             this.COMBOBTipoUsuario.SelectedIndex = -1;
-            this.COMBOBTipoUsuario.Text = "Seleccionar"; 
-             
+            this.COMBOBTipoUsuario.Text = "Seleccionar";
+
             this.COMBOBGenero.SelectedIndex = -1;
             this.COMBOBGenero.Text = "Seleccionar";
-        }  
-         
+        }
+
         private void DGVLista_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgt = sender as DataGridView;
@@ -229,7 +239,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
-                 
+
                 if (confirmacionEditar == DialogResult.Yes)
                 {
                     // Buscamos el usuario de la fila seleccionada para cargar sus datos
@@ -246,7 +256,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     {
                         MessageBox.Show("No se ha encontrado el usuario", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                } 
+                }
             }
             else if (nombreColumna == "CBorrar")
             {
@@ -333,23 +343,5 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Direccion nuevaDireccion = new Direccion();
-            CN_Direccion direccion = new CN_Direccion();    
-
-            nuevaDireccion.calle = "Av Junin";
-            nuevaDireccion.altura = 4220;
-
-            try
-            {
-                direccion.CrearDireccion(nuevaDireccion);
-            }
-            catch (TaskCanceledException ex) 
-            {
-                MessageBox.Show("Error :" + ex.Message); 
-            }   
-        } 
     }
 }
