@@ -77,8 +77,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                     if (encontrado != null) {
                         // Inicializar la session.
                         Session datosSession = new Session();
-                        datosSession.nombre = encontrado.persona.nombre_persona;
-                        datosSession.apellido = encontrado.persona.apellido_persona;
+                        datosSession.nombre = encontrado.empleado.persona.persona_fisica.nombre_persona;
+                        datosSession.apellido = encontrado.empleado.persona.persona_fisica.apellido_persona;
                         datosSession.tipo_perfil = encontrado.tipo_usuario.descripcion_tipo;
                         datosSession.username = encontrado.username;
 

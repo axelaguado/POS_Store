@@ -16,26 +16,37 @@ namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Principal : Form
     {
-
         private Session session;
 
         public Principal(Session datosSession)
         {
-            this.session = datosSession;    
-            InitializeComponent(); 
+            this.session = datosSession;
+            InitializeComponent();
             cargarPBienvenida();
+        }
+
+        // Permiteel despalzamiento del formulario por la pantalla.
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int IParam);
+
+        private void PHeaderPrincipal_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
         public void cargarPBienvenida()
         {
-            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido + "   ▼";   
+            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido + "   ▼";
 
             if (this.session.tipo_perfil.Equals("Empleado"))
             {
-                BGestionEmpleados.Enabled = false; 
-            }   
+                BGestionEmpleados.Enabled = false;
+            }
         }
-
 
         private void BMinimizar_Click(object sender, EventArgs e)
         {
@@ -54,7 +65,6 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 formHijo.MantenerPanelesPrincipales();
             }
-
         }
 
         private void PBMaximizar_Click(object sender, EventArgs e)
@@ -63,39 +73,26 @@ namespace WindowsFormsApp1.CapaPresentacion
             PBMaximizar.Visible = false;
             PBRestaurar.Visible = true;
 
-            // Atencion con este if porque estoy tratando de forma estatica y no dinamica.
-            
+            // Atencion con este if porque estoy tratando de forma estatica y no dinamica. 
             if (this.PContenidos.Controls.Count > 0)
             {
                 // Este comportamiento se llama "pattern matching" (coincidencia de patrones).
-                if( this.PContenidos.Controls[0] is IConfigForm formHijo )
-                { 
-                    formHijo.CentrarPanelesPrincipales();  
+                if (this.PContenidos.Controls[0] is IConfigForm formHijo)
+                {
+                    formHijo.CentrarPanelesPrincipales();
                 }
             }
-      
         }
-         
 
         private void PBCerrarPrincipal_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-
-        // Permiteel despalzamiento del formulario por la pantalla.
-        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
-        private extern static void ReleaseCapture();
-
-        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
-        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int IParam);
-
-        private void PHeaderPrincipal_MouseDown(object sender, MouseEventArgs e)
+        public string GetSessionTypeUser()
         {
-            ReleaseCapture();
-            SendMessage(this.Handle, 0x112, 0xf012, 0);
+            return this.session.tipo_perfil;
         }
-
 
         public void AbrirFormHijo(object formHijo)
         {
@@ -106,24 +103,27 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Esto es útil cuando no sabes con certeza si el objeto que estás recibiendo es un Form,
             // y quieres hacer una conversión segura sin que se lance una excepción si la conversión falla.
-            Form fh = formHijo as Form; 
+            Form fh = formHijo as Form;
 
             fh.TopLevel = false;
             fh.Dock = DockStyle.Fill;
+            // fh.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
             this.PContenidos.Controls.Add(fh);
             fh.Show();
         }
 
         private void BGestionEmpleados_Click(object sender, EventArgs e)
-        {  
+        {
             this.AbrirFormHijo(new Listado(this));
             BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
         }
 
-        public string GetSessionTypeUser()
+        private void BTGestionPedidos_Click(object sender, EventArgs e)
         {
-            return this.session.tipo_perfil;
-        } 
+            this.AbrirFormHijo(new GestionPedido(this));
+            BTGestionPedidos.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+
          
     }
  }

@@ -39,11 +39,20 @@
     <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
       <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net48\BCrypt.Net-Next.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.5, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.5\lib\net461\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.5, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.5\lib\net461\itextsharp.xmlworker.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -72,14 +81,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CapaDatos\ArticuloDAO.cs" />
+    <Compile Include="CapaDatos\ContactoDAO.cs" />
+    <Compile Include="CapaDatos\Detalle_pedidoDAO.cs" />
     <Compile Include="CapaDatos\DireccionDAO.cs" />
+    <Compile Include="CapaDatos\EmpleadoDAO.cs" />
+    <Compile Include="CapaDatos\EstadoPedidoDAO.cs" />
+    <Compile Include="CapaDatos\PedidoDAO.cs" />
     <Compile Include="CapaDatos\PersonaDAO.cs" />
     <Compile Include="CapaDatos\MiDbContext.cs" />
+    <Compile Include="CapaDatos\PersonaFisicaDAO.cs" />
+    <Compile Include="CapaDatos\PersonaJuridicaDAO.cs" />
+    <Compile Include="CapaDatos\ProveedorDAO.cs" />
+    <Compile Include="CapaDatos\pruebaDAO.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
+    <Compile Include="CapaEntidad\Articulo.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
+    <Compile Include="CapaEntidad\Contacto.cs" />
+    <Compile Include="CapaEntidad\Empleado.cs" />
+    <Compile Include="CapaEntidad\Estado_Pedido.cs" />
+    <Compile Include="CapaEntidad\PersonaJuridica.cs" />
+    <Compile Include="CapaEntidad\Detalle_pedido.cs" />
+    <Compile Include="CapaEntidad\ItemCarrito.cs" />
+    <Compile Include="CapaEntidad\Pedido.cs" />
+    <Compile Include="CapaEntidad\PersonaFisica.cs" />
+    <Compile Include="CapaEntidad\Proveedor.cs" />
+    <Compile Include="CapaEntidad\prueba.cs" />
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
+    <Compile Include="CapaNegocio\CN_Articulo.cs" />
+    <Compile Include="CapaNegocio\CN_Contacto.cs" />
+    <Compile Include="CapaNegocio\CN_DetallePedido.cs" />
     <Compile Include="CapaNegocio\CN_Direccion.cs" />
     <Compile Include="CapaEntidad\Direccion.cs" />
     <Compile Include="CapaEntidad\Venta.cs" />
@@ -89,14 +122,31 @@
     <Compile Include="CapaEntidad\Cliente.cs" />
     <Compile Include="CapaEntidad\Usuario.cs" />
     <Compile Include="CapaEntidad\Persona.cs" />
+    <Compile Include="CapaNegocio\CN_Empleado.cs" />
     <Compile Include="CapaNegocio\CN_Persona.cs" />
+    <Compile Include="CapaNegocio\CN_PersonaFisica.cs" />
+    <Compile Include="CapaNegocio\CN_PersonaJuridica.cs" />
+    <Compile Include="CapaNegocio\CN_Proveedor.cs" />
     <Compile Include="CapaNegocio\CN_TipoUsuario.cs" />
     <Compile Include="CapaNegocio\CN_Usuario.cs" />
+    <Compile Include="CapaNegocio\CN_Pedido.cs" />
     <Compile Include="CapaPresentacion\EdicionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CapaPresentacion\EdicionUsuario.Designer.cs">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\Detalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\Detalle.Designer.cs">
+      <DependentUpon>Detalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionPedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionPedido.Designer.cs">
+      <DependentUpon>GestionPedido.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\GestionUsuario.cs">
       <SubType>Form</SubType>
@@ -122,11 +172,18 @@
     <Compile Include="CapaPresentacion\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controlador\AppContext.cs" />
+    <Compile Include="DTO\ProveedorDTO.cs" />
+    <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CapaPresentacion\Detalle.resx">
+      <DependentUpon>Detalle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionPedido.resx">
+      <DependentUpon>GestionPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionUsuario.resx">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
@@ -164,6 +221,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Plantilla\Solicitud_pedido.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

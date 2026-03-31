@@ -9,32 +9,28 @@ using System.Threading.Tasks;
 namespace WindowsFormsApp1.CapaEntidad
 {
     public class Persona
-    {
+    { 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_persona { get; set; }
- 
-        public int dni_persona { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]    
+        public int id_persona { get; set; }  
+         
+         
+        // Propiedad de navegacion.  
+        public ICollection<Direccion> direcciones { get; set; }
+          
+        public ICollection<Contacto> contactos { get; set; }
 
-        public string nombre_persona { get; set; }
+        // Roles que puede tener una persona.
+        public ICollection<Empleado> empleados { get; set; }
 
-        public string apellido_persona{ get; set; }
+        public ICollection<Cliente> clientes { get; set; } 
 
-        public DateTime fecha_nacimiento{ get; set; }
+        public ICollection<Proveedor> proveedores { get; set; }    
 
-        public string email { get; set; }
+        // Tipos de persona 
+        public PersonaFisica persona_fisica { get; set; }
+
+        public PersonaJuridica persona_juridica { get; set; }   
         
-        public long telefono { get; set; }
-
-        public string sexo { get; set; }  
-
-        // Propiedad de navegacion.
-        public Cliente cliente { get; set; }
-
-        public Usuario usuario { get; set; }
- 
-        public ICollection<Direccion> direccion { get; set; }
-
-    }
-
+    } 
 }
