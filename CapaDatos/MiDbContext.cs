@@ -24,9 +24,7 @@ namespace WindowsFormsApp1.CapaDatos
             this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
-        // Seccion Persona.
-        public DbSet<prueba> Pruebas { get; set; }
-
+        // Seccion Persona.   
         public DbSet<Persona> Personas { get; set; }
 
         public DbSet<PersonaFisica> PersonasFisicas { get; set; }
@@ -67,17 +65,7 @@ namespace WindowsFormsApp1.CapaDatos
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            // Prueba.
-            // Definir entidad.
-            var pruebaConfig = modelBuilder.Entity<prueba>();
-
-            // Primary Key.
-            pruebaConfig.HasKey(p => p.id_prueba);
-
-            // Otros mapeos.
-            pruebaConfig.ToTable("Prueba");
-
+        { 
             // ----------------------------------------------------- 
 
             // Persona.

@@ -369,6 +369,7 @@
             this.BGestionClientes.TabIndex = 3;
             this.BGestionClientes.Text = "Gestion de Clientes";
             this.BGestionClientes.UseVisualStyleBackColor = true;
+            this.BGestionClientes.Click += new System.EventHandler(this.BGestionClientes_Click);
             // 
             // BGestionEmpleados
             // 
@@ -405,7 +406,6 @@
             this.PContenidos.Name = "PContenidos";
             this.PContenidos.Size = new System.Drawing.Size(692, 536);
             this.PContenidos.TabIndex = 0;
-             
             // 
             // Principal
             // 

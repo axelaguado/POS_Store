@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.DGVPedido = new System.Windows.Forms.DataGridView();
             this.dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -73,9 +73,6 @@
             this.BTLimpiar = new System.Windows.Forms.Button();
             this.BTRegistrarPedido = new System.Windows.Forms.Button();
             this.LArticulo = new System.Windows.Forms.Label();
-            this.PProveedor = new System.Windows.Forms.Panel();
-            this.LDepartamento = new System.Windows.Forms.Label();
-            this.LCUIT = new System.Windows.Forms.Label();
             this.PArticulo = new System.Windows.Forms.Panel();
             this.TBNombreArticulo = new System.Windows.Forms.TextBox();
             this.LNombreArticulo = new System.Windows.Forms.Label();
@@ -90,6 +87,9 @@
             this.LDescripcion = new System.Windows.Forms.Label();
             this.LContenido = new System.Windows.Forms.Label();
             this.LMarcaArticulo = new System.Windows.Forms.Label();
+            this.PProveedor = new System.Windows.Forms.Panel();
+            this.LDepartamento = new System.Windows.Forms.Label();
+            this.LCUIT = new System.Windows.Forms.Label();
             this.TBSitioWeb = new System.Windows.Forms.TextBox();
             this.TBCodPostal = new System.Windows.Forms.TextBox();
             this.LSitioWeb = new System.Windows.Forms.Label();
@@ -127,8 +127,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVPedidosPendientes)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.PProveedor.SuspendLayout();
             this.PArticulo.SuspendLayout();
+            this.PProveedor.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -567,57 +567,6 @@
             this.LArticulo.Text = "Articulo";
             this.LArticulo.Click += new System.EventHandler(this.LArticulo_Click);
             // 
-            // PProveedor
-            // 
-            this.PProveedor.Controls.Add(this.LDepartamento);
-            this.PProveedor.Controls.Add(this.LCUIT);
-            this.PProveedor.Controls.Add(this.TBSitioWeb);
-            this.PProveedor.Controls.Add(this.TBCodPostal);
-            this.PProveedor.Controls.Add(this.LSitioWeb);
-            this.PProveedor.Controls.Add(this.LDepto);
-            this.PProveedor.Controls.Add(this.LPiso);
-            this.PProveedor.Controls.Add(this.CBDepto);
-            this.PProveedor.Controls.Add(this.CBPiso);
-            this.PProveedor.Controls.Add(this.CHKBDepto);
-            this.PProveedor.Controls.Add(this.TBEmail);
-            this.PProveedor.Controls.Add(this.LAltura);
-            this.PProveedor.Controls.Add(this.TBAltura);
-            this.PProveedor.Controls.Add(this.TBCuit);
-            this.PProveedor.Controls.Add(this.TBCalle);
-            this.PProveedor.Controls.Add(this.LEmail);
-            this.PProveedor.Controls.Add(this.LCalle);
-            this.PProveedor.Controls.Add(this.TBTelefono);
-            this.PProveedor.Controls.Add(this.LTelefono);
-            this.PProveedor.Controls.Add(this.LCodPostal);
-            this.PProveedor.Controls.Add(this.TBNombreComercial);
-            this.PProveedor.Controls.Add(this.LNombreComercial);
-            this.PProveedor.Controls.Add(this.CBRazonSocial);
-            this.PProveedor.Controls.Add(this.LRazonSocial);
-            this.PProveedor.Location = new System.Drawing.Point(6, 65);
-            this.PProveedor.Name = "PProveedor";
-            this.PProveedor.Size = new System.Drawing.Size(463, 241);
-            this.PProveedor.TabIndex = 6;
-            // 
-            // LDepartamento
-            // 
-            this.LDepartamento.AutoSize = true;
-            this.LDepartamento.ForeColor = System.Drawing.SystemColors.Control;
-            this.LDepartamento.Location = new System.Drawing.Point(269, 166);
-            this.LDepartamento.Name = "LDepartamento";
-            this.LDepartamento.Size = new System.Drawing.Size(74, 13);
-            this.LDepartamento.TabIndex = 19;
-            this.LDepartamento.Text = "Departamento";
-            // 
-            // LCUIT
-            // 
-            this.LCUIT.AutoSize = true;
-            this.LCUIT.ForeColor = System.Drawing.SystemColors.Control;
-            this.LCUIT.Location = new System.Drawing.Point(4, 87);
-            this.LCUIT.Name = "LCUIT";
-            this.LCUIT.Size = new System.Drawing.Size(35, 13);
-            this.LCUIT.TabIndex = 18;
-            this.LCUIT.Text = "CUIT:";
-            // 
             // PArticulo
             // 
             this.PArticulo.Controls.Add(this.TBNombreArticulo);
@@ -759,6 +708,57 @@
             this.LMarcaArticulo.Size = new System.Drawing.Size(40, 13);
             this.LMarcaArticulo.TabIndex = 0;
             this.LMarcaArticulo.Text = "Marca:";
+            // 
+            // PProveedor
+            // 
+            this.PProveedor.Controls.Add(this.LDepartamento);
+            this.PProveedor.Controls.Add(this.LCUIT);
+            this.PProveedor.Controls.Add(this.TBSitioWeb);
+            this.PProveedor.Controls.Add(this.TBCodPostal);
+            this.PProveedor.Controls.Add(this.LSitioWeb);
+            this.PProveedor.Controls.Add(this.LDepto);
+            this.PProveedor.Controls.Add(this.LPiso);
+            this.PProveedor.Controls.Add(this.CBDepto);
+            this.PProveedor.Controls.Add(this.CBPiso);
+            this.PProveedor.Controls.Add(this.CHKBDepto);
+            this.PProveedor.Controls.Add(this.TBEmail);
+            this.PProveedor.Controls.Add(this.LAltura);
+            this.PProveedor.Controls.Add(this.TBAltura);
+            this.PProveedor.Controls.Add(this.TBCuit);
+            this.PProveedor.Controls.Add(this.TBCalle);
+            this.PProveedor.Controls.Add(this.LEmail);
+            this.PProveedor.Controls.Add(this.LCalle);
+            this.PProveedor.Controls.Add(this.TBTelefono);
+            this.PProveedor.Controls.Add(this.LTelefono);
+            this.PProveedor.Controls.Add(this.LCodPostal);
+            this.PProveedor.Controls.Add(this.TBNombreComercial);
+            this.PProveedor.Controls.Add(this.LNombreComercial);
+            this.PProveedor.Controls.Add(this.CBRazonSocial);
+            this.PProveedor.Controls.Add(this.LRazonSocial);
+            this.PProveedor.Location = new System.Drawing.Point(6, 65);
+            this.PProveedor.Name = "PProveedor";
+            this.PProveedor.Size = new System.Drawing.Size(463, 241);
+            this.PProveedor.TabIndex = 6;
+            // 
+            // LDepartamento
+            // 
+            this.LDepartamento.AutoSize = true;
+            this.LDepartamento.ForeColor = System.Drawing.SystemColors.Control;
+            this.LDepartamento.Location = new System.Drawing.Point(269, 166);
+            this.LDepartamento.Name = "LDepartamento";
+            this.LDepartamento.Size = new System.Drawing.Size(74, 13);
+            this.LDepartamento.TabIndex = 19;
+            this.LDepartamento.Text = "Departamento";
+            // 
+            // LCUIT
+            // 
+            this.LCUIT.AutoSize = true;
+            this.LCUIT.ForeColor = System.Drawing.SystemColors.Control;
+            this.LCUIT.Location = new System.Drawing.Point(4, 87);
+            this.LCUIT.Name = "LCUIT";
+            this.LCUIT.Size = new System.Drawing.Size(35, 13);
+            this.LCUIT.TabIndex = 18;
+            this.LCUIT.Text = "CUIT:";
             // 
             // TBSitioWeb
             // 
@@ -954,8 +954,8 @@
             this.CBRazonSocial.Size = new System.Drawing.Size(323, 21);
             this.CBRazonSocial.TabIndex = 1;
             this.CBRazonSocial.SelectedIndexChanged += new System.EventHandler(this.CBRazonSocial_SelectedIndexChanged);
-            this.CBRazonSocial.Validating += new System.ComponentModel.CancelEventHandler(this.CBRazonSocial_Validating);
             this.CBRazonSocial.TextChanged += new System.EventHandler(this.CBRazonSocial_TextChanged);
+            this.CBRazonSocial.Validating += new System.ComponentModel.CancelEventHandler(this.CBRazonSocial_Validating);
             // 
             // LRazonSocial
             // 
@@ -1031,10 +1031,10 @@
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.PProveedor.ResumeLayout(false);
-            this.PProveedor.PerformLayout();
             this.PArticulo.ResumeLayout(false);
             this.PArticulo.PerformLayout();
+            this.PProveedor.ResumeLayout(false);
+            this.PProveedor.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();

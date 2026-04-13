@@ -270,9 +270,7 @@ namespace WindowsFormsApp1.CapaNegocio
             return errores;
 
         }
-
-        
-
+         
         public bool Username_Exist(Usuario _usuario)
         {
             using (var context = new MiDbContext())
