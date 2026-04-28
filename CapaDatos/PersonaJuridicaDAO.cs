@@ -51,7 +51,7 @@ namespace WindowsFormsApp1.CapaDatos
         }
 
         // -- UPDATE --
-        public PersonaJuridica update_persona(PersonaJuridica datos_modificados)
+        public PersonaJuridica update_personaJuridica(PersonaJuridica datos_modificados)
         { 
             PersonaJuridica personajuridica_modificar = _context.PersonasJuridicas.FirstOrDefault(pj => pj.id_persona == datos_modificados.id_persona);
 
