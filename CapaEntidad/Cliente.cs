@@ -16,6 +16,8 @@ namespace WindowsFormsApp1.CapaEntidad
     
         public int id_persona { get; set; }
 
+        public bool estado_cliente { get; set; }
+
         // Propiedad de navegacion.
         [ForeignKey("id_persona")]
         public virtual Persona persona { get; set; }

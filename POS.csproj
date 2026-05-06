@@ -178,6 +178,7 @@
     <Compile Include="CapaPresentacion\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\ProveedorDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
