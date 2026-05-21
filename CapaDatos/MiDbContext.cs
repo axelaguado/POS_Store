@@ -59,6 +59,8 @@ namespace WindowsFormsApp1.CapaDatos
         // Proceso Venta. 
         public DbSet<Producto> Productos { get; set; }
 
+        public DbSet<Categoria_producto> Categorias { get; set; }
+
         public DbSet<Detalle_venta> Detalle_Ventas { get; set; }
 
         public DbSet<Venta> Ventas { get; set; }
@@ -348,24 +350,25 @@ namespace WindowsFormsApp1.CapaDatos
             // Configurar clave primaria
             productoConfig.HasKey(pr => pr.id_producto);
 
-            // Configurar propiedades
-            productoConfig.Property(pr => pr.marca_producto).HasMaxLength(50).IsRequired();
-            productoConfig.Property(pr => pr.modelo_producto).HasMaxLength(50).IsRequired();
-            productoConfig.Property(pr => pr.descripcion_producto).HasMaxLength(500).IsRequired();
-            productoConfig.Property(pr => pr.stock_producto).IsRequired();
-            productoConfig.Property(pr => pr.stock_minimo).IsRequired();
-            productoConfig.Property(pr => pr.precio_venta).IsRequired();
-            productoConfig.Property(pr => pr.precio_costo).IsRequired();
-            productoConfig.Property(pr => pr.imagen).IsRequired();
-            productoConfig.Property(pr => pr.estado).IsRequired();
-
             // Configurar relaciones
             productoConfig.HasRequired(pr => pr.categoria)
                           .WithMany(cp => cp.productos)
-                          .HasForeignKey(pr => pr.producto_categoria);
-                          
+                          .HasForeignKey(pr => pr.categoria_producto);
+
+            // Configurar propiedades
+            productoConfig.Property(pr => pr.marca_producto).HasMaxLength(50).IsRequired();
+            productoConfig.Property(pr => pr.nombre_producto).HasMaxLength(50).IsRequired();
+            productoConfig.Property(pr => pr.descripcion_producto).HasMaxLength(500).IsRequired();
+            productoConfig.Property(pr => pr.contenido_producto).HasMaxLength(500).IsRequired();
+            productoConfig.Property(pr => pr.stock_producto).IsRequired();
+            productoConfig.Property(pr => pr.stock_minimo).IsRequired(); 
+            productoConfig.Property(pr => pr.precio_costo).IsRequired();
+            productoConfig.Property(pr => pr.precio_venta).IsRequired(); 
+            productoConfig.Property(pr => pr.sku_producto).IsRequired();
+            productoConfig.Property(pr => pr.estado_producto).IsRequired();
+             
             // Otros mapeos
-            productoConfig.ToTable("Productos");
+            productoConfig.ToTable("Producto");
 
             // --------------------------------------------------------------
 
@@ -377,11 +380,10 @@ namespace WindowsFormsApp1.CapaDatos
             categoriaProductoConfig.HasKey(cp => cp.id_categoria);
 
             // Configurar propiedades
-            categoriaProductoConfig.Property(cp => cp.descripcion_categoria).HasMaxLength(50).IsRequired();
-
+            categoriaProductoConfig.Property(cp => cp.descripcion_categoria).HasMaxLength(50).IsRequired(); 
 
             // Otros mapeos
-            categoriaProductoConfig.ToTable("Categorias_Productos");
+            categoriaProductoConfig.ToTable("Categoria_producto");
 
             // ----------------------------------------------------------------------
 
@@ -430,9 +432,11 @@ namespace WindowsFormsApp1.CapaDatos
                               .WithMany(v => v.detalles)
                               .HasForeignKey(dv => dv.id_venta);
 
+            /*
             detalleVentaConfig.HasRequired(dv => dv.producto)
                               .WithMany(pr => pr.ventas)
                               .HasForeignKey(dv => dv.id_producto);
+            */
 
             // Otros mapeos
             detalleVentaConfig.ToTable("Detalles_Ventas");

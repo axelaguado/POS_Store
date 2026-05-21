@@ -227,7 +227,7 @@
             this.CDepto});
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveBorder;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 85);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 85);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -237,7 +237,7 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(378, 402);
+            this.dataGridView1.Size = new System.Drawing.Size(374, 402);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
@@ -352,7 +352,7 @@
             this.BTNRegistrar.FlatAppearance.BorderSize = 0;
             this.BTNRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTNRegistrar.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.BTNRegistrar.Location = new System.Drawing.Point(187, 450);
+            this.BTNRegistrar.Location = new System.Drawing.Point(193, 451);
             this.BTNRegistrar.Name = "BTNRegistrar";
             this.BTNRegistrar.Size = new System.Drawing.Size(75, 22);
             this.BTNRegistrar.TabIndex = 43;

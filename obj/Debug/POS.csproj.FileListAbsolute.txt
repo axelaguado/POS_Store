@@ -36,3 +36,5 @@ C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\BouncyCastle.
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\itextsharp.xml
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\Plantilla\Solicitud_pedido.html
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionClientes.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionProductos.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Calculadora.resources

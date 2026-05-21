@@ -39,7 +39,7 @@ namespace WindowsFormsApp1.CapaDatos
         {
             return _context.PersonasFisicas
                              .Any(pf => pf.dni_persona == _personafisca.dni_persona && pf.id_persona != _personafisca.id_persona);  // existe el username                         existe el username
-                                                                                                                 // los id_son distntos --> retorna existe     los id_son iguales --> retorna false
+                                                                                                                                    // los id_son distntos --> retorna existe     los id_son iguales --> retorna false
         }
 
         // -- UPDATE --

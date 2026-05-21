@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CapaDatos\ArticuloDAO.cs" />
+    <Compile Include="CapaDatos\CategoriaProductoDAO.cs" />
     <Compile Include="CapaDatos\ClienteDAO.cs" />
     <Compile Include="CapaDatos\ContactoDAO.cs" />
     <Compile Include="CapaDatos\Detalle_pedidoDAO.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="CapaDatos\MiDbContext.cs" />
     <Compile Include="CapaDatos\PersonaFisicaDAO.cs" />
     <Compile Include="CapaDatos\PersonaJuridicaDAO.cs" />
+    <Compile Include="CapaDatos\ProductoDAO.cs" />
     <Compile Include="CapaDatos\ProveedorDAO.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
@@ -110,6 +112,7 @@
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
     <Compile Include="CapaNegocio\CN_Articulo.cs" />
+    <Compile Include="CapaNegocio\CN_CategoriaProducto.cs" />
     <Compile Include="CapaNegocio\CN_Cliente.cs" />
     <Compile Include="CapaNegocio\CN_Contacto.cs" />
     <Compile Include="CapaNegocio\CN_DetallePedido.cs" />
@@ -130,6 +133,13 @@
     <Compile Include="CapaNegocio\CN_TipoUsuario.cs" />
     <Compile Include="CapaNegocio\CN_Usuario.cs" />
     <Compile Include="CapaNegocio\CN_Pedido.cs" />
+    <Compile Include="CapaNegocio\CN_Producto.cs" />
+    <Compile Include="CapaPresentacion\Calculadora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\Calculadora.Designer.cs">
+      <DependentUpon>Calculadora.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\EdicionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +151,12 @@
     </Compile>
     <Compile Include="CapaPresentacion\Detalle.Designer.cs">
       <DependentUpon>Detalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionProductos.Designer.cs">
+      <DependentUpon>GestionProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\GestionClientes.cs">
       <SubType>Form</SubType>
@@ -183,11 +199,17 @@
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CapaPresentacion\Calculadora.resx">
+      <DependentUpon>Calculadora.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Detalle.resx">
       <DependentUpon>Detalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionProductos.resx">
+      <DependentUpon>GestionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionClientes.resx">
       <DependentUpon>GestionClientes.cs</DependentUpon>
@@ -215,6 +237,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -232,6 +255,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Imagenes\old-calculator_icon-icons.com_56065.png" />
+    <None Include="Imagenes\calculator.png" />
     <Content Include="Plantilla\Solicitud_pedido.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
