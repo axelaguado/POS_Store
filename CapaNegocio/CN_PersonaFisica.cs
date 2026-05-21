@@ -56,7 +56,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
             else if (string.IsNullOrWhiteSpace(persona_fisica.nombre_persona))
             {
-                errores.Add("TBNombre", "El campo nombre no puede contener solo espaciosa en blanco.");
+                errores.Add("TBNombre", "El campo nombre no puede contener solo espacios en blanco.");
             }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(persona_fisica.nombre_persona, @"^[a-zA-Z\s]+$"))
             {

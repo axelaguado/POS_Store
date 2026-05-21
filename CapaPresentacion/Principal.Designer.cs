@@ -174,6 +174,7 @@
             this.PMenu.Name = "PMenu";
             this.PMenu.Size = new System.Drawing.Size(208, 536);
             this.PMenu.TabIndex = 1;
+             
             // 
             // BTGastos
             // 
@@ -354,6 +355,7 @@
             this.BGestionProductos.TabIndex = 4;
             this.BGestionProductos.Text = "Gestion de Productos";
             this.BGestionProductos.UseVisualStyleBackColor = true;
+            this.BGestionProductos.Click += new System.EventHandler(this.BGestionProductos_Click);
             // 
             // BGestionClientes
             // 

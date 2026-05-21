@@ -129,5 +129,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.AbrirFormHijo(new GestionClientes(this));
             BGestionClientes.BackColor = System.Drawing.Color.DarkTurquoise;
         }
+
+        private void BGestionProductos_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionProductos(this));
+            BGestionProductos.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+
+        
     }
  }
