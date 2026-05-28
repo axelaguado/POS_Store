@@ -305,52 +305,18 @@ namespace WindowsFormsApp1.CapaNegocio
                 return lista;
             }
         }
-
-        // Metodo para listar activo con Include y con DTO
-        public List<Usuario> listarUsuariosActivos()
+         
+        public List<UsuarioDTO> listarUsuariosDTO()
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO nuevo = new UsuarioDAO(context);
-                List<Usuario> lista = nuevo.listar_UsuariosActivos();
+                List<UsuarioDTO> lista = nuevo.listar_UsuariosDTO();
 
                 return lista;
             }
         }
-
-        public List<UsuarioDTO> listarUsuariosActivosDTO()
-        {
-            using (var context = new MiDbContext())
-            {
-                UsuarioDAO nuevo = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = nuevo.listar_UsuariosActivosDTO();
-
-                return lista;
-            }
-        }
-
-        // Metodo para listar inactivo con Include y con DTO
-        public List<Usuario> listarUsuariosInactivos()
-        {
-            using (var context = new MiDbContext())
-            {
-                UsuarioDAO nuevo = new UsuarioDAO(context);
-                List<Usuario> lista = nuevo.listar_UsuariosInactivos();
-
-                return lista;
-            }
-        }
-
-        public List<UsuarioDTO> listarUsuariosInactivosDTO()
-        {
-            using (var context = new MiDbContext())
-            {
-                UsuarioDAO nuevo = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = nuevo.listar_UsuariosInactivosDTO();
-
-                return lista;
-            }
-        }
+          
 
         public Usuario loginUsuario(string username, string contraseña)
         {
@@ -367,25 +333,25 @@ namespace WindowsFormsApp1.CapaNegocio
         }
 
 
-        public List<UsuarioDTO> listarUsuariosTipo(int _tipo, bool _state)
+        public List<UsuarioDTO> listarUsuariosTipo(int _tipo)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
                 List<UsuarioDTO> lista = new List<UsuarioDTO>();
 
-                lista = usuario.listar_UsuariosPorTipo(_tipo, _state);
+                lista = usuario.listar_UsuariosPorTipo(_tipo);
 
                 return lista;
             }
         }
 
-        public List<UsuarioDTO> listarUsuariosGenerotipo(int _tipo, string _genero, bool _state)
+        public List<UsuarioDTO> listarUsuariosGenerotipo(int _tipo, string _genero)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = usuario.listar_UsuarioPorGeneroTipo(_tipo, _genero, _state);
+                List<UsuarioDTO> lista = usuario.listar_UsuarioPorGeneroTipo(_tipo, _genero);
 
                 return lista;
             }
@@ -402,35 +368,35 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        public async Task<List<UsuarioDTO>> listarUsuariosDniEstado(int _dni, bool state, CancellationToken token)
+        public async Task<List<UsuarioDTO>> listarUsuariosDni(int _dni, CancellationToken token)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = await usuario.listar_UsuariosDniEstadoDTO(_dni, state, token);
+                List<UsuarioDTO> lista = await usuario.listar_UsuariosDniDTO(_dni, token);
 
                 return lista;
             }
         }
 
 
-        public async Task<List<UsuarioDTO>> listarUsuariosNombreEstado(string nombre, bool state, CancellationToken token)
+        public async Task<List<UsuarioDTO>> listarUsuariosNombre(string nombre, CancellationToken token)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = await usuario.listar_UsuariosNombreEstadoDTO(nombre, state, token);
+                List<UsuarioDTO> lista = await usuario.listar_UsuariosNombreDTO(nombre, token);
 
                 return lista;
             }
         }
 
-        public List<UsuarioDTO> listarUsuariosGenero(string _genero, bool _state)
+        public List<UsuarioDTO> listarUsuariosGenero(string _genero)
         {
             using (var context = new MiDbContext())
             {
                 UsuarioDAO usuario = new UsuarioDAO(context);
-                List<UsuarioDTO> lista = usuario.listar_UsuariosPorGenero(_genero, _state);
+                List<UsuarioDTO> lista = usuario.listar_UsuariosPorGenero(_genero);
 
                 return lista;
             }

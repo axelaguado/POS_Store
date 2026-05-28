@@ -183,7 +183,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Configurar relaciones
             clienteConfig.HasRequired(c => c.persona) // Cliente requiere una Persona.
                          .WithMany(p => p.clientes)
-                         .HasForeignKey(c => c.id_persona); // Persona puede instanciarse sin un cliente.
+                         .HasForeignKey(c => c.id_persona);
                         
             // Otros mapeos
             clienteConfig.ToTable("Cliente");
@@ -199,8 +199,8 @@ namespace WindowsFormsApp1.CapaDatos
 
             // Configurar relaciones
             empleadoConfig.HasRequired(e => e.persona)
-                             .WithMany(p => p.empleados)
-                             .HasForeignKey(e => e.id_persona);
+                          .WithMany(p => p.empleados)
+                          .HasForeignKey(e => e.id_persona);
              
             // Otros mapeos
             empleadoConfig.ToTable("Empleado");
@@ -216,7 +216,10 @@ namespace WindowsFormsApp1.CapaDatos
             // Confiuracion de relaciones.
             proveedorConfig.HasRequired(pr => pr.persona) // El proveedor reuqiere una persona 
                            .WithMany(p => p.proveedores)
-                           .HasForeignKey(pr => pr.id_persona); 
+                           .HasForeignKey(p => p.id_persona); 
+
+            // Propiedades. 
+            proveedorConfig.Property(pr => pr.estado_proveedor).IsRequired();
 
             // Otros mapeos.
             proveedorConfig.ToTable("Proveedor");

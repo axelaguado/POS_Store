@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,15 +40,21 @@ namespace WindowsFormsApp1.CapaDatos
         public bool RazonSocialExist(PersonaJuridica _personaJuridica)
         {
             return _context.PersonasJuridicas
-                                    .Any(pj => pj.razon_social == _personaJuridica.razon_social && pj.id_persona != _personaJuridica.id_persona); 
-                                                                                            
-                                                                                           
+                                    .Any(pj => pj.razon_social == _personaJuridica.razon_social && pj.id_persona != _personaJuridica.id_persona);  
         }
 
         public bool NombreComercialExist(PersonaJuridica _personaJuridica)
         {
              return _context.PersonasJuridicas
                                     .Any(pj => pj.nombre_comercial  == _personaJuridica.nombre_comercial && pj.id_persona != _personaJuridica.id_persona); 
+        }
+
+        public PersonaJuridica GetPersonaJuridica(string razon, long cuit) 
+        {
+            return _context.PersonasJuridicas.Include(pj => pj.persona)
+                                             .Include(pj => pj.persona.clientes)
+                                             .Include(pj => pj.persona.proveedores)
+                                             .FirstOrDefault(pj => pj.razon_social == razon && pj.cuit == cuit);
         }
 
         // -- UPDATE --

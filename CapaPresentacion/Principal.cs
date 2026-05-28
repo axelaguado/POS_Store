@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Reflection.Emit;
 using WindowsFormsApp1.CapaEntidad;
+using Org.BouncyCastle.Crypto.Engines;
 
 
 namespace WindowsFormsApp1.CapaPresentacion
@@ -110,32 +111,55 @@ namespace WindowsFormsApp1.CapaPresentacion
             // fh.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
             this.PContenidos.Controls.Add(fh);
             fh.Show();
-        }
+        } 
 
         private void BGestionEmpleados_Click(object sender, EventArgs e)
         {
             this.AbrirFormHijo(new Listado(this));
+            this.LightOff(sender);
             BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+        private void BGestionClientes_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionClientes(this));
+            this.LightOff(sender);
+            BGestionClientes.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+        private void BGestionProveedor_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionProveedor(this));
+            this.LightOff(sender);
+            BGestionProveedor.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+        private void BGestionProductos_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionProductos(this));
+            this.LightOff(sender);
+            BGestionProductos.BackColor = System.Drawing.Color.DarkTurquoise;
         }
 
         private void BTGestionPedidos_Click(object sender, EventArgs e)
         {
             this.AbrirFormHijo(new GestionPedido(this));
+            this.LightOff(sender);
             BTGestionPedidos.BackColor = System.Drawing.Color.DarkTurquoise;
-        }
+        } 
 
-        private void BGestionClientes_Click(object sender, EventArgs e)
-        {
-            this.AbrirFormHijo(new GestionClientes(this));
-            BGestionClientes.BackColor = System.Drawing.Color.DarkTurquoise;
-        }
+        public void LightOff(object sender) 
+        { 
+            Button boton = sender as Button;
 
-        private void BGestionProductos_Click(object sender, EventArgs e)
-        {
-            this.AbrirFormHijo(new GestionProductos(this));
-            BGestionProductos.BackColor = System.Drawing.Color.DarkTurquoise;
-        }
-
+            foreach(Control control in this.PMenu.Controls)
+            {
+                if (control is Button) 
+                { 
+                    if(control.Name != boton.Name) 
+                    {
+                        control.BackColor = System.Drawing.Color.DarkSlateGray;
+                    }          
+                }
+            }
         
+        }
     }
  }

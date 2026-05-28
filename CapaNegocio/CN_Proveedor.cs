@@ -23,6 +23,24 @@ namespace WindowsFormsApp1.CapaNegocio
             this.validacion = new Dictionary<string, string>();
         } 
 
+        public int CrearProveedorPersonaExistente(int id_persona) 
+        {
+            // Deberia preguntar si se cumple ValidarProveedor y utilizar los bloques Try - catch.
+            using (var context = new MiDbContext())
+            { 
+                ProveedorDAO proveedorDAO = new ProveedorDAO(context);
+                
+                Proveedor proveedor = new Proveedor();
+                proveedor.estado_proveedor = true;
+                proveedor.id_persona = id_persona;
+                 
+                proveedorDAO.Crear_proveedor(proveedor);
+
+                return context.SaveChanges();  
+            }
+
+        }
+
         public void CrearProveedor(Proveedor _proveedor)
         {
             // Deberia preguntar si se cumple ValidarProveedor y utilizar los bloques Try - catch.
@@ -83,6 +101,7 @@ namespace WindowsFormsApp1.CapaNegocio
 
                     // Datos para usuario.
                     Proveedor proveedor = new Proveedor();
+                    proveedor.estado_proveedor = true;
                     proveedor.persona = persona;
 
                     proveedorDAO.Crear_proveedor(proveedor);
@@ -105,6 +124,43 @@ namespace WindowsFormsApp1.CapaNegocio
             } 
         }
 
+        public int ActualizarProveedorCompleto(Proveedor proveedor_editar)
+        {
+            // Limpiamos el dictionary de validacion.
+            this.validacion.Clear();
+
+            // Algunas entidades que vamos a necesitar.  
+            CN_PersonaJuridica nuevaPersonaJuridica = new CN_PersonaJuridica(); 
+            CN_Contacto nuevoContacto = new CN_Contacto();
+            CN_Direccion nuevaDireccion = new CN_Direccion();
+
+            // Validamos toda la bullshit.    
+            this.unirDiccionarios(nuevaPersonaJuridica.ValidarPersonaJuridica(proveedor_editar.persona.persona_juridica));   
+            this.unirDiccionarios(nuevaDireccion.ValidarDireccion(proveedor_editar.persona.direcciones.FirstOrDefault()));
+            this.unirDiccionarios(nuevoContacto.ValidarContacto(proveedor_editar.persona.contactos.FirstOrDefault()));
+
+            if (this.validacion.Count() == 0)
+            {
+                // Hacemos el proceso de creacion.
+                using (var context = new MiDbContext())
+                { 
+                    PersonaJuridicaDAO pj = new PersonaJuridicaDAO(context);
+                    ContactoDAO c = new ContactoDAO(context);
+                    DireccionDAO d = new DireccionDAO(context); 
+                     
+                    pj.update_personaJuridica(proveedor_editar.persona.persona_juridica);  
+                    c.update_contacto(proveedor_editar.persona.contactos.FirstOrDefault());
+                    d.update_direccion(proveedor_editar.persona.direcciones.FirstOrDefault()); 
+
+                    return context.SaveChanges();
+                }
+            } 
+            else
+            { 
+                return 0;
+            } 
+        }
+
         public Dictionary<string, string> unirDiccionarios(Dictionary<string, string> _diccionario)
         {
             if (_diccionario != null)
@@ -122,6 +178,24 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             return this.validacion;
         }
+         
+        public async Task<List<ProveedorDTO>> ObtenerProveedores(CancellationToken token, long cuit)
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedorDAO = new ProveedorDAO(context);
+                return await proveedorDAO.Get_proveedores(token, cuit);
+            }
+        }
+
+        public async Task<List<ProveedorDTO>> ObtenerProveedores(CancellationToken token, string razon)
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedorDAO = new ProveedorDAO(context);
+                return await proveedorDAO.Get_proveedores(token, razon);
+            }
+        }
 
         public List<ProveedorDTO> ObtenerProveedores() 
         {
@@ -132,7 +206,7 @@ namespace WindowsFormsApp1.CapaNegocio
             } 
         }
 
-        public Proveedor ObtenerProveedor(long id_proveedor)
+        public Proveedor ObtenerProveedor(int id_proveedor)
         {
             using (var context = new MiDbContext())
             {
@@ -141,14 +215,29 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        
+
         public async Task<List<ProveedorDTO>> listarProveedores(string razon_social, CancellationToken token)
         {
             using (var context = new MiDbContext())
             {
                 ProveedorDAO proveedor= new ProveedorDAO(context);   
-                List<ProveedorDTO> lista = await proveedor.listar_Proveedores(razon_social, token);
+                List<ProveedorDTO> lista = await proveedor.Get_proveedores(token, razon_social);
 
                 return lista;
+            }
+        }
+        
+        public Proveedor UpdateProveedor(Proveedor datos_modficar)
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedor= new ProveedorDAO(context);
+                Proveedor retorno = proveedor.update_proveedor(datos_modficar);
+
+                context.SaveChanges();
+
+                return retorno;
             }
         }
     }

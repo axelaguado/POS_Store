@@ -36,6 +36,8 @@
             this.PBRestaurar = new System.Windows.Forms.PictureBox();
             this.PBCerrarPrincipal = new System.Windows.Forms.PictureBox();
             this.PMenu = new System.Windows.Forms.Panel();
+            this.BGestionProveedor = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.BTGastos = new System.Windows.Forms.Button();
             this.BTGestionPedidos = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -149,6 +151,8 @@
             // PMenu
             // 
             this.PMenu.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.PMenu.Controls.Add(this.BGestionProveedor);
+            this.PMenu.Controls.Add(this.panel10);
             this.PMenu.Controls.Add(this.BTGastos);
             this.PMenu.Controls.Add(this.BTGestionPedidos);
             this.PMenu.Controls.Add(this.panel9);
@@ -174,7 +178,31 @@
             this.PMenu.Name = "PMenu";
             this.PMenu.Size = new System.Drawing.Size(208, 536);
             this.PMenu.TabIndex = 1;
-             
+            // 
+            // BGestionProveedor
+            // 
+            this.BGestionProveedor.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BGestionProveedor.FlatAppearance.BorderSize = 0;
+            this.BGestionProveedor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BGestionProveedor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BGestionProveedor.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BGestionProveedor.ForeColor = System.Drawing.SystemColors.Control;
+            this.BGestionProveedor.Location = new System.Drawing.Point(12, 166);
+            this.BGestionProveedor.Name = "BGestionProveedor";
+            this.BGestionProveedor.Size = new System.Drawing.Size(196, 32);
+            this.BGestionProveedor.TabIndex = 14;
+            this.BGestionProveedor.Text = "Gestion de Proveedores";
+            this.BGestionProveedor.UseVisualStyleBackColor = true;
+            this.BGestionProveedor.Click += new System.EventHandler(this.BGestionProveedor_Click);
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel10.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.panel10.Location = new System.Drawing.Point(0, 495);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(12, 32);
+            this.panel10.TabIndex = 13;
             // 
             // BTGastos
             // 
@@ -184,7 +212,7 @@
             this.BTGastos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTGastos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTGastos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTGastos.Location = new System.Drawing.Point(12, 283);
+            this.BTGastos.Location = new System.Drawing.Point(12, 307);
             this.BTGastos.Name = "BTGastos";
             this.BTGastos.Size = new System.Drawing.Size(196, 32);
             this.BTGastos.TabIndex = 12;
@@ -199,7 +227,7 @@
             this.BTGestionPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTGestionPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BTGestionPedidos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 233);
+            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 260);
             this.BTGestionPedidos.Name = "BTGestionPedidos";
             this.BTGestionPedidos.Size = new System.Drawing.Size(196, 32);
             this.BTGestionPedidos.TabIndex = 11;
@@ -210,7 +238,7 @@
             // panel9
             // 
             this.panel9.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel9.Location = new System.Drawing.Point(0, 332);
+            this.panel9.Location = new System.Drawing.Point(0, 307);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(12, 32);
             this.panel9.TabIndex = 10;
@@ -218,16 +246,15 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel2.Location = new System.Drawing.Point(0, 283);
+            this.panel2.Location = new System.Drawing.Point(0, 260);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(12, 32);
             this.panel2.TabIndex = 9;
             // 
             // panel3
             // 
-            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel3.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel3.Location = new System.Drawing.Point(0, 492);
+            this.panel3.Location = new System.Drawing.Point(0, 448);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(12, 32);
             this.panel3.TabIndex = 1;
@@ -235,7 +262,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel4.Location = new System.Drawing.Point(0, 434);
+            this.panel4.Location = new System.Drawing.Point(0, 401);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(12, 32);
             this.panel4.TabIndex = 1;
@@ -243,7 +270,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel5.Location = new System.Drawing.Point(0, 380);
+            this.panel5.Location = new System.Drawing.Point(0, 354);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(12, 32);
             this.panel5.TabIndex = 1;
@@ -251,7 +278,7 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel6.Location = new System.Drawing.Point(0, 233);
+            this.panel6.Location = new System.Drawing.Point(0, 213);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(12, 32);
             this.panel6.TabIndex = 1;
@@ -259,7 +286,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel7.Location = new System.Drawing.Point(0, 186);
+            this.panel7.Location = new System.Drawing.Point(0, 166);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(12, 32);
             this.panel7.TabIndex = 1;
@@ -267,7 +294,7 @@
             // panel8
             // 
             this.panel8.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel8.Location = new System.Drawing.Point(0, 140);
+            this.panel8.Location = new System.Drawing.Point(0, 119);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(12, 32);
             this.panel8.TabIndex = 1;
@@ -275,7 +302,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.panel1.Location = new System.Drawing.Point(0, 92);
+            this.panel1.Location = new System.Drawing.Point(0, 72);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(12, 32);
             this.panel1.TabIndex = 0;
@@ -289,7 +316,7 @@
             this.BCerrarPrincipal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BCerrarPrincipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BCerrarPrincipal.ForeColor = System.Drawing.SystemColors.Control;
-            this.BCerrarPrincipal.Location = new System.Drawing.Point(12, 492);
+            this.BCerrarPrincipal.Location = new System.Drawing.Point(12, 495);
             this.BCerrarPrincipal.Name = "BCerrarPrincipal";
             this.BCerrarPrincipal.Size = new System.Drawing.Size(196, 32);
             this.BCerrarPrincipal.TabIndex = 8;
@@ -304,7 +331,7 @@
             this.BBackUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BBackUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BBackUp.ForeColor = System.Drawing.SystemColors.Control;
-            this.BBackUp.Location = new System.Drawing.Point(12, 434);
+            this.BBackUp.Location = new System.Drawing.Point(12, 448);
             this.BBackUp.Name = "BBackUp";
             this.BBackUp.Size = new System.Drawing.Size(196, 32);
             this.BBackUp.TabIndex = 7;
@@ -319,7 +346,7 @@
             this.BReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BReportes.ForeColor = System.Drawing.SystemColors.Control;
-            this.BReportes.Location = new System.Drawing.Point(12, 380);
+            this.BReportes.Location = new System.Drawing.Point(12, 401);
             this.BReportes.Name = "BReportes";
             this.BReportes.Size = new System.Drawing.Size(196, 32);
             this.BReportes.TabIndex = 6;
@@ -334,7 +361,7 @@
             this.BVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BVentas.ForeColor = System.Drawing.SystemColors.Control;
-            this.BVentas.Location = new System.Drawing.Point(12, 332);
+            this.BVentas.Location = new System.Drawing.Point(12, 354);
             this.BVentas.Name = "BVentas";
             this.BVentas.Size = new System.Drawing.Size(196, 32);
             this.BVentas.TabIndex = 5;
@@ -349,7 +376,7 @@
             this.BGestionProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BGestionProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BGestionProductos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BGestionProductos.Location = new System.Drawing.Point(12, 186);
+            this.BGestionProductos.Location = new System.Drawing.Point(12, 213);
             this.BGestionProductos.Name = "BGestionProductos";
             this.BGestionProductos.Size = new System.Drawing.Size(196, 32);
             this.BGestionProductos.TabIndex = 4;
@@ -365,7 +392,7 @@
             this.BGestionClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BGestionClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BGestionClientes.ForeColor = System.Drawing.SystemColors.Control;
-            this.BGestionClientes.Location = new System.Drawing.Point(12, 140);
+            this.BGestionClientes.Location = new System.Drawing.Point(12, 119);
             this.BGestionClientes.Name = "BGestionClientes";
             this.BGestionClientes.Size = new System.Drawing.Size(196, 32);
             this.BGestionClientes.TabIndex = 3;
@@ -381,18 +408,18 @@
             this.BGestionEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BGestionEmpleados.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BGestionEmpleados.ForeColor = System.Drawing.SystemColors.Control;
-            this.BGestionEmpleados.Location = new System.Drawing.Point(12, 92);
+            this.BGestionEmpleados.Location = new System.Drawing.Point(12, 72);
             this.BGestionEmpleados.Name = "BGestionEmpleados";
             this.BGestionEmpleados.Size = new System.Drawing.Size(196, 32);
             this.BGestionEmpleados.TabIndex = 2;
-            this.BGestionEmpleados.Text = "Gestion de Empleados";
+            this.BGestionEmpleados.Text = "Gestion de Usuarios";
             this.BGestionEmpleados.UseVisualStyleBackColor = true;
             this.BGestionEmpleados.Click += new System.EventHandler(this.BGestionEmpleados_Click);
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(52, 16);
+            this.pictureBox1.Location = new System.Drawing.Point(49, 11);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -461,5 +488,7 @@
         private System.Windows.Forms.Button BTGestionPedidos;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button BGestionProveedor;
     }
 }

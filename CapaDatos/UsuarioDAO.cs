@@ -76,26 +76,12 @@ namespace WindowsFormsApp1.CapaDatos
                                        .Include(u => u.tipo_usuario)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .ToList(); 
-        }
-
-        // Opcion 1
-        public List<Usuario> listar_UsuariosActivos()
-        {
-            return _context.Usuarios.Include(u => u.empleado)
-                                       .Include(u => u.tipo_usuario)
-                                       .Include(u => u.empleado.persona)
-                                       .Include(u => u.empleado.persona.persona_fisica)
-                                       .Include(u => u.empleado.persona.contactos)
-                                       .Include(u => u.empleado.persona.direcciones)   
-                                       .Where(u => u.estado == true)
-                                       .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
-                                       .ToList();
-        }
+        } 
 
         // Opcion 2
-        public List<UsuarioDTO> listar_UsuariosActivosDTO()
+        public List<UsuarioDTO> listar_UsuariosDTO()
         {
-            return  _context.Usuarios.Where(u => u.estado == true) 
+            return  _context.Usuarios
                                      .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                      .Select(u => new UsuarioDTO { 
                                             id_usuario = u.id_usuario,
@@ -110,73 +96,39 @@ namespace WindowsFormsApp1.CapaDatos
                                             altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                             piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                             depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                            estado = u.estado
                                      }).ToList();
-        }
-         
-
-        public List<Usuario> listar_UsuariosInactivos()
-        {
-            return _context.Usuarios.Include(u => u.empleado)
-                                       .Include(u => u.tipo_usuario)
-                                       .Include(u => u.empleado.persona)
-                                       .Include(u => u.empleado.persona.persona_fisica)
-                                       .Include(u => u.empleado.persona.contactos)
-                                       .Include(u => u.empleado.persona.direcciones)
-                                       .Where(u => u.estado == false)
-                                       .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
-                                       .ToList();
-        }
-
-        public List<UsuarioDTO> listar_UsuariosInactivosDTO()
-        {
-            return _context.Usuarios.Where(u => u.estado == false)
-                                     .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
-                                     .Select(u => new UsuarioDTO
-                                     {
-                                         id_usuario = u.id_usuario,
-                                         apellido = u.empleado.persona.persona_fisica.apellido_persona,
-                                         nombre = u.empleado.persona.persona_fisica.nombre_persona,
-                                         dni = u.empleado.persona.persona_fisica.dni_persona,
-                                         username = u.username,
-                                         descripcion_tipo = u.tipo_usuario.descripcion_tipo,
-                                         telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
-                                         email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
-                                         calle = u.empleado.persona.direcciones.Select(d => d.calle).FirstOrDefault(),
-                                         altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
-                                         piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
-                                         depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
-                                     }).ToList();
-        }
+        } 
 
         // Metodos asincrono para el TB de navegacion,
-        public async Task<List<Usuario>> listar_UsuariosDniEstado(int dni, bool state, CancellationToken token)
+        public async Task<List<Usuario>> listar_UsuariosDni(int dni, CancellationToken token)
         {
             return await _context.Usuarios.Include(u => u.empleado)
                                        .Include(u => u.empleado.persona)
                                        .Include(u => u.empleado.persona.contactos)
                                        .Include(u => u.empleado.persona.direcciones)
                                        .Include(u => u.tipo_usuario)
-                                       .Where(u => (u.empleado.persona.persona_fisica.dni_persona.ToString().StartsWith(dni.ToString())) && u.estado == state)
+                                       .Where(u => (u.empleado.persona.persona_fisica.dni_persona.ToString().StartsWith(dni.ToString())))
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .ToListAsync(token);
         }
 
-        public async Task<List<Usuario>> listar_UsuariosNombreEstado(string _nombre, bool state, CancellationToken token)
+        public async Task<List<Usuario>> listar_UsuariosNombre(string _nombre, CancellationToken token)
         { 
             return await _context.Usuarios.Include(u => u.empleado)
                                        .Include(u => u.empleado.persona)
                                        .Include(u => u.empleado.persona.contactos)
                                        .Include(u => u.empleado.persona.direcciones)
                                        .Include(u => u.tipo_usuario)
-                                       .Where(u => (u.empleado.persona.persona_fisica.nombre_persona.StartsWith(_nombre) || u.empleado.persona.persona_fisica.apellido_persona.StartsWith(_nombre)) && u.estado == state)
+                                       .Where(u => (u.empleado.persona.persona_fisica.nombre_persona.StartsWith(_nombre) || u.empleado.persona.persona_fisica.apellido_persona.StartsWith(_nombre)))
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .ToListAsync(token);
         }
 
         // Los mismos metodos que los anteriores pero con DTO.
-        public async Task<List<UsuarioDTO>> listar_UsuariosDniEstadoDTO(int dni, bool state, CancellationToken token)
+        public async Task<List<UsuarioDTO>> listar_UsuariosDniDTO(int dni, CancellationToken token)
         {
-            return await _context.Usuarios.Where(u => (u.empleado.persona.persona_fisica.dni_persona.ToString().StartsWith(dni.ToString())) && u.estado == state)
+            return await _context.Usuarios.Where(u => (u.empleado.persona.persona_fisica.dni_persona.ToString().StartsWith(dni.ToString())))
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .Select(u => new UsuarioDTO
                                        {
@@ -192,13 +144,14 @@ namespace WindowsFormsApp1.CapaDatos
                                            altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                            piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                            depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                           estado = u.estado
                                        })
                                        .ToListAsync(token);
         }
 
-        public async Task<List<UsuarioDTO>> listar_UsuariosNombreEstadoDTO(string _nombre, bool state, CancellationToken token)
+        public async Task<List<UsuarioDTO>> listar_UsuariosNombreDTO(string _nombre, CancellationToken token)
         {
-            return await _context.Usuarios.Where(u => (u.empleado.persona.persona_fisica.nombre_persona.StartsWith(_nombre) || u.empleado.persona.persona_fisica.apellido_persona.StartsWith(_nombre)) && u.estado == state)
+            return await _context.Usuarios.Where(u => (u.empleado.persona.persona_fisica.nombre_persona.StartsWith(_nombre) || u.empleado.persona.persona_fisica.apellido_persona.StartsWith(_nombre)))
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .Select(u => new UsuarioDTO
                                        {
@@ -214,6 +167,7 @@ namespace WindowsFormsApp1.CapaDatos
                                            altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                            piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                            depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                           estado = u.estado
                                        })
                                        .ToListAsync(token);
         }
@@ -231,9 +185,32 @@ namespace WindowsFormsApp1.CapaDatos
                                        .ToList();
         }
 
-        public List<UsuarioDTO> listar_UsuariosPorTipo(int _tipo, bool _state)
+        public List<UsuarioDTO> listar_UsuariosPorTipo(int _tipo)
         {
-            return _context.Usuarios.Where(u => u.tipo_perfil == _tipo && u.estado == _state)
+            return _context.Usuarios.Where(u => u.tipo_perfil == _tipo)
+                                       .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
+                                       .Select(u => new UsuarioDTO
+                                       {
+                                           id_usuario = u.id_usuario,
+                                           apellido = u.empleado.persona.persona_fisica.apellido_persona,
+                                           nombre = u.empleado.persona.persona_fisica.nombre_persona,
+                                           dni = u.empleado.persona.persona_fisica.dni_persona,
+                                           username = u.username, 
+                                           descripcion_tipo = u.tipo_usuario.descripcion_tipo,
+                                           telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
+                                           email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
+                                           calle = u.empleado.persona.direcciones.Select(d => d.calle).FirstOrDefault(),
+                                           altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
+                                           piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
+                                           depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                           estado = u.estado
+                                       })
+                                       .ToList();
+        }
+
+        public List<UsuarioDTO> listar_UsuariosPorGenero(string _genero)
+        {
+            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                        .Select(u => new UsuarioDTO
                                        {
@@ -242,7 +219,6 @@ namespace WindowsFormsApp1.CapaDatos
                                            nombre = u.empleado.persona.persona_fisica.nombre_persona,
                                            dni = u.empleado.persona.persona_fisica.dni_persona,
                                            username = u.username,
-                                           estado = u.estado,
                                            descripcion_tipo = u.tipo_usuario.descripcion_tipo,
                                            telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
                                            email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
@@ -250,36 +226,14 @@ namespace WindowsFormsApp1.CapaDatos
                                            altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                            piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                            depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                           estado = u.estado
                                        })
                                        .ToList();
         }
 
-        public List<UsuarioDTO> listar_UsuariosPorGenero(string _genero, bool _state)
+        public List<UsuarioDTO> listar_UsuarioPorGeneroTipo(int _tipo, string _genero)
         {
-            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.estado == _state)
-                                       .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
-                                       .Select(u => new UsuarioDTO
-                                       {
-                                           id_usuario = u.id_usuario,
-                                           apellido = u.empleado.persona.persona_fisica.apellido_persona,
-                                           nombre = u.empleado.persona.persona_fisica.nombre_persona,
-                                           dni = u.empleado.persona.persona_fisica.dni_persona,
-                                           username = u.username,
-                                           estado = u.estado,
-                                           descripcion_tipo = u.tipo_usuario.descripcion_tipo,
-                                           telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
-                                           email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
-                                           calle = u.empleado.persona.direcciones.Select(d => d.calle).FirstOrDefault(),
-                                           altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
-                                           piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
-                                           depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
-                                       })
-                                       .ToList();
-        }
-
-        public List<UsuarioDTO> listar_UsuarioPorGeneroTipo(int _tipo, string _genero, bool _state)
-        {
-            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.tipo_perfil == _tipo && u.estado == _state)
+            return _context.Usuarios.Where(u => u.empleado.persona.persona_fisica.sexo == _genero && u.tipo_perfil == _tipo)
                                        .OrderBy(u => u.empleado.persona.persona_fisica.apellido_persona)
                                         .Select(u => new UsuarioDTO
                                         {
@@ -288,7 +242,6 @@ namespace WindowsFormsApp1.CapaDatos
                                             nombre = u.empleado.persona.persona_fisica.nombre_persona,
                                             dni = u.empleado.persona.persona_fisica.dni_persona,
                                             username = u.username,
-                                            estado = u.estado,
                                             descripcion_tipo = u.tipo_usuario.descripcion_tipo,
                                             telefono = u.empleado.persona.contactos.Select(c => c.telefono).FirstOrDefault(),
                                             email = u.empleado.persona.contactos.Select(c => c.email).FirstOrDefault(),
@@ -296,6 +249,7 @@ namespace WindowsFormsApp1.CapaDatos
                                             altura = u.empleado.persona.direcciones.Select(d => d.altura).FirstOrDefault(),
                                             piso = u.empleado.persona.direcciones.Select(d => d.piso).FirstOrDefault(),
                                             depto = u.empleado.persona.direcciones.Select(d => d.depto).FirstOrDefault(),
+                                            estado = u.estado 
                                         }) 
                                        .ToList();
         } 

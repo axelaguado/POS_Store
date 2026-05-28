@@ -38,3 +38,4 @@ C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\Plantilla\Sol
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionClientes.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionProductos.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Calculadora.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionProveedor.resources

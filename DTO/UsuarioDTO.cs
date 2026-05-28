@@ -18,8 +18,6 @@ namespace WindowsFormsApp1.DTO
         
         public string username { get; set; } 
 
-        public bool estado { get; set; }    
-
         public string descripcion_tipo { get; set; }
 
         public long telefono { get; set; }
@@ -33,5 +31,7 @@ namespace WindowsFormsApp1.DTO
         public string piso { get; set; }
 
         public int depto { get; set; }
+
+        public bool estado { get; set; }    
     }
 }

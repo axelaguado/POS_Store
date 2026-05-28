@@ -19,6 +19,22 @@ namespace WindowsFormsApp1.CapaNegocio
             this.validacion = new Dictionary<string, string>();
         }
 
+        public int CrearClientePersonaExistente(int id_persona)
+        {    
+            using (var context = new MiDbContext())
+            {
+                ClienteDAO clienteDAO = new ClienteDAO(context);
+
+                Cliente cliente = new Cliente();
+                cliente.estado_cliente = true;
+                cliente.id_persona = id_persona;
+
+                clienteDAO.Crear_cliente(cliente);
+
+                return context.SaveChanges();
+            } 
+        } 
+
         public int CrearClienteCompleto(PersonaFisica _personaFisica, PersonaJuridica _personaJuridica, Contacto _contacto, Direccion _direccion) 
         {
             // Por el momento no contempla si la personaJuridica (que podria ya existir como proveedor) existe --> Lo mismo tengo que tener en cuenta para el caso que ya existe como cliente cuando quiero introducir un proveedor.

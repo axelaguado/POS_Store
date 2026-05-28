@@ -32,5 +32,6 @@ namespace WindowsFormsApp1.DTO
 
         public int depto { get; set; } 
 
+        public bool estado{ get; set; }   
     }
 }

@@ -16,6 +16,8 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public int id_persona {get; set;} 
 
+        public bool estado_proveedor {  get; set;}  
+
         // Propiedades de navegacion
 
         [ForeignKey("id_persona")] 
