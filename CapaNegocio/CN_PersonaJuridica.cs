@@ -44,7 +44,7 @@ namespace WindowsFormsApp1.CapaNegocio
             // Validaciones para campo Razon Social.  
             if (this.existeRazon(_personajuridica))
             {
-                validacion.Add("CBRazonSocial", "La Razon Social ingresada ya existe."); 
+                validacion.Add("TBRazonSocial", "La Razon Social ingresada ya existe."); 
             } 
         }
 
@@ -110,6 +110,17 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 PersonaJuridicaDAO personajuridicaDAO = new PersonaJuridicaDAO(context);
                 bool resultado = personajuridicaDAO.CuitExist(_personajuridica);
+
+                return resultado;
+            }
+        }
+
+        public PersonaJuridica GetPersonaJuridica(string razon, long cuit) 
+        {
+            using (var context = new MiDbContext())
+            {
+                PersonaJuridicaDAO personajuridicaDAO = new PersonaJuridicaDAO(context);
+                PersonaJuridica resultado = personajuridicaDAO.GetPersonaJuridica(razon, cuit);
 
                 return resultado;
             }

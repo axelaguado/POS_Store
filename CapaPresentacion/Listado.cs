@@ -35,50 +35,46 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (this.principal.WindowState == FormWindowState.Maximized)
             {
-                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
             }
 
             if (this.principal.WindowState == FormWindowState.Normal)
             {
-                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-                this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; 
             }
         }
 
         public void CentrarPanelesPrincipales()
         {
             // Centra el panel en función del tamaño del formulario
-            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
             this.PListado.Left = (this.ClientSize.Width - this.PListado.Width) / 2;
         } 
 
         public void MantenerPanelesPrincipales()
         {
             // Centra el panel en función del tamaño del formulario
-            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGVLista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; 
             this.PListado.Left = 2;
         }
 
         public void cargarLista()
         {
             CN_Usuario nuevo = new CN_Usuario();
-            List<UsuarioDTO> listaActivos = nuevo.listarUsuariosActivosDTO();
-            List<UsuarioDTO> listaInactivos = nuevo.listarUsuariosInactivosDTO();
+            List<UsuarioDTO> lista = nuevo.listarUsuariosDTO(); 
 
-            this.LoadTableUserActive(listaActivos);
-            this.LoadTableUserInactive(listaInactivos);
+            this.LoadTableUser(lista); 
         }
 
-        public void LoadTableUserActive(List<UsuarioDTO> _lista)
+        public void LoadTableUser(List<UsuarioDTO> _lista)
         {
             this.DGVLista.DataSource = null;
             this.DGVLista.Columns.Clear();
             this.DGVLista.Rows.Clear();
 
             DGVLista.DataSource = this.LoadTable(_lista);
+
+            this.DGVLista.Columns["Estado"].Visible = false;
 
             DataGridViewButtonColumn btnColumnEditar = new DataGridViewButtonColumn();
             btnColumnEditar.Name = "CEditar";
@@ -90,54 +86,24 @@ namespace WindowsFormsApp1.CapaPresentacion
             DGVLista.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Khaki;
             DGVLista.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Khaki;
 
-            DataGridViewButtonColumn btnColumnBorrar = new DataGridViewButtonColumn();
-            btnColumnBorrar.Name = "CBorrar";
-            btnColumnBorrar.HeaderText = "Borrar";
-            btnColumnBorrar.Text = "Borrar";
-            btnColumnBorrar.UseColumnTextForButtonValue = true;
-            btnColumnBorrar.FlatStyle = FlatStyle.Standard;
-            DGVLista.Columns.Add(btnColumnBorrar);
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.BackColor = Color.LightCoral;
-            DGVLista.Columns["CBorrar"].HeaderCell.Style.SelectionBackColor = Color.LightCoral;
-        }
-
-        public void LoadTableUserInactive(List<UsuarioDTO> _lista)
-        {
-            this.dataGridView1.DataSource = null;
-            this.dataGridView1.Columns.Clear();
-            this.dataGridView1.Rows.Clear();
-
-            dataGridView1.DataSource = this.LoadTable(_lista);
-
-            DataGridViewButtonColumn btnColumnEditar = new DataGridViewButtonColumn();
-            btnColumnEditar.Name = "CEditar";
-            btnColumnEditar.HeaderText = "Editar";
-            btnColumnEditar.Text = "Editar";
-            btnColumnEditar.UseColumnTextForButtonValue = true;
-            btnColumnEditar.FlatStyle = FlatStyle.Standard;
-            dataGridView1.Columns.Add(btnColumnEditar);
-            dataGridView1.Columns["CEditar"].HeaderCell.Style.BackColor = Color.Khaki;
-            dataGridView1.Columns["CEditar"].HeaderCell.Style.SelectionBackColor = Color.Khaki;
-
-            DataGridViewButtonColumn btnColumnActivar = new DataGridViewButtonColumn();
-            btnColumnActivar.Name = "CActivar";
-            btnColumnActivar.HeaderText = "Activar";
-            btnColumnActivar.Text = "Activar";
-            btnColumnActivar.UseColumnTextForButtonValue = true;
-            btnColumnActivar.FlatStyle = FlatStyle.Standard;
-            dataGridView1.Columns.Add(btnColumnActivar);
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.BackColor = Color.LightGreen;
-            dataGridView1.Columns["CActivar"].HeaderCell.Style.SelectionBackColor = Color.LightGreen;
-        }
+            DataGridViewButtonColumn btnColumnEstado = new DataGridViewButtonColumn();
+            btnColumnEstado.Name = "CEstado";
+            btnColumnEstado.HeaderText = "Estado";
+            btnColumnEstado.UseColumnTextForButtonValue = true;
+            btnColumnEstado.FlatStyle = FlatStyle.Standard;
+            btnColumnEstado.UseColumnTextForButtonValue = false; // Para poder modificar el texto.
+            DGVLista.Columns.Add(btnColumnEstado);
+            DGVLista.Columns["CEstado"].HeaderCell.Style.BackColor = Color.LightGray;
+            DGVLista.Columns["CEstado"].HeaderCell.Style.SelectionBackColor = Color.LightGray;
+        } 
 
         public object LoadTable(List<UsuarioDTO> _lista)
         {
             var tabla = _lista.Select((usuario, index) => new
-            {
-                Indice = index + 1,
+            { 
+                Dni = usuario.dni, // Se asigna el valor del DNI a la columna "DNI"
                 Apellido = usuario.apellido,
                 Nombre = usuario.nombre,  // Se asigna el Nombre a la columna "Nombre"
-                Dni = usuario.dni, // Se asigna el valor del DNI a la columna "DNI"
                 Usuario = usuario.username,
                 TipoUsuario = usuario.descripcion_tipo,
                 Telefono = usuario.telefono,
@@ -145,7 +111,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                 Calle = usuario.calle,
                 Altura = usuario.altura,
                 Piso = usuario.piso == null ? "-" : usuario.piso.ToString(),
-                Depto = usuario.depto == 0 ? "-" : usuario.depto.ToString()
+                Depto = usuario.depto == 0 ? "-" : usuario.depto.ToString(),
+                Estado = usuario.estado 
             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
 
@@ -172,8 +139,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Si se utilizan los dos filtros 
             if (!(string.IsNullOrEmpty(genero)) && (tipo > 0))
             {  
-                this.LoadTableUserActive(usuario.listarUsuariosGenerotipo(tipo, genero, true));
-                this.LoadTableUserInactive(usuario.listarUsuariosGenerotipo(tipo, genero, false));
+                this.LoadTableUser(usuario.listarUsuariosGenerotipo(tipo, genero)); 
             }
 
             // Si se utiliza el filtro tipoUsuario.
@@ -182,8 +148,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 if (tipo > 0)
                 { 
                     //this.limpiarFiltros();
-                    this.LoadTableUserActive(usuario.listarUsuariosTipo(tipo, true));
-                    this.LoadTableUserInactive(usuario.listarUsuariosTipo(tipo, false));
+                    this.LoadTableUser(usuario.listarUsuariosTipo(tipo)); 
                 }
             }
 
@@ -193,8 +158,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 if (!string.IsNullOrEmpty(genero))
                 {     
                     //this.limpiarFiltros();
-                    this.LoadTableUserActive(usuario.listarUsuariosGenero(genero, true));
-                    this.LoadTableUserInactive(usuario.listarUsuariosGenero(genero, false));
+                    this.LoadTableUser(usuario.listarUsuariosGenero(genero)); 
                 }
             } 
 
@@ -254,50 +218,64 @@ namespace WindowsFormsApp1.CapaPresentacion
                     }
                     else
                     {
-                        MessageBox.Show("No se ha encontrado el usuario", "Atencion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("No se ha encontrado el usuario", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
-            else if (nombreColumna == "CBorrar")
+            else if (nombreColumna == "CEstado")
             {
-                DialogResult confirmacionBorrar = MessageBox.Show(
-                    "¿Seguro que deseas borrar este usuario?",
-                    "Confirmación",
+                string estado_cambiar = Convert.ToBoolean(dgt.Rows[filaIndex].Cells["Estado"].Value) == true ? "desactivar" : "activar";
+
+                DialogResult confirmacion = MessageBox.Show(
+                    "¿Seguro que deseas " + estado_cambiar + " este usuario?",
+                    "Confirmación.",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning
                 );
 
-                if (confirmacionBorrar == DialogResult.Yes)
-                {
-                    user_editar.estado = false;
+                if (confirmacion == DialogResult.Yes)
+                { 
+                    try
+                    {
+                        user_editar.estado = !user_editar.estado;
+                        string userNombre = Convert.ToString(dgt.Rows[filaIndex].Cells["Nombre"].Value);
+                        string userApellido = Convert.ToString(dgt.Rows[filaIndex].Cells["Apellido"].Value);
+                        Usuario actualizado = usuarios.UpdateUser(user_editar);
 
-                    usuarios.UpdateUser(user_editar);
+                        if (actualizado != null)
+                        {
+                            string nuevoEstado = actualizado.estado == true ? "activo." : "desactivado.";
+                            MessageBox.Show("El Usuario " + userApellido + ", " + userNombre + " ha cambiado su estado a " + nuevoEstado, "Informacion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.cargarLista();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error inesperado, vuelva a intentar.");
+                        }
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        MessageBox.Show($"Error de validación: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
-                    MessageBox.Show($"Borrar usuario en la fila {filaIndex + 1}");
-                    // Aquí puedes llamar al método para eliminar el usuario de la base de datos
                 }
-            }
-            else if (nombreColumna == "CActivar")
-            {
-                DialogResult confirmacionActivar = MessageBox.Show(
-                    "¿Seguro que deseas Activar este usuario?",
-                    "Confirmación",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (confirmacionActivar == DialogResult.Yes)
-                {
-                    user_editar.estado = true;
-
-                    usuarios.UpdateUser(user_editar);
-
-                    MessageBox.Show($"Activar usuario en la fila {filaIndex + 1}");
-                    // Aquí puedes llamar al método para eliminar el usuario de la base de datos
-                }
-            }
+            } 
 
             this.cargarLista();
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (DGVLista.Columns[e.ColumnIndex].Name == "CEstado" && e.RowIndex >= 0)
+            {
+                bool estado = Convert.ToBoolean(DGVLista.Rows[e.RowIndex].Cells["Estado"].Value);
+
+                e.Value = estado ? "Desactivar" : "Activar";
+            }
         }
 
         private void TBBuscar_MouseClick(object sender, MouseEventArgs e)
@@ -326,15 +304,13 @@ namespace WindowsFormsApp1.CapaPresentacion
                     {
                         int dni = Convert.ToInt32(TBBuscar.Text);
 
-                        this.LoadTableUserActive(await usuario.listarUsuariosDniEstado(dni, true, cts.Token));
-                        this.LoadTableUserInactive(await usuario.listarUsuariosDniEstado(dni, false, cts.Token));
+                        this.LoadTableUser(await usuario.listarUsuariosDni(dni, cts.Token)); 
                     }
 
 
                     if (!int.TryParse(this.TBBuscar.Text, out _) && !this.TBBuscar.Text.Equals((" Buscar por dni o nombre ...")))
                     {
-                        this.LoadTableUserActive(await usuario.listarUsuariosNombreEstado(this.TBBuscar.Text, true, cts.Token));
-                        this.LoadTableUserInactive(await usuario.listarUsuariosNombreEstado(this.TBBuscar.Text, false, cts.Token));
+                        this.LoadTableUser(await usuario.listarUsuariosNombre(this.TBBuscar.Text, cts.Token)); 
                     }
                 }
                 catch (TaskCanceledException)

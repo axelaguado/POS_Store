@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Linq;
@@ -100,6 +101,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.panel1.Left = 2;
         }
 
+        // Debemos realizar los cambios con respecto de si en caso de existir la personeria juriica queremos que se la indique tambien como cliente.
         private void Registrar_Click(object sender, EventArgs e)
         {
             this.load_ErrorProvider = false;
@@ -112,46 +114,89 @@ namespace WindowsFormsApp1.CapaPresentacion
                     return;
                 }
             }
+             
+            // Cargamos las entidades.
+            PersonaFisica nuevaPersonaFisica = null;
+            PersonaJuridica nuevaPersonaJuridica = null;
+            PersonaJuridica existentePersonaJuridica = new PersonaJuridica();  
 
-            PersonaFisica personaFisica = null;
-            PersonaJuridica personaJuridica = null;
+            Direccion nuevaDireccion = new Direccion();
+            Contacto nuevoContacto = new Contacto();
+             
 
             // Tenemos el mismo problema de que la variable que se carga en la funcion es una copia y no la que verdaderamente estamos enviando por eso 
             // permanece como null.
             if (this.PDatosPFisica.Enabled == true)
             {
-                personaFisica = new PersonaFisica();
-                this.CargarEntidadPFisica(personaFisica);
+                nuevaPersonaFisica = new PersonaFisica();
+                this.CargarEntidadPFisica(nuevaPersonaFisica);
             }
 
             if (this.PDatosPJuridica.Enabled == true)
             {
-                personaJuridica = new PersonaJuridica();
-                this.CargarEntidadPJuridica(personaJuridica);
-            }
+                nuevaPersonaJuridica = new PersonaJuridica();
+                this.CargarEntidadPJuridica(nuevaPersonaJuridica);
+            } 
 
-            // Cargamos las entidades.
-            Direccion direccion = new Direccion();
-            Contacto contacto = new Contacto();
-            this.CargarEntidadesCliente(contacto, direccion);
+            this.CargarEntidadesCliente(nuevoContacto, nuevaDireccion);
 
             // Validaciones y creacion de Cliente completo.
             try
             {
-                CN_Cliente nuevoCliente = new CN_Cliente();
+                CN_Cliente cliente = new CN_Cliente();
+                CN_PersonaJuridica personaJuridica = new CN_PersonaJuridica();
 
-                int resultado = nuevoCliente.CrearClienteCompleto(personaFisica, personaJuridica, contacto, direccion);
+                existentePersonaJuridica = nuevaPersonaJuridica != null? personaJuridica.GetPersonaJuridica(nuevaPersonaJuridica.razon_social, nuevaPersonaJuridica.cuit) : null; 
 
-                if (resultado > 0)
+                bool esCliente = existentePersonaJuridica?.persona?.clientes?.FirstOrDefault() != null;
+                bool esProveedor = existentePersonaJuridica?.persona?.proveedores?.FirstOrDefault() != null;
+
+
+                if (esProveedor && !esCliente) 
                 {
-                    MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.LoadTableClientes();
+                    DialogResult confirmacion = MessageBox.Show(
+                     "Los datos correspondientes a la personeria juridica del Cliente ya estan siendo utilizadas por un Prooveedor. Desea que tambien sea registrado como Cliente?",
+                     "Confirmación",
+                     MessageBoxButtons.YesNo,
+                     MessageBoxIcon.Warning
+                     );
+
+                    if (confirmacion == DialogResult.Yes)
+                    {
+                        int resultado = cliente.CrearClientePersonaExistente(existentePersonaJuridica.id_persona);
+
+                        if (resultado > 0)
+                        {
+                            this.LoadTableClientes();
+                            MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error, vuelva a interlo.", "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                else if (esCliente) 
+                {
+                    MessageBox.Show("El Cliente ya ha sido registrado anteriormente.", "Informacion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
-                {
-                    this.mostrarErrores(nuevoCliente.GetErrors());
-                    MessageBox.Show("Verififque que los datos suministrados sean correctos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                {  
+                    int resultado = cliente.CrearClienteCompleto(nuevaPersonaFisica, nuevaPersonaJuridica, nuevoContacto, nuevaDireccion);
+
+                    if (resultado > 0)
+                    {
+                        MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.LoadTableClientes();
+                    }
+                    else
+                    {
+                        this.mostrarErrores(cliente.GetErrors());
+                        MessageBox.Show("Verififque que los datos suministrados sean correctos", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    
+                } 
+
             }
             catch (ArgumentException ex)
             {

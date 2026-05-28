@@ -297,11 +297,11 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void CBRazonSocial_SelectedIndexChanged(object sender, EventArgs e)
         {
-            long id_proveedor = 0;
+            int id_proveedor = 0;
 
             if (this.CBRazonSocial.ValueMember != string.Empty && this.CBRazonSocial.SelectedIndex != -1) 
             {  
-                id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue); 
+                id_proveedor = Convert.ToInt32(this.CBRazonSocial.SelectedValue); 
             }
 
             CN_Proveedor proveedor = new CN_Proveedor();
@@ -431,7 +431,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.load_errorProvider = false; 
 
             // Capturamos el id_proveedor porque ValueMember = ("id_proveedor").
-            long id_proveedor = Convert.ToInt64(this.CBRazonSocial.SelectedValue == null? 0 : this.CBRazonSocial.SelectedValue);
+            int id_proveedor = Convert.ToInt32(this.CBRazonSocial.SelectedValue == null? 0 : this.CBRazonSocial.SelectedValue);
 
             if (this.ValidateChildren())
             {
