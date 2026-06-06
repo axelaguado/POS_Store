@@ -23,6 +23,16 @@ namespace WindowsFormsApp1.CapaEntidad
         [ForeignKey("id_persona")] 
         public Persona persona { get; set; }
 
-        public ICollection<Pedido> pedido { get; set; } 
+        public ICollection<Compra> compras { get; set; }
+
+        // Propiedad para ser utlizada dentro de la aplicacion 
+        [NotMapped]
+        public string nombreCompleto_proveedor
+        {
+            get
+            {
+                return $"{persona.persona_juridica.razon_social}, {persona.persona_juridica.nombre_comercial}";
+            }
+        }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaDatos;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.CapaPresentacion;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaNegocio
 {
@@ -43,7 +47,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 return 0;
             }
         }
-
+          
         public Dictionary<string, string> validarProducto(Producto _producto)
         {
             this.validacion.Clear();
@@ -61,6 +65,54 @@ namespace WindowsFormsApp1.CapaNegocio
             return this.validacion;
         }
 
+        public void ImpactarCompraProductos(ICollection<Detalle_compra> detalles, MiDbContext context)
+        {
+            this.validacion.Clear();
+
+            foreach (Detalle_compra detalle in detalles)
+            { 
+                // Conservo los valores actuales del producto.
+                decimal precio_actual = detalle.producto.precio_costo;
+                int stock_actual = detalle.producto.stock_producto;
+
+                // Calculo el precio de costo para los productos de la compra
+                int stock_agregar = detalle.cantidad_producto;
+                decimal precio_costo = detalle.subtotal_producto / stock_agregar;
+
+                // Calculo el nuevo stock total.
+                int nuevo_stock = stock_actual + detalle.cantidad_producto;
+                decimal nuevo_precio_costo = ((precio_actual * stock_actual) + (precio_costo * stock_agregar)) / nuevo_stock;
+
+                // Calculo el Precio promedio ponderado de mi stock nuevo que determina el precio costo nuevo del total del stock del producto.
+                detalle.producto.stock_producto = nuevo_stock;
+                detalle.producto.precio_costo = decimal.Round(nuevo_precio_costo, 2); // Precio promedio ponderado 
+
+                this.validarProducto(detalle.producto);
+                if (this.validacion.Count > 0) return;  
+            } 
+             
+        }
+
+        public void AttachProducto(ICollection<Detalle_compra> detalles, MiDbContext _context)
+        {
+            ProductoDAO productoDAO = new ProductoDAO(_context);
+
+            foreach (Detalle_compra item in detalles)
+            {
+                productoDAO.AttachProducto(item.producto);
+            }
+        }
+
+        public void AttachProductosDetalles(ICollection<Detalle_compra> detalles, MiDbContext _context) 
+        {
+            ProductoDAO productoDAO = new ProductoDAO(_context);
+
+            foreach (Detalle_compra item in detalles)
+            {
+                productoDAO.AttachProducto(item.producto); 
+            }
+        } 
+
         public List<Producto> Get_Productos() 
         {
             using (var context = new MiDbContext())
@@ -68,6 +120,26 @@ namespace WindowsFormsApp1.CapaNegocio
                 // Si pasa la validacion se ejecuta. 
                 ProductoDAO productoDAO = new ProductoDAO(context); 
                 return productoDAO.GetProductos(); // Retornar el ID del articulop.
+            }
+        }
+
+        public Producto Get_ProductoSku(string _sku)
+        {
+            using (var context = new MiDbContext())
+            {
+                // Si pasa la validacion se ejecuta. 
+                ProductoDAO productoDAO = new ProductoDAO(context);
+                return productoDAO.GetProducto(_sku); // Retornar el ID del articulop.
+            }
+        }
+
+        public List<ProductoDTO> Get_ProductosDTO()
+        {
+            using (var context = new MiDbContext())
+            {
+                // Si pasa la validacion se ejecuta. 
+                ProductoDAO productoDAO = new ProductoDAO(context);
+                return productoDAO.GetProductosDTO(); // Retornar el ID del articulop.
             }
         }
 
@@ -81,6 +153,16 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        public async Task<List<Producto>> Get_ProductosDTO(CancellationToken _token, string _elemento)
+        {
+            using (var context = new MiDbContext())
+            {
+                // Si pasa la validacion se ejecuta. 
+                ProductoDAO productoDAO = new ProductoDAO(context);
+                return await productoDAO.GetProductosDTO(_token, _elemento); // Retornar el ID del articulop.
+            }
+        }
+
         public Producto Get_Producto(int _id)
         {
             using (var context = new MiDbContext())
@@ -91,10 +173,18 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        public int UpdateProducto(Producto datos_modficar)
+        public ProductoDTO Get_ProductoDTO(string sku)
         {
-            this.validarProducto(datos_modficar);
+            using (var context = new MiDbContext())
+            {
+                // Si pasa la validacion se ejecuta. 
+                ProductoDAO productoDAO = new ProductoDAO(context);
+                return productoDAO.GetProductoDTO(sku); // Retornar el ID del articulop.
+            }
+        }
 
+        public int UpdateProducto(Producto datos_modficar)
+        { 
             if (this.validacion.Count() == 0) 
             { 
                 using (var context = new MiDbContext())
@@ -112,7 +202,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 return 0;
             }
         }
-
+         
         public Producto UpdateProductoEstado(Producto datos_modficar)
         { 
             using (var context = new MiDbContext())
@@ -124,7 +214,7 @@ namespace WindowsFormsApp1.CapaNegocio
 
                 return producto_modificado; 
             } 
-        }
+        } 
 
         public void validarMarca(string _marca)
         {
@@ -162,9 +252,9 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (!string.IsNullOrEmpty(_descripcion))
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z0-9\s,.]+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z0-9\s\-,.]+$"))
                 {
-                    this.validacion.Add("TBDescripcionProducto", "El campo Descripcion solo puede contener caracteres alfabeticos (.,), numericos y espacios.");
+                    this.validacion.Add("TBDescripcionProducto", "El campo Descripcion solo puede contener caracteres alfabeticos (.,-), numericos y espacios.");
                 }
                 else if (_descripcion.Length > 200)
                 {
@@ -251,20 +341,7 @@ namespace WindowsFormsApp1.CapaNegocio
                 ProductoDAO producto = new ProductoDAO(context);
                 return producto.SkuExist(_producto); 
             } 
-        }
-
-        public bool ValidarCarrito(List<Producto> _productos)
-        {
-            foreach (Producto item in _productos)
-            {
-                if (this.validarProducto(item).Count > 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        } 
 
         public Dictionary<string, string> GetErrors()
         {

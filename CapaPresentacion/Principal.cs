@@ -113,7 +113,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             fh.Show();
         } 
 
-        private void BGestionEmpleados_Click(object sender, EventArgs e)
+        private void BGestionUsuarios_Click(object sender, EventArgs e)
         {
             this.AbrirFormHijo(new Listado(this));
             this.LightOff(sender);
@@ -138,11 +138,11 @@ namespace WindowsFormsApp1.CapaPresentacion
             BGestionProductos.BackColor = System.Drawing.Color.DarkTurquoise;
         }
 
-        private void BTGestionPedidos_Click(object sender, EventArgs e)
+        private void BTGestionCompras_Click(object sender, EventArgs e)
         {
-            this.AbrirFormHijo(new GestionPedido(this));
+            this.AbrirFormHijo(new GestionCompras(this));
             this.LightOff(sender);
-            BTGestionPedidos.BackColor = System.Drawing.Color.DarkTurquoise;
+            BTGestionCompras.BackColor = System.Drawing.Color.DarkTurquoise;
         } 
 
         public void LightOff(object sender) 

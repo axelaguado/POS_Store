@@ -39,7 +39,7 @@
             this.BGestionProveedor = new System.Windows.Forms.Button();
             this.panel10 = new System.Windows.Forms.Panel();
             this.BTGastos = new System.Windows.Forms.Button();
-            this.BTGestionPedidos = new System.Windows.Forms.Button();
+            this.BTGestionCompras = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -154,7 +154,7 @@
             this.PMenu.Controls.Add(this.BGestionProveedor);
             this.PMenu.Controls.Add(this.panel10);
             this.PMenu.Controls.Add(this.BTGastos);
-            this.PMenu.Controls.Add(this.BTGestionPedidos);
+            this.PMenu.Controls.Add(this.BTGestionCompras);
             this.PMenu.Controls.Add(this.panel9);
             this.PMenu.Controls.Add(this.panel2);
             this.PMenu.Controls.Add(this.panel3);
@@ -219,21 +219,21 @@
             this.BTGastos.Text = "Gastos";
             this.BTGastos.UseVisualStyleBackColor = true;
             // 
-            // BTGestionPedidos
+            // BTGestionCompras
             // 
-            this.BTGestionPedidos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BTGestionPedidos.FlatAppearance.BorderSize = 0;
-            this.BTGestionPedidos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTGestionPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTGestionPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTGestionPedidos.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTGestionPedidos.Location = new System.Drawing.Point(12, 260);
-            this.BTGestionPedidos.Name = "BTGestionPedidos";
-            this.BTGestionPedidos.Size = new System.Drawing.Size(196, 32);
-            this.BTGestionPedidos.TabIndex = 11;
-            this.BTGestionPedidos.Text = "Gestion de Pedidos ";
-            this.BTGestionPedidos.UseVisualStyleBackColor = true;
-            this.BTGestionPedidos.Click += new System.EventHandler(this.BTGestionPedidos_Click);
+            this.BTGestionCompras.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BTGestionCompras.FlatAppearance.BorderSize = 0;
+            this.BTGestionCompras.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTGestionCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTGestionCompras.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTGestionCompras.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTGestionCompras.Location = new System.Drawing.Point(12, 260);
+            this.BTGestionCompras.Name = "BTGestionCompras";
+            this.BTGestionCompras.Size = new System.Drawing.Size(196, 32);
+            this.BTGestionCompras.TabIndex = 11;
+            this.BTGestionCompras.Text = "Gestion de Compras";
+            this.BTGestionCompras.UseVisualStyleBackColor = true;
+            this.BTGestionCompras.Click += new System.EventHandler(this.BTGestionCompras_Click);
             // 
             // panel9
             // 
@@ -414,7 +414,7 @@
             this.BGestionEmpleados.TabIndex = 2;
             this.BGestionEmpleados.Text = "Gestion de Usuarios";
             this.BGestionEmpleados.UseVisualStyleBackColor = true;
-            this.BGestionEmpleados.Click += new System.EventHandler(this.BGestionEmpleados_Click);
+            this.BGestionEmpleados.Click += new System.EventHandler(this.BGestionUsuarios_Click);
             // 
             // pictureBox1
             // 
@@ -485,7 +485,7 @@
         private System.Windows.Forms.Button BGestionEmpleados;
         private System.Windows.Forms.Button BBienvenida;
         private System.Windows.Forms.Button BTGastos;
-        private System.Windows.Forms.Button BTGestionPedidos;
+        private System.Windows.Forms.Button BTGestionCompras;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel10;

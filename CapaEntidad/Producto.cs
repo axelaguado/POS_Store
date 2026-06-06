@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Org.BouncyCastle.Crypto.Utilities;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
@@ -41,7 +42,17 @@ namespace WindowsFormsApp1.CapaEntidad
         // Propiedad de navegacion.
         [ForeignKey("categoria_producto")]
         public Categoria_producto categoria { get; set; }
-         
 
+        public ICollection<Detalle_compra> detalles_compra { get; set; }
+
+        // Propiedad para ser utlizada dentro de la aplicacion 
+        [NotMapped]
+        public string producto_completo
+        {
+            get
+            {
+                return $"{nombre_producto} - {contenido_producto}, {descripcion_producto}";
+            }
+        }
     }
 }

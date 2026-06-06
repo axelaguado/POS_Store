@@ -53,6 +53,7 @@
             this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
             this.BTNDescargar = new System.Windows.Forms.Button();
+            this.LFechaConfirmacion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BCerrar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -107,6 +108,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
+            this.panel2.Controls.Add(this.LFechaConfirmacion);
             this.panel2.Controls.Add(this.LNroPedido);
             this.panel2.Controls.Add(this.LEstado);
             this.panel2.Controls.Add(this.LFechaPedido);
@@ -306,6 +308,15 @@
             this.BTNDescargar.UseVisualStyleBackColor = false;
             this.BTNDescargar.Click += new System.EventHandler(this.BGenPDF_Click);
             // 
+            // LFechaConfirmacion
+            // 
+            this.LFechaConfirmacion.AutoSize = true;
+            this.LFechaConfirmacion.Location = new System.Drawing.Point(191, 116);
+            this.LFechaConfirmacion.Name = "LFechaConfirmacion";
+            this.LFechaConfirmacion.Size = new System.Drawing.Size(101, 13);
+            this.LFechaConfirmacion.TabIndex = 8;
+            this.LFechaConfirmacion.Text = "Fecha Confirmacion";
+            // 
             // Detalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,5 +370,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button BTNDescargar;
+        private System.Windows.Forms.Label LFechaConfirmacion;
     }
 }

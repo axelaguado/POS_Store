@@ -244,7 +244,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.dataGridView1.Rows.Clear();
 
             CN_Proveedor proveedor = new CN_Proveedor();
-            List<ProveedorDTO> lista = proveedor.ObtenerProveedores();
+            List<ProveedorDTO> lista = proveedor.ObtenerProveedoresDTO();
 
             dataGridView1.DataSource = this.LoadTable(lista);
 

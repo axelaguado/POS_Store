@@ -27,6 +27,12 @@ namespace WindowsFormsApp1.CapaDatos
             _context.Proveedores.Add(proveedor);
         }
 
+        public void Attach_proveedor(Proveedor proveedor)
+        {
+            _context.Proveedores.Attach(proveedor);
+        }
+
+        // Se utiliza en gestion proveedor.
         public List<ProveedorDTO> Get_proveedores() 
         {
             return _context.Proveedores.Select(p => new ProveedorDTO
@@ -47,6 +53,16 @@ namespace WindowsFormsApp1.CapaDatos
                                         }).ToList();
         }
 
+  
+        public Proveedor Get_proveedor(long cuit)
+        {
+            return _context.Proveedores.Include(p => p.persona)
+                                        .Include(p => p.persona.persona_juridica)
+                                        .Include(p => p.persona.contactos)
+                                        .Include(p => p.persona.direcciones)
+                                        .FirstOrDefault(p => p.persona.persona_juridica.cuit == cuit && p.estado_proveedor == true);
+        }
+
         public Proveedor Get_proveedor(int id_proveedor)
         {
             return _context.Proveedores.Include(p => p.persona)
@@ -56,6 +72,22 @@ namespace WindowsFormsApp1.CapaDatos
                                         .FirstOrDefault(p => p.id_proveedor == id_proveedor);
         }
 
+        public List<Proveedor> Obtener_proveedores()
+        {
+            return _context.Proveedores.Include(p => p.persona)
+                                        .Include(p => p.persona.persona_juridica)
+                                        .Where(p => p.estado_proveedor == true)
+                                        .OrderBy(p => p.persona.persona_juridica.razon_social)
+                                        .ToList();
+        } 
+
+        public async Task<List<Proveedor>> Obtener_proveedoresAsync(CancellationToken token, string proveedor)
+        {
+            return await _context.Proveedores.Where(p => p.estado_proveedor == true && (p.persona.persona_juridica.razon_social.Contains(proveedor) || p.persona.persona_juridica.nombre_comercial.Contains(proveedor)))
+                                             .OrderBy(p => p.persona.persona_juridica.razon_social)  
+                                             .ToListAsync(token);
+        }
+         
         public async Task<List<ProveedorDTO>> Get_proveedores(CancellationToken token, long cuit)
         {    
             return await _context.Proveedores.Where(p => (p.persona.persona_juridica.cuit.ToString().StartsWith(cuit.ToString())))  
@@ -99,6 +131,7 @@ namespace WindowsFormsApp1.CapaDatos
                                             estado = p.estado_proveedor,
                                         }).ToListAsync(token);  
         }
+
 
         public Proveedor update_proveedor(Proveedor datos_modificados)
         {

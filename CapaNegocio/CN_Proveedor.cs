@@ -179,6 +179,13 @@ namespace WindowsFormsApp1.CapaNegocio
             return this.validacion;
         }
          
+        public void AttachProveedor(Proveedor _proveedor, MiDbContext context) 
+        { 
+            ProveedorDAO proveedor = new ProveedorDAO(context);
+            proveedor.Attach_proveedor(_proveedor); 
+        }
+
+
         public async Task<List<ProveedorDTO>> ObtenerProveedores(CancellationToken token, long cuit)
         {
             using (var context = new MiDbContext())
@@ -197,7 +204,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        public List<ProveedorDTO> ObtenerProveedores() 
+        public List<ProveedorDTO> ObtenerProveedoresDTO() 
         {
             using (var context = new MiDbContext()) 
             { 
@@ -205,7 +212,8 @@ namespace WindowsFormsApp1.CapaNegocio
                 return proveedorDAO.Get_proveedores(); 
             } 
         }
-
+         
+        // Busqueda Proveedor por id y cuit.
         public Proveedor ObtenerProveedor(int id_proveedor)
         {
             using (var context = new MiDbContext())
@@ -215,19 +223,39 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        
-
-        public async Task<List<ProveedorDTO>> listarProveedores(string razon_social, CancellationToken token)
+        public Proveedor ObtenerProveedor(long cuit)
         {
             using (var context = new MiDbContext())
             {
-                ProveedorDAO proveedor= new ProveedorDAO(context);   
-                List<ProveedorDTO> lista = await proveedor.Get_proveedores(token, razon_social);
+                ProveedorDAO proveedorDAO = new ProveedorDAO(context);
+                return proveedorDAO.Get_proveedor(cuit);
+            }
+        }
+        // -------------------------------------------------------
+
+        // Listado de Proveedor y Listado Asincrono por nombre completo proveedor.
+        public List<Proveedor> ObtenerProveedores()
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedorDAO = new ProveedorDAO(context);
+                return proveedorDAO.Obtener_proveedores();
+            }
+        }
+          
+        public async Task<List<Proveedor>> ObtenerProveedorAsync(string _proveedor, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                ProveedorDAO proveedor = new ProveedorDAO(context);
+                List<Proveedor> lista = await proveedor.Obtener_proveedoresAsync(token, _proveedor);
 
                 return lista;
             }
         }
-        
+        // -------------------------------------------------------
+
+        // Actualizar Proveedor.
         public Proveedor UpdateProveedor(Proveedor datos_modficar)
         {
             using (var context = new MiDbContext())
