@@ -26,11 +26,11 @@ namespace WindowsFormsApp1.CapaPresentacion
 {
     public partial class Detalle : Form
     { 
-        private Pedido pedido; 
+        private Compra compra; 
 
-        public Detalle(Pedido _pedido)
+        public Detalle(Compra _compra)
         { 
-            this.pedido = _pedido;  
+            this.compra = _compra;  
             InitializeComponent();
             this.cargarHeaderDetalle();   
             this.cargarBodyDetalle();   
@@ -51,34 +51,33 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void cargarHeaderDetalle()
         {
-            string id = Convert.ToString(this.pedido.id_pedido);
+            string id = Convert.ToString(this.compra.id_compra);
             int cifras = id.Count();
 
             string nro = "#00000000";   
 
             this.LNroPedido.Text = nro.Insert(10 - cifras, id);  
-            this.LRazonSocial.Text = this.pedido.proveedor.persona.persona_juridica.razon_social;
-            this.LNomComer.Text = this.pedido.proveedor.persona.persona_juridica.nombre_comercial;
-            this.LCuit.Text = Convert.ToString(this.pedido.proveedor.persona.persona_juridica.cuit);
-            this.LDireccion.Text = (this.pedido.proveedor.persona.direcciones.FirstOrDefault().calle + " " + this.pedido.proveedor.persona.direcciones.FirstOrDefault().altura);
-            this.LCodPostal.Text = Convert.ToString(this.pedido.proveedor.persona.direcciones.FirstOrDefault().cod_postal);
-            this.LTelefono.Text = Convert.ToString(this.pedido.proveedor.persona.contactos.FirstOrDefault().telefono);
-            this.LFechaPedido.Text = Convert.ToString(this.pedido.fecha_emision);
-            this.LEstado.Text = this.pedido.estado_pedido.descripcion_estado;
+            this.LRazonSocial.Text = this.compra.proveedor.persona.persona_juridica.razon_social;
+            this.LNomComer.Text = this.compra.proveedor.persona.persona_juridica.nombre_comercial;
+            this.LCuit.Text = Convert.ToString(this.compra.proveedor.persona.persona_juridica.cuit);
+            this.LDireccion.Text = (this.compra.proveedor.persona.direcciones.FirstOrDefault().calle + " " + this.compra.proveedor.persona.direcciones.FirstOrDefault().altura);
+            this.LCodPostal.Text = Convert.ToString(this.compra.proveedor.persona.direcciones.FirstOrDefault().cod_postal);
+            this.LTelefono.Text = Convert.ToString(this.compra.proveedor.persona.contactos.FirstOrDefault().telefono);
+            this.LFechaPedido.Text = "Fecha Emision: " + this.compra.fecha_emision.ToShortDateString();
+            this.LFechaConfirmacion.Text = "Fecha Confirmacion: " + (this.compra.fecha_confirmacion == null? "---" : this.compra.fecha_confirmacion.Value.ToShortDateString()); 
+            this.LEstado.Text = this.compra.estado.descripcion_estado; 
         } 
 
-       public object cargarDGVDetalle(ICollection<Detalle_pedido> _lista)
-       {
+       public object cargarDGVDetalle(ICollection<Detalle_compra> _lista)
+       { 
             var tabla = _lista.Select((detalle, index) => new
-            { 
-                 Marca = detalle.articulo.marca_articulo,
-                 Nombre = detalle.articulo.nombre_articulo,
-                 Descripcion = detalle.articulo.descripcion_articulo,
-                 Contenido = detalle.articulo.contenido_articulo,
-                 PrecioUnitario = detalle.articulo.precio_unitario,
-                 Cantidad = detalle.cantidad,
-                 Subtotal = (detalle.articulo.precio_unitario * detalle.cantidad)
-             }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
+            {
+                Marca = detalle.producto.marca_producto,
+                Producto = detalle.producto.nombre_producto + " (" + detalle.producto.contenido_producto + ") - " + detalle.producto.descripcion_producto, 
+                Cantidad = detalle.cantidad_producto,
+                Informacion = detalle.informacion_acerca,
+                Subtotal = detalle.subtotal_producto,
+            }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView  
 
             return tabla;
        }
@@ -89,9 +88,9 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.dataGridView1.Columns.Clear();
             this.dataGridView1.Rows.Clear();
 
-            this.dataGridView1.DataSource = cargarDGVDetalle(pedido.detalle_pedido); 
+            this.dataGridView1.DataSource = cargarDGVDetalle(compra.detalles_compra); 
 
-            this.LTotalPedido.Text = "Total: $" + Convert.ToString(this.pedido.monto_total);
+            this.LTotalPedido.Text = "Total: $" + Convert.ToString(this.compra.monto_total);
         }
          
         private void BCerrar_Click(object sender, EventArgs e)
@@ -101,7 +100,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void BGenPDF_Click(object sender, EventArgs e)
         {
-            if (this.pedido == null)
+            if (this.compra == null)
             {
                 MessageBox.Show("Hemos tenido un problema, no se pudo descargar el pdf.", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -124,38 +123,37 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Manemos los datos.   
             //Nro. Pedido. 
-            string id = Convert.ToString(this.pedido.id_pedido);
+            string id = Convert.ToString(this.compra.id_compra);
             int cifras = id.Count(); 
             string nro = "#00000000"; 
             //Estado.
 
             // Reemplazar los marcadores en el HTML con los datos del proveedor y del pedido
-            Texto_Html = Texto_Html.Replace("@NumeroPedido", nro.Insert(10 - cifras, id));
-            Texto_Html = Texto_Html.Replace("@FechaEmision", this.pedido.fecha_emision.ToString());
-            Texto_Html = Texto_Html.Replace("@Estado", this.pedido.estado_pedido.descripcion_estado);
+            Texto_Html = Texto_Html.Replace("@NumeroCompra", nro.Insert(10 - cifras, id));
+            Texto_Html = Texto_Html.Replace("@FechaEmision", this.compra.fecha_emision.ToShortDateString());
+            Texto_Html = Texto_Html.Replace("@FechaConfirmacion", this.compra.fecha_confirmacion == null? "---" : this.compra.fecha_confirmacion.Value.ToShortDateString());
+            Texto_Html = Texto_Html.Replace("@Estado", this.compra.estado.descripcion_estado);
             // -----
-            Texto_Html = Texto_Html.Replace("@RazonSocial", this.pedido.proveedor.persona.persona_juridica.razon_social);
-            Texto_Html = Texto_Html.Replace("@NombreComercial", this.pedido.proveedor.persona.persona_juridica.nombre_comercial);
-            Texto_Html = Texto_Html.Replace("@Cuit", this.pedido.proveedor.persona.persona_juridica.cuit.ToString());
+            Texto_Html = Texto_Html.Replace("@RazonSocial", this.compra.proveedor.persona.persona_juridica.razon_social);
+            Texto_Html = Texto_Html.Replace("@NombreComercial", this.compra.proveedor.persona.persona_juridica.nombre_comercial);
+            Texto_Html = Texto_Html.Replace("@Cuit", this.compra.proveedor.persona.persona_juridica.cuit.ToString());
             // -----
-            Texto_Html = Texto_Html.Replace("@Direccion", this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.calle + " " + this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.altura); 
-            Texto_Html = Texto_Html.Replace("@CodigoPostal", this.pedido.proveedor.persona.direcciones.FirstOrDefault()?.cod_postal.ToString());
-            Texto_Html = Texto_Html.Replace("@Telefono", this.pedido.proveedor.persona.contactos.FirstOrDefault()?.telefono.ToString());
+            Texto_Html = Texto_Html.Replace("@Direccion", this.compra.proveedor.persona.direcciones.FirstOrDefault()?.calle + " " + this.compra.proveedor.persona.direcciones.FirstOrDefault()?.altura); 
+            Texto_Html = Texto_Html.Replace("@CodigoPostal", this.compra.proveedor.persona.direcciones.FirstOrDefault()?.cod_postal.ToString());
+            Texto_Html = Texto_Html.Replace("@Telefono", this.compra.proveedor.persona.contactos.FirstOrDefault()?.telefono.ToString());
 
             // Construir las filas de la tabla con los productos comprados
             StringBuilder filas = new StringBuilder();
 
-            foreach (var item in this.pedido.detalle_pedido)
+            foreach (var item in this.compra.detalles_compra)
             {
                 filas.Append($@"
                     <tr>
-                        <td>{item.articulo.marca_articulo}</td>
-                        <td>{item.articulo.nombre_articulo}</td>
-                        <td>{item.articulo.descripcion_articulo}</td>
-                        <td>{item.articulo.contenido_articulo}</td>
-                        <td>{"$" + item.articulo.precio_unitario}</td>
-                        <td>{item.cantidad}</td>
-                        <td>{"$" + item.articulo.precio_unitario * item.cantidad}</td>
+                        <td>{item.producto.marca_producto}</td>
+                        <td>{item.producto.nombre_producto + " (" + item.producto.contenido_producto + ") - " + item.producto.descripcion_producto}</td> 
+                        <td>{item.cantidad_producto}</td>
+                        <td>{item.informacion_acerca}</td>
+                        <td>{"$" + item.subtotal_producto}</td>
                     </tr> 
                 ");
             }
@@ -163,7 +161,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             Texto_Html = Texto_Html.Replace("@FilasProductos", filas.ToString());
 
             // Reemplazamos el Total.
-            Texto_Html = Texto_Html.Replace("@Total", "$" + this.pedido.monto_total.ToString());
+            Texto_Html = Texto_Html.Replace("@Total", "$" + this.compra.monto_total.ToString());
 
             // Mostrar un cuadro de diálogo para seleccionar la ubicación donde guardar el PDF
             SaveFileDialog savefile = new SaveFileDialog();
@@ -185,7 +183,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     8. Se cierra el documento
                     9. Se libera el archivo
                 */
-             
+
                 using (FileStream stream = new FileStream(savefile.FileName, FileMode.Create))
                 {
                     Document pdfDoc = new Document(PageSize.A4, 25, 25, 25, 25); 

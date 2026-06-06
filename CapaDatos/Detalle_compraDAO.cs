@@ -10,25 +10,25 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace WindowsFormsApp1.CapaDatos
 {
-    public class Detalle_pedidoDAO
+    public class Detalle_compraDAO
     {
         private readonly MiDbContext _context;
 
-        public Detalle_pedidoDAO(MiDbContext context)
+        public Detalle_compraDAO(MiDbContext context)
         {
             _context = context;
         }
 
-        public void Crear_detalle(Detalle_pedido detalle)
+        public void Crear_detalle(Detalle_compra detalle)
         {
-            _context.Detalles_pedido.Add(detalle);  
+            _context.Detalles_compra.Add(detalle);  
         }
 
-        public void Crear_detalles(List<Detalle_pedido> _detalles)
+        public void Crear_detalles(List<Detalle_compra> _detalles)
         {
-            foreach (Detalle_pedido item in _detalles)
+            foreach (Detalle_compra item in _detalles)
             {
-                _context.Detalles_pedido.Add(item);
+                _context.Detalles_compra.Add(item);
             }
         }
     } 

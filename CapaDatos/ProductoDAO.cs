@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.DTO;
 using System.Runtime.Remoting.Contexts;
 using System.Threading;
 
@@ -22,6 +23,11 @@ namespace WindowsFormsApp1.CapaDatos
         public void Crear_producto(Producto _producto)
         {
             context.Productos.Add(_producto);
+        }
+
+        public void AttachProducto(Producto _producto) 
+        {
+            context.Productos.Attach(_producto);
         }
 
         public Producto GetProducto(int _id)
@@ -44,6 +50,33 @@ namespace WindowsFormsApp1.CapaDatos
             return context.Productos.Include(pr => pr.categoria).ToList();
         }
 
+        public List<ProductoDTO> GetProductosDTO()
+        {
+            return context.Productos.Where(pr => pr.estado_producto == true)
+                                    .Select(pr => new ProductoDTO 
+                                    {
+                                        id_producto = pr.id_producto,
+                                        producto = pr.nombre_producto + " " + pr.descripcion_producto + ", " + pr.contenido_producto,
+                                        sku_producto = pr.sku_producto,
+                                        estado = pr.estado_producto
+                                    })   
+                                    .ToList();
+        }
+
+
+        public ProductoDTO GetProductoDTO(string _sku)
+        {
+            return context.Productos.Where(pr => pr.sku_producto == _sku && pr.estado_producto == true)
+                                    .Select(pr => new ProductoDTO
+                                    {
+                                        id_producto = pr.id_producto,
+                                        producto = pr.nombre_producto + " " + pr.descripcion_producto + ", " + pr.contenido_producto,
+                                        sku_producto = pr.sku_producto,
+                                        estado = pr.estado_producto
+                                    })
+                                    .FirstOrDefault();
+        }
+
         public async Task<List<Producto>> GetProductos(CancellationToken _token, string _elemento)
         {
             return await context.Productos.Include(pr => pr.categoria)
@@ -51,6 +84,14 @@ namespace WindowsFormsApp1.CapaDatos
                                                 pr => pr.marca_producto.Contains(_elemento) || 
                                                 pr.nombre_producto.Contains(_elemento) ||
                                                 pr.sku_producto.StartsWith(_elemento))
+                                            .ToListAsync(_token);
+        }
+
+        public async Task<List<Producto>> GetProductosDTO(CancellationToken _token, string _elemento)
+        {
+            return await context.Productos.Where( pr => (pr.estado_producto == true) &&
+                                                    ( pr.nombre_producto.Contains(_elemento) || pr.contenido_producto.Contains(_elemento) || pr.descripcion_producto.Contains(_elemento)) 
+                                                ) 
                                             .ToListAsync(_token);
         }
 

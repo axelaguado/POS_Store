@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.CapaEntidad
 {
-    public class Estado_Pedido
+    public class Estado_compra
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,6 +17,6 @@ namespace WindowsFormsApp1.CapaEntidad
         public string descripcion_estado { get; set; }
 
         // Propiedades de navegacion 
-        public ICollection<Pedido> pedido { get; set; }
+        public ICollection<Compra> compras { get; set; }
     }
 }

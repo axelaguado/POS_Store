@@ -47,15 +47,13 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Tipo_usuario> Tipo_Usuarios { get; set; } 
 
-        // Proceso Pedido.  
-        public DbSet<Articulo> Articulos { get; set; } 
+        // Proceso COmpra.  
+        public DbSet<Compra> Compras { get; set; } 
+        
+        public DbSet<Detalle_compra> Detalles_compra { get; set; }
 
-        public DbSet<Detalle_pedido> Detalles_pedido { get; set; }
-
-        public DbSet<Pedido> Pedidos { get; set; } 
-
-        public DbSet<Estado_Pedido> Estados_pedido { get; set; }
-
+        public DbSet<Estado_compra> Estados_compra { get; set; } 
+         
         // Proceso Venta. 
         public DbSet<Producto> Productos { get; set; }
 
@@ -81,6 +79,7 @@ namespace WindowsFormsApp1.CapaDatos
             personaConfig.ToTable("Persona");
              
             // ----------------------------------------------------- 
+
             // PersonaFisica
             // Definir entidad
             var fisicaConfig = modelBuilder.Entity<PersonaFisica>();
@@ -104,6 +103,7 @@ namespace WindowsFormsApp1.CapaDatos
             fisicaConfig.ToTable("Persona_fisica");
 
             // -----------------------------------------------------
+
             // PersonaJuridica
             // Definir entidad
             var juridicaConfig = modelBuilder.Entity<PersonaJuridica>();
@@ -254,7 +254,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Otros mapeos
             usuarioConfig.ToTable("Usuario");
 
-            // -------------------------------------------- 
+            // --------------------------------------------  
 
             // Tipo_Usuario
             // Definir entidad
@@ -267,85 +267,82 @@ namespace WindowsFormsApp1.CapaDatos
             tipoUsuarioConfig.Property(t => t.descripcion_tipo).HasMaxLength(50).IsRequired();
 
             // Otros mapeos
-            tipoUsuarioConfig.ToTable("Tipo_usuario");
+            tipoUsuarioConfig.ToTable("Tipo_usuario"); 
 
             // ----------------------------------------------------- 
             
-            // Pedido
+            // Compra
             // Definir entidad 
-            var pedidoConfig = modelBuilder.Entity<Pedido>();
+            var compraConfig = modelBuilder.Entity<Compra>();
 
             // Confiuracion PK.
-            pedidoConfig.HasKey(p => p.id_pedido);
+            compraConfig.HasKey(c => c.id_compra);
 
             // Configuracion de relaciones.
-            pedidoConfig.HasRequired(p => p.proveedor) // El pedido tiene un proveedor
-                        .WithMany(p => p.pedido) // El proveedor puede tener muchos pedidos
-                        .HasForeignKey(p => p.id_proveedor)  // FK en Pedido
+            compraConfig.HasRequired(c => c.proveedor) // El pedido tiene un proveedor
+                        .WithMany(p => p.compras) // El proveedor puede tener muchos pedidos
+                        .HasForeignKey(c => c.id_proveedor)  // FK en Pedido
                         .WillCascadeOnDelete(false);
 
-            pedidoConfig.HasRequired(p => p.estado_pedido) // El pedido tiene un proveedor
-                        .WithMany(e => e.pedido) // El proveedor puede tener muchos pedidos
-                        .HasForeignKey(p => p.estado)  // FK en Pedido
+            compraConfig.HasRequired(c => c.estado) // El pedido tiene un proveedor
+                        .WithMany(e => e.compras) // El proveedor puede tener muchos pedidos
+                        .HasForeignKey(c => c.estado_compra)  // FK en Pedido
                         .WillCascadeOnDelete(false);
 
             // Configuracion de propeidades.
-            pedidoConfig.Property(p => p.fecha_emision).IsRequired();
-            pedidoConfig.Property(p => p.monto_total).IsRequired(); 
-            pedidoConfig.Property(p => p.estado).IsRequired();
+            compraConfig.Property(p => p.fecha_emision).IsRequired();
+            compraConfig.Property(p => p.fecha_confirmacion).IsOptional();
+            compraConfig.Property(p => p.monto_total).IsRequired().HasPrecision(10, 2);
+            compraConfig.Property(p => p.estado_compra).IsRequired();
 
             // Otros mapeos.
-            pedidoConfig.ToTable("Pedido");
+            compraConfig.ToTable("Compra");
 
             // --------------------------------------------
 
             // Detalle_pedido
             // Definir entidad 
-            var detalleConfig = modelBuilder.Entity<Detalle_pedido>();
+            var detalleConfig = modelBuilder.Entity<Detalle_compra>();
 
             // Configuracion PK.
             detalleConfig.HasKey(d => d.id_detalle);
 
             // Configuracion de relaciones. 
-            detalleConfig.HasRequired(d => d.articulo)
-                         .WithMany(a => a.detalle_pedido)
-                         .HasForeignKey(d => d.id_articulo)
+            detalleConfig.HasRequired(d => d.producto)
+                         .WithMany(p => p.detalles_compra)
+                         .HasForeignKey(d => d.id_producto)
                          .WillCascadeOnDelete(false);
 
-            detalleConfig.HasRequired(d => d.pedido)
-                         .WithMany(p => p.detalle_pedido)
-                         .HasForeignKey(d => d.id_pedido)
+            detalleConfig.HasRequired(d => d.compra)
+                         .WithMany(c => c.detalles_compra)
+                         .HasForeignKey(d => d.id_compra)
                          .WillCascadeOnDelete(false);
 
             // Configuracion de propeidades. 
-            detalleConfig.Property(d => d.cantidad).IsRequired();
+            detalleConfig.Property(d => d.cantidad_producto).IsRequired();
+            detalleConfig.Property(d => d.subtotal_producto).IsRequired().HasPrecision(10, 2);
+            detalleConfig.Property(d => d.informacion_acerca).IsOptional().HasMaxLength(100);
 
             // Otros mapeos.
-            detalleConfig.ToTable("Detalle_pedido");
+            detalleConfig.ToTable("Detalle_compra");
 
             // --------------------------------------------
 
+            // Estado_compra 
+            // Definir entidad
+            var estadoCompraConfig = modelBuilder.Entity<Estado_compra>();
 
-            var articuloConfig = modelBuilder.Entity<Articulo>();
+            // Configurar clave primaria
+            estadoCompraConfig.HasKey(e => e.id_estado);
 
-            // Confiuracion PK.
-            articuloConfig.HasKey(a => a.id_articulo);
+            // Configurar propiedades
+            estadoCompraConfig.Property(e => e.descripcion_estado).HasMaxLength(30).IsRequired();
 
-            // Configuracion de propeidades.
-            articuloConfig.Property(a => a.marca_articulo).IsOptional();
-            articuloConfig.Property(a => a.nombre_articulo).IsOptional(); 
-            articuloConfig.Property(a => a.descripcion_articulo).IsOptional();
-            articuloConfig.Property(a => a.contenido_articulo).IsOptional();
-            articuloConfig.Property(a => a.precio_unitario).IsRequired();
-
-            // Otros mapeos.
-            articuloConfig.ToTable("Articulo");
+            // Otros mapeos
+            estadoCompraConfig.ToTable("Estado_compra");
 
             // --------------------------------------------
-             
-            // Falta a partir de aca, aunque aun no esta terminado el modelo.
 
-            // --------------------------------------------
             // Producto
             // Definir entidad
             var productoConfig = modelBuilder.Entity<Producto>();
@@ -373,8 +370,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Otros mapeos
             productoConfig.ToTable("Producto");
 
-            // --------------------------------------------------------------
-
+            // -------------------------------------------------------------- 
             // Categoria_Producto
             // Definir entidad
             var categoriaProductoConfig = modelBuilder.Entity<Categoria_producto>();
@@ -390,6 +386,10 @@ namespace WindowsFormsApp1.CapaDatos
 
             // ----------------------------------------------------------------------
 
+            // Falta a partir de aca, aunque aun no esta terminado el modelo.
+            
+            // --------------------------------------------
+             
             // Venta
             // Definir entidad
             var ventaConfig = modelBuilder.Entity<Venta>();

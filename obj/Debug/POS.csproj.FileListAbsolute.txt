@@ -17,7 +17,6 @@ C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\System.Numeri
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\POS.csproj.AssemblyReference.cache
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.EdicionUsuario.resources
-C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionPedido.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionUsuario.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Inicio.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Listado.resources
@@ -39,3 +38,5 @@ C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsA
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionProductos.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Calculadora.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionProveedor.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionCompras.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.RegistrarCompra.resources

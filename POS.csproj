@@ -81,15 +81,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CapaDatos\ArticuloDAO.cs" />
     <Compile Include="CapaDatos\CategoriaProductoDAO.cs" />
     <Compile Include="CapaDatos\ClienteDAO.cs" />
     <Compile Include="CapaDatos\ContactoDAO.cs" />
-    <Compile Include="CapaDatos\Detalle_pedidoDAO.cs" />
+    <Compile Include="CapaDatos\Detalle_compraDAO.cs" />
     <Compile Include="CapaDatos\DireccionDAO.cs" />
     <Compile Include="CapaDatos\EmpleadoDAO.cs" />
-    <Compile Include="CapaDatos\EstadoPedidoDAO.cs" />
-    <Compile Include="CapaDatos\PedidoDAO.cs" />
+    <Compile Include="CapaDatos\EstadoCompraDAO.cs" />
+    <Compile Include="CapaDatos\CompraDAO.cs" />
     <Compile Include="CapaDatos\PersonaDAO.cs" />
     <Compile Include="CapaDatos\MiDbContext.cs" />
     <Compile Include="CapaDatos\PersonaFisicaDAO.cs" />
@@ -98,24 +97,22 @@
     <Compile Include="CapaDatos\ProveedorDAO.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
-    <Compile Include="CapaEntidad\Articulo.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
     <Compile Include="CapaEntidad\Contacto.cs" />
     <Compile Include="CapaEntidad\Empleado.cs" />
-    <Compile Include="CapaEntidad\Estado_Pedido.cs" />
+    <Compile Include="CapaEntidad\Estado_compra.cs" />
     <Compile Include="CapaEntidad\PersonaJuridica.cs" />
-    <Compile Include="CapaEntidad\Detalle_pedido.cs" />
+    <Compile Include="CapaEntidad\Detalle_compra.cs" />
     <Compile Include="CapaEntidad\ItemCarrito.cs" />
-    <Compile Include="CapaEntidad\Pedido.cs" />
+    <Compile Include="CapaEntidad\Compra.cs" />
     <Compile Include="CapaEntidad\PersonaFisica.cs" />
     <Compile Include="CapaEntidad\Proveedor.cs" />
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
-    <Compile Include="CapaNegocio\CN_Articulo.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaProducto.cs" />
     <Compile Include="CapaNegocio\CN_Cliente.cs" />
     <Compile Include="CapaNegocio\CN_Contacto.cs" />
-    <Compile Include="CapaNegocio\CN_DetallePedido.cs" />
+    <Compile Include="CapaNegocio\CN_DetalleCompra.cs" />
     <Compile Include="CapaNegocio\CN_Direccion.cs" />
     <Compile Include="CapaEntidad\Direccion.cs" />
     <Compile Include="CapaEntidad\Venta.cs" />
@@ -126,13 +123,14 @@
     <Compile Include="CapaEntidad\Usuario.cs" />
     <Compile Include="CapaEntidad\Persona.cs" />
     <Compile Include="CapaNegocio\CN_Empleado.cs" />
+    <Compile Include="CapaNegocio\CN_EstadoCompra.cs" />
     <Compile Include="CapaNegocio\CN_Persona.cs" />
     <Compile Include="CapaNegocio\CN_PersonaFisica.cs" />
     <Compile Include="CapaNegocio\CN_PersonaJuridica.cs" />
     <Compile Include="CapaNegocio\CN_Proveedor.cs" />
     <Compile Include="CapaNegocio\CN_TipoUsuario.cs" />
     <Compile Include="CapaNegocio\CN_Usuario.cs" />
-    <Compile Include="CapaNegocio\CN_Pedido.cs" />
+    <Compile Include="CapaNegocio\CN_Compra.cs" />
     <Compile Include="CapaNegocio\CN_Producto.cs" />
     <Compile Include="CapaPresentacion\Calculadora.cs">
       <SubType>Form</SubType>
@@ -152,6 +150,12 @@
     <Compile Include="CapaPresentacion\Detalle.Designer.cs">
       <DependentUpon>Detalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\GestionCompras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionCompras.Designer.cs">
+      <DependentUpon>GestionCompras.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\GestionProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -169,12 +173,6 @@
     </Compile>
     <Compile Include="CapaPresentacion\GestionClientes.Designer.cs">
       <DependentUpon>GestionClientes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CapaPresentacion\GestionPedido.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="CapaPresentacion\GestionPedido.Designer.cs">
-      <DependentUpon>GestionPedido.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\GestionUsuario.cs">
       <SubType>Form</SubType>
@@ -200,8 +198,16 @@
     <Compile Include="CapaPresentacion\Inicio.Designer.cs">
       <DependentUpon>Inicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\RegistrarCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\RegistrarCompra.Designer.cs">
+      <DependentUpon>RegistrarCompra.cs</DependentUpon>
+    </Compile>
     <Compile Include="DTO\ClienteDTO.cs" />
+    <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\ProveedorDTO.cs" />
+    <Compile Include="DTO\ShortProveedorDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -214,6 +220,9 @@
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionCompras.resx">
+      <DependentUpon>GestionCompras.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionProveedor.resx">
       <DependentUpon>GestionProveedor.cs</DependentUpon>
     </EmbeddedResource>
@@ -222,9 +231,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionClientes.resx">
       <DependentUpon>GestionClientes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CapaPresentacion\GestionPedido.resx">
-      <DependentUpon>GestionPedido.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionUsuario.resx">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
@@ -237,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\RegistrarCompra.resx">
+      <DependentUpon>RegistrarCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -266,6 +275,7 @@
   <ItemGroup>
     <None Include="Imagenes\old-calculator_icon-icons.com_56065.png" />
     <None Include="Imagenes\calculator.png" />
+    <None Include="Imagenes\lupa.png" />
     <Content Include="Plantilla\Solicitud_pedido.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
