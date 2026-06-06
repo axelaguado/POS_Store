@@ -276,17 +276,21 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             if (!string.IsNullOrWhiteSpace(this.TBBuscar.Text))
             {
-                string buscado = this.TBBuscar.Text; 
+                string buscado = this.TBBuscar.Text;
 
                 try
                 {
                     this.loadComprasConfirmadas(await compra.BusquedaAsync_compraConfirmada(cts.Token, buscado));
-                    this.loadComprasPendientes(await compra.BusquedaAsync_compraPendiente(cts.Token, buscado)); 
+                    this.loadComprasPendientes(await compra.BusquedaAsync_compraPendiente(cts.Token, buscado));
                 }
                 catch (TaskCanceledException)
                 {
                     // La consulta fue cancelada, no hacemos nada   
                 }
+            }
+            else 
+            {
+                this.loadTableInit(); 
             }
         }
     }
