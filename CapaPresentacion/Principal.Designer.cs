@@ -218,6 +218,7 @@
             this.BTGastos.TabIndex = 12;
             this.BTGastos.Text = "Gastos";
             this.BTGastos.UseVisualStyleBackColor = true;
+            this.BTGastos.Click += new System.EventHandler(this.BTGastos_Click);
             // 
             // BTGestionCompras
             // 

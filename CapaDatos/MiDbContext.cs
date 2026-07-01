@@ -47,13 +47,18 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Tipo_usuario> Tipo_Usuarios { get; set; } 
 
-        // Proceso COmpra.  
+        // Proceso Compra.  
         public DbSet<Compra> Compras { get; set; } 
         
         public DbSet<Detalle_compra> Detalles_compra { get; set; }
 
         public DbSet<Estado_compra> Estados_compra { get; set; } 
-         
+
+        // Proceso Gasto
+        public DbSet<Gasto> Gastos {  get; set; }
+
+        public DbSet<Categoria_gasto> Categorias_gasto { get; set; } 
+
         // Proceso Venta. 
         public DbSet<Producto> Productos { get; set; }
 
@@ -379,17 +384,53 @@ namespace WindowsFormsApp1.CapaDatos
             categoriaProductoConfig.HasKey(cp => cp.id_categoria);
 
             // Configurar propiedades
-            categoriaProductoConfig.Property(cp => cp.descripcion_categoria).HasMaxLength(50).IsRequired(); 
+            categoriaProductoConfig.Property(cp => cp.descripcion_categoria).HasMaxLength(50).IsRequired();
+            categoriaProductoConfig.Property(cp => cp.estado_categoria).IsRequired();
 
             // Otros mapeos
             categoriaProductoConfig.ToTable("Categoria_producto");
 
             // ----------------------------------------------------------------------
+            // Categoria gasto
+            var categoriaGastoonfig = modelBuilder.Entity<Categoria_gasto>();
+
+            // Canfiguracion clave primaria
+            categoriaGastoonfig.HasKey(cg => cg.id_categoria);
+
+            // Configuracion de propiedades
+            categoriaGastoonfig.Property(cg => cg.descripcion_categoria).HasMaxLength(50).IsRequired();
+            categoriaGastoonfig.Property(cg => cg.estado_categoria).IsRequired();
+
+            // Otros mapeos
+            categoriaGastoonfig.ToTable("Categoria_gasto");
+            // ----------------------------------------------------------------------
+            // Gasto
+            var gastoConfig = modelBuilder.Entity<Gasto>();
+
+            // Configurar clave primaria
+            gastoConfig.HasKey(g => g.id_gasto);
+
+            // Configurar relaciones
+            gastoConfig.HasRequired(g => g.categoria)
+                          .WithMany(cg => cg.gastos)
+                          .HasForeignKey(g => g.categoria_gasto);
+
+            // Definimos las propieades
+            gastoConfig.Property(g => g.fecha_registro).IsRequired();
+            gastoConfig.Property(g => g.periodo_gasto).IsRequired();
+            gastoConfig.Property(g => g.descripcion_gasto).HasMaxLength(200).IsRequired();
+            gastoConfig.Property(g => g.monto_gasto).HasPrecision(10, 2).IsRequired();
+            gastoConfig.Property(g => g.categoria_gasto).IsRequired();
+            gastoConfig.Property(g => g.estado_gasto).IsRequired();
+             
+            gastoConfig.ToTable("Gasto"); 
+
+            // ----------------------------------------------------------------------
 
             // Falta a partir de aca, aunque aun no esta terminado el modelo.
-            
+
             // --------------------------------------------
-             
+
             // Venta
             // Definir entidad
             var ventaConfig = modelBuilder.Entity<Venta>();

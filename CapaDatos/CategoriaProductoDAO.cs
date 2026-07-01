@@ -21,6 +21,11 @@ namespace WindowsFormsApp1.CapaDatos
         {
              this.context.Categorias.Add(_nueva);
         }
+         
+        public Categoria_producto Get_Categoria(int id_categoria)
+        {
+            return context.Categorias.FirstOrDefault(c => c.id_categoria == id_categoria);
+        }
 
         public bool Existe_categoria(string _categoria)
         {
@@ -30,12 +35,28 @@ namespace WindowsFormsApp1.CapaDatos
         public bool Existe_categoria(int id_categoria)
         {
              return context.Categorias.FirstOrDefault(c => c.id_categoria == id_categoria) != null? true : false;
-        }
-
+        } 
 
         public List<Categoria_producto> listar_Categorias()
         {
             return context.Categorias.ToList();
+        }
+
+        public List<Categoria_producto> listar_CategoriasActivas()
+        {
+            return context.Categorias.Where(c => c.estado_categoria == true).ToList();
+        }
+
+        public Categoria_producto Update_categoria(Categoria_producto _actualizar) 
+        {
+            Categoria_producto categoriaModificar = this.Get_Categoria(_actualizar.id_categoria);
+
+            if (categoriaModificar != null) 
+            {
+                context.Entry(categoriaModificar).CurrentValues.SetValues(_actualizar);
+            } 
+             
+            return categoriaModificar; 
         }
     }
 }
