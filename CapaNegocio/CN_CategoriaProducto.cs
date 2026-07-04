@@ -3,6 +3,7 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaDatos;
@@ -30,21 +31,33 @@ namespace WindowsFormsApp1.CapaNegocio
             } 
         }
 
+        public Categoria_producto UpdateCategoriaEstado(Categoria_producto _actualizar)
+        {
+            using (var _context = new MiDbContext())
+            {
+                CategoriaProductoDAO categoriaDAO = new CategoriaProductoDAO(_context);
+                Categoria_producto actualizado = categoriaDAO.Update_categoria(_actualizar);
+                if (_context.SaveChanges() > 0) return actualizado;   
+            } 
+            
+            return null;
+        }
+
         public Dictionary<string, string> ValidarCategoria(Categoria_producto _categoria) 
         {
             this.validacion.Clear();
 
             if (string.IsNullOrEmpty(_categoria.descripcion_categoria))
             {
-                this.validacion.Add("TBCategoriaProducto", "El campo Categoria no puede estar vacio.");
+                this.validacion.Add("Categoria Producto", "El campo Categoria no puede estar vacio.");
             }
             else if (!System.Text.RegularExpressions.Regex.IsMatch(_categoria.descripcion_categoria, @"^[a-zA-Z\s]+$"))
             {
-                this.validacion.Add("TBCategoriaProducto", "El campo Categoria solo puede contener letras y espacios.");
+                this.validacion.Add("Categoria Producto", "El campo Categoria solo puede contener letras y espacios.");
             }
             else if (this.ExisteCategoria(_categoria.descripcion_categoria))
             {
-                this.validacion.Add("TBCategoriaProducto", "La categoria ya existe.");
+                this.validacion.Add("Categoria Producto", "La categoria ya existe.");
             }
 
             return this.validacion;
@@ -75,6 +88,24 @@ namespace WindowsFormsApp1.CapaNegocio
                 CategoriaProductoDAO categoriaDAO = new CategoriaProductoDAO(_context);
                 return categoriaDAO.listar_Categorias();
             } 
+        }
+
+        public List<Categoria_producto> listarCategoriasActivas()
+        {
+            using (var _context = new MiDbContext())
+            {
+                CategoriaProductoDAO categoriaDAO = new CategoriaProductoDAO(_context);
+                return categoriaDAO.listar_CategoriasActivas();
+            }
+        }
+
+        public Categoria_producto GetCategoria(int id_categoria)
+        {
+            using (var _context = new MiDbContext())
+            {
+                CategoriaProductoDAO categoriaDAO = new CategoriaProductoDAO(_context);
+                return categoriaDAO.Get_Categoria(id_categoria);
+            }
         }
 
         public Dictionary<string, string> GetErrors()

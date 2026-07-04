@@ -44,8 +44,111 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             this.BTNActualizar.Hide();
             this.BTNReestablecer.Hide();
+            this.LoadTableCategorias();
 
             this.textBox1.Text = "Buscar por marca, producto o codigo ...";
+        }
+
+        public void LoadTableCategorias()
+        {
+            this.DGVCategorias.DataSource = null;
+            this.DGVCategorias.Columns.Clear();
+            this.DGVCategorias.Rows.Clear();
+
+            CN_CategoriaProducto categoriaProducto = new CN_CategoriaProducto();
+            List<Categoria_producto> categorias = categoriaProducto.listarCategorias();
+
+            DGVCategorias.DataSource = this.LoadTableCategorias(categorias);
+
+            DGVCategorias.Columns["Id_categoria"].Visible = false;
+            DGVCategorias.Columns["Estado"].Visible = false;
+             
+            DataGridViewButtonColumn btnColumnEstado = new DataGridViewButtonColumn();
+            btnColumnEstado.Name = "CEstado";
+            btnColumnEstado.HeaderText = "Estado";
+            btnColumnEstado.UseColumnTextForButtonValue = true;
+            btnColumnEstado.FlatStyle = FlatStyle.Standard;
+            btnColumnEstado.UseColumnTextForButtonValue = false; // Para poder modificar el texto.
+            DGVCategorias.Columns.Add(btnColumnEstado);
+            DGVCategorias.Columns["CEstado"].HeaderCell.Style.BackColor = Color.LightGray;
+            DGVCategorias.Columns["CEstado"].HeaderCell.Style.SelectionBackColor = Color.LightGray;
+        }
+
+        public object LoadTableCategorias(List<Categoria_producto> _lista)
+        {
+            var tabla = _lista.Select((categoria, index) => new
+            {
+                Id_categoria = categoria.id_categoria,
+                Descripcion = categoria.descripcion_categoria,
+                Estado = categoria.estado_categoria,
+            }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView   
+
+            return tabla;
+        }
+
+        private void DGVCategorias_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        { 
+            DataGridView dgt = sender as DataGridView;
+
+            // Evitar clics en el encabezado
+            if (e.RowIndex < 0) return;
+
+            // Obtener el nombre de la columna clickeada
+            string nombreColumna = dgt.Columns[e.ColumnIndex].Name;
+
+            // Obtener el índice de la fila seleccionada
+            int filaIndex = e.RowIndex;
+
+            // Obtenemos la identificaicon de la categoria para realizar la busqueda
+            int id_categoria = Convert.ToInt32(dgt.Rows[filaIndex].Cells["Id_categoria"].Value);
+
+            CN_CategoriaProducto categoriaProducto = new CN_CategoriaProducto();
+            Categoria_producto categoria = new Categoria_producto();
+             
+            categoria = categoriaProducto.GetCategoria(id_categoria);  
+
+            if (nombreColumna == "CEstado")
+            {
+                string estado_cambiar = Convert.ToBoolean(dgt.Rows[filaIndex].Cells["Estado"].Value) == true ? "desactivar" : "activar";
+
+                DialogResult confirmacionActivar = MessageBox.Show(
+                    "¿Seguro que deseas " + estado_cambiar + " esta categoria?",
+                    "Confirmación.",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (confirmacionActivar == DialogResult.Yes)
+                {
+                    try
+                    {
+                        categoria.estado_categoria = !categoria.estado_categoria; 
+                        string producto_descripcion = categoria.descripcion_categoria;
+
+                        Categoria_producto confirmacion = categoriaProducto.UpdateCategoriaEstado(categoria);
+
+                        if (confirmacion != null)
+                        {
+                            string nuevoEstado = confirmacion.estado_categoria == true ? "activado" : "desactivado";
+                            MessageBox.Show("La categoria " + confirmacion.descripcion_categoria + " se ha " + nuevoEstado + " correctamente.", "Confirmado.",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.LoadTableCategorias();
+                            this.CargarCBCategoriaProducto();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error inesperado, vuelva a intentar.");
+                        }
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        MessageBox.Show($"Error de validación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
         }
 
         // Comportamiento de DGV en funcion de WindowState
@@ -151,7 +254,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.CBCategoriaProducto.ValueMember = "id_categoria";
 
             CN_CategoriaProducto categoria = new CN_CategoriaProducto();
-            List<Categoria_producto> lista = categoria.listarCategorias();
+            List<Categoria_producto> lista = categoria.listarCategoriasActivas();
 
             if(lista != null) 
             { 
@@ -193,7 +296,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     MessageBox.Show("Los datos han sido guardados correctamente.", "Registrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.limpiarCamposProducto();
-                    // this.LoadTableProductos();
+                    this.LoadTableProductos();
                 }
                 else
                 {
@@ -361,9 +464,11 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "CEstado" && e.RowIndex >= 0)
+            DataGridView dgv = sender as DataGridView;
+
+            if (dgv.Columns[e.ColumnIndex].Name == "CEstado" && e.RowIndex >= 0)
             {
-                bool estado = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Estado"].Value);
+                bool estado = Convert.ToBoolean(dgv.Rows[e.RowIndex].Cells["Estado"].Value);
 
                 e.Value = estado ? "Desactivar" : "Activar";
             }
@@ -840,5 +945,23 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
         }
 
+        private void TB_TextChanged(object sender, EventArgs e)
+        {
+            // Convierte el objeto sender en un TextBox.
+            System.Windows.Forms.TextBox textBox = sender as System.Windows.Forms.TextBox;
+
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+
+                if (textBox.Text.Contains("."))
+                {
+                    string modificado = textBox.Text.Replace(".", ",");
+                    textBox.Text = modificado;
+
+                    // Mover el cursor al final del texto.
+                    textBox.SelectionStart = textBox.Text.Length;
+                }
+            }
+        }
     }
 }

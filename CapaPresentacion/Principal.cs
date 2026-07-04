@@ -144,6 +144,12 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.LightOff(sender);
             BTGestionCompras.BackColor = System.Drawing.Color.DarkTurquoise;
         } 
+        private void BTGastos_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionGastos(this));
+            this.LightOff(sender);
+            BTGastos.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
 
         public void LightOff(object sender) 
         { 
@@ -161,5 +167,6 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
         
         }
+
     }
  }
