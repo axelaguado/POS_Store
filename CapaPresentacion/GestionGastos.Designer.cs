@@ -29,27 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.BTNActualizar = new System.Windows.Forms.Button();
+            this.BTNReestablecer = new System.Windows.Forms.Button();
             this.BTNAgregarGasto = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.LRegistrarGasto = new System.Windows.Forms.Label();
             this.BTNLimpiar = new System.Windows.Forms.Button();
             this.LMonto = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.TBDescripcion = new System.Windows.Forms.TextBox();
+            this.TBMonto = new System.Windows.Forms.TextBox();
             this.LDescipcion = new System.Windows.Forms.Label();
             this.CBCategorias = new System.Windows.Forms.ComboBox();
             this.LCategoria = new System.Windows.Forms.Label();
             this.LPeriodo = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.CBPeriodoAño = new System.Windows.Forms.ComboBox();
+            this.CBPeriodoMes = new System.Windows.Forms.ComboBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.DGVCategorias = new System.Windows.Forms.DataGridView();
             this.CCategoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,22 +63,25 @@
             this.TBNuevaCategoria = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.BTNLimpiarFiltro = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
+            this.CBHastaPeriodoAño = new System.Windows.Forms.ComboBox();
+            this.CBHastaPeriodoMes = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.LTotalPeriodoActual = new System.Windows.Forms.Label();
+            this.LGastoPeriodoActual = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
+            this.LTotalFiltrado = new System.Windows.Forms.Label();
+            this.LGastoPeriodoFiltrado = new System.Windows.Forms.Label();
+            this.CBFiltroCategoria = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.CBDesdePeriodoAño = new System.Windows.Forms.ComboBox();
+            this.CBDesdePeriodoMes = new System.Windows.Forms.ComboBox();
             this.BTNFiltrar = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.DGVGastos = new System.Windows.Forms.DataGridView();
             this.CPeriodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,7 +103,7 @@
             this.tableLayoutPanel2.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVGastos)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -142,22 +148,50 @@
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel7.Controls.Add(this.BTNActualizar);
+            this.panel7.Controls.Add(this.BTNReestablecer);
             this.panel7.Controls.Add(this.BTNAgregarGasto);
             this.panel7.Controls.Add(this.panel4);
             this.panel7.Controls.Add(this.BTNLimpiar);
             this.panel7.Controls.Add(this.LMonto);
-            this.panel7.Controls.Add(this.textBox3);
-            this.panel7.Controls.Add(this.textBox2);
+            this.panel7.Controls.Add(this.TBDescripcion);
+            this.panel7.Controls.Add(this.TBMonto);
             this.panel7.Controls.Add(this.LDescipcion);
             this.panel7.Controls.Add(this.CBCategorias);
             this.panel7.Controls.Add(this.LCategoria);
             this.panel7.Controls.Add(this.LPeriodo);
-            this.panel7.Controls.Add(this.comboBox2);
-            this.panel7.Controls.Add(this.comboBox1);
+            this.panel7.Controls.Add(this.CBPeriodoAño);
+            this.panel7.Controls.Add(this.CBPeriodoMes);
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(298, 209);
             this.panel7.TabIndex = 0;
+            // 
+            // BTNActualizar
+            // 
+            this.BTNActualizar.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNActualizar.FlatAppearance.BorderSize = 0;
+            this.BTNActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNActualizar.Location = new System.Drawing.Point(170, 183);
+            this.BTNActualizar.Name = "BTNActualizar";
+            this.BTNActualizar.Size = new System.Drawing.Size(67, 23);
+            this.BTNActualizar.TabIndex = 12;
+            this.BTNActualizar.Text = "Actualizar";
+            this.BTNActualizar.UseVisualStyleBackColor = false;
+            this.BTNActualizar.Click += new System.EventHandler(this.BTNActualizar_Click);
+            // 
+            // BTNReestablecer
+            // 
+            this.BTNReestablecer.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNReestablecer.FlatAppearance.BorderSize = 0;
+            this.BTNReestablecer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNReestablecer.Location = new System.Drawing.Point(82, 183);
+            this.BTNReestablecer.Name = "BTNReestablecer";
+            this.BTNReestablecer.Size = new System.Drawing.Size(82, 23);
+            this.BTNReestablecer.TabIndex = 11;
+            this.BTNReestablecer.Text = "Reestablecer";
+            this.BTNReestablecer.UseVisualStyleBackColor = false;
+            this.BTNReestablecer.Click += new System.EventHandler(this.BTNReestablecer_Click);
             // 
             // BTNAgregarGasto
             // 
@@ -170,6 +204,7 @@
             this.BTNAgregarGasto.TabIndex = 10;
             this.BTNAgregarGasto.Text = "Agregar";
             this.BTNAgregarGasto.UseVisualStyleBackColor = false;
+            this.BTNAgregarGasto.Click += new System.EventHandler(this.BTNAgregarGasto_Click);
             // 
             // panel4
             // 
@@ -203,6 +238,7 @@
             this.BTNLimpiar.TabIndex = 9;
             this.BTNLimpiar.Text = "Limpiar";
             this.BTNLimpiar.UseVisualStyleBackColor = false;
+            this.BTNLimpiar.Click += new System.EventHandler(this.BTNLimpiar_Click);
             // 
             // LMonto
             // 
@@ -216,23 +252,26 @@
             this.LMonto.TabIndex = 8;
             this.LMonto.Text = "Monto ($):";
             // 
-            // textBox3
+            // TBDescripcion
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TBDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox3.Location = new System.Drawing.Point(82, 115);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(200, 20);
-            this.textBox3.TabIndex = 7;
+            this.TBDescripcion.Location = new System.Drawing.Point(82, 115);
+            this.TBDescripcion.Name = "TBDescripcion";
+            this.TBDescripcion.Size = new System.Drawing.Size(200, 20);
+            this.TBDescripcion.TabIndex = 7;
+            this.TBDescripcion.Validating += new System.ComponentModel.CancelEventHandler(this.TBDescripcion_Validating);
             // 
-            // textBox2
+            // TBMonto
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TBMonto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(82, 150);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(200, 20);
-            this.textBox2.TabIndex = 6;
+            this.TBMonto.Location = new System.Drawing.Point(82, 150);
+            this.TBMonto.Name = "TBMonto";
+            this.TBMonto.Size = new System.Drawing.Size(200, 20);
+            this.TBMonto.TabIndex = 6;
+            this.TBMonto.TextChanged += new System.EventHandler(this.TB_TextChanged);
+            this.TBMonto.Validating += new System.ComponentModel.CancelEventHandler(this.TBMonto_Validating);
             // 
             // LDescipcion
             // 
@@ -255,6 +294,7 @@
             this.CBCategorias.Name = "CBCategorias";
             this.CBCategorias.Size = new System.Drawing.Size(200, 21);
             this.CBCategorias.TabIndex = 4;
+            this.CBCategorias.Validating += new System.ComponentModel.CancelEventHandler(this.CBCategorias_Validating);
             // 
             // LCategoria
             // 
@@ -280,25 +320,27 @@
             this.LPeriodo.TabIndex = 2;
             this.LPeriodo.Text = "Periodo:";
             // 
-            // comboBox2
+            // CBPeriodoAño
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.CBPeriodoAño.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(185, 45);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(97, 21);
-            this.comboBox2.TabIndex = 1;
+            this.CBPeriodoAño.FormattingEnabled = true;
+            this.CBPeriodoAño.Location = new System.Drawing.Point(185, 45);
+            this.CBPeriodoAño.Name = "CBPeriodoAño";
+            this.CBPeriodoAño.Size = new System.Drawing.Size(97, 21);
+            this.CBPeriodoAño.TabIndex = 1;
+            this.CBPeriodoAño.Validating += new System.ComponentModel.CancelEventHandler(this.CBPeriodoAño_Validating);
             // 
-            // comboBox1
+            // CBPeriodoMes
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.CBPeriodoMes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(82, 45);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(97, 21);
-            this.comboBox1.TabIndex = 0;
+            this.CBPeriodoMes.FormattingEnabled = true;
+            this.CBPeriodoMes.Location = new System.Drawing.Point(82, 45);
+            this.CBPeriodoMes.Name = "CBPeriodoMes";
+            this.CBPeriodoMes.Size = new System.Drawing.Size(97, 21);
+            this.CBPeriodoMes.TabIndex = 0;
+            this.CBPeriodoMes.Validating += new System.ComponentModel.CancelEventHandler(this.CBPeriodoMes_Validating);
             // 
             // panel6
             // 
@@ -329,14 +371,14 @@
             this.DGVCategorias.BackgroundColor = System.Drawing.Color.PaleTurquoise;
             this.DGVCategorias.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.DGVCategorias.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVCategorias.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.DGVCategorias.ColumnHeadersHeight = 21;
             this.DGVCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DGVCategorias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -345,19 +387,19 @@
             this.DGVCategorias.EnableHeadersVisualStyles = false;
             this.DGVCategorias.Location = new System.Drawing.Point(6, 79);
             this.DGVCategorias.Name = "DGVCategorias";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVCategorias.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVCategorias.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.DGVCategorias.RowHeadersVisible = false;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.DGVCategorias.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.DGVCategorias.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.DGVCategorias.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVCategorias.Size = new System.Drawing.Size(287, 127);
             this.DGVCategorias.TabIndex = 3;
@@ -431,24 +473,38 @@
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.Controls.Add(this.BTNLimpiarFiltro);
             this.panel8.Controls.Add(this.label7);
             this.panel8.Controls.Add(this.label6);
-            this.panel8.Controls.Add(this.comboBox8);
-            this.panel8.Controls.Add(this.comboBox7);
+            this.panel8.Controls.Add(this.CBHastaPeriodoAño);
+            this.panel8.Controls.Add(this.CBHastaPeriodoMes);
             this.panel8.Controls.Add(this.tableLayoutPanel2);
-            this.panel8.Controls.Add(this.comboBox6);
+            this.panel8.Controls.Add(this.CBFiltroCategoria);
             this.panel8.Controls.Add(this.label3);
             this.panel8.Controls.Add(this.label2);
-            this.panel8.Controls.Add(this.comboBox5);
-            this.panel8.Controls.Add(this.comboBox4);
+            this.panel8.Controls.Add(this.CBDesdePeriodoAño);
+            this.panel8.Controls.Add(this.CBDesdePeriodoMes);
             this.panel8.Controls.Add(this.BTNFiltrar);
-            this.panel8.Controls.Add(this.dataGridView1);
+            this.panel8.Controls.Add(this.DGVGastos);
             this.panel8.Controls.Add(this.panel5);
             this.panel8.Location = new System.Drawing.Point(307, 3);
             this.panel8.Name = "panel8";
             this.tableLayoutPanel1.SetRowSpan(this.panel8, 2);
             this.panel8.Size = new System.Drawing.Size(451, 424);
             this.panel8.TabIndex = 0;
+            // 
+            // BTNLimpiarFiltro
+            // 
+            this.BTNLimpiarFiltro.BackColor = System.Drawing.Color.Silver;
+            this.BTNLimpiarFiltro.FlatAppearance.BorderSize = 0;
+            this.BTNLimpiarFiltro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNLimpiarFiltro.Location = new System.Drawing.Point(372, 86);
+            this.BTNLimpiarFiltro.Name = "BTNLimpiarFiltro";
+            this.BTNLimpiarFiltro.Size = new System.Drawing.Size(57, 23);
+            this.BTNLimpiarFiltro.TabIndex = 16;
+            this.BTNLimpiarFiltro.Text = "Limpiar";
+            this.BTNLimpiarFiltro.UseVisualStyleBackColor = false;
+            this.BTNLimpiarFiltro.Click += new System.EventHandler(this.BTNLimpiarFiltro_Click);
             // 
             // label7
             // 
@@ -470,21 +526,21 @@
             this.label6.TabIndex = 14;
             this.label6.Text = "Desde:";
             // 
-            // comboBox8
+            // CBHastaPeriodoAño
             // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Location = new System.Drawing.Point(121, 88);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(65, 21);
-            this.comboBox8.TabIndex = 13;
+            this.CBHastaPeriodoAño.FormattingEnabled = true;
+            this.CBHastaPeriodoAño.Location = new System.Drawing.Point(121, 88);
+            this.CBHastaPeriodoAño.Name = "CBHastaPeriodoAño";
+            this.CBHastaPeriodoAño.Size = new System.Drawing.Size(65, 21);
+            this.CBHastaPeriodoAño.TabIndex = 13;
             // 
-            // comboBox7
+            // CBHastaPeriodoMes
             // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Location = new System.Drawing.Point(50, 88);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(65, 21);
-            this.comboBox7.TabIndex = 12;
+            this.CBHastaPeriodoMes.FormattingEnabled = true;
+            this.CBHastaPeriodoMes.Location = new System.Drawing.Point(50, 88);
+            this.CBHastaPeriodoMes.Name = "CBHastaPeriodoMes";
+            this.CBHastaPeriodoMes.Size = new System.Drawing.Size(65, 21);
+            this.CBHastaPeriodoMes.TabIndex = 12;
             // 
             // tableLayoutPanel2
             // 
@@ -508,58 +564,82 @@
             this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel9.Controls.Add(this.label4);
+            this.panel9.Controls.Add(this.LTotalPeriodoActual);
+            this.panel9.Controls.Add(this.LGastoPeriodoActual);
             this.panel9.Location = new System.Drawing.Point(3, 3);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(216, 54);
             this.panel9.TabIndex = 0;
             // 
-            // label4
+            // LTotalPeriodoActual
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(4, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(160, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Gasto total periodo filtrado";
+            this.LTotalPeriodoActual.AutoSize = true;
+            this.LTotalPeriodoActual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTotalPeriodoActual.ForeColor = System.Drawing.SystemColors.Control;
+            this.LTotalPeriodoActual.Location = new System.Drawing.Point(52, 30);
+            this.LTotalPeriodoActual.Name = "LTotalPeriodoActual";
+            this.LTotalPeriodoActual.Size = new System.Drawing.Size(38, 13);
+            this.LTotalPeriodoActual.TabIndex = 2;
+            this.LTotalPeriodoActual.Text = "$ - - -";
+            // 
+            // LGastoPeriodoActual
+            // 
+            this.LGastoPeriodoActual.AutoSize = true;
+            this.LGastoPeriodoActual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LGastoPeriodoActual.ForeColor = System.Drawing.SystemColors.Control;
+            this.LGastoPeriodoActual.Location = new System.Drawing.Point(3, 5);
+            this.LGastoPeriodoActual.Name = "LGastoPeriodoActual";
+            this.LGastoPeriodoActual.Size = new System.Drawing.Size(157, 13);
+            this.LGastoPeriodoActual.TabIndex = 1;
+            this.LGastoPeriodoActual.Text = "Gasto total periodo actual:";
             // 
             // panel10
             // 
             this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.Controls.Add(this.label5);
+            this.panel10.Controls.Add(this.LTotalFiltrado);
+            this.panel10.Controls.Add(this.LGastoPeriodoFiltrado);
             this.panel10.Location = new System.Drawing.Point(225, 3);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(217, 54);
             this.panel10.TabIndex = 1;
             // 
-            // label5
+            // LTotalFiltrado
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(4, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(154, 13);
-            this.label5.TabIndex = 1;
-            this.label5.Text = "Gasto total periodo actual";
+            this.LTotalFiltrado.AutoSize = true;
+            this.LTotalFiltrado.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTotalFiltrado.ForeColor = System.Drawing.SystemColors.Control;
+            this.LTotalFiltrado.Location = new System.Drawing.Point(52, 30);
+            this.LTotalFiltrado.Name = "LTotalFiltrado";
+            this.LTotalFiltrado.Size = new System.Drawing.Size(38, 13);
+            this.LTotalFiltrado.TabIndex = 2;
+            this.LTotalFiltrado.Text = "$ - - -";
             // 
-            // comboBox6
+            // LGastoPeriodoFiltrado
             // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Location = new System.Drawing.Point(220, 61);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(124, 21);
-            this.comboBox6.TabIndex = 10;
+            this.LGastoPeriodoFiltrado.AutoSize = true;
+            this.LGastoPeriodoFiltrado.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LGastoPeriodoFiltrado.ForeColor = System.Drawing.SystemColors.Control;
+            this.LGastoPeriodoFiltrado.Location = new System.Drawing.Point(3, 5);
+            this.LGastoPeriodoFiltrado.Name = "LGastoPeriodoFiltrado";
+            this.LGastoPeriodoFiltrado.Size = new System.Drawing.Size(163, 13);
+            this.LGastoPeriodoFiltrado.TabIndex = 0;
+            this.LGastoPeriodoFiltrado.Text = "Gasto total periodo filtrado:";
+            // 
+            // CBFiltroCategoria
+            // 
+            this.CBFiltroCategoria.FormattingEnabled = true;
+            this.CBFiltroCategoria.Location = new System.Drawing.Point(220, 56);
+            this.CBFiltroCategoria.Name = "CBFiltroCategoria";
+            this.CBFiltroCategoria.Size = new System.Drawing.Size(124, 21);
+            this.CBFiltroCategoria.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(217, 42);
+            this.label3.Location = new System.Drawing.Point(217, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(55, 13);
             this.label3.TabIndex = 9;
@@ -569,85 +649,92 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(50, 42);
+            this.label2.Location = new System.Drawing.Point(50, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 8;
             this.label2.Text = "Periodo:";
             // 
-            // comboBox5
+            // CBDesdePeriodoAño
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(121, 61);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(65, 21);
-            this.comboBox5.TabIndex = 7;
+            this.CBDesdePeriodoAño.FormattingEnabled = true;
+            this.CBDesdePeriodoAño.Location = new System.Drawing.Point(121, 56);
+            this.CBDesdePeriodoAño.Name = "CBDesdePeriodoAño";
+            this.CBDesdePeriodoAño.Size = new System.Drawing.Size(65, 21);
+            this.CBDesdePeriodoAño.TabIndex = 7;
             // 
-            // comboBox4
+            // CBDesdePeriodoMes
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(50, 61);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(65, 21);
-            this.comboBox4.TabIndex = 6;
+            this.CBDesdePeriodoMes.FormattingEnabled = true;
+            this.CBDesdePeriodoMes.Location = new System.Drawing.Point(50, 56);
+            this.CBDesdePeriodoMes.Name = "CBDesdePeriodoMes";
+            this.CBDesdePeriodoMes.Size = new System.Drawing.Size(65, 21);
+            this.CBDesdePeriodoMes.TabIndex = 6;
             // 
             // BTNFiltrar
             // 
             this.BTNFiltrar.BackColor = System.Drawing.Color.Silver;
             this.BTNFiltrar.FlatAppearance.BorderSize = 0;
             this.BTNFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNFiltrar.Location = new System.Drawing.Point(372, 59);
+            this.BTNFiltrar.Location = new System.Drawing.Point(372, 54);
             this.BTNFiltrar.Name = "BTNFiltrar";
-            this.BTNFiltrar.Size = new System.Drawing.Size(47, 23);
+            this.BTNFiltrar.Size = new System.Drawing.Size(57, 23);
             this.BTNFiltrar.TabIndex = 5;
             this.BTNFiltrar.Text = "Filtrar";
             this.BTNFiltrar.UseVisualStyleBackColor = false;
+            this.BTNFiltrar.Click += new System.EventHandler(this.BTNFiltrar_Click);
             // 
-            // dataGridView1
+            // DGVGastos
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.DGVGastos.AllowUserToAddRows = false;
+            this.DGVGastos.AllowUserToDeleteRows = false;
+            this.DGVGastos.AllowUserToResizeColumns = false;
+            this.DGVGastos.AllowUserToResizeRows = false;
+            this.DGVGastos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.PaleTurquoise;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.ColumnHeadersHeight = 21;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.DGVGastos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVGastos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DGVGastos.BackgroundColor = System.Drawing.Color.PaleTurquoise;
+            this.DGVGastos.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DGVGastos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVGastos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.DGVGastos.ColumnHeadersHeight = 21;
+            this.DGVGastos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.DGVGastos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.CPeriodo,
             this.dataGridViewTextBoxColumn1,
             this.CDescripcion,
             this.CMonto,
             this.dataGridViewTextBoxColumn2});
-            this.dataGridView1.EnableHeadersVisualStyles = false;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 115);
-            this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(445, 243);
-            this.dataGridView1.TabIndex = 4;
+            this.DGVGastos.EnableHeadersVisualStyles = false;
+            this.DGVGastos.Location = new System.Drawing.Point(6, 115);
+            this.DGVGastos.Name = "DGVGastos";
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVGastos.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.DGVGastos.RowHeadersVisible = false;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.DGVGastos.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            this.DGVGastos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DGVGastos.Size = new System.Drawing.Size(445, 243);
+            this.DGVGastos.TabIndex = 4;
+            this.DGVGastos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.DGVGastos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
             // 
             // CPeriodo
             // 
@@ -750,7 +837,7 @@
             this.panel9.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVGastos)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -781,10 +868,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CEstado;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label LPeriodo;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox CBPeriodoAño;
+        private System.Windows.Forms.ComboBox CBPeriodoMes;
+        private System.Windows.Forms.TextBox TBDescripcion;
+        private System.Windows.Forms.TextBox TBMonto;
         private System.Windows.Forms.Label LDescipcion;
         private System.Windows.Forms.ComboBox CBCategorias;
         private System.Windows.Forms.Label LCategoria;
@@ -793,26 +880,31 @@
         private System.Windows.Forms.Label LMonto;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Button BTNFiltrar;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ComboBox comboBox6;
+        private System.Windows.Forms.DataGridView DGVGastos;
+        private System.Windows.Forms.ComboBox CBFiltroCategoria;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox CBDesdePeriodoAño;
+        private System.Windows.Forms.ComboBox CBDesdePeriodoMes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label LGastoPeriodoActual;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label LGastoPeriodoFiltrado;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBox8;
-        private System.Windows.Forms.ComboBox comboBox7;
+        private System.Windows.Forms.ComboBox CBHastaPeriodoAño;
+        private System.Windows.Forms.ComboBox CBHastaPeriodoMes;
         private System.Windows.Forms.DataGridViewTextBoxColumn CPeriodo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CDescripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn CMonto;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button BTNActualizar;
+        private System.Windows.Forms.Button BTNReestablecer;
+        private System.Windows.Forms.Button BTNLimpiarFiltro;
+        private System.Windows.Forms.Label LTotalPeriodoActual;
+        private System.Windows.Forms.Label LTotalFiltrado;
     }
 }

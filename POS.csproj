@@ -129,6 +129,7 @@
     <Compile Include="CapaEntidad\Persona.cs" />
     <Compile Include="CapaNegocio\CN_Empleado.cs" />
     <Compile Include="CapaNegocio\CN_EstadoCompra.cs" />
+    <Compile Include="CapaNegocio\CN_Gasto.cs" />
     <Compile Include="CapaNegocio\CN_Persona.cs" />
     <Compile Include="CapaNegocio\CN_PersonaFisica.cs" />
     <Compile Include="CapaNegocio\CN_PersonaJuridica.cs" />

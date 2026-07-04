@@ -694,7 +694,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 CN_Compra compra = new CN_Compra();
 
                 Compra  nuevaCompra = new Compra();
-                nuevaCompra.fecha_confirmacion = DateTime.Now.Date;
+                nuevaCompra.fecha_emision = DateTime.Now.Date;
                 nuevaCompra.proveedor = this.proveedor_seleccionado;
                 nuevaCompra.detalles_compra = this.carrito; 
                 nuevaCompra.monto_total = compra.CalcularMontoTotal(nuevaCompra.detalles_compra);

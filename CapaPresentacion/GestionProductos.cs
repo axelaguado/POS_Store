@@ -943,6 +943,25 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 this.LoadTableProductos(); 
             }
-        } 
+        }
+
+        private void TB_TextChanged(object sender, EventArgs e)
+        {
+            // Convierte el objeto sender en un TextBox.
+            System.Windows.Forms.TextBox textBox = sender as System.Windows.Forms.TextBox;
+
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+
+                if (textBox.Text.Contains("."))
+                {
+                    string modificado = textBox.Text.Replace(".", ",");
+                    textBox.Text = modificado;
+
+                    // Mover el cursor al final del texto.
+                    textBox.SelectionStart = textBox.Text.Length;
+                }
+            }
+        }
     }
 }
