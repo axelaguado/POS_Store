@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,22 +10,28 @@ namespace WindowsFormsApp1.CapaEntidad
 {
     public class Venta
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_venta{ get; set; }
         
-        public int cliente_venta { get; set; }
+        public int id_caja { get; set; } 
 
-        public int vendedor_venta { get; set; } 
+        public int id_cliente{ get; set; }
 
-        public int fecha_venta { get; set; }
+        public DateTime fecha_venta { get; set; }
 
         public decimal monto_venta{ get; set; }
 
-        // Propiedad de navegacion --> ermite acceder y gestionar entidades relacionadas de forma fácil y eficiente
+        public bool estado_venta { get; set; }
+
+        // Propiedad de navegacion --> permite acceder y gestionar entidades relacionadas de forma fácil y eficiente
         // dentro de Entity Framework, manteniendo la relación entre ellas en el nivel de objetos.
 
-        public Cliente cliente { get; set; }   
+        [ForeignKey("id_caja")]
+        public Caja caja { get; set; }
 
-        public Usuario vendedor { get; set; }
+        [ForeignKey("id_cliente")]
+        public Cliente cliente { get; set; }
 
         public ICollection<Detalle_venta> detalles { get; set; }    
 

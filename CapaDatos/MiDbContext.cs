@@ -68,6 +68,12 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Venta> Ventas { get; set; }
 
+        // Proceso Caja
+        public DbSet<Caja> Cajas { get; set; }
+
+        public DbSet<Tipo_movimiento> Tipos_movimiento { get; set; }
+
+        public DbSet<Movimiento_caja> Movimientos_caja { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 
@@ -376,6 +382,7 @@ namespace WindowsFormsApp1.CapaDatos
             productoConfig.ToTable("Producto");
 
             // -------------------------------------------------------------- 
+
             // Categoria_Producto
             // Definir entidad
             var categoriaProductoConfig = modelBuilder.Entity<Categoria_producto>();
@@ -391,6 +398,7 @@ namespace WindowsFormsApp1.CapaDatos
             categoriaProductoConfig.ToTable("Categoria_producto");
 
             // ----------------------------------------------------------------------
+
             // Categoria gasto
             var categoriaGastoonfig = modelBuilder.Entity<Categoria_gasto>();
 
@@ -404,6 +412,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Otros mapeos
             categoriaGastoonfig.ToTable("Categoria_gasto");
             // ----------------------------------------------------------------------
+
             // Gasto
             var gastoConfig = modelBuilder.Entity<Gasto>();
 
@@ -423,13 +432,76 @@ namespace WindowsFormsApp1.CapaDatos
             gastoConfig.Property(g => g.categoria_gasto).IsRequired();
             gastoConfig.Property(g => g.estado_gasto).IsRequired();
              
-            gastoConfig.ToTable("Gasto"); 
+            gastoConfig.ToTable("Gasto");
 
             // ----------------------------------------------------------------------
 
-            // Falta a partir de aca, aunque aun no esta terminado el modelo.
+            // Tipo Movimiento
+            // Definir Entidad
+            var tipoMovimientoConfig = modelBuilder.Entity<Tipo_movimiento>();
 
-            // --------------------------------------------
+            tipoMovimientoConfig.HasKey(tm => tm.id_tipo);
+
+            tipoMovimientoConfig.Property(tm => tm.descripcion_tipo).HasMaxLength(100).IsRequired();
+            tipoMovimientoConfig.Property(tm => tm.estado_tipo).IsRequired();
+
+            tipoMovimientoConfig.ToTable("Tipo_movimiento");
+
+            // ----------------------------------------------------------------------
+
+            // Movimiento Caja
+            // Definir Entidad
+            var movimientoConfig = modelBuilder.Entity<Movimiento_caja>();
+
+            // Definimos la clave primaria.
+            movimientoConfig.HasKey(m => m.id_movimiento);
+
+            // Definimos las relaciones.
+            movimientoConfig.HasRequired(m => m.caja)
+                         .WithMany(c => c.movimientos)
+                         .HasForeignKey(m => m.id_caja)
+                         .WillCascadeOnDelete(false);
+
+            movimientoConfig.HasRequired(m => m.tipo_movimiento)
+                         .WithMany(tm => tm.movimientos_caja)
+                         .HasForeignKey(m => m.id_tipo)
+                         .WillCascadeOnDelete(false);
+
+            // Definimos las propiedades.
+            movimientoConfig.Property(m => m.monto_movimiento).HasPrecision(10, 2).IsRequired();
+            movimientoConfig.Property(m => m.descripcion_movimiento).HasMaxLength(100).IsRequired();
+            movimientoConfig.Property(m => m.fecha_movimiento).IsRequired();
+            movimientoConfig.Property(m => m.estado_movimiento).IsRequired();
+
+            // Mapeamos la tabla.
+            movimientoConfig.ToTable("Movimiento_caja");
+
+            // ----------------------------------------------------------------------
+
+            // Caja
+            // Definir Entidad
+            var cajaConfig = modelBuilder.Entity<Caja>();
+
+            // Definimos la clave primaria.
+            cajaConfig.HasKey(c => c.id_caja);
+
+            // Definimos las relaciones.
+            cajaConfig.HasRequired(c => c.usuario)
+                      .WithMany(u => u.cajas)
+                      .HasForeignKey(c => c.id_usuario)
+                      .WillCascadeOnDelete(false);
+
+            // Definimos las propiedas.
+            cajaConfig.Property(c => c.fecha_apertura).IsRequired();
+            cajaConfig.Property(c => c.fecha_cierre);
+            cajaConfig.Property(c => c.saldo_incial).HasPrecision(10, 2).IsRequired();
+            cajaConfig.Property(c => c.saldo_cierre).HasPrecision(10, 2);
+            cajaConfig.Property(c => c.estado_caja).IsRequired();
+
+            // Mapeamos la tabla
+            cajaConfig.ToTable("Caja");
+
+            // ----------------------------------------------------------------------
 
             // Venta
             // Definir entidad
@@ -438,24 +510,22 @@ namespace WindowsFormsApp1.CapaDatos
             // Configurar clave primaria
             ventaConfig.HasKey(v => v.id_venta);
 
-            // Configurar propiedades
-            ventaConfig.Property(v => v.fecha_venta).IsRequired();
-            ventaConfig.Property(v => v.monto_venta).IsRequired();
-
             // Configurar relaciones
             ventaConfig.HasRequired(v => v.cliente)
                        .WithMany(c => c.compras)
-                       .HasForeignKey(v => v.cliente_venta);
+                       .HasForeignKey(v => v.id_cliente);
 
-            /* 
-             * ventaConfig.HasRequired(v => v.vendedor)
-                       .WithMany(u => u.ventas)
-                       .HasForeignKey(v => v.vendedor_venta);
-            */
+            ventaConfig.HasRequired(v => v.caja)
+                       .WithMany(c => c.ventas)
+                       .HasForeignKey(v => v.id_caja);
+
+            // Configurar propiedades
+            ventaConfig.Property(v => v.fecha_venta).IsRequired();
+            ventaConfig.Property(v => v.monto_venta).HasPrecision(10, 2).IsRequired();
+            ventaConfig.Property(v => v.estado_venta).IsRequired();
 
             // Otros mapeos
-             
-            ventaConfig.ToTable("Ventas");
+            ventaConfig.ToTable("Venta");
 
             // -------------------------------------------------------
 
@@ -466,27 +536,31 @@ namespace WindowsFormsApp1.CapaDatos
             // Configurar clave primaria
             detalleVentaConfig.HasKey(dv => dv.id_detalle);
 
-            // Configurar propiedades
-            detalleVentaConfig.Property(dv => dv.cantidad_producto).IsRequired();
-            detalleVentaConfig.Property(dv => dv.precio_unitario).IsRequired();
-            detalleVentaConfig.Property(dv => dv.subtotal).IsRequired();
-
             // Configurar relaciones
             detalleVentaConfig.HasRequired(dv => dv.venta)
                               .WithMany(v => v.detalles)
                               .HasForeignKey(dv => dv.id_venta);
-
-            /*
+             
             detalleVentaConfig.HasRequired(dv => dv.producto)
-                              .WithMany(pr => pr.ventas)
+                              .WithMany(pr => pr.detalles_venta)
                               .HasForeignKey(dv => dv.id_producto);
-            */
+
+            // Configurar propiedades
+            detalleVentaConfig.Property(dv => dv.cantidad_producto).IsRequired();
+            detalleVentaConfig.Property(dv => dv.precio_costo).HasPrecision(10, 2).IsRequired();
+            detalleVentaConfig.Property(dv => dv.precio_unitario).HasPrecision(10, 2).IsRequired();
+            detalleVentaConfig.Property(dv => dv.subtotal).HasPrecision(10, 2);
 
             // Otros mapeos
-            detalleVentaConfig.ToTable("Detalles_Ventas");
-            
+            detalleVentaConfig.ToTable("Detalle_venta");
+
+            // -------------------------------------------------------
+
+            // Faltan Cobro y Metodo de pago.
+
+            // -------------------------------------------------------
         }
-             
+
     }
     
 }

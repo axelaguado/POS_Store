@@ -111,7 +111,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             // fh.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
             this.PContenidos.Controls.Add(fh);
             fh.Show();
-        } 
+        }
+
+        public Rectangle GetAreaPContenido()
+        {
+            Rectangle area = this.PContenidos.RectangleToScreen(this.PContenidos.ClientRectangle);
+            return area;
+        }
 
         private void BGestionUsuarios_Click(object sender, EventArgs e)
         {
@@ -149,6 +155,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.AbrirFormHijo(new GestionGastos(this));
             this.LightOff(sender);
             BTGastos.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+        
+        private void BVentas_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionVentas(this));
+            this.LightOff(sender);
+            BVentas.BackColor = System.Drawing.Color.DarkTurquoise;
         }
 
         public void LightOff(object sender) 

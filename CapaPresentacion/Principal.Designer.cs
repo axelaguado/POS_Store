@@ -368,6 +368,7 @@
             this.BVentas.TabIndex = 5;
             this.BVentas.Text = "Ventas";
             this.BVentas.UseVisualStyleBackColor = true;
+            this.BVentas.Click += new System.EventHandler(this.BVentas_Click);
             // 
             // BGestionProductos
             // 

@@ -739,18 +739,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (string.IsNullOrEmpty(this.TBMonto.Text))
             {
                 this.errorProvider1.SetError(this.TBMonto, "El campo Monto es obligatorio");
+                this.load_ErrorProviderGasto = true;
             }
             else if (!decimal.TryParse(this.TBMonto.Text, out decimal monto_gasto))
             {
                 this.errorProvider1.SetError(this.TBMonto, "El campo Monto debe ser un valor numerico");
+                this.load_ErrorProviderGasto = true;
             }
             else if (!(decimal.Round(monto_gasto, 2) == monto_gasto))
             {
                 this.errorProvider1.SetError(this.TBMonto, "El campo Monto debe ser un valor numerico con hasta dos decimales.");
+                this.load_ErrorProviderGasto = true;
             }
             else if (monto_gasto <= 0)
             {
                 this.errorProvider1.SetError(this.TBMonto, "El campo Monto debe ser mayor a cero.");
+                this.load_ErrorProviderGasto = true;
             }
             else
             {

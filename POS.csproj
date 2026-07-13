@@ -99,12 +99,14 @@
     <Compile Include="CapaDatos\ProveedorDAO.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
+    <Compile Include="CapaEntidad\Caja.cs" />
     <Compile Include="CapaEntidad\Categoria_gasto.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
     <Compile Include="CapaEntidad\Contacto.cs" />
     <Compile Include="CapaEntidad\Empleado.cs" />
     <Compile Include="CapaEntidad\Estado_compra.cs" />
     <Compile Include="CapaEntidad\Gasto.cs" />
+    <Compile Include="CapaEntidad\Movimiento_caja.cs" />
     <Compile Include="CapaEntidad\PersonaJuridica.cs" />
     <Compile Include="CapaEntidad\Detalle_compra.cs" />
     <Compile Include="CapaEntidad\ItemCarrito.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="CapaEntidad\Proveedor.cs" />
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
+    <Compile Include="CapaEntidad\Tipo_movimiento.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaGasto.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaProducto.cs" />
     <Compile Include="CapaNegocio\CN_Cliente.cs" />
@@ -138,6 +141,12 @@
     <Compile Include="CapaNegocio\CN_Usuario.cs" />
     <Compile Include="CapaNegocio\CN_Compra.cs" />
     <Compile Include="CapaNegocio\CN_Producto.cs" />
+    <Compile Include="CapaPresentacion\AperturaCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\AperturaCaja.Designer.cs">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\Calculadora.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +201,12 @@
     <Compile Include="CapaPresentacion\GestionUsuario.Designer.cs">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\GestionVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionVentas.Designer.cs">
+      <DependentUpon>GestionVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +238,9 @@
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CapaPresentacion\AperturaCaja.resx">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Calculadora.resx">
       <DependentUpon>Calculadora.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,6 +267,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionUsuario.resx">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionVentas.resx">
+      <DependentUpon>GestionVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
