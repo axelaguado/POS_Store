@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+
+    <style>
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 11px;
+            color: #000;
+            margin: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        .titulo {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .subtitulo {
+            text-align: center;
+            font-size: 14px;
+            padding-bottom: 20px;
+        }
+
+        .seccion {
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+            padding-top: 30px;
+            padding-bottom: 4px;
+        }
+
+        .label {
+            width: 65%;
+        }
+
+        .value {
+            width: 35%;
+            text-align: right;
+        }
+
+        .resumen {
+            border: 1px solid #000;
+        }
+
+        .total {
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <table>
+
+        <tr>
+            <td class="titulo">
+                T-STORE
+            </td>
+        </tr>
+
+        <tr>
+            <td class="subtitulo">
+                Resumen de Cierre de Caja
+            </td>
+        </tr>
+
+    </table>
+
+
+    <table>
+
+        <tr>
+            <td class="seccion">
+                INFORMACIÓN GENERAL
+            </td>
+        </tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+            <td class="label">Usuario</td>
+            <td class="value">{{usuario}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Fecha Apertura</td>
+            <td class="value">{{fecha_apertura}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Fecha Cierre</td>
+            <td class="value">{{fecha_cierre}}</td>
+        </tr>
+
+    </table>
+
+    <br />
+
+
+    <table>
+
+        <tr>
+            <td class="seccion">
+                MOVIMIENTOS DE CAJA
+            </td>
+        </tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+            <td class="label">Ingresos</td>
+            <td class="value">$ {{ingresos}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Egresos</td>
+            <td class="value">$ {{egresos}}</td>
+        </tr>
+
+    </table>
+
+    <br />
+
+
+    <table>
+
+        <tr>
+            <td class="seccion">
+                VENTAS
+            </td>
+        </tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+            <td class="label">Cantidad de Ventas</td>
+            <td class="value">{{cantidad_ventas}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Cantidad de Productos</td>
+            <td class="value">{{cantidad_productos}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Monto Total Vendido</td>
+            <td class="value">$ {{ventas_total}}</td>
+        </tr>
+
+    </table>
+
+    <br />
+
+
+    <table>
+
+        <tr>
+            <td class="seccion">
+                MEDIOS DE PAGO
+            </td>
+        </tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+            <td class="label">Efectivo</td>
+            <td class="value">$ {{efectivo}}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Otros Medios</td>
+            <td class="value">$ {{otros}}</td>
+        </tr>
+
+    </table>
+
+    <br />
+
+
+    <table>
+
+        <tr>
+            <td class="seccion">
+                RESUMEN DE CAJA
+            </td>
+        </tr>
+
+        <tr><td>&nbsp;</td></tr>
+
+    </table>
+
+    <table border="0" cellspacing="0" cellpadding="5" class="resumen">
+
+        <tr>
+
+            <td class="label">Saldo Inicial</td>
+
+            <td class="value">$ {{saldo_inicial}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td class="label">Saldo Esperado</td>
+
+            <td class="value">$ {{saldo_esperado}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td class="label">Saldo Contado</td>
+
+            <td class="value">$ {{saldo_cierre}}</td>
+
+        </tr>
+
+        <tr>
+
+            <td class="label total">Diferencia</td>
+
+            <td class="value total">$ {{diferencia}}</td>
+
+        </tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+            <td height="180"></td>
+        </tr>
+
+    </table>
+
+    <table>
+
+        <tr>
+
+            <td align="center">
+
+                ____________________________________
+
+                <br />
+
+                Responsable de Caja
+
+            </td>
+
+            <td align="center">
+
+                ____________________________________
+
+                <br />
+
+                Supervisor
+
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br />
+    <br />
+
+    <table>
+
+        <tr>
+
+            <td class="footer">
+
+                T-Store - {{fecha_emision}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</body>
+</html>

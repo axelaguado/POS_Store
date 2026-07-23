@@ -39,6 +39,17 @@ namespace WindowsFormsApp1.CapaPresentacion
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
+        public string GetUsernameSession() 
+        { 
+            return this.session.username;
+        }
+         
+        // Seria lo correcto?
+        public int GetIdSession()
+        {
+            return this.session.id_user;
+        }
+
         public void cargarPBienvenida()
         {
             BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido + "   ▼";

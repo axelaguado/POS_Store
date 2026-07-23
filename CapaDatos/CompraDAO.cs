@@ -23,8 +23,6 @@ namespace WindowsFormsApp1.CapaDatos
         public void Crear_compra(Compra _compra)
         {
             // Como compra necesita de un proveedor conocido y los productos del detalle tambien, entonces vamos a recordarle a EF que estos ya existen en la BD.
-
-
             _context.Compras.Add(_compra);  
         }
 

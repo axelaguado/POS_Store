@@ -83,7 +83,9 @@ namespace WindowsFormsApp1.CapaDatos
 
         public async Task<List<Proveedor>> Obtener_proveedoresAsync(CancellationToken token, string proveedor)
         {
-            return await _context.Proveedores.Where(p => p.estado_proveedor == true && (p.persona.persona_juridica.razon_social.Contains(proveedor) || p.persona.persona_juridica.nombre_comercial.Contains(proveedor)))
+            return await _context.Proveedores.Include(p => p.persona)
+                                             .Include(p => p.persona.persona_juridica)
+                                             .Where(p => p.estado_proveedor == true && (p.persona.persona_juridica.razon_social.Contains(proveedor) || p.persona.persona_juridica.nombre_comercial.Contains(proveedor)))
                                              .OrderBy(p => p.persona.persona_juridica.razon_social)  
                                              .ToListAsync(token);
         }

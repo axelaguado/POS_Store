@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="utf-8" />
+
+<title>Cierre de Caja</title>
+
+<style>
+
+body{
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size:12px;
+    color:#000;
+    background:white;
+    margin:35px;
+}
+
+.container{
+    width:760px;
+    margin:auto;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.header h1{
+    margin:0;
+    font-size:22px;
+    letter-spacing:1px;
+}
+
+.header h2{
+    margin:4px 0;
+    font-size:16px;
+    font-weight:normal;
+}
+
+.header p{
+    margin:0;
+    font-size:11px;
+}
+
+.section{
+
+    margin-top:22px;
+
+    font-weight:bold;
+
+    padding-bottom:4px;
+
+    border-bottom:2px solid #000;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:10px;
+
+}
+
+td{
+
+    padding:6px 4px;
+
+}
+
+.label{
+
+    width:55%;
+
+}
+
+.value{
+
+    width:45%;
+
+    text-align:right;
+
+}
+
+.resume{
+
+    margin-top:30px;
+
+    border:1px solid #000;
+
+}
+
+.resume td{
+
+    padding:8px;
+
+}
+
+.total{
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.signature{
+
+    margin-top:70px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.signature div{
+
+    width:260px;
+
+    text-align:center;
+
+}
+
+.line{
+
+    border-top:1px solid black;
+
+    margin-bottom:5px;
+
+}
+
+.footer{
+
+    margin-top:35px;
+
+    text-align:center;
+
+    font-size:11px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>T-STORE</h1>
+
+<h2>Resumen de Cierre de Caja</h2>
+
+<p>Documento generado automáticamente</p>
+
+</div>
+
+<div class="section">
+INFORMACIÓN GENERAL
+</div>
+
+<table>
+
+<tr>
+
+<td class="label">Usuario</td>
+
+<td class="value">{{usuario}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Fecha de Apertura</td>
+
+<td class="value">{{fecha_apertura}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Fecha de Cierre</td>
+
+<td class="value">{{fecha_cierre}}</td>
+
+</tr>
+
+</table>
+
+<div class="section">
+MOVIMIENTOS
+</div>
+
+<table>
+
+<tr>
+
+<td class="label">Ingresos</td>
+
+<td class="value">$ {{ingresos}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Egresos</td>
+
+<td class="value">$ {{egresos}}</td>
+
+</tr>
+
+</table>
+
+<div class="section">
+VENTAS
+</div>
+
+<table>
+
+<tr>
+
+<td class="label">Cantidad de Ventas</td>
+
+<td class="value">{{cantidad_ventas}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Cantidad de Productos</td>
+
+<td class="value">{{cantidad_productos}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Monto Total Vendido</td>
+
+<td class="value">$ {{ventas_total}}</td>
+
+</tr>
+
+</table>
+
+<div class="section">
+MEDIOS DE PAGO
+</div>
+
+<table>
+
+<tr>
+
+<td class="label">Efectivo</td>
+
+<td class="value">$ {{efectivo}}</td>
+
+</tr>
+
+<tr>
+
+<td class="label">Otros Medios</td>
+
+<td class="value">$ {{otros}}</td>
+
+</tr>
+
+</table>
+
+<div class="section">
+RESUMEN DE CAJA
+</div>
+
+<table class="resume">
+
+<tr>
+
+<td>Saldo Inicial</td>
+
+<td class="value">$ {{saldo_inicial}}</td>
+
+</tr>
+
+<tr>
+
+<td>Saldo Esperado</td>
+
+<td class="value">$ {{saldo_esperado}}</td>
+
+</tr>
+
+<tr>
+
+<td>Saldo Contado</td>
+
+<td class="value">$ {{saldo_cierre}}</td>
+
+</tr>
+
+<tr class="total">
+
+<td>Diferencia</td>
+
+<td class="value">$ {{diferencia}}</td>
+
+</tr>
+
+</table>
+
+<div class="signature">
+
+<div>
+
+<div class="line"></div>
+
+Responsable de Caja
+
+</div>
+
+<div>
+
+<div class="line"></div>
+
+Supervisor
+
+</div>
+
+</div>
+
+<div class="footer">
+
+T-Store · {{fecha_emision}}
+
+</div>
+
+</div>
+
+</body>
+</html>

@@ -18,9 +18,9 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public DateTime fecha_apertura { get; set; }
 
-        public DateTime fecha_cierre { get; set; }
+        public DateTime? fecha_cierre { get; set; }
 
-        public decimal saldo_incial { get; set; }
+        public decimal saldo_inicial { get; set; }
 
         public decimal saldo_cierre { get; set; }
 

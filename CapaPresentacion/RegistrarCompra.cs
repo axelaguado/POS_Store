@@ -256,6 +256,11 @@ namespace WindowsFormsApp1.CapaPresentacion
                 List<Proveedor> lista = new List<Proveedor>();
                 Proveedor errorproveedor = new Proveedor();
 
+                Persona persona = new Persona();
+                PersonaJuridica personaJuridica = new PersonaJuridica();
+                persona.persona_juridica = personaJuridica;
+
+                errorproveedor.persona = persona;
                 errorproveedor.persona.persona_juridica.razon_social = "Ha ocurrido un error, vuelva a intentarlo.";
                 errorproveedor.id_proveedor = 0;
 

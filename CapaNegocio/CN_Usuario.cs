@@ -197,17 +197,11 @@ namespace WindowsFormsApp1.CapaNegocio
                 Usuario encontrado = user.buscar_usuario_id(id_user);
 
                 if (encontrado != null) 
-                { 
-                    if (this.VerificarPassword(contraseniaavieja, encontrado.contraseña))
-                    {
-                        return true;
-                    }
-                    else 
-                    {
-                        return false;
-                    }
+                {
+                    return this.VerificarPassword(contraseniaavieja, encontrado.contraseña);
                 }
-                else { return false; }  
+
+                return false;  
             }
         }
 

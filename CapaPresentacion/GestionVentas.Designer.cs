@@ -28,84 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LTitulo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.LDetalleVenta = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.NUDCantidad = new System.Windows.Forms.NumericUpDown();
+            this.BTNAddCarrito = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TBCodigoProducto = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.CSku = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVariante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.BTNConsultarPrecio = new System.Windows.Forms.Button();
+            this.BTNNuevaVenta = new System.Windows.Forms.Button();
+            this.BTNCobrar = new System.Windows.Forms.Button();
+            this.BTNResumenCaja = new System.Windows.Forms.Button();
+            this.BTNCerrarCaja = new System.Windows.Forms.Button();
+            this.BTNMenosCantidad = new System.Windows.Forms.Button();
+            this.BTNMasCantidad = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.LDetalleEstado = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.LDetalleFecha = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.LDetalleVenta = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.BTNBuscarDniCuit = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.Direccion = new System.Windows.Forms.Label();
+            this.Telefono = new System.Windows.Forms.Label();
             this.LDireccion = new System.Windows.Forms.Label();
             this.LTelefono = new System.Windows.Forms.Label();
             this.BTNBuscarSku = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.CBCliente = new System.Windows.Forms.ComboBox();
+            this.TBDniCuit = new System.Windows.Forms.TextBox();
             this.LCliente = new System.Windows.Forms.Label();
-            this.LDniCuil = new System.Windows.Forms.Label();
+            this.LDniCuit = new System.Windows.Forms.Label();
             this.LDetalleCliente = new System.Windows.Forms.Label();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.LRCantidadValue = new System.Windows.Forms.Label();
+            this.LRSubtotal = new System.Windows.Forms.Label();
+            this.LRSubtotalValue = new System.Windows.Forms.Label();
+            this.LRCantidad = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.LRUnidadesValue = new System.Windows.Forms.Label();
+            this.LRProductos = new System.Windows.Forms.Label();
+            this.LRProductosValue = new System.Windows.Forms.Label();
+            this.LRUnidades = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.LRTotal = new System.Windows.Forms.Label();
+            this.LRTotalValue = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
+            this.LRTitulo = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.LRProducto = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.LAnuncio = new System.Windows.Forms.Label();
             this.BTNAbrirCaja = new System.Windows.Forms.Button();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tableLayoutPanel4.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel10.SuspendLayout();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel11.SuspendLayout();
@@ -114,6 +119,7 @@
             this.panel13.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -162,12 +168,12 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33332F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
-            this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 2, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(7, 42);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 42);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -175,88 +181,9 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(760, 384);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(753, 384);
             this.tableLayoutPanel2.TabIndex = 2;
             this.tableLayoutPanel2.Visible = false;
-            // 
-            // panel8
-            // 
-            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel8.Controls.Add(this.panel10);
-            this.panel8.Controls.Add(this.LDetalleVenta);
-            this.panel8.Location = new System.Drawing.Point(256, 195);
-            this.panel8.Name = "panel8";
-            this.tableLayoutPanel2.SetRowSpan(this.panel8, 2);
-            this.panel8.Size = new System.Drawing.Size(247, 186);
-            this.panel8.TabIndex = 5;
-            // 
-            // panel10
-            // 
-            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.BackColor = System.Drawing.Color.Teal;
-            this.panel10.Controls.Add(this.label6);
-            this.panel10.Controls.Add(this.label5);
-            this.panel10.Controls.Add(this.label3);
-            this.panel10.Controls.Add(this.label4);
-            this.panel10.Location = new System.Drawing.Point(7, 24);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(221, 152);
-            this.panel10.TabIndex = 11;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.Control;
-            this.label6.Location = new System.Drawing.Point(70, 38);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(64, 13);
-            this.label6.TabIndex = 3;
-            this.label6.Text = "Procesando";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.Control;
-            this.label5.Location = new System.Drawing.Point(3, 38);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Estado:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(70, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "11/07/2026";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.Control;
-            this.label4.Location = new System.Drawing.Point(3, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Fecha:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
-            // LDetalleVenta
-            // 
-            this.LDetalleVenta.AutoSize = true;
-            this.LDetalleVenta.ForeColor = System.Drawing.SystemColors.Control;
-            this.LDetalleVenta.Location = new System.Drawing.Point(4, 5);
-            this.LDetalleVenta.Name = "LDetalleVenta";
-            this.LDetalleVenta.Size = new System.Drawing.Size(94, 13);
-            this.LDetalleVenta.TabIndex = 1;
-            this.LDetalleVenta.Text = "Detalles de Venta:";
             // 
             // panel4
             // 
@@ -264,29 +191,56 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.SetColumnSpan(this.panel4, 2);
-            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.NUDCantidad);
+            this.panel4.Controls.Add(this.BTNAddCarrito);
             this.panel4.Controls.Add(this.label2);
             this.panel4.Controls.Add(this.label1);
-            this.panel4.Controls.Add(this.comboBox1);
-            this.panel4.Controls.Add(this.textBox1);
+            this.panel4.Controls.Add(this.TBCodigoProducto);
             this.panel4.Controls.Add(this.dataGridView1);
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.tableLayoutPanel2.SetRowSpan(this.panel4, 2);
-            this.panel4.Size = new System.Drawing.Size(500, 186);
+            this.panel4.Size = new System.Drawing.Size(495, 186);
             this.panel4.TabIndex = 0;
             // 
-            // button1
+            // NUDCantidad
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(276, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Agregar";
-            this.button1.UseVisualStyleBackColor = false;
+            this.NUDCantidad.Location = new System.Drawing.Point(231, 4);
+            this.NUDCantidad.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.NUDCantidad.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUDCantidad.Name = "NUDCantidad";
+            this.NUDCantidad.Size = new System.Drawing.Size(47, 20);
+            this.NUDCantidad.TabIndex = 6;
+            this.NUDCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.NUDCantidad.ThousandsSeparator = true;
+            this.NUDCantidad.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.NUDCantidad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NUDCantidad.Validating += new System.ComponentModel.CancelEventHandler(this.NUDCantidad_Validating);
+            // 
+            // BTNAddCarrito
+            // 
+            this.BTNAddCarrito.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNAddCarrito.FlatAppearance.BorderSize = 0;
+            this.BTNAddCarrito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNAddCarrito.Location = new System.Drawing.Point(301, 2);
+            this.BTNAddCarrito.Name = "BTNAddCarrito";
+            this.BTNAddCarrito.Size = new System.Drawing.Size(75, 23);
+            this.BTNAddCarrito.TabIndex = 5;
+            this.BTNAddCarrito.Text = "Agregar";
+            this.BTNAddCarrito.UseVisualStyleBackColor = false;
+            this.BTNAddCarrito.Click += new System.EventHandler(this.BTNAddCarrito_Click);
             // 
             // label2
             // 
@@ -308,20 +262,13 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Codigo:";
             // 
-            // comboBox1
+            // TBCodigoProducto
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(231, 3);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(39, 21);
-            this.comboBox1.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(52, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.TBCodigoProducto.Location = new System.Drawing.Point(52, 4);
+            this.TBCodigoProducto.Name = "TBCodigoProducto";
+            this.TBCodigoProducto.Size = new System.Drawing.Size(100, 20);
+            this.TBCodigoProducto.TabIndex = 1;
+            this.TBCodigoProducto.Validating += new System.ComponentModel.CancelEventHandler(this.TBCodigoProducto_Validating);
             // 
             // dataGridView1
             // 
@@ -337,14 +284,14 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.ColumnHeadersHeight = 30;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -352,25 +299,26 @@
             this.CProducto,
             this.CVariante,
             this.CCantidad});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(3, 33);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(494, 153);
+            this.dataGridView1.Size = new System.Drawing.Size(489, 144);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // CSku
             // 
@@ -392,24 +340,306 @@
             this.CCantidad.HeaderText = "Cantidad";
             this.CCantidad.Name = "CCantidad";
             // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.BTNConsultarPrecio, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.BTNNuevaVenta, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.BTNCobrar, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.BTNResumenCaja, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.BTNCerrarCaja, 1, 5);
+            this.tableLayoutPanel4.Controls.Add(this.BTNMenosCantidad, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.BTNMasCantidad, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button8, 1, 3);
+            this.tableLayoutPanel4.Controls.Add(this.button7, 0, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(504, 195);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 6;
+            this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel4, 2);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(246, 186);
+            this.tableLayoutPanel4.TabIndex = 7;
+            // 
+            // BTNConsultarPrecio
+            // 
+            this.BTNConsultarPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNConsultarPrecio.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BTNConsultarPrecio.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BTNConsultarPrecio.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.BTNConsultarPrecio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNConsultarPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNConsultarPrecio.Location = new System.Drawing.Point(126, 33);
+            this.BTNConsultarPrecio.Name = "BTNConsultarPrecio";
+            this.BTNConsultarPrecio.Size = new System.Drawing.Size(117, 24);
+            this.BTNConsultarPrecio.TabIndex = 2;
+            this.BTNConsultarPrecio.Text = "F4 - Consultar Precio ";
+            this.BTNConsultarPrecio.UseVisualStyleBackColor = false;
+            this.BTNConsultarPrecio.Click += new System.EventHandler(this.BTNConsultarPrecio_Click);
+            // 
+            // BTNNuevaVenta
+            // 
+            this.BTNNuevaVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNNuevaVenta.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BTNNuevaVenta.BackColor = System.Drawing.Color.Lime;
+            this.BTNNuevaVenta.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.BTNNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNNuevaVenta.Location = new System.Drawing.Point(3, 33);
+            this.BTNNuevaVenta.Name = "BTNNuevaVenta";
+            this.BTNNuevaVenta.Size = new System.Drawing.Size(117, 24);
+            this.BTNNuevaVenta.TabIndex = 1;
+            this.BTNNuevaVenta.Text = "F3 - Nueva Venta";
+            this.BTNNuevaVenta.UseVisualStyleBackColor = false;
+            this.BTNNuevaVenta.Click += new System.EventHandler(this.BTNNuevaVenta_Click);
+            // 
+            // BTNCobrar
+            // 
+            this.BTNCobrar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNCobrar.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.tableLayoutPanel4.SetColumnSpan(this.BTNCobrar, 2);
+            this.BTNCobrar.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BTNCobrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNCobrar.ForeColor = System.Drawing.Color.Black;
+            this.BTNCobrar.Location = new System.Drawing.Point(3, 3);
+            this.BTNCobrar.Name = "BTNCobrar";
+            this.BTNCobrar.Size = new System.Drawing.Size(240, 24);
+            this.BTNCobrar.TabIndex = 0;
+            this.BTNCobrar.Text = "F2 - Cobrar";
+            this.BTNCobrar.UseVisualStyleBackColor = false;
+            this.BTNCobrar.Click += new System.EventHandler(this.BTNCobrar_Click);
+            // 
+            // BTNResumenCaja
+            // 
+            this.BTNResumenCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNResumenCaja.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BTNResumenCaja.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.BTNResumenCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNResumenCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNResumenCaja.Location = new System.Drawing.Point(3, 153);
+            this.BTNResumenCaja.Name = "BTNResumenCaja";
+            this.BTNResumenCaja.Size = new System.Drawing.Size(117, 30);
+            this.BTNResumenCaja.TabIndex = 4;
+            this.BTNResumenCaja.Text = "F9 - Resumen Caja";
+            this.BTNResumenCaja.UseVisualStyleBackColor = false;
+            // 
+            // BTNCerrarCaja
+            // 
+            this.BTNCerrarCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNCerrarCaja.BackColor = System.Drawing.Color.DarkRed;
+            this.BTNCerrarCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNCerrarCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNCerrarCaja.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTNCerrarCaja.Location = new System.Drawing.Point(126, 153);
+            this.BTNCerrarCaja.Name = "BTNCerrarCaja";
+            this.BTNCerrarCaja.Size = new System.Drawing.Size(117, 30);
+            this.BTNCerrarCaja.TabIndex = 5;
+            this.BTNCerrarCaja.Text = "F10 - Cerrar Caja";
+            this.BTNCerrarCaja.UseVisualStyleBackColor = false;
+            this.BTNCerrarCaja.Click += new System.EventHandler(this.BTNCerrarCaja_Click);
+            // 
+            // BTNMenosCantidad
+            // 
+            this.BTNMenosCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNMenosCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BTNMenosCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BTNMenosCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNMenosCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNMenosCantidad.ForeColor = System.Drawing.Color.Black;
+            this.BTNMenosCantidad.Location = new System.Drawing.Point(3, 63);
+            this.BTNMenosCantidad.Name = "BTNMenosCantidad";
+            this.BTNMenosCantidad.Size = new System.Drawing.Size(117, 24);
+            this.BTNMenosCantidad.TabIndex = 0;
+            this.BTNMenosCantidad.Text = "(-) Cantidad";
+            this.BTNMenosCantidad.UseVisualStyleBackColor = false;
+            this.BTNMenosCantidad.Click += new System.EventHandler(this.BTNMenosCantidad_Click);
+            // 
+            // BTNMasCantidad
+            // 
+            this.BTNMasCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNMasCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BTNMasCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BTNMasCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNMasCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNMasCantidad.Location = new System.Drawing.Point(126, 63);
+            this.BTNMasCantidad.Name = "BTNMasCantidad";
+            this.BTNMasCantidad.Size = new System.Drawing.Size(117, 24);
+            this.BTNMasCantidad.TabIndex = 1;
+            this.BTNMasCantidad.Text = "(+) Cantidad";
+            this.BTNMasCantidad.UseVisualStyleBackColor = false;
+            this.BTNMasCantidad.Click += new System.EventHandler(this.BTNMasCantidad_Click);
+            // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.BackColor = System.Drawing.Color.MintCream;
+            this.button8.Enabled = false;
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.Red;
+            this.button8.Location = new System.Drawing.Point(126, 93);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(117, 24);
+            this.button8.TabIndex = 3;
+            this.button8.Text = "F8 - Cancelar Venta";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button7.Enabled = false;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(3, 93);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(117, 24);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "F7 - Descuento";
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // panel8
+            // 
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.Controls.Add(this.panel10);
+            this.panel8.Controls.Add(this.LDetalleVenta);
+            this.panel8.Location = new System.Drawing.Point(253, 195);
+            this.panel8.Name = "panel8";
+            this.tableLayoutPanel2.SetRowSpan(this.panel8, 2);
+            this.panel8.Size = new System.Drawing.Size(245, 186);
+            this.panel8.TabIndex = 5;
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.BackColor = System.Drawing.Color.Teal;
+            this.panel10.Controls.Add(this.LDetalleEstado);
+            this.panel10.Controls.Add(this.label5);
+            this.panel10.Controls.Add(this.LDetalleFecha);
+            this.panel10.Controls.Add(this.label4);
+            this.panel10.Location = new System.Drawing.Point(7, 21);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(221, 162);
+            this.panel10.TabIndex = 11;
+            // 
+            // LDetalleEstado
+            // 
+            this.LDetalleEstado.AutoSize = true;
+            this.LDetalleEstado.ForeColor = System.Drawing.SystemColors.Control;
+            this.LDetalleEstado.Location = new System.Drawing.Point(70, 38);
+            this.LDetalleEstado.Name = "LDetalleEstado";
+            this.LDetalleEstado.Size = new System.Drawing.Size(10, 13);
+            this.LDetalleEstado.TabIndex = 3;
+            this.LDetalleEstado.Text = "-";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.Control;
+            this.label5.Location = new System.Drawing.Point(3, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Estado:";
+            // 
+            // LDetalleFecha
+            // 
+            this.LDetalleFecha.AutoSize = true;
+            this.LDetalleFecha.ForeColor = System.Drawing.SystemColors.Control;
+            this.LDetalleFecha.Location = new System.Drawing.Point(70, 11);
+            this.LDetalleFecha.Name = "LDetalleFecha";
+            this.LDetalleFecha.Size = new System.Drawing.Size(10, 13);
+            this.LDetalleFecha.TabIndex = 1;
+            this.LDetalleFecha.Text = "-";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.Control;
+            this.label4.Location = new System.Drawing.Point(3, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Fecha:";
+            // 
+            // LDetalleVenta
+            // 
+            this.LDetalleVenta.AutoSize = true;
+            this.LDetalleVenta.ForeColor = System.Drawing.SystemColors.Control;
+            this.LDetalleVenta.Location = new System.Drawing.Point(4, 5);
+            this.LDetalleVenta.Name = "LDetalleVenta";
+            this.LDetalleVenta.Size = new System.Drawing.Size(94, 13);
+            this.LDetalleVenta.TabIndex = 1;
+            this.LDetalleVenta.Text = "Detalles de Venta:";
+            // 
             // panel5
             // 
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel5.Controls.Add(this.BTNBuscarDniCuit);
             this.panel5.Controls.Add(this.panel9);
             this.panel5.Controls.Add(this.BTNBuscarSku);
-            this.panel5.Controls.Add(this.comboBox2);
-            this.panel5.Controls.Add(this.textBox2);
+            this.panel5.Controls.Add(this.CBCliente);
+            this.panel5.Controls.Add(this.TBDniCuit);
             this.panel5.Controls.Add(this.LCliente);
-            this.panel5.Controls.Add(this.LDniCuil);
+            this.panel5.Controls.Add(this.LDniCuit);
             this.panel5.Controls.Add(this.LDetalleCliente);
             this.panel5.Location = new System.Drawing.Point(3, 195);
             this.panel5.Name = "panel5";
             this.tableLayoutPanel2.SetRowSpan(this.panel5, 2);
-            this.panel5.Size = new System.Drawing.Size(247, 186);
+            this.panel5.Size = new System.Drawing.Size(244, 186);
             this.panel5.TabIndex = 4;
+            // 
+            // BTNBuscarDniCuit
+            // 
+            this.BTNBuscarDniCuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNBuscarDniCuit.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNBuscarDniCuit.FlatAppearance.BorderSize = 0;
+            this.BTNBuscarDniCuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNBuscarDniCuit.Image = global::WindowsFormsApp1.Properties.Resources.lupa;
+            this.BTNBuscarDniCuit.Location = new System.Drawing.Point(197, 72);
+            this.BTNBuscarDniCuit.Name = "BTNBuscarDniCuit";
+            this.BTNBuscarDniCuit.Size = new System.Drawing.Size(28, 23);
+            this.BTNBuscarDniCuit.TabIndex = 21;
+            this.BTNBuscarDniCuit.UseVisualStyleBackColor = false;
+            this.BTNBuscarDniCuit.Click += new System.EventHandler(this.BTNBuscarDniCuit_Click);
             // 
             // panel9
             // 
@@ -417,15 +647,41 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel9.BackColor = System.Drawing.Color.Teal;
+            this.panel9.Controls.Add(this.Direccion);
+            this.panel9.Controls.Add(this.Telefono);
             this.panel9.Controls.Add(this.LDireccion);
             this.panel9.Controls.Add(this.LTelefono);
-            this.panel9.Location = new System.Drawing.Point(7, 113);
+            this.panel9.Location = new System.Drawing.Point(6, 108);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(221, 63);
+            this.panel9.Size = new System.Drawing.Size(219, 75);
             this.panel9.TabIndex = 10;
+            // 
+            // Direccion
+            // 
+            this.Direccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Direccion.AutoSize = true;
+            this.Direccion.ForeColor = System.Drawing.Color.White;
+            this.Direccion.Location = new System.Drawing.Point(85, 38);
+            this.Direccion.Name = "Direccion";
+            this.Direccion.Size = new System.Drawing.Size(10, 13);
+            this.Direccion.TabIndex = 3;
+            this.Direccion.Text = "-";
+            // 
+            // Telefono
+            // 
+            this.Telefono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Telefono.AutoSize = true;
+            this.Telefono.ForeColor = System.Drawing.SystemColors.Control;
+            this.Telefono.Location = new System.Drawing.Point(85, 12);
+            this.Telefono.Name = "Telefono";
+            this.Telefono.Size = new System.Drawing.Size(10, 13);
+            this.Telefono.TabIndex = 2;
+            this.Telefono.Text = "-";
             // 
             // LDireccion
             // 
+            this.LDireccion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LDireccion.AutoSize = true;
             this.LDireccion.ForeColor = System.Drawing.Color.White;
             this.LDireccion.Location = new System.Drawing.Point(3, 38);
@@ -436,6 +692,8 @@
             // 
             // LTelefono
             // 
+            this.LTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.LTelefono.AutoSize = true;
             this.LTelefono.ForeColor = System.Drawing.SystemColors.Control;
             this.LTelefono.Location = new System.Drawing.Point(3, 12);
@@ -451,30 +709,32 @@
             this.BTNBuscarSku.FlatAppearance.BorderSize = 0;
             this.BTNBuscarSku.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BTNBuscarSku.Image = global::WindowsFormsApp1.Properties.Resources.lupa;
-            this.BTNBuscarSku.Location = new System.Drawing.Point(200, 76);
+            this.BTNBuscarSku.Location = new System.Drawing.Point(365, 76);
             this.BTNBuscarSku.Name = "BTNBuscarSku";
             this.BTNBuscarSku.Size = new System.Drawing.Size(28, 23);
             this.BTNBuscarSku.TabIndex = 9;
             this.BTNBuscarSku.UseVisualStyleBackColor = false;
             // 
-            // comboBox2
+            // CBCliente
             // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.CBCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(64, 32);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(164, 21);
-            this.comboBox2.TabIndex = 1;
+            this.CBCliente.FormattingEnabled = true;
+            this.CBCliente.Location = new System.Drawing.Point(64, 32);
+            this.CBCliente.Name = "CBCliente";
+            this.CBCliente.Size = new System.Drawing.Size(161, 21);
+            this.CBCliente.TabIndex = 1;
+            this.CBCliente.SelectedIndexChanged += new System.EventHandler(this.CBCliente_SelectedIndexChanged);
+            this.CBCliente.TextChanged += new System.EventHandler(this.CBCliente_TextChanged);
             // 
-            // textBox2
+            // TBDniCuit
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.TBDniCuit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(64, 77);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(130, 20);
-            this.textBox2.TabIndex = 4;
+            this.TBDniCuit.Location = new System.Drawing.Point(64, 74);
+            this.TBDniCuit.Name = "TBDniCuit";
+            this.TBDniCuit.Size = new System.Drawing.Size(128, 20);
+            this.TBDniCuit.TabIndex = 4;
             // 
             // LCliente
             // 
@@ -486,15 +746,15 @@
             this.LCliente.TabIndex = 2;
             this.LCliente.Text = "Cliente:";
             // 
-            // LDniCuil
+            // LDniCuit
             // 
-            this.LDniCuil.AutoSize = true;
-            this.LDniCuil.ForeColor = System.Drawing.SystemColors.Control;
-            this.LDniCuil.Location = new System.Drawing.Point(4, 81);
-            this.LDniCuil.Name = "LDniCuil";
-            this.LDniCuil.Size = new System.Drawing.Size(54, 13);
-            this.LDniCuil.TabIndex = 3;
-            this.LDniCuil.Text = "Dni / Cuil:";
+            this.LDniCuit.AutoSize = true;
+            this.LDniCuit.ForeColor = System.Drawing.SystemColors.Control;
+            this.LDniCuit.Location = new System.Drawing.Point(4, 81);
+            this.LDniCuit.Name = "LDniCuit";
+            this.LDniCuit.Size = new System.Drawing.Size(55, 13);
+            this.LDniCuit.TabIndex = 3;
+            this.LDniCuit.Text = "Dni / Cuit:";
             // 
             // LDetalleCliente
             // 
@@ -505,186 +765,6 @@
             this.LDetalleCliente.Size = new System.Drawing.Size(100, 13);
             this.LDetalleCliente.TabIndex = 0;
             this.LDetalleCliente.Text = "Detalles del Cliente:";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.button4, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button3, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.button2, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.button9, 0, 5);
-            this.tableLayoutPanel4.Controls.Add(this.button10, 1, 5);
-            this.tableLayoutPanel4.Controls.Add(this.button5, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.button6, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.button8, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.button7, 0, 3);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(509, 195);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 6;
-            this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel4, 2);
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(248, 186);
-            this.tableLayoutPanel4.TabIndex = 7;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.tableLayoutPanel4.SetColumnSpan(this.button2, 2);
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(242, 24);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "F2 - Cobrar";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button4.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(127, 33);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(118, 24);
-            this.button4.TabIndex = 2;
-            this.button4.Text = "F4 - Consultar Precio ";
-            this.button4.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button3.BackColor = System.Drawing.Color.Lime;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(3, 33);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(118, 24);
-            this.button3.TabIndex = 1;
-            this.button3.Text = "F3 - Nueva Venta";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button9
-            // 
-            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button9.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button9.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.Location = new System.Drawing.Point(3, 153);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(118, 30);
-            this.button9.TabIndex = 4;
-            this.button9.Text = "F9 - Resumen Caja";
-            this.button9.UseVisualStyleBackColor = false;
-            // 
-            // button10
-            // 
-            this.button10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button10.BackColor = System.Drawing.Color.DarkRed;
-            this.button10.FlatAppearance.BorderSize = 0;
-            this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.ForeColor = System.Drawing.SystemColors.Control;
-            this.button10.Location = new System.Drawing.Point(127, 153);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(118, 30);
-            this.button10.TabIndex = 5;
-            this.button10.Text = "F10 - Cerrar Caja";
-            this.button10.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button5.BackColor = System.Drawing.Color.OrangeRed;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.Black;
-            this.button5.Location = new System.Drawing.Point(3, 63);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(118, 24);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "(-) Cantidad";
-            this.button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.BackColor = System.Drawing.Color.OrangeRed;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(127, 63);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(118, 24);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "(+) Cantidad";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.BackColor = System.Drawing.Color.MintCream;
-            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Red;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.Red;
-            this.button8.Location = new System.Drawing.Point(127, 93);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(118, 24);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "F8 - Cancelar Venta";
-            this.button8.UseVisualStyleBackColor = false;
-            // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(3, 93);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(118, 24);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "F7 - Descuento";
-            this.button7.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel3
             // 
@@ -700,8 +780,8 @@
             this.tableLayoutPanel3.Controls.Add(this.panel11, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.panel12, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.panel13, 1, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(509, 3);
+            this.tableLayoutPanel3.Controls.Add(this.panel13, 0, 2);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(504, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel3, 2);
@@ -711,7 +791,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(248, 186);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(246, 186);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
             // panel7
@@ -720,61 +800,64 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.SetColumnSpan(this.panel7, 3);
-            this.panel7.Controls.Add(this.label17);
-            this.panel7.Controls.Add(this.label12);
-            this.panel7.Controls.Add(this.label16);
-            this.panel7.Controls.Add(this.label13);
+            this.panel7.Controls.Add(this.LRCantidadValue);
+            this.panel7.Controls.Add(this.LRSubtotal);
+            this.panel7.Controls.Add(this.LRSubtotalValue);
+            this.panel7.Controls.Add(this.LRCantidad);
             this.panel7.Location = new System.Drawing.Point(3, 114);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(242, 31);
+            this.panel7.Size = new System.Drawing.Size(240, 31);
             this.panel7.TabIndex = 9;
             // 
-            // label17
+            // LRCantidadValue
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label17.Location = new System.Drawing.Point(216, 18);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(19, 13);
-            this.label17.TabIndex = 10;
-            this.label17.Text = "$0";
+            this.LRCantidadValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRCantidadValue.AutoSize = true;
+            this.LRCantidadValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRCantidadValue.ForeColor = System.Drawing.Color.Lime;
+            this.LRCantidadValue.Location = new System.Drawing.Point(152, 0);
+            this.LRCantidadValue.Name = "LRCantidadValue";
+            this.LRCantidadValue.Size = new System.Drawing.Size(15, 15);
+            this.LRCantidadValue.TabIndex = 10;
+            this.LRCantidadValue.Text = "0";
             // 
-            // label12
+            // LRSubtotal
             // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label12.Location = new System.Drawing.Point(2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(49, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Subtotal:";
+            this.LRSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRSubtotal.AutoSize = true;
+            this.LRSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRSubtotal.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRSubtotal.Location = new System.Drawing.Point(2, 18);
+            this.LRSubtotal.Name = "LRSubtotal";
+            this.LRSubtotal.Size = new System.Drawing.Size(49, 13);
+            this.LRSubtotal.TabIndex = 5;
+            this.LRSubtotal.Text = "Subtotal:";
             // 
-            // label16
+            // LRSubtotalValue
             // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label16.Location = new System.Drawing.Point(216, 0);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(19, 13);
-            this.label16.TabIndex = 9;
-            this.label16.Text = "$0";
+            this.LRSubtotalValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRSubtotalValue.AutoSize = true;
+            this.LRSubtotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRSubtotalValue.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRSubtotalValue.Location = new System.Drawing.Point(152, 18);
+            this.LRSubtotalValue.Name = "LRSubtotalValue";
+            this.LRSubtotalValue.Size = new System.Drawing.Size(85, 13);
+            this.LRSubtotalValue.TabIndex = 9;
+            this.LRSubtotalValue.Text = "$ 00.000.000,00";
             // 
-            // label13
+            // LRCantidad
             // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label13.Location = new System.Drawing.Point(3, 18);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(67, 13);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "Descuentos:";
+            this.LRCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRCantidad.AutoSize = true;
+            this.LRCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRCantidad.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRCantidad.Location = new System.Drawing.Point(2, 0);
+            this.LRCantidad.Name = "LRCantidad";
+            this.LRCantidad.Size = new System.Drawing.Size(52, 13);
+            this.LRCantidad.TabIndex = 6;
+            this.LRCantidad.Text = "Cantidad:";
             // 
             // panel11
             // 
@@ -782,61 +865,64 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.SetColumnSpan(this.panel11, 3);
-            this.panel11.Controls.Add(this.label11);
-            this.panel11.Controls.Add(this.label8);
-            this.panel11.Controls.Add(this.label10);
-            this.panel11.Controls.Add(this.label9);
+            this.panel11.Controls.Add(this.LRUnidadesValue);
+            this.panel11.Controls.Add(this.LRProductos);
+            this.panel11.Controls.Add(this.LRProductosValue);
+            this.panel11.Controls.Add(this.LRUnidades);
             this.panel11.Location = new System.Drawing.Point(3, 40);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(242, 31);
+            this.panel11.Size = new System.Drawing.Size(240, 31);
             this.panel11.TabIndex = 10;
             // 
-            // label11
+            // LRUnidadesValue
             // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label11.Location = new System.Drawing.Point(216, 18);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(13, 13);
-            this.label11.TabIndex = 4;
-            this.label11.Text = "0";
+            this.LRUnidadesValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRUnidadesValue.AutoSize = true;
+            this.LRUnidadesValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRUnidadesValue.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRUnidadesValue.Location = new System.Drawing.Point(152, 18);
+            this.LRUnidadesValue.Name = "LRUnidadesValue";
+            this.LRUnidadesValue.Size = new System.Drawing.Size(13, 13);
+            this.LRUnidadesValue.TabIndex = 4;
+            this.LRUnidadesValue.Text = "0";
             // 
-            // label8
+            // LRProductos
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label8.Location = new System.Drawing.Point(2, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 13);
-            this.label8.TabIndex = 1;
-            this.label8.Text = "Productos:";
+            this.LRProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRProductos.AutoSize = true;
+            this.LRProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRProductos.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRProductos.Location = new System.Drawing.Point(2, 0);
+            this.LRProductos.Name = "LRProductos";
+            this.LRProductos.Size = new System.Drawing.Size(58, 13);
+            this.LRProductos.TabIndex = 1;
+            this.LRProductos.Text = "Productos:";
             // 
-            // label10
+            // LRProductosValue
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label10.Location = new System.Drawing.Point(216, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(13, 13);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "0";
+            this.LRProductosValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRProductosValue.AutoSize = true;
+            this.LRProductosValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRProductosValue.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRProductosValue.Location = new System.Drawing.Point(152, 0);
+            this.LRProductosValue.Name = "LRProductosValue";
+            this.LRProductosValue.Size = new System.Drawing.Size(13, 13);
+            this.LRProductosValue.TabIndex = 3;
+            this.LRProductosValue.Text = "0";
             // 
-            // label9
+            // LRUnidades
             // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label9.Location = new System.Drawing.Point(2, 18);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 13);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Unidades:";
+            this.LRUnidades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRUnidades.AutoSize = true;
+            this.LRUnidades.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRUnidades.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRUnidades.Location = new System.Drawing.Point(2, 18);
+            this.LRUnidades.Name = "LRUnidades";
+            this.LRUnidades.Size = new System.Drawing.Size(55, 13);
+            this.LRUnidades.TabIndex = 2;
+            this.LRUnidades.Text = "Unidades:";
             // 
             // panel6
             // 
@@ -844,36 +930,37 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.SetColumnSpan(this.panel6, 3);
-            this.panel6.Controls.Add(this.label14);
-            this.panel6.Controls.Add(this.label15);
+            this.panel6.Controls.Add(this.LRTotal);
+            this.panel6.Controls.Add(this.LRTotalValue);
             this.panel6.Location = new System.Drawing.Point(3, 151);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(242, 32);
+            this.panel6.Size = new System.Drawing.Size(240, 32);
             this.panel6.TabIndex = 11;
             // 
-            // label14
+            // LRTotal
             // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label14.Location = new System.Drawing.Point(1, 7);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(72, 25);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "Total:";
+            this.LRTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRTotal.AutoSize = true;
+            this.LRTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRTotal.ForeColor = System.Drawing.Color.Lime;
+            this.LRTotal.Location = new System.Drawing.Point(3, 3);
+            this.LRTotal.Name = "LRTotal";
+            this.LRTotal.Size = new System.Drawing.Size(72, 25);
+            this.LRTotal.TabIndex = 7;
+            this.LRTotal.Text = "Total:";
             // 
-            // label15
+            // LRTotalValue
             // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label15.Location = new System.Drawing.Point(100, 11);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(139, 20);
-            this.label15.TabIndex = 8;
-            this.label15.Text = "$ 00.000.000,00";
+            this.LRTotalValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRTotalValue.AutoSize = true;
+            this.LRTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRTotalValue.ForeColor = System.Drawing.Color.Lime;
+            this.LRTotalValue.Location = new System.Drawing.Point(110, 8);
+            this.LRTotalValue.Name = "LRTotalValue";
+            this.LRTotalValue.Size = new System.Drawing.Size(127, 18);
+            this.LRTotalValue.TabIndex = 8;
+            this.LRTotalValue.Text = "$ 00.000.000,00";
             // 
             // panel12
             // 
@@ -881,56 +968,46 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel3.SetColumnSpan(this.panel12, 3);
-            this.panel12.Controls.Add(this.label7);
+            this.panel12.Controls.Add(this.LRTitulo);
             this.panel12.Location = new System.Drawing.Point(3, 3);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(242, 31);
+            this.panel12.Size = new System.Drawing.Size(240, 31);
             this.panel12.TabIndex = 12;
             // 
-            // label7
+            // LRTitulo
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.label7.Location = new System.Drawing.Point(2, 5);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(76, 16);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Resumen:";
+            this.LRTitulo.AutoSize = true;
+            this.LRTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRTitulo.ForeColor = System.Drawing.Color.DarkTurquoise;
+            this.LRTitulo.Location = new System.Drawing.Point(2, 5);
+            this.LRTitulo.Name = "LRTitulo";
+            this.LRTitulo.Size = new System.Drawing.Size(76, 16);
+            this.LRTitulo.TabIndex = 0;
+            this.LRTitulo.Text = "Resumen:";
             // 
             // panel13
             // 
             this.panel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.SetColumnSpan(this.panel13, 2);
-            this.panel13.Controls.Add(this.label19);
-            this.panel13.Controls.Add(this.label18);
-            this.panel13.Location = new System.Drawing.Point(85, 77);
+            this.tableLayoutPanel3.SetColumnSpan(this.panel13, 3);
+            this.panel13.Controls.Add(this.LRProducto);
+            this.panel13.Location = new System.Drawing.Point(3, 77);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(160, 31);
+            this.panel13.Size = new System.Drawing.Size(240, 31);
             this.panel13.TabIndex = 13;
             // 
-            // label19
+            // LRProducto
             // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label19.AutoSize = true;
-            this.label19.ForeColor = System.Drawing.Color.Lime;
-            this.label19.Location = new System.Drawing.Point(4, 18);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(59, 13);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "@cantidad";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.ForeColor = System.Drawing.Color.Lime;
-            this.label18.Location = new System.Drawing.Point(4, 5);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(60, 13);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "@producto";
+            this.LRProducto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.LRProducto.AutoSize = true;
+            this.LRProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LRProducto.ForeColor = System.Drawing.Color.Lime;
+            this.LRProducto.Location = new System.Drawing.Point(3, 7);
+            this.LRProducto.Name = "LRProducto";
+            this.LRProducto.Size = new System.Drawing.Size(83, 16);
+            this.LRProducto.TabIndex = 0;
+            this.LRProducto.Text = "@producto";
             // 
             // tableLayoutPanel1
             // 
@@ -942,14 +1019,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 42);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 42);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(760, 371);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(753, 384);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // panel3
@@ -960,9 +1037,9 @@
             this.tableLayoutPanel1.SetColumnSpan(this.panel3, 3);
             this.panel3.Controls.Add(this.LAnuncio);
             this.panel3.Controls.Add(this.BTNAbrirCaja);
-            this.panel3.Location = new System.Drawing.Point(3, 126);
+            this.panel3.Location = new System.Drawing.Point(3, 131);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(754, 117);
+            this.panel3.Size = new System.Drawing.Size(747, 122);
             this.panel3.TabIndex = 0;
             // 
             // LAnuncio
@@ -987,7 +1064,11 @@
             this.BTNAbrirCaja.TabIndex = 0;
             this.BTNAbrirCaja.Text = "Abrir Caja";
             this.BTNAbrirCaja.UseVisualStyleBackColor = false;
-            this.BTNAbrirCaja.Click += new System.EventHandler(this.button1_Click);
+            this.BTNAbrirCaja.Click += new System.EventHandler(this.BTNAbrirCaja_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // GestionVentas
             // 
@@ -1005,18 +1086,19 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
@@ -1031,6 +1113,7 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1048,58 +1131,61 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox TBCodigoProducto;
+        private System.Windows.Forms.Button BTNAddCarrito;
         private System.Windows.Forms.DataGridViewTextBoxColumn CSku;
         private System.Windows.Forms.DataGridViewTextBoxColumn CProducto;
         private System.Windows.Forms.DataGridViewTextBoxColumn CVariante;
         private System.Windows.Forms.DataGridViewTextBoxColumn CCantidad;
         private System.Windows.Forms.Label LDetalleVenta;
         private System.Windows.Forms.Label LDetalleCliente;
-        private System.Windows.Forms.Label LDniCuil;
+        private System.Windows.Forms.Label LDniCuit;
         private System.Windows.Forms.Label LCliente;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.ComboBox CBCliente;
+        private System.Windows.Forms.TextBox TBDniCuit;
         private System.Windows.Forms.Button BTNBuscarSku;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label LDireccion;
         private System.Windows.Forms.Label LTelefono;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BTNCobrar;
+        private System.Windows.Forms.Button BTNConsultarPrecio;
+        private System.Windows.Forms.Button BTNNuevaVenta;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label LDetalleEstado;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label LDetalleFecha;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Button button10;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button BTNCerrarCaja;
+        private System.Windows.Forms.Button BTNResumenCaja;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button BTNMasCantidad;
+        private System.Windows.Forms.Button BTNMenosCantidad;
+        private System.Windows.Forms.Label LRTitulo;
+        private System.Windows.Forms.Label LRUnidades;
+        private System.Windows.Forms.Label LRProductos;
+        private System.Windows.Forms.Label LRTotal;
+        private System.Windows.Forms.Label LRCantidad;
+        private System.Windows.Forms.Label LRSubtotal;
+        private System.Windows.Forms.Label LRUnidadesValue;
+        private System.Windows.Forms.Label LRProductosValue;
+        private System.Windows.Forms.Label LRTotalValue;
+        private System.Windows.Forms.Label LRSubtotalValue;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel11;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label LRProducto;
+        private System.Windows.Forms.NumericUpDown NUDCantidad;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Button BTNBuscarDniCuit;
+        private System.Windows.Forms.Label LRCantidadValue;
+        private System.Windows.Forms.Label Direccion;
+        private System.Windows.Forms.Label Telefono;
     }
 }

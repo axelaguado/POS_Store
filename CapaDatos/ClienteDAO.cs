@@ -29,14 +29,14 @@ namespace WindowsFormsApp1.CapaDatos
             _context.Clientes.Add(cliente);
         }
 
-        public Cliente GetClienteFisico(int identificacion) 
-        { 
+        public Cliente GetClienteFisico(int identificacion)
+        {
             return _context.Clientes.Include(cl => cl.persona)
                                     .Include(cl => cl.persona.persona_fisica)
                                     .Include(cl => cl.persona.direcciones)
                                     .Include(cl => cl.persona.contactos)
-                                    .FirstOrDefault(cl => cl.persona.persona_fisica.dni_persona == identificacion); 
-                                     
+                                    .FirstOrDefault(cl => cl.persona.persona_fisica.dni_persona == identificacion);
+
         }
 
         public Cliente GetClienteJuridico(long identificacion)
@@ -46,7 +46,35 @@ namespace WindowsFormsApp1.CapaDatos
                                     .Include(cl => cl.persona.direcciones)
                                     .Include(cl => cl.persona.contactos)
                                     .FirstOrDefault(cl => cl.persona.persona_juridica.cuit == identificacion);
-                                    
+
+        }
+
+        public async Task<List<Cliente>> GetClienteAsync(string _nombre, CancellationToken _token)
+        {
+            return await _context.Clientes.Include(cl => cl.persona)
+                                    .Include(cl => cl.persona.persona_fisica)
+                                    .Include(cl => cl.persona.persona_juridica)
+                                    .Include(cl => cl.persona.contactos)
+                                    .Include(cl => cl.persona.direcciones)
+                                    .Where(cl => 
+                                                (cl.estado_cliente == true) && 
+                                                (
+                                                    (cl.persona.persona_juridica.razon_social + " " + cl.persona.persona_juridica.nombre_comercial).Contains(_nombre) || 
+                                                    (cl.persona.persona_fisica.apellido_persona + " " + cl.persona.persona_fisica.nombre_persona).Contains(_nombre) 
+                                                )
+                                           )
+                                    .ToListAsync(_token);
+        }
+
+        public List<Cliente> All_Clientes()
+        {
+            return _context.Clientes.Include(c => c.persona)
+                .Include(c => c.persona.persona_juridica)
+                .Include(c => c.persona.persona_fisica)
+                .Include(c => c.persona.direcciones)
+                .Include(c => c.persona.contactos)
+                .OrderBy(p => p.id_persona)
+                .ToList();
         }
 
         public List<ClienteDTO> Get_Clientes()

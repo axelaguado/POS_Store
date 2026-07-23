@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -202,6 +203,33 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        public Cliente ObtenerCliente(long identificacion) 
+        {
+            using (var context = new MiDbContext())
+            {
+                ClienteDAO cliente = new ClienteDAO(context);
+                
+                if (identificacion <= 99999999) 
+                {
+                    int dni = (int)identificacion; 
+                    return this.GetClientePFisica(dni);
+                }
+                else 
+                {
+                    return this.GetClientePJuridica(identificacion);
+                }
+            }
+        }
+
+        public async Task<List<Cliente>> ObtenerClienteAsync(string _nombre, CancellationToken _token)
+        {
+            using (var context = new MiDbContext())
+            {
+                ClienteDAO cliente = new ClienteDAO(context);
+
+                return await cliente.GetClienteAsync(_nombre, _token);
+            }
+        }
 
         public Dictionary<string, string> unirDiccionarios(Dictionary<string, string> _diccionario)
         {
@@ -228,6 +256,16 @@ namespace WindowsFormsApp1.CapaNegocio
                 ClienteDAO cliente = new ClienteDAO(context);
                 
                 return cliente.Get_Clientes();
+            }
+        }
+
+        public List<Cliente> AllClientes()
+        {
+            using (var context = new MiDbContext())
+            {
+                ClienteDAO cliente = new ClienteDAO(context);
+
+                return cliente.All_Clientes();
             }
         }
 

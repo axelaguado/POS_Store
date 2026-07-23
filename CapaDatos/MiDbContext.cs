@@ -494,7 +494,7 @@ namespace WindowsFormsApp1.CapaDatos
             // Definimos las propiedas.
             cajaConfig.Property(c => c.fecha_apertura).IsRequired();
             cajaConfig.Property(c => c.fecha_cierre);
-            cajaConfig.Property(c => c.saldo_incial).HasPrecision(10, 2).IsRequired();
+            cajaConfig.Property(c => c.saldo_inicial).HasPrecision(10, 2).IsRequired();
             cajaConfig.Property(c => c.saldo_cierre).HasPrecision(10, 2);
             cajaConfig.Property(c => c.estado_caja).IsRequired();
 

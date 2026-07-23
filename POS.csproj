@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CapaDatos\CajaDAO.cs" />
     <Compile Include="CapaDatos\CategoriaGastoDAO.cs" />
     <Compile Include="CapaDatos\CategoriaProductoDAO.cs" />
     <Compile Include="CapaDatos\ClienteDAO.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
     <Compile Include="CapaEntidad\Tipo_movimiento.cs" />
+    <Compile Include="CapaNegocio\CN_Caja.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaGasto.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaProducto.cs" />
     <Compile Include="CapaNegocio\CN_Cliente.cs" />
@@ -152,6 +154,18 @@
     </Compile>
     <Compile Include="CapaPresentacion\Calculadora.Designer.cs">
       <DependentUpon>Calculadora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\CierreCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\CierreCaja.Designer.cs">
+      <DependentUpon>CierreCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\ConsultarPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\ConsultarPrecio.Designer.cs">
+      <DependentUpon>ConsultarPrecio.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\EdicionUsuario.cs">
       <SubType>Form</SubType>
@@ -244,6 +258,12 @@
     <EmbeddedResource Include="CapaPresentacion\Calculadora.resx">
       <DependentUpon>Calculadora.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\CierreCaja.resx">
+      <DependentUpon>CierreCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\ConsultarPrecio.resx">
+      <DependentUpon>ConsultarPrecio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Detalle.resx">
       <DependentUpon>Detalle.cs</DependentUpon>
     </EmbeddedResource>
@@ -312,6 +332,12 @@
     <None Include="Imagenes\old-calculator_icon-icons.com_56065.png" />
     <None Include="Imagenes\calculator.png" />
     <None Include="Imagenes\lupa.png" />
+    <Content Include="Plantilla\Resumen_cerrados.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plantilla\Resumen_cierre.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plantilla\Solicitud_pedido.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
