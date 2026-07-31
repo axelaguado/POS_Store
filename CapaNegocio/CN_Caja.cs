@@ -76,6 +76,24 @@ namespace WindowsFormsApp1.CapaNegocio
             return 0;
         }
 
+        public Caja ObtenerCaja(int id_caja)
+        {
+            using (var context = new MiDbContext())
+            {
+                CajaDAO caja = new CajaDAO(context);
+                return caja.GetCaja(id_caja);
+            }
+        }
+
+        public void AttachCaja(Caja _caja) 
+        {
+            using (var context = new MiDbContext())
+            {
+                CajaDAO caja = new CajaDAO(context);
+                caja.Attach_caja(_caja);
+            }
+        }
+
         public Dictionary<string, string> ValidarCaja(Caja _caja)
         {
             this.validacion.Clear();

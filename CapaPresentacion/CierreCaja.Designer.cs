@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.Diferencia = new System.Windows.Forms.Label();
+            this.LVDiferencia = new System.Windows.Forms.Label();
             this.LDiferencia = new System.Windows.Forms.Label();
             this.SaldoEsperado = new System.Windows.Forms.Label();
             this.LSaldoEsperado = new System.Windows.Forms.Label();
@@ -75,7 +75,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.panel1.Controls.Add(this.Diferencia);
+            this.panel1.Controls.Add(this.LVDiferencia);
             this.panel1.Controls.Add(this.LDiferencia);
             this.panel1.Controls.Add(this.SaldoEsperado);
             this.panel1.Controls.Add(this.LSaldoEsperado);
@@ -116,15 +116,15 @@
             this.panel1.Size = new System.Drawing.Size(475, 696);
             this.panel1.TabIndex = 1;
             // 
-            // Diferencia
+            // LVDiferencia
             // 
-            this.Diferencia.AutoSize = true;
-            this.Diferencia.ForeColor = System.Drawing.SystemColors.Control;
-            this.Diferencia.Location = new System.Drawing.Point(250, 625);
-            this.Diferencia.Name = "Diferencia";
-            this.Diferencia.Size = new System.Drawing.Size(19, 13);
-            this.Diferencia.TabIndex = 38;
-            this.Diferencia.Text = "$0";
+            this.LVDiferencia.AutoSize = true;
+            this.LVDiferencia.ForeColor = System.Drawing.SystemColors.Control;
+            this.LVDiferencia.Location = new System.Drawing.Point(250, 625);
+            this.LVDiferencia.Name = "LVDiferencia";
+            this.LVDiferencia.Size = new System.Drawing.Size(19, 13);
+            this.LVDiferencia.TabIndex = 38;
+            this.LVDiferencia.Text = "$0";
             // 
             // LDiferencia
             // 
@@ -132,9 +132,9 @@
             this.LDiferencia.ForeColor = System.Drawing.SystemColors.Control;
             this.LDiferencia.Location = new System.Drawing.Point(10, 625);
             this.LDiferencia.Name = "LDiferencia";
-            this.LDiferencia.Size = new System.Drawing.Size(73, 13);
+            this.LDiferencia.Size = new System.Drawing.Size(115, 13);
             this.LDiferencia.TabIndex = 37;
-            this.LDiferencia.Text = "Diferencia ($):";
+            this.LDiferencia.Text = "Diferencia Efectivo ($):";
             // 
             // SaldoEsperado
             // 
@@ -152,9 +152,9 @@
             this.LSaldoEsperado.ForeColor = System.Drawing.SystemColors.Control;
             this.LSaldoEsperado.Location = new System.Drawing.Point(20, 545);
             this.LSaldoEsperado.Name = "LSaldoEsperado";
-            this.LSaldoEsperado.Size = new System.Drawing.Size(100, 13);
+            this.LSaldoEsperado.Size = new System.Drawing.Size(112, 13);
             this.LSaldoEsperado.TabIndex = 35;
-            this.LSaldoEsperado.Text = "Saldo Esperado ($):";
+            this.LSaldoEsperado.Text = "Efectivo Esperado ($):";
             // 
             // SaldoInicial
             // 
@@ -185,9 +185,9 @@
             this.LSaldoCierre.ForeColor = System.Drawing.SystemColors.Control;
             this.LSaldoCierre.Location = new System.Drawing.Point(20, 575);
             this.LSaldoCierre.Name = "LSaldoCierre";
-            this.LSaldoCierre.Size = new System.Drawing.Size(82, 13);
+            this.LSaldoCierre.Size = new System.Drawing.Size(94, 13);
             this.LSaldoCierre.TabIndex = 32;
-            this.LSaldoCierre.Text = "Saldo Cierre ($):";
+            this.LSaldoCierre.Text = "Efectivo Cierre ($):";
             // 
             // LSaldoInicial
             // 
@@ -195,9 +195,9 @@
             this.LSaldoInicial.ForeColor = System.Drawing.SystemColors.Control;
             this.LSaldoInicial.Location = new System.Drawing.Point(20, 515);
             this.LSaldoInicial.Name = "LSaldoInicial";
-            this.LSaldoInicial.Size = new System.Drawing.Size(82, 13);
+            this.LSaldoInicial.Size = new System.Drawing.Size(94, 13);
             this.LSaldoInicial.TabIndex = 31;
-            this.LSaldoInicial.Text = "Saldo Inicial ($):";
+            this.LSaldoInicial.Text = "Efectivo Inicial ($):";
             // 
             // Otros
             // 
@@ -354,9 +354,9 @@
             this.LEgresos.ForeColor = System.Drawing.SystemColors.Control;
             this.LEgresos.Location = new System.Drawing.Point(20, 185);
             this.LEgresos.Name = "LEgresos";
-            this.LEgresos.Size = new System.Drawing.Size(48, 13);
+            this.LEgresos.Size = new System.Drawing.Size(63, 13);
             this.LEgresos.TabIndex = 15;
-            this.LEgresos.Text = "Egresos:";
+            this.LEgresos.Text = "Egresos ($):";
             // 
             // LIngresos
             // 
@@ -364,9 +364,9 @@
             this.LIngresos.ForeColor = System.Drawing.SystemColors.Control;
             this.LIngresos.Location = new System.Drawing.Point(20, 155);
             this.LIngresos.Name = "LIngresos";
-            this.LIngresos.Size = new System.Drawing.Size(50, 13);
+            this.LIngresos.Size = new System.Drawing.Size(65, 13);
             this.LIngresos.TabIndex = 14;
-            this.LIngresos.Text = "Ingresos:";
+            this.LIngresos.Text = "Ingresos ($):";
             // 
             // LMovimientos
             // 
@@ -470,9 +470,9 @@
             this.LSaldo.ForeColor = System.Drawing.SystemColors.Control;
             this.LSaldo.Location = new System.Drawing.Point(10, 485);
             this.LSaldo.Name = "LSaldo";
-            this.LSaldo.Size = new System.Drawing.Size(37, 13);
+            this.LSaldo.Size = new System.Drawing.Size(31, 13);
             this.LSaldo.TabIndex = 3;
-            this.LSaldo.Text = "Saldo:";
+            this.LSaldo.Text = "Caja:";
             // 
             // LFechaApertura
             // 
@@ -547,7 +547,7 @@
         private System.Windows.Forms.Label SaldoEsperado;
         private System.Windows.Forms.Label LSaldoEsperado;
         private System.Windows.Forms.Label LDiferencia;
-        private System.Windows.Forms.Label Diferencia;
+        private System.Windows.Forms.Label LVDiferencia;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

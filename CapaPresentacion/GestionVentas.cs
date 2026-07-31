@@ -27,10 +27,13 @@ namespace WindowsFormsApp1.CapaPresentacion
         public Caja cajaOn;
         public bool state_caja;
 
+        public bool load_ErrorProviderCobrar;
+
         public bool load_ErrorProviderCarrito;
         public List<Detalle_venta> carrito;
 
         public bool load_CBCliente;
+        public bool load_ErrorProviderCliente;
         public Cliente cliente_seleccionado_venta;
 
         public GestionVentas(Principal principal)
@@ -40,17 +43,54 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.carrito = new List<Detalle_venta>();
             this.cajaOn = new Caja();
             this.cts = new CancellationTokenSource();
-            this.LoadDetalleVenta();
+            this.LoadDetalleVentaProcesando();
             this.VerifyStateCaja();
             this.LoadCBCliente();
         }
 
-        public void LoadDetalleVenta() 
+        public void LoadDetalleVentaProcesando() 
         { 
             this.LDetalleFecha.Text = DateTime.Now.ToShortDateString();
+            this.LDetalleEstado.ForeColor = Color.Yellow;
             this.LDetalleEstado.Text = "Procesando.";
         }
-         
+
+        public void LoadDetalleVentaFinalizado()
+        {
+            this.LDetalleFecha.Text = DateTime.Now.ToShortDateString();
+            this.LDetalleEstado.Text = "Finalizada Correctamente.";
+            this.LDetalleEstado.ForeColor = Color.Lime;
+            this.LDetalleEstado.Font = new Font(LDetalleEstado.Font, FontStyle.Bold);
+        }
+
+        public void SetSuccesfulSale() 
+        {
+            // Debemos dejar cargados el Resumen con todos los detalles que teniamos de la venta y nuestro ultimo producto.
+            this.loadResumen(this.carrito.Count - 1);
+
+            // Debemos dejar cargado el cliente.
+            string identificacion = cliente_seleccionado_venta.persona.persona_fisica != null ? $"{cliente_seleccionado_venta.persona.persona_fisica.dni_persona}" : $"{cliente_seleccionado_venta.persona.persona_juridica.cuit}";
+
+            this.TBDniCuit.Text = identificacion;
+            this.TBDniCuit.Enabled = false;
+            this.BTNBuscarDniCuit.Enabled = false;
+
+            // Los label extras.
+            //  + " " + cliente_seleccionado_venta.persona.direcciones.Select(d => d.altura).FirstOrDefault() + "- " + cliente_seleccionado_venta.persona.direcciones.Select(d => d.cod_postal).FirstOrDefault();
+            string direccion = cliente_seleccionado_venta.persona.direcciones.Select(d => d.calle).FirstOrDefault() + " " + cliente_seleccionado_venta.persona.direcciones.Select(d => d.altura).FirstOrDefault() + " - (" + cliente_seleccionado_venta.persona.direcciones.Select(d => d.cod_postal).FirstOrDefault() + ")";
+
+            this.Telefono.Text = cliente_seleccionado_venta.persona.contactos.Select(c => c.telefono).FirstOrDefault().ToString();
+            this.Direccion.Text = direccion;
+
+            // Limpiamos el carrito.
+            this.carrito.Clear();
+            this.loadCarrito();
+
+            // Actualizamos estado de venta.
+            this.LoadDetalleVentaFinalizado();
+        }
+
+
         public void VerifyStateCaja()
         {
             CN_Caja caja = new CN_Caja();
@@ -127,6 +167,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.load_ErrorProviderCarrito = false;
 
             this.ValidateChildren();
+            this.LimpiarEPCobrar();
 
             if (this.load_ErrorProviderCarrito) 
             {
@@ -137,6 +178,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             try 
             {
+                // Vamos a verificar el stock antes.
                 Producto productoCargar = producto.Get_ProductoSku(this.TBCodigoProducto.Text);
                 
                 if (productoCargar != null)
@@ -152,6 +194,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                     if (indice > -1) 
                     {
+                        int cantidad_verificar = this.carrito[indice].cantidad_producto + item.cantidad_producto;
+
+                        if (cantidad_verificar > productoCargar.stock_producto) 
+                        {
+                            MessageBox.Show("El producto no cuenta con el stock suficiente.", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
                         this.carrito[indice].cantidad_producto = this.carrito[indice].cantidad_producto + item.cantidad_producto;
                         this.carrito[indice].subtotal = this.carrito[indice].cantidad_producto * this.carrito[indice].precio_unitario;
                         this.loadResumen(indice);
@@ -161,6 +211,13 @@ namespace WindowsFormsApp1.CapaPresentacion
                         item.precio_costo = productoCargar.precio_costo;
                         item.precio_unitario = productoCargar.precio_venta;
                         item.subtotal= item.cantidad_producto * item.precio_unitario;
+
+                        if (item.cantidad_producto > productoCargar.stock_producto) 
+                        {
+                            MessageBox.Show("El producto no cuenta con el stock suficiente.", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+
                         this.carrito.Add(item); // En realidad en esta situacion el carrito deberia vereficar la preexistencia de un producto en el carrito y sumnar las cantidades
                         this.loadResumen(this.carrito.Count - 1);
                     }
@@ -189,6 +246,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridView dgt = sender as DataGridView;
@@ -246,7 +304,45 @@ namespace WindowsFormsApp1.CapaPresentacion
         // Botonera y sus respectivos eventos asociados.
         private void BTNCobrar_Click(object sender, EventArgs e)
         {
+            this.load_ErrorProviderCobrar = false;
+            this.ValidateChildren();
+            this.LimpiarEPCarrito();
 
+            if (this.load_ErrorProviderCobrar)
+            {
+                return;
+            }
+
+            // Cargamos la entidad venta.
+            Venta nuevaVenta = new Venta();
+            // nuevaVenta.id_venta = 0;
+            nuevaVenta.fecha_venta = DateTime.Now;
+            nuevaVenta.monto_venta = this.carrito.Sum(c => c.subtotal);
+            nuevaVenta.detalles = this.carrito;
+
+            nuevaVenta.id_caja = this.cajaOn.id_caja;
+            nuevaVenta.caja = this.cajaOn;
+
+            nuevaVenta.id_cliente = this.cliente_seleccionado_venta.id_cliente;
+            nuevaVenta.cliente = this.cliente_seleccionado_venta;
+
+            try
+            {
+                if (this.AbrirFormularioCobrar(nuevaVenta) == DialogResult.OK)
+                {
+                    // Seteamos todo para indicar que se registro la venta
+                    // Podriamos imprimir el ticket
+                    this.SetSuccesfulSale();
+                    return;
+                }
+
+                return;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private void BTNNuevaVenta_Click(object sender, EventArgs e)
@@ -261,10 +357,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.LimpiarPanelCliente();
 
             // Limpiamoms el Detalle.
-            this.LoadDetalleVenta();
+            this.LoadDetalleVentaProcesando();
 
             // Limpiamos el sector del resumen.
             this.LimpiarResumen();
+
+            // Limpiamos los EP para finalizar la venta
+            this.LimpiarEPCobrar();
         }
 
         private void BTNMenosCantidad_Click(object sender, EventArgs e)
@@ -311,9 +410,20 @@ namespace WindowsFormsApp1.CapaPresentacion
             DataGridViewRow fila = this.dataGridView1.SelectedRows[0];
             string sku_producto = Convert.ToString(fila.Cells["Codigo"].Value);
 
-            // Una vez obtenido el id_producto lo buscamos en el carrito.
+            // Traemos el producto para verificar stock
+            CN_Producto producto = new CN_Producto();
+            Producto productoCargar = producto.Get_ProductoSku(sku_producto);
+
+            // Una vez obtenido el slu_producto lo buscamos en el carrito.
             int indice = this.carrito.FindIndex(d => d.producto.sku_producto == sku_producto);
-            
+
+            // Validamos ...
+            if ((this.carrito[indice].cantidad_producto + 1) > productoCargar.stock_producto)
+            {
+                MessageBox.Show("El producto no cuenta con el stock suficiente.", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             this.carrito[indice].cantidad_producto = ((this.carrito[indice].cantidad_producto) + 1);
             this.carrito[indice].subtotal = this.carrito[indice].cantidad_producto * this.carrito[indice].precio_unitario; 
 
@@ -330,17 +440,18 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void BTNConsultarPrecio_Click(object sender, EventArgs e)
         {
-            Form formBG = this.DisplayFormBackGround();
+            this.AbrirFormularioConsultarPrecio();
+        }
 
-            ConsultarPrecio frm = this.DisplayFormConsultarPrecio();
+        private void BTNMovimientoCaja_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormularioMovimientoCaja();
+        }
 
-            formBG.Show();
 
-            frm.Owner = formBG;
-            
-            frm.ShowDialog();
-
-            formBG.Dispose();
+        private void BTNResumenCaja_Click(object sender, EventArgs e)
+        {
+            this.principal.AbrirFormHijo(new ResumenCaja(this.cajaOn.id_caja, this));
         }
 
         // Seccion Cliente
@@ -399,7 +510,6 @@ namespace WindowsFormsApp1.CapaPresentacion
             cliente_seleccionado_venta = this.CBCliente.SelectedItem as Cliente;
 
             // Cargamos el cuit / dni identificador
-
             string identificacion = cliente_seleccionado_venta.persona.persona_fisica != null ? $"{cliente_seleccionado_venta.persona.persona_fisica.dni_persona}" : $"{cliente_seleccionado_venta.persona.persona_juridica.cuit}";
 
             this.TBDniCuit.Text = identificacion;
@@ -617,7 +727,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             Rectangle area = this.principal.GetAreaPContenido();
 
-            AperturaCaja frm = new AperturaCaja(this.cajaOn.usuario.username);
+            AperturaCaja frm = new AperturaCaja(this.principal.GetUsernameSession());
 
             frm.StartPosition = FormStartPosition.Manual;
             frm.Location = new Point(
@@ -632,7 +742,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             Rectangle area = this.principal.GetAreaPContenido();
 
-            CierreCaja frm = new CierreCaja(this.cajaOn);
+            CierreCaja frm = new CierreCaja(this.cajaOn.id_caja);
 
             frm.StartPosition = FormStartPosition.Manual;
             frm.Location = new Point(
@@ -656,6 +766,85 @@ namespace WindowsFormsApp1.CapaPresentacion
             );
 
             return frm;
+        }
+
+        public RegistrarPago DisplayFormRegistrarPago(Venta _venta) 
+        {
+            Rectangle area = this.principal.GetAreaPContenido();
+
+            RegistrarPago frm = new RegistrarPago(_venta);
+
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.Location = new Point(
+                area.Left + (area.Width - frm.Width) / 2,
+                area.Top + (area.Height - frm.Height) / 2
+            );
+
+            return frm;
+        }
+
+        public MovimientoCaja DisplayFormMovimientoCaja()
+        {
+            Rectangle area = this.principal.GetAreaPContenido();
+
+            MovimientoCaja frm = new MovimientoCaja(this.cajaOn.id_caja);
+
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.Location = new Point(
+                area.Left + (area.Width - frm.Width) / 2,
+                area.Top + (area.Height - frm.Height) / 2
+            );
+
+            return frm;
+        }
+
+        public void AbrirFormularioConsultarPrecio() 
+        {
+            Form formBG = this.DisplayFormBackGround();
+
+            ConsultarPrecio frm = this.DisplayFormConsultarPrecio();
+
+            formBG.Show();
+
+            frm.Owner = formBG;
+
+            frm.ShowDialog();
+
+            formBG.Dispose();
+        }
+
+        public void AbrirFormularioMovimientoCaja()
+        {
+            Form formBG = this.DisplayFormBackGround();
+
+            MovimientoCaja frm = this.DisplayFormMovimientoCaja();
+
+            formBG.Show();
+
+            frm.Owner = formBG;
+
+            frm.ShowDialog();
+
+            formBG.Dispose();
+        }
+
+        public DialogResult AbrirFormularioCobrar(Venta _venta) 
+        {
+            DialogResult result = DialogResult.Cancel;  
+
+            Form formBG = this.DisplayFormBackGround();
+
+            // Para poder abrir el formulario de pago voy a tener que Cargar todos los elementos necesarios para la venta y proceder con una validacion de errorProvider.
+            RegistrarPago frm = this.DisplayFormRegistrarPago(_venta);
+
+            formBG.Show();
+            frm.Owner = formBG;
+
+            result = frm.ShowDialog();
+
+            formBG.Dispose();
+
+            return result;
         }
 
         // Paneles en funcion del estado de caja.
@@ -714,6 +903,42 @@ namespace WindowsFormsApp1.CapaPresentacion
             }
         }
 
+        private void CBCliente_Validating(object sender, CancelEventArgs e)
+        {
+            if (this.cliente_seleccionado_venta == null) 
+            {
+                this.errorProvider1.SetError(this.CBCliente, "Debe seleccionar un cliente.");
+                this.load_ErrorProviderCobrar = true;
+            }
+            else 
+            {
+                this.errorProvider1.SetError(this.CBCliente, "");
+            }
+        }
+        
+        private void dataGridView1_Validating(object sender, CancelEventArgs e)
+        {
+            if (this.carrito.Count < 1) 
+            {
+                this.errorProvider1.SetError(this.BTNAddCarrito, "El carrito no puede estar vacio al momento de realizar una compra.");
+                this.load_ErrorProviderCobrar = true;
+            }
+            else
+            {
+                this.errorProvider1.SetError(this.dataGridView1, "");
+            }
+        } 
+
+        public void LimpiarPanelCliente() 
+        {
+            this.TBDniCuit.Text = string.Empty;
+            this.TBDniCuit.Enabled = true;
+            this.BTNBuscarDniCuit.Enabled = true;
+
+            this.Telefono.Text = "-";
+            this.Direccion.Text = "-";
+        }
+
         public void LimpiarPanelCarrito() 
         {
             this.TBCodigoProducto.Text = string.Empty;
@@ -726,15 +951,10 @@ namespace WindowsFormsApp1.CapaPresentacion
             errorProvider1.SetError(this.NUDCantidad, "");
         }
 
-        public void LimpiarPanelCliente() 
+        public void LimpiarEPCobrar() 
         {
-            this.TBDniCuit.Text = string.Empty;
-            this.TBDniCuit.Enabled = true;
-            this.BTNBuscarDniCuit.Enabled = true;
-
-            this.Telefono.Text = "-";
-            this.Direccion.Text = "-";
-        }
-         
+            errorProvider1.SetError(this.BTNAddCarrito, "");
+            errorProvider1.SetError(this.CBCliente, "");
+        } 
     }
 }

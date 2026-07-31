@@ -35,5 +35,6 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public ICollection<Detalle_venta> detalles { get; set; }    
 
+        public ICollection<Pago> pagos { get; set; }
     }
 }

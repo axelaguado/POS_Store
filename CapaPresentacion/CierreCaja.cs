@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaEntidad;
 using WindowsFormsApp1.CapaNegocio;
+using System.Collections;
 
 namespace WindowsFormsApp1.CapaPresentacion
 {
@@ -21,10 +22,11 @@ namespace WindowsFormsApp1.CapaPresentacion
         public Caja cajaCierre;
         public bool load_ErrorProvider;
 
-        public CierreCaja(Caja _cajaCierre)
+        public CierreCaja(int id_caja)
         {
             InitializeComponent();
-            this.cajaCierre = _cajaCierre;
+            this.cajaCierre = this.GetCajaCierre(id_caja);
+            this.LoadInitValues();
         }
 
         private void BTNVolver_Click(object sender, EventArgs e)
@@ -33,41 +35,111 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.Close();
         }
 
+        public Caja GetCajaCierre(int id_caja)
+        {
+            CN_Caja caja = new CN_Caja();
+
+            try
+            {
+                Caja encontrada = caja.ObtenerCaja(id_caja);
+
+                if (encontrada != null)
+                {
+                    return encontrada;
+                }
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+        }
 
         public void LoadInitValues()
-        { 
+        {
+            this.LoadInfoGeneral();
+            this.LoadMovimientos();
+            this.LoadVentas();
+            this.LoadPagos();
+            this.LoadSaldo();
+        }
+
+        public void LoadInfoGeneral()
+        {
             // Informacion General.
             this.Usuario.Text = this.cajaCierre.usuario.username;
             this.FechaApertura.Text = this.cajaCierre.fecha_apertura.ToString();
+        }
+
+        public void LoadMovimientos()
+        {
+            List<Movimiento_caja> movimientos = this.cajaCierre.movimientos.ToList();
 
             // Movimientos.
-            this.Ingresos.Text = string.Empty;
-            this.Egresos.Text = string.Empty;
+            this.Ingresos.Text = movimientos.Where(m => m.id_tipo == 2).Sum(m => m.monto_movimiento).ToString();
+            this.Egresos.Text = movimientos.Where(m => m.id_tipo == 1).Sum(m => m.monto_movimiento).ToString();
 
-            // Necesito un metodo para calcular movimientos.
+            // Necesito un metodo para calcular movimientos. --> esto quedo, no se a que hace referencia.
+        }
+
+        public void LoadVentas()
+        {
+            // Todas las ventas.
+            List<Venta> ventas = this.cajaCierre.ventas.ToList();
 
             // Ventas.
-            this.CantVentas.Text = string.Empty;
-            this.CantProductos.Text = string.Empty;
-            this.MontoTotal.Text = string.Empty;
+            this.CantVentas.Text = ventas.Count.ToString();
+            this.CantProductos.Text = ventas.Sum(v => v.detalles.Count).ToString();
+            // Si quisiera calcular la cantida de unidades totales de producto --> this.cajaCierre.ventas.Select(v => v.detalles).Sum(d => d.cantidad_producto) --> falta acumular la cantidad de cada detalle
+            this.MontoTotal.Text = ventas.Sum(v => v.monto_venta).ToString();
 
             // Necesito un metodo para calcular ventas.
+        }
 
-            // Cobros.
-            this.Efectivo.Text = string.Empty;
-            this.Otros.Text = string.Empty;
+        public void LoadPagos()
+        { 
+            // Todos los pagos
+            List<Pago> pagos = this.cajaCierre.ventas
+                                        .SelectMany(v => v.pagos)
+                                        .ToList();
 
-            // Necesito un metodo para calcular cobros.
+            // Pagos.
+            this.Efectivo.Text = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago).ToString();
+            this.Otros.Text = pagos.Where(p => p.id_metodo != 1).Sum(p => p.importe_pago).ToString();
+
+            // Necesito un metodo para calcular pagos.
+        }
+
+        public void LoadSaldo()
+        {
+            // Saldo Esperado
+            // Saldo Inicial + Pagos(Efectivo) + Movimientos(Ingresos) - Movimientos(Egresos)
+
+            // Todos los pagos
+            List<Pago> pagos = this.cajaCierre.ventas
+                                        .SelectMany(v => v.pagos)
+                                        .ToList();
+
+            List<Movimiento_caja> movimientos = this.cajaCierre.movimientos.ToList();
+                                        
 
             // Saldo.
-            this.SaldoInicial.Text = string.Empty;
-            this.SaldoEsperado.Text = string.Empty;
+            this.SaldoInicial.Text = this.cajaCierre.saldo_inicial.ToString();
 
-            this.Diferencia.Text = string.Empty;
+            // Valores asociados
+            decimal pagosEfect = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago);
+            decimal ingresosTotal = movimientos.Where(m => m.id_tipo == 2).Sum(p => p.monto_movimiento);
+            decimal egresosTotal = movimientos.Where(m => m.id_tipo == 1).Sum(p => p.monto_movimiento);
+
+            this.SaldoEsperado.Text = (this.cajaCierre.saldo_inicial + pagosEfect + ingresosTotal - egresosTotal).ToString();
+
+            this.LVDiferencia.Text = string.Empty;
 
             // Necesito un metodo para calcular saldo. 
         }
-
 
         private void BTNDescargar_Click(object sender, EventArgs e)
         {
@@ -195,7 +267,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             Texto_Html = Texto_Html.Replace("{{saldo_inicial}}", this.SaldoInicial.Text);
             Texto_Html = Texto_Html.Replace("{{saldo_esperado}}", this.SaldoEsperado.Text);
             Texto_Html = Texto_Html.Replace("{{saldo_cierre}}", this.FechaApertura.Text);
-            Texto_Html = Texto_Html.Replace("{{diferencia}}", this.Diferencia.Text);
+            Texto_Html = Texto_Html.Replace("{{diferencia}}", this.LVDiferencia.Text);
              
             // Cargamos la Fecha de emision del documento.
             Texto_Html = Texto_Html.Replace("{{fecha_emision}}", "17/07/2026 14:00:00");
@@ -277,6 +349,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Convierte el objeto sender en un TextBox.
             System.Windows.Forms.TextBox textBox = sender as System.Windows.Forms.TextBox;
 
+            // Aca basicamente verificamos que al Control no se puedan ingresar puntos.
             if (!string.IsNullOrEmpty(textBox.Text))
             {
                 if (textBox.Text.Contains("."))
@@ -286,6 +359,25 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                     // Mover el cursor al final del texto.
                     textBox.SelectionStart = textBox.Text.Length;
+                }
+            }
+
+            // Y aca lo que va a pasar con diferencia
+            if(decimal.TryParse((textBox.Text), out decimal efectivoCierre))
+            {
+                this.LVDiferencia.Text = (efectivoCierre - Convert.ToDecimal(this.SaldoEsperado.Text)).ToString();
+
+                if (decimal.TryParse(this.LVDiferencia.Text, out decimal diferencia)) 
+                { 
+                    if (diferencia > 0) 
+                    {
+                        this.LVDiferencia.ForeColor = Color.Lime;
+                    }
+
+                    if (diferencia < 0)
+                    {
+                        this.LVDiferencia.ForeColor = Color.Red;
+                    }
                 }
             }
         }

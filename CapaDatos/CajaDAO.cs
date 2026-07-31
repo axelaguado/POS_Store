@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.CapaNegocio;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -22,12 +23,31 @@ namespace WindowsFormsApp1.CapaDatos
             context.Cajas.Add(nuevaCaja);
         }
 
+        public void Attach_caja(Caja caja)
+        {
+            context.Cajas.Attach(caja);
+        }
+
+        public Caja GetCaja(int id_caja)
+        {
+            return context.Cajas.Include(c => c.ventas)
+                                .Include(c => c.usuario)
+                                .Include(c => c.ventas.Select(v => v.cliente))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona.persona_juridica))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona.persona_fisica))
+                                .Include(c => c.ventas.Select(v => v.detalles))
+                                .Include(c => c.ventas.Select(v => v.detalles.Select(d => d.producto)))
+                                .Include(c => c.ventas.Select(v => v.pagos))
+                                .Include(c => c.ventas.Select(v => v.pagos.Select(d => d.metodo)))
+                                .Include(c => c.movimientos)
+                                .Include(c => c.movimientos.Select(m => m.tipo_movimiento))
+                                .FirstOrDefault(c => c.estado_caja == true && c.id_caja == id_caja);
+        }
+
         public Caja GetCajaActiva(int id_usuario) 
         {
-            return context.Cajas.Include(c => c.usuario)
-                                .Include(c => c.ventas)
-                                .FirstOrDefault(c => c.estado_caja == true && c.id_usuario == id_usuario);
-                
+            return context.Cajas.FirstOrDefault(c => c.estado_caja == true && c.id_usuario == id_usuario);
         }
 
         // -- UPDATE --

@@ -64,7 +64,7 @@ namespace WindowsFormsApp1.CapaDatos
 
         public DbSet<Categoria_producto> Categorias { get; set; }
 
-        public DbSet<Detalle_venta> Detalle_Ventas { get; set; }
+        public DbSet<Detalle_venta> Detalles_venta { get; set; }
 
         public DbSet<Venta> Ventas { get; set; }
 
@@ -74,6 +74,11 @@ namespace WindowsFormsApp1.CapaDatos
         public DbSet<Tipo_movimiento> Tipos_movimiento { get; set; }
 
         public DbSet<Movimiento_caja> Movimientos_caja { get; set; }
+
+        // Proceso Pago 
+        public DbSet<Pago> Pagos { get; set; }
+
+        public DbSet<Metodo_pago> Metodos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         { 
@@ -553,12 +558,48 @@ namespace WindowsFormsApp1.CapaDatos
 
             // Otros mapeos
             detalleVentaConfig.ToTable("Detalle_venta");
+  
+            // -------------------------------------------------------
+
+            // Pago
+            // Definir entidad
+            var pagoConfig = modelBuilder.Entity<Pago>();
+
+            // Configurar clave primaria
+            pagoConfig.HasKey(dv => dv.id_pago);
+
+            // Configurar relaciones
+            pagoConfig.HasRequired(p => p.metodo)
+                              .WithMany(m => m.pagos)
+                              .HasForeignKey(p => p.id_metodo);
+
+            pagoConfig.HasRequired(p => p.venta)
+                              .WithMany(v => v.pagos)
+                              .HasForeignKey(p => p.id_venta);
+
+            // Configurar propiedades
+            pagoConfig.Property(p => p.importe_pago).HasPrecision(10, 2).IsRequired();
+            pagoConfig.Property(p => p.fecha_pago).IsRequired();
+            pagoConfig.Property(p => p.estado_pago).IsRequired();
+
+            // Otros mapeos
+            pagoConfig.ToTable("Pago");
 
             // -------------------------------------------------------
 
-            // Faltan Cobro y Metodo de pago.
+            // Metodo Pago
+            // Definir entidad
+            var metodoPagoConfig = modelBuilder.Entity<Metodo_pago>();
 
-            // -------------------------------------------------------
+            // Configurar clave primaria
+            metodoPagoConfig.HasKey(m => m.id_metodo);
+
+            // Configurar propiedades
+            metodoPagoConfig.Property(m => m.descripcion_metodo).HasMaxLength(100).IsRequired();
+            metodoPagoConfig.Property(m => m.estado_metodo).IsRequired();
+
+            // Otros mapeos
+            metodoPagoConfig.ToTable("Metodo_pago"); 
         }
 
     }

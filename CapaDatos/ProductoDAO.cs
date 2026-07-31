@@ -28,7 +28,7 @@ namespace WindowsFormsApp1.CapaDatos
         public void AttachProducto(Producto _producto) 
         {
             context.Productos.Attach(_producto);
-        }
+        } 
 
         public Producto GetProducto(int _id)
         {

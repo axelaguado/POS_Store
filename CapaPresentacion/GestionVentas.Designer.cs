@@ -169,10 +169,10 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 2, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel8, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.panel5, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 2, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 42);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 4;
@@ -319,6 +319,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(489, 144);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.Validating += new System.ComponentModel.CancelEventHandler(this.dataGridView1_Validating);
             // 
             // CSku
             // 
@@ -345,7 +346,7 @@
             this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.ControlText;
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -441,6 +442,7 @@
             this.BTNResumenCaja.TabIndex = 4;
             this.BTNResumenCaja.Text = "F9 - Resumen Caja";
             this.BTNResumenCaja.UseVisualStyleBackColor = false;
+            this.BTNResumenCaja.Click += new System.EventHandler(this.BTNResumenCaja_Click);
             // 
             // BTNCerrarCaja
             // 
@@ -500,17 +502,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button8.BackColor = System.Drawing.Color.MintCream;
-            this.button8.Enabled = false;
-            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Red;
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.Red;
+            this.button8.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button8.Location = new System.Drawing.Point(126, 93);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(117, 24);
             this.button8.TabIndex = 3;
-            this.button8.Text = "F8 - Cancelar Venta";
+            this.button8.Text = "F8 - Movimiento Caja";
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.BTNMovimientoCaja_Click);
             // 
             // button7
             // 
@@ -726,6 +728,7 @@
             this.CBCliente.TabIndex = 1;
             this.CBCliente.SelectedIndexChanged += new System.EventHandler(this.CBCliente_SelectedIndexChanged);
             this.CBCliente.TextChanged += new System.EventHandler(this.CBCliente_TextChanged);
+            this.CBCliente.Validating += new System.ComponentModel.CancelEventHandler(this.CBCliente_Validating);
             // 
             // TBDniCuit
             // 

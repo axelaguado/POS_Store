@@ -29,6 +29,11 @@ namespace WindowsFormsApp1.CapaDatos
             _context.Clientes.Add(cliente);
         }
 
+        public void Attach_cliente(Cliente cliente)
+        {
+            _context.Clientes.Attach(cliente);
+        }
+
         public Cliente GetClienteFisico(int identificacion)
         {
             return _context.Clientes.Include(cl => cl.persona)

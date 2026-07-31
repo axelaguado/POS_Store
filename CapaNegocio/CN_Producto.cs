@@ -90,7 +90,19 @@ namespace WindowsFormsApp1.CapaNegocio
                 this.validarProducto(detalle.producto);
                 if (this.validacion.Count > 0) return;  
             } 
-             
+        }
+
+        public void ImpactarVentaProductos(ICollection<Detalle_venta> detalles, MiDbContext context)
+        {
+            this.validacion.Clear();
+
+            foreach (Detalle_venta detalle in detalles)
+            {
+                detalle.producto.stock_producto = detalle.producto.stock_producto - detalle.cantidad_producto;
+                
+                this.validarProducto(detalle.producto);
+                if (this.validacion.Count > 0) return;
+            }
         }
 
         public void AttachProducto(ICollection<Detalle_compra> detalles, MiDbContext _context)
