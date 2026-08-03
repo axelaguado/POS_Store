@@ -193,6 +193,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     { 
                         Compra compraConfirmar = compra.BuscarCompra(id_compra);
                          
+                        // Esto en realidad deberia llamar al metodo de la CN confirmarPedido que es el que internamente va a impactar en la BD.
                         int confirmacion = compraConfirmar == null? 0 : compra.ImpactarCompra(compraConfirmar);
 
                         if (confirmacion > 0) 

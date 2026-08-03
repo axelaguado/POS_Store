@@ -81,30 +81,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CapaDatos\CajaDAO.cs" />
     <Compile Include="CapaDatos\CategoriaGastoDAO.cs" />
     <Compile Include="CapaDatos\CategoriaProductoDAO.cs" />
     <Compile Include="CapaDatos\ClienteDAO.cs" />
     <Compile Include="CapaDatos\ContactoDAO.cs" />
+    <Compile Include="CapaDatos\DetalleVentaDAO.cs" />
     <Compile Include="CapaDatos\Detalle_compraDAO.cs" />
     <Compile Include="CapaDatos\DireccionDAO.cs" />
     <Compile Include="CapaDatos\EmpleadoDAO.cs" />
     <Compile Include="CapaDatos\EstadoCompraDAO.cs" />
     <Compile Include="CapaDatos\CompraDAO.cs" />
     <Compile Include="CapaDatos\GastoDAO.cs" />
+    <Compile Include="CapaDatos\MetodoPagoDAO.cs" />
+    <Compile Include="CapaDatos\MovimientoCajaDAO.cs" />
+    <Compile Include="CapaDatos\PagoDAO.cs" />
     <Compile Include="CapaDatos\PersonaDAO.cs" />
     <Compile Include="CapaDatos\MiDbContext.cs" />
     <Compile Include="CapaDatos\PersonaFisicaDAO.cs" />
     <Compile Include="CapaDatos\PersonaJuridicaDAO.cs" />
     <Compile Include="CapaDatos\ProductoDAO.cs" />
     <Compile Include="CapaDatos\ProveedorDAO.cs" />
+    <Compile Include="CapaDatos\TipoMovimientoDAO.cs" />
     <Compile Include="CapaDatos\TipoUsuarioDAO.cs" />
     <Compile Include="CapaDatos\UsuarioDAO.cs" />
+    <Compile Include="CapaDatos\VentaDAO.cs" />
+    <Compile Include="CapaEntidad\Caja.cs" />
     <Compile Include="CapaEntidad\Categoria_gasto.cs" />
     <Compile Include="CapaEntidad\Categoria_producto.cs" />
     <Compile Include="CapaEntidad\Contacto.cs" />
     <Compile Include="CapaEntidad\Empleado.cs" />
     <Compile Include="CapaEntidad\Estado_compra.cs" />
     <Compile Include="CapaEntidad\Gasto.cs" />
+    <Compile Include="CapaEntidad\Metodo_pago.cs" />
+    <Compile Include="CapaEntidad\Movimiento_caja.cs" />
+    <Compile Include="CapaEntidad\Pago.cs" />
     <Compile Include="CapaEntidad\PersonaJuridica.cs" />
     <Compile Include="CapaEntidad\Detalle_compra.cs" />
     <Compile Include="CapaEntidad\ItemCarrito.cs" />
@@ -113,11 +124,14 @@
     <Compile Include="CapaEntidad\Proveedor.cs" />
     <Compile Include="CapaEntidad\Session.cs" />
     <Compile Include="CapaEntidad\IConfigForm.cs" />
+    <Compile Include="CapaEntidad\Tipo_movimiento.cs" />
+    <Compile Include="CapaNegocio\CN_Caja.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaGasto.cs" />
     <Compile Include="CapaNegocio\CN_CategoriaProducto.cs" />
     <Compile Include="CapaNegocio\CN_Cliente.cs" />
     <Compile Include="CapaNegocio\CN_Contacto.cs" />
     <Compile Include="CapaNegocio\CN_DetalleCompra.cs" />
+    <Compile Include="CapaNegocio\CN_DetalleVenta.cs" />
     <Compile Include="CapaNegocio\CN_Direccion.cs" />
     <Compile Include="CapaEntidad\Direccion.cs" />
     <Compile Include="CapaEntidad\Venta.cs" />
@@ -130,19 +144,42 @@
     <Compile Include="CapaNegocio\CN_Empleado.cs" />
     <Compile Include="CapaNegocio\CN_EstadoCompra.cs" />
     <Compile Include="CapaNegocio\CN_Gasto.cs" />
+    <Compile Include="CapaNegocio\CN_MetodoPago.cs" />
+    <Compile Include="CapaNegocio\CN_MovimientoCaja.cs" />
+    <Compile Include="CapaNegocio\CN_Pago.cs" />
     <Compile Include="CapaNegocio\CN_Persona.cs" />
     <Compile Include="CapaNegocio\CN_PersonaFisica.cs" />
     <Compile Include="CapaNegocio\CN_PersonaJuridica.cs" />
     <Compile Include="CapaNegocio\CN_Proveedor.cs" />
+    <Compile Include="CapaNegocio\CN_TipoMovimiento.cs" />
     <Compile Include="CapaNegocio\CN_TipoUsuario.cs" />
     <Compile Include="CapaNegocio\CN_Usuario.cs" />
     <Compile Include="CapaNegocio\CN_Compra.cs" />
     <Compile Include="CapaNegocio\CN_Producto.cs" />
+    <Compile Include="CapaNegocio\CN_Venta.cs" />
+    <Compile Include="CapaPresentacion\AperturaCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\AperturaCaja.Designer.cs">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\Calculadora.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CapaPresentacion\Calculadora.Designer.cs">
       <DependentUpon>Calculadora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\CierreCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\CierreCaja.Designer.cs">
+      <DependentUpon>CierreCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\ConsultarPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\ConsultarPrecio.Designer.cs">
+      <DependentUpon>ConsultarPrecio.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\EdicionUsuario.cs">
       <SubType>Form</SubType>
@@ -155,6 +192,12 @@
     </Compile>
     <Compile Include="CapaPresentacion\Detalle.Designer.cs">
       <DependentUpon>Detalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionCajas.Designer.cs">
+      <DependentUpon>GestionCajas.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\GestionCompras.cs">
       <SubType>Form</SubType>
@@ -192,11 +235,23 @@
     <Compile Include="CapaPresentacion\GestionUsuario.Designer.cs">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\GestionVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionVentas.Designer.cs">
+      <DependentUpon>GestionVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\Listado.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CapaPresentacion\Listado.Designer.cs">
       <DependentUpon>Listado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\MovimientoCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\MovimientoCaja.Designer.cs">
+      <DependentUpon>MovimientoCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="CapaPresentacion\Principal.cs">
       <SubType>Form</SubType>
@@ -216,6 +271,18 @@
     <Compile Include="CapaPresentacion\RegistrarCompra.Designer.cs">
       <DependentUpon>RegistrarCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\RegistrarPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\RegistrarPago.Designer.cs">
+      <DependentUpon>RegistrarPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CapaPresentacion\ResumenCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\ResumenCaja.Designer.cs">
+      <DependentUpon>ResumenCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="DTO\ClienteDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\ProveedorDTO.cs" />
@@ -223,14 +290,26 @@
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CapaPresentacion\AperturaCaja.resx">
+      <DependentUpon>AperturaCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Calculadora.resx">
       <DependentUpon>Calculadora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\CierreCaja.resx">
+      <DependentUpon>CierreCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\ConsultarPrecio.resx">
+      <DependentUpon>ConsultarPrecio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Detalle.resx">
       <DependentUpon>Detalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionCajas.resx">
+      <DependentUpon>GestionCajas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionCompras.resx">
       <DependentUpon>GestionCompras.cs</DependentUpon>
@@ -250,17 +329,29 @@
     <EmbeddedResource Include="CapaPresentacion\GestionUsuario.resx">
       <DependentUpon>GestionUsuario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionVentas.resx">
+      <DependentUpon>GestionVentas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Listado.resx">
       <DependentUpon>Listado.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\MovimientoCaja.resx">
+      <DependentUpon>MovimientoCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\RegistrarCompra.resx">
       <DependentUpon>RegistrarCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\RegistrarPago.resx">
+      <DependentUpon>RegistrarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\ResumenCaja.resx">
+      <DependentUpon>ResumenCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -291,6 +382,12 @@
     <None Include="Imagenes\old-calculator_icon-icons.com_56065.png" />
     <None Include="Imagenes\calculator.png" />
     <None Include="Imagenes\lupa.png" />
+    <Content Include="Plantilla\Resumen_cerrados.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Plantilla\Resumen_cierre.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Plantilla\Solicitud_pedido.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

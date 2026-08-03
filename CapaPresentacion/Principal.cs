@@ -18,12 +18,13 @@ namespace WindowsFormsApp1.CapaPresentacion
     public partial class Principal : Form
     {
         private Session session;
-
+        
         public Principal(Session datosSession)
         {
             this.session = datosSession;
             InitializeComponent();
-            cargarPBienvenida();
+            this.cargarPBienvenida();
+            this.SetUpTimer();
         }
 
         // Permiteel despalzamiento del formulario por la pantalla.
@@ -39,9 +40,44 @@ namespace WindowsFormsApp1.CapaPresentacion
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
 
+        public string GetUsernameSession() 
+        { 
+            return this.session.username;
+        }
+         
+        // Seria lo correcto?
+        public int GetIdSession()
+        {
+            return this.session.id_user;
+        }
+
+        // Eventos y configuraciones del reloj
+        public void SetUpTimer()
+        {
+            // Seteamos el horario incial en la aplicacion.
+            this.LoadReloj();
+
+            // Seteamos el timer
+            this.timer1.Interval = 1000; // 100ms segundos para poder tener el reloj lo mas sincronizado posible
+            this.timer1.Start();
+        }
+
+        //Evento que se diespara cuando se cumple el tiempo de intevalo establecido en el timer
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.LoadReloj();
+        }
+
+        public void LoadReloj() 
+        {
+            this.LReloj.Text = "" + DateTime.Now.ToShortTimeString();
+        }
+
+        // ---------------
+
         public void cargarPBienvenida()
         {
-            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido + "   ▼";
+            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido;
 
             if (this.session.tipo_perfil.Equals("Empleado"))
             {
@@ -111,7 +147,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             // fh.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top | AnchorStyles.Bottom;
             this.PContenidos.Controls.Add(fh);
             fh.Show();
-        } 
+        }
+
+        public Rectangle GetAreaPContenido()
+        {
+            Rectangle area = this.PContenidos.RectangleToScreen(this.PContenidos.ClientRectangle);
+            return area;
+        }
 
         private void BGestionUsuarios_Click(object sender, EventArgs e)
         {
@@ -150,6 +192,13 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.LightOff(sender);
             BTGastos.BackColor = System.Drawing.Color.DarkTurquoise;
         }
+        
+        private void BVentas_Click(object sender, EventArgs e)
+        {
+            this.AbrirFormHijo(new GestionVentas(this));
+            this.LightOff(sender);
+            BVentas.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
 
         public void LightOff(object sender) 
         { 
@@ -166,7 +215,6 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         
-        }
-
+        }  
     }
  }

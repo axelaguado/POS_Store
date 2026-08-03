@@ -24,6 +24,17 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public virtual ICollection<Venta> compras { get; set; }
 
+        // Propiedad para ser utlizada dentro de la aplicacion 
+        [NotMapped]
+        public string nombreCompleto_cliente
+        {
+            get
+            {
+                string nombreCliente = persona.persona_juridica != null ? persona.persona_juridica.razon_social + ", " + persona.persona_juridica.nombre_comercial : persona.persona_fisica.apellido_persona + ", " + persona.persona_fisica.nombre_persona;
+                return $"{nombreCliente}";
+            }
+        } 
+
     }
 }
 

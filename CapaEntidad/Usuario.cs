@@ -32,6 +32,7 @@ namespace WindowsFormsApp1.CapaEntidad
 
         [ForeignKey("tipo_perfil")]
         public Tipo_usuario tipo_usuario { get; set; }   
-        //public ICollection<Venta> ventas { get; set; }
+
+        public ICollection<Caja> cajas { get; set; }
     }
 }

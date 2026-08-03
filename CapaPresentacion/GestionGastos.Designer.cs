@@ -546,6 +546,7 @@
             // 
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel2.BackColor = System.Drawing.Color.Teal;
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -574,22 +575,22 @@
             // LTotalPeriodoActual
             // 
             this.LTotalPeriodoActual.AutoSize = true;
-            this.LTotalPeriodoActual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTotalPeriodoActual.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTotalPeriodoActual.ForeColor = System.Drawing.SystemColors.Control;
             this.LTotalPeriodoActual.Location = new System.Drawing.Point(52, 30);
             this.LTotalPeriodoActual.Name = "LTotalPeriodoActual";
-            this.LTotalPeriodoActual.Size = new System.Drawing.Size(38, 13);
+            this.LTotalPeriodoActual.Size = new System.Drawing.Size(45, 16);
             this.LTotalPeriodoActual.TabIndex = 2;
             this.LTotalPeriodoActual.Text = "$ - - -";
             // 
             // LGastoPeriodoActual
             // 
             this.LGastoPeriodoActual.AutoSize = true;
-            this.LGastoPeriodoActual.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LGastoPeriodoActual.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LGastoPeriodoActual.ForeColor = System.Drawing.SystemColors.Control;
             this.LGastoPeriodoActual.Location = new System.Drawing.Point(3, 5);
             this.LGastoPeriodoActual.Name = "LGastoPeriodoActual";
-            this.LGastoPeriodoActual.Size = new System.Drawing.Size(157, 13);
+            this.LGastoPeriodoActual.Size = new System.Drawing.Size(181, 16);
             this.LGastoPeriodoActual.TabIndex = 1;
             this.LGastoPeriodoActual.Text = "Gasto total periodo actual:";
             // 
@@ -608,22 +609,22 @@
             // LTotalFiltrado
             // 
             this.LTotalFiltrado.AutoSize = true;
-            this.LTotalFiltrado.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LTotalFiltrado.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LTotalFiltrado.ForeColor = System.Drawing.SystemColors.Control;
             this.LTotalFiltrado.Location = new System.Drawing.Point(52, 30);
             this.LTotalFiltrado.Name = "LTotalFiltrado";
-            this.LTotalFiltrado.Size = new System.Drawing.Size(38, 13);
+            this.LTotalFiltrado.Size = new System.Drawing.Size(45, 16);
             this.LTotalFiltrado.TabIndex = 2;
             this.LTotalFiltrado.Text = "$ - - -";
             // 
             // LGastoPeriodoFiltrado
             // 
             this.LGastoPeriodoFiltrado.AutoSize = true;
-            this.LGastoPeriodoFiltrado.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LGastoPeriodoFiltrado.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LGastoPeriodoFiltrado.ForeColor = System.Drawing.SystemColors.Control;
             this.LGastoPeriodoFiltrado.Location = new System.Drawing.Point(3, 5);
             this.LGastoPeriodoFiltrado.Name = "LGastoPeriodoFiltrado";
-            this.LGastoPeriodoFiltrado.Size = new System.Drawing.Size(163, 13);
+            this.LGastoPeriodoFiltrado.Size = new System.Drawing.Size(188, 16);
             this.LGastoPeriodoFiltrado.TabIndex = 0;
             this.LGastoPeriodoFiltrado.Text = "Gasto total periodo filtrado:";
             // 

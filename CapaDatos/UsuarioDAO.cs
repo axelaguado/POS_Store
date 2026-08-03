@@ -259,6 +259,13 @@ namespace WindowsFormsApp1.CapaDatos
             return _context.Usuarios.FirstOrDefault(u => u.id_usuario == _id); 
         }
 
+        // -- Seguimiento del EF al objeto en la BD.
+        public void Attach(Usuario user)
+        {
+            _context.Usuarios.Attach(user);
+        }
+
+
         // -- UPDATE -- 
         public Usuario update_AllUserRelationship(Usuario datos_modificados)
         {

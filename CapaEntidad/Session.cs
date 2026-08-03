@@ -8,6 +8,8 @@ namespace WindowsFormsApp1.CapaEntidad
 {
     public class Session
     {
+        public int id_user { get; set; }
+
         public string nombre { get; set; }
 
         public string apellido { get; set; }

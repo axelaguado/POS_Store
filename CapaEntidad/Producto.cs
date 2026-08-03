@@ -45,6 +45,8 @@ namespace WindowsFormsApp1.CapaEntidad
 
         public ICollection<Detalle_compra> detalles_compra { get; set; }
 
+        public ICollection<Detalle_venta> detalles_venta { get; set; }
+
         // Propiedad para ser utlizada dentro de la aplicacion 
         [NotMapped]
         public string producto_completo

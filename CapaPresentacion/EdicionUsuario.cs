@@ -252,7 +252,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     errorProvider1.SetError(this.TBEUContraseña, "La contraseña ingresada no es correcta.");
                     return;
                 }     
-            }
+            } 
 
             this.cargarNuevosValores();  
 
