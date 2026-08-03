@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PHeaderPrincipal = new System.Windows.Forms.Panel();
             this.BBienvenida = new System.Windows.Forms.Button();
@@ -58,6 +59,8 @@
             this.BGestionEmpleados = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PContenidos = new System.Windows.Forms.Panel();
+            this.LReloj = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.PHeaderPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PBMinimizar)).BeginInit();
@@ -70,6 +73,7 @@
             // PHeaderPrincipal
             // 
             this.PHeaderPrincipal.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.PHeaderPrincipal.Controls.Add(this.LReloj);
             this.PHeaderPrincipal.Controls.Add(this.BBienvenida);
             this.PHeaderPrincipal.Controls.Add(this.PBMaximizar);
             this.PHeaderPrincipal.Controls.Add(this.PBMinimizar);
@@ -87,7 +91,7 @@
             this.BBienvenida.AutoSize = true;
             this.BBienvenida.FlatAppearance.BorderSize = 0;
             this.BBienvenida.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BBienvenida.Location = new System.Drawing.Point(3, 4);
+            this.BBienvenida.Location = new System.Drawing.Point(3, 5);
             this.BBienvenida.Name = "BBienvenida";
             this.BBienvenida.Size = new System.Drawing.Size(83, 23);
             this.BBienvenida.TabIndex = 5;
@@ -421,22 +425,40 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(49, 11);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 10);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.Size = new System.Drawing.Size(208, 50);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
             // PContenidos
             // 
+            this.PContenidos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PContenidos.BackColor = System.Drawing.Color.White;
-            this.PContenidos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PContenidos.ForeColor = System.Drawing.SystemColors.ControlText;
             this.PContenidos.Location = new System.Drawing.Point(208, 32);
             this.PContenidos.Name = "PContenidos";
             this.PContenidos.Size = new System.Drawing.Size(692, 536);
             this.PContenidos.TabIndex = 0;
+            // 
+            // LReloj
+            // 
+            this.LReloj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LReloj.AutoSize = true;
+            this.LReloj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LReloj.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.LReloj.Location = new System.Drawing.Point(428, 9);
+            this.LReloj.Name = "LReloj";
+            this.LReloj.Size = new System.Drawing.Size(43, 16);
+            this.LReloj.TabIndex = 15;
+            this.LReloj.Text = "00:00";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Principal
             // 
@@ -492,5 +514,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button BGestionProveedor;
+        private System.Windows.Forms.Label LReloj;
+        private System.Windows.Forms.Timer timer1;
     }
 }

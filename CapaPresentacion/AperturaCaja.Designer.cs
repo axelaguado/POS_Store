@@ -34,7 +34,7 @@
             this.BTNAbrirCaja = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.LTitulo = new System.Windows.Forms.Label();
-            this.FechaApertura = new System.Windows.Forms.Label();
+            this.LVFechaApertura = new System.Windows.Forms.Label();
             this.Usuario = new System.Windows.Forms.Label();
             this.LUsuario = new System.Windows.Forms.Label();
             this.TBSaldoInicial = new System.Windows.Forms.TextBox();
@@ -52,7 +52,7 @@
             this.panel1.Controls.Add(this.BTNVolver);
             this.panel1.Controls.Add(this.BTNAbrirCaja);
             this.panel1.Controls.Add(this.panel2);
-            this.panel1.Controls.Add(this.FechaApertura);
+            this.panel1.Controls.Add(this.LVFechaApertura);
             this.panel1.Controls.Add(this.Usuario);
             this.panel1.Controls.Add(this.LUsuario);
             this.panel1.Controls.Add(this.TBSaldoInicial);
@@ -111,15 +111,15 @@
             this.LTitulo.TabIndex = 1;
             this.LTitulo.Text = "Apertura de Caja";
             // 
-            // FechaApertura
+            // LVFechaApertura
             // 
-            this.FechaApertura.AutoSize = true;
-            this.FechaApertura.ForeColor = System.Drawing.SystemColors.Control;
-            this.FechaApertura.Location = new System.Drawing.Point(109, 129);
-            this.FechaApertura.Name = "FechaApertura";
-            this.FechaApertura.Size = new System.Drawing.Size(110, 13);
-            this.FechaApertura.TabIndex = 8;
-            this.FechaApertura.Text = "10/11/1999 15:09:22";
+            this.LVFechaApertura.AutoSize = true;
+            this.LVFechaApertura.ForeColor = System.Drawing.SystemColors.Control;
+            this.LVFechaApertura.Location = new System.Drawing.Point(109, 129);
+            this.LVFechaApertura.Name = "LVFechaApertura";
+            this.LVFechaApertura.Size = new System.Drawing.Size(110, 13);
+            this.LVFechaApertura.TabIndex = 8;
+            this.LVFechaApertura.Text = "10/11/1999 15:09:22";
             // 
             // Usuario
             // 
@@ -206,7 +206,7 @@
         private System.Windows.Forms.Label LUsuario;
         private System.Windows.Forms.TextBox TBSaldoInicial;
         private System.Windows.Forms.Button BTNAbrirCaja;
-        private System.Windows.Forms.Label FechaApertura;
+        private System.Windows.Forms.Label LVFechaApertura;
         private System.Windows.Forms.Label Usuario;
         private System.Windows.Forms.Button BTNVolver;
         private System.Windows.Forms.ErrorProvider errorProvider1;

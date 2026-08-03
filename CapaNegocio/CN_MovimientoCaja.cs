@@ -18,6 +18,24 @@ namespace WindowsFormsApp1.CapaNegocio
             this.validacion = new Dictionary<string, string>();
         }
 
+        public void RegistrarMovimiento(Movimiento_caja _movimiento, MiDbContext _context)
+        {
+            if (this.ValidarMovimiento(_movimiento).Count == 0)
+            {
+                MovimientoCajaDAO movimiento = new MovimientoCajaDAO(_context);
+                _movimiento.estado_movimiento = true;
+
+                // Realizamos el seguimiento de la caja y del tipo existentes -- Como la Caja esta trayendo todo os chiches vamos a simplificarla
+                CajaDAO caja = new CajaDAO(_context);
+                caja.Attach_caja(_movimiento.caja);
+
+                TipoMovimientoDAO tipo = new TipoMovimientoDAO(_context);
+                tipo.Attach_tipo(_movimiento.tipo_movimiento);
+
+                movimiento.AddMoviento(_movimiento);
+            }
+        }
+
         public int RegistrarMovimiento(Movimiento_caja _movimiento)
         {
             if (this.ValidarMovimiento(_movimiento).Count == 0) 
@@ -83,7 +101,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
             else if (decimal.Round(_importe, 2) != _importe)
             {
-                this.validacion.Add("Monto_venta", "El importe final de la venta debe tener a lo sumo dos decimales.");
+                this.validacion.Add("Monto_movimiento", "El importe final de la venta debe tener a lo sumo dos decimales.");
             }
         }
 
@@ -93,9 +111,9 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 this.validacion.Add("Descripcion_movimiento", "Es obligatorio ingresar una descripcion del movimiento."); //this.validacion.Add("", "")
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z\s,.-]+$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z0-9\s,.#\-]+$"))
             {
-                this.validacion.Add("Descripcion_movimiento", "El atributo solo puede contener letras, espacios y caracteres especiales (-.,).");
+                this.validacion.Add("Descripcion_movimiento", "El atributo solo puede contener letras, numeros, espacios y caracteres especiales (-.,#).");
             }
             else if (_descripcion.Length > 100)
             {

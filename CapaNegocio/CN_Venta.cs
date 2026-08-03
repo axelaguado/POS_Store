@@ -9,6 +9,7 @@ using WindowsFormsApp1.CapaEntidad;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Runtime.Remoting.Messaging;
 
 namespace WindowsFormsApp1.CapaNegocio
 {
@@ -38,8 +39,9 @@ namespace WindowsFormsApp1.CapaNegocio
         public async Task<int> RegistrarVentaAsync(Venta nuevaVenta)
         {
             // Valido los detalles de la venta?
-            CN_DetalleVenta detalle_venta = new CN_DetalleVenta();
             CN_Pago pago = new CN_Pago();
+            CN_MovimientoCaja movimiento_caja = new CN_MovimientoCaja();
+            CN_DetalleVenta detalle_venta = new CN_DetalleVenta();
 
             if (this.ValidadarVenta(nuevaVenta).Count > 0)
             {
@@ -64,6 +66,15 @@ namespace WindowsFormsApp1.CapaNegocio
             if (pago.ValidarPagos(nuevaVenta.pagos) != 1)
             {
                 this.unirDiccionarios(pago.GetErrors());
+                return 0;
+            }
+
+            // Faltaria registrar el movimiento en caso de que haya vuelto.
+            Movimiento_caja nuevoMovimiento = this.GenerarVueltoPago(nuevaVenta);
+            
+            if (nuevoMovimiento != null && movimiento_caja.ValidarMovimiento(nuevoMovimiento).Count > 0) 
+            {
+                this.unirDiccionarios(movimiento_caja.GetErrors());
                 return 0;
             }
 
@@ -117,6 +128,11 @@ namespace WindowsFormsApp1.CapaNegocio
 
                         await _context.SaveChangesAsync();
 
+                        nuevoMovimiento.descripcion_movimiento = nuevoMovimiento.descripcion_movimiento.Replace("#0", "#" + nuevaVenta.id_venta);
+                        movimiento_caja.RegistrarMovimiento(nuevoMovimiento, _context);
+                         
+                        await _context.SaveChangesAsync();
+
                         // Confirmamos la transacción de forma SINCRÓNICA
                         transaction.Commit();
                         return 1;
@@ -129,6 +145,29 @@ namespace WindowsFormsApp1.CapaNegocio
                 }
             }
         } 
+
+        public Movimiento_caja GenerarVueltoPago(Venta nuevaVenta) 
+        {
+            CN_TipoMovimiento tipo = new CN_TipoMovimiento();
+            Tipo_movimiento tipo_egreso = tipo.ObtenerTipo("Egreso");
+
+            if(nuevaVenta.pagos.Sum(p => p.importe_pago) > nuevaVenta.monto_venta)
+            {
+                // Generamos el movimiento
+                Movimiento_caja nuevoMovimiento = new Movimiento_caja();
+                nuevoMovimiento.caja = nuevaVenta.caja;
+                nuevoMovimiento.tipo_movimiento = tipo_egreso;
+                nuevoMovimiento.monto_movimiento = nuevaVenta.pagos.Sum(p => p.importe_pago) - nuevaVenta.monto_venta;
+                nuevoMovimiento.descripcion_movimiento = "Vuelto correspondiente a la Venta #" + nuevaVenta.id_venta + ".";
+                nuevoMovimiento.fecha_movimiento = DateTime.Now;
+                nuevoMovimiento.estado_movimiento = true; 
+
+                return nuevoMovimiento;
+            }
+
+            // Y si no retornamos null 
+            return null;
+        }
 
         public void LoadVentaOnDetalles(Venta _venta)
         {

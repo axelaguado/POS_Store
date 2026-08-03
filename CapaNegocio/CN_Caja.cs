@@ -37,6 +37,24 @@ namespace WindowsFormsApp1.CapaNegocio
             return 0;
         }
 
+        public decimal ObtenerMontoEgresos(Caja _caja) 
+        {
+            List<Movimiento_caja> movimientos = _caja.movimientos.ToList();
+
+            if (movimientos == null || movimientos.Count == 0) return 0;
+
+            return movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Egreso").Sum(m => m.monto_movimiento);
+        }
+
+        public decimal ObtenerImporteIngresos(Caja _caja)
+        {
+            List<Movimiento_caja> movimientos = _caja.movimientos.ToList();
+
+            if (movimientos == null || movimientos.Count == 0) return 0;
+
+            return movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Ingreso").Sum(m => m.monto_movimiento);
+        }
+
         public int UpdateCaja(Caja _caja)
         {
             if (this.ValidarCaja(_caja).Count == 0)
@@ -82,6 +100,15 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 CajaDAO caja = new CajaDAO(context);
                 return caja.GetCaja(id_caja);
+            }
+        }
+
+        public List<Caja> ObtenerCajas()
+        {
+            using (var context = new MiDbContext())
+            {
+                CajaDAO caja = new CajaDAO(context);
+                return caja.GetCajas();
             }
         }
 

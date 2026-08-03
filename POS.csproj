@@ -193,6 +193,12 @@
     <Compile Include="CapaPresentacion\Detalle.Designer.cs">
       <DependentUpon>Detalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="CapaPresentacion\GestionCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CapaPresentacion\GestionCajas.Designer.cs">
+      <DependentUpon>GestionCajas.cs</DependentUpon>
+    </Compile>
     <Compile Include="CapaPresentacion\GestionCompras.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\EdicionUsuario.resx">
       <DependentUpon>EdicionUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CapaPresentacion\GestionCajas.resx">
+      <DependentUpon>GestionCajas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CapaPresentacion\GestionCompras.resx">
       <DependentUpon>GestionCompras.cs</DependentUpon>

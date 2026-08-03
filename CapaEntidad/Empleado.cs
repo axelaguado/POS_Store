@@ -21,5 +21,16 @@ namespace WindowsFormsApp1.CapaEntidad
         public Persona persona { get; set; }      
 
         public ICollection<Usuario> usuarios { get; set; }
+
+        // Propiedad para ser utlizada dentro de la aplicacion 
+        [NotMapped]
+        public string nombreCompleto_empleado
+        {
+            get
+            {
+                string nombreEmpleado = persona.persona_fisica.apellido_persona + ", " + persona.persona_fisica.nombre_persona;
+                return $"{nombreEmpleado}";
+            }
+        }
     } 
 }

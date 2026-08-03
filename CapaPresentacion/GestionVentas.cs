@@ -43,22 +43,52 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.carrito = new List<Detalle_venta>();
             this.cajaOn = new Caja();
             this.cts = new CancellationTokenSource();
+            this.LoadInit();
             this.LoadDetalleVentaProcesando();
             this.VerifyStateCaja();
             this.LoadCBCliente();
+            this.SetUpTimer();
+        }
+
+        public void LoadInit() 
+        { 
+            // Principal
+            // Botonera
+            if(this.principal.GetSessionTypeUser() == "Administrador") 
+            { 
+                this.BTNGestionCajas.Enabled = true;
+                this.BTNGestionCajas.Visible = true;
+
+
+                this.label3.Enabled = true;
+                this.label3.Visible = true;
+                this.button1.Enabled = true;
+                this.button1.Visible = true;
+            }
+            else 
+            {
+                this.BTNGestionCajas.Enabled = false;
+                this.BTNGestionCajas.Visible = false;
+
+                this.label3.Enabled = false;
+                this.label3.Visible = false;
+                this.button1.Enabled = false;
+                this.button1.Visible = false;
+            }
         }
 
         public void LoadDetalleVentaProcesando() 
         { 
             this.LDetalleFecha.Text = DateTime.Now.ToShortDateString();
-            this.LDetalleEstado.ForeColor = Color.Yellow;
             this.LDetalleEstado.Text = "Procesando.";
+            this.LDetalleEstado.ForeColor = Color.Yellow;
+            this.LDetalleEstado.Font = new Font(LDetalleEstado.Font, FontStyle.Bold);
         }
 
         public void LoadDetalleVentaFinalizado()
         {
             this.LDetalleFecha.Text = DateTime.Now.ToShortDateString();
-            this.LDetalleEstado.Text = "Finalizada Correctamente.";
+            this.LDetalleEstado.Text = "Finalizada.";
             this.LDetalleEstado.ForeColor = Color.Lime;
             this.LDetalleEstado.Font = new Font(LDetalleEstado.Font, FontStyle.Bold);
         }
@@ -89,7 +119,6 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Actualizamos estado de venta.
             this.LoadDetalleVentaFinalizado();
         }
-
 
         public void VerifyStateCaja()
         {
@@ -448,6 +477,10 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.AbrirFormularioMovimientoCaja();
         }
 
+        private void BTNGestionCajas_Click(object sender, EventArgs e)
+        {
+            this.principal.AbrirFormHijo(new GestionCajas(this));
+        }
 
         private void BTNResumenCaja_Click(object sender, EventArgs e)
         {
@@ -738,6 +771,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             return frm;
         }
 
+        public GestionCajas DisplayFormGestionCajas()
+        {
+            Rectangle area = this.principal.GetAreaPContenido();
+
+            GestionCajas frm = new GestionCajas(this);
+
+            frm.StartPosition = FormStartPosition.Manual;
+            frm.Location = new Point(
+                area.Left + (area.Width - frm.Width) / 2,
+                area.Top + (area.Height - frm.Height) / 2
+            );
+
+            return frm;
+        }
+
+
         public CierreCaja DisplayFormCierreCaja()
         {
             Rectangle area = this.principal.GetAreaPContenido();
@@ -827,6 +876,8 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             formBG.Dispose();
         }
+
+        
 
         public DialogResult AbrirFormularioCobrar(Venta _venta) 
         {
@@ -955,6 +1006,24 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             errorProvider1.SetError(this.BTNAddCarrito, "");
             errorProvider1.SetError(this.CBCliente, "");
+        }
+         
+        public void SetUpTimer() 
+        {
+            this.LoadReloj();
+
+            this.timer1.Interval = 100;
+            this.timer1.Start();
         } 
+
+        public void LoadReloj() 
+        { 
+            this.LDetalleFecha.Text = "" + DateTime.Now.ToString(); 
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.LoadReloj();
+        }
     }
 }

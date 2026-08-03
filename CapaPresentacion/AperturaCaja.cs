@@ -26,6 +26,11 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.username = _username;
         }
 
+        public void InitLoad()
+        {
+            this.LVFechaApertura.Text = DateTime.Now.ToString();    
+        }
+
         private void BTNVolver_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

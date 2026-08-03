@@ -32,6 +32,8 @@ namespace WindowsFormsApp1.CapaDatos
         {
             return context.Cajas.Include(c => c.ventas)
                                 .Include(c => c.usuario)
+                                .Include(c => c.usuario.empleado)
+                                .Include(c => c.usuario.empleado.persona.persona_fisica)
                                 .Include(c => c.ventas.Select(v => v.cliente))
                                 .Include(c => c.ventas.Select(v => v.cliente.persona))
                                 .Include(c => c.ventas.Select(v => v.cliente.persona.persona_juridica))
@@ -43,6 +45,25 @@ namespace WindowsFormsApp1.CapaDatos
                                 .Include(c => c.movimientos)
                                 .Include(c => c.movimientos.Select(m => m.tipo_movimiento))
                                 .FirstOrDefault(c => c.estado_caja == true && c.id_caja == id_caja);
+        }
+         
+        public List<Caja> GetCajas()
+        {
+            return context.Cajas.Include(c => c.ventas)
+                                .Include(c => c.usuario)
+                                .Include(c => c.usuario.empleado)
+                                .Include(c => c.usuario.empleado.persona.persona_fisica)
+                                .Include(c => c.ventas.Select(v => v.cliente))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona.persona_juridica))
+                                .Include(c => c.ventas.Select(v => v.cliente.persona.persona_fisica))
+                                .Include(c => c.ventas.Select(v => v.detalles))
+                                .Include(c => c.ventas.Select(v => v.detalles.Select(d => d.producto)))
+                                .Include(c => c.ventas.Select(v => v.pagos))
+                                .Include(c => c.ventas.Select(v => v.pagos.Select(d => d.metodo)))
+                                .Include(c => c.movimientos)
+                                .Include(c => c.movimientos.Select(m => m.tipo_movimiento))
+                                .ToList();
         }
 
         public Caja GetCajaActiva(int id_usuario) 

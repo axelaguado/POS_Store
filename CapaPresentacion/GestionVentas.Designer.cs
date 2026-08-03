@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LTitulo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -47,16 +47,6 @@
             this.CProducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVariante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CCantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.BTNConsultarPrecio = new System.Windows.Forms.Button();
-            this.BTNNuevaVenta = new System.Windows.Forms.Button();
-            this.BTNCobrar = new System.Windows.Forms.Button();
-            this.BTNResumenCaja = new System.Windows.Forms.Button();
-            this.BTNCerrarCaja = new System.Windows.Forms.Button();
-            this.BTNMenosCantidad = new System.Windows.Forms.Button();
-            this.BTNMasCantidad = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.LDetalleEstado = new System.Windows.Forms.Label();
@@ -65,13 +55,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.LDetalleVenta = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.BTNBuscarDniCuit = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.Direccion = new System.Windows.Forms.Label();
             this.Telefono = new System.Windows.Forms.Label();
             this.LDireccion = new System.Windows.Forms.Label();
             this.LTelefono = new System.Windows.Forms.Label();
-            this.BTNBuscarSku = new System.Windows.Forms.Button();
+            this.BTNBuscarDniCuit = new System.Windows.Forms.Button();
             this.CBCliente = new System.Windows.Forms.ComboBox();
             this.TBDniCuit = new System.Windows.Forms.TextBox();
             this.LCliente = new System.Windows.Forms.Label();
@@ -95,18 +84,31 @@
             this.LRTitulo = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.LRProducto = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.BTNConsultarPrecio = new System.Windows.Forms.Button();
+            this.BTNNuevaVenta = new System.Windows.Forms.Button();
+            this.BTNCobrar = new System.Windows.Forms.Button();
+            this.BTNResumenCaja = new System.Windows.Forms.Button();
+            this.BTNCerrarCaja = new System.Windows.Forms.Button();
+            this.BTNMenosCantidad = new System.Windows.Forms.Button();
+            this.BTNMasCantidad = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.BTNGestionCajas = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.LAnuncio = new System.Windows.Forms.Label();
             this.BTNAbrirCaja = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.tableLayoutPanel4.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -117,7 +119,7 @@
             this.panel6.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
@@ -131,7 +133,7 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(1, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(775, 36);
+            this.panel1.Size = new System.Drawing.Size(778, 36);
             this.panel1.TabIndex = 0;
             // 
             // LTitulo
@@ -152,11 +154,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.Color.DarkSlateGray;
             this.panel2.Controls.Add(this.tableLayoutPanel2);
+            this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Location = new System.Drawing.Point(12, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(775, 435);
+            this.panel2.Size = new System.Drawing.Size(779, 435);
             this.panel2.TabIndex = 1;
             // 
             // tableLayoutPanel2
@@ -181,7 +184,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(753, 384);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(757, 384);
             this.tableLayoutPanel2.TabIndex = 2;
             this.tableLayoutPanel2.Visible = false;
             // 
@@ -200,7 +203,7 @@
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
             this.tableLayoutPanel2.SetRowSpan(this.panel4, 2);
-            this.panel4.Size = new System.Drawing.Size(495, 186);
+            this.panel4.Size = new System.Drawing.Size(498, 186);
             this.panel4.TabIndex = 0;
             // 
             // NUDCantidad
@@ -284,14 +287,14 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeight = 30;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -299,24 +302,24 @@
             this.CProducto,
             this.CVariante,
             this.CCantidad});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.Location = new System.Drawing.Point(3, 33);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(489, 144);
+            this.dataGridView1.Size = new System.Drawing.Size(492, 144);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.Validating += new System.ComponentModel.CancelEventHandler(this.dataGridView1_Validating);
@@ -341,196 +344,6 @@
             this.CCantidad.HeaderText = "Cantidad";
             this.CCantidad.Name = "CCantidad";
             // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.ControlText;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.BTNConsultarPrecio, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.BTNNuevaVenta, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.BTNCobrar, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.BTNResumenCaja, 0, 5);
-            this.tableLayoutPanel4.Controls.Add(this.BTNCerrarCaja, 1, 5);
-            this.tableLayoutPanel4.Controls.Add(this.BTNMenosCantidad, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.BTNMasCantidad, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.button8, 1, 3);
-            this.tableLayoutPanel4.Controls.Add(this.button7, 0, 3);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(504, 195);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 6;
-            this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel4, 2);
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(246, 186);
-            this.tableLayoutPanel4.TabIndex = 7;
-            // 
-            // BTNConsultarPrecio
-            // 
-            this.BTNConsultarPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNConsultarPrecio.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BTNConsultarPrecio.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.BTNConsultarPrecio.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.BTNConsultarPrecio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNConsultarPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNConsultarPrecio.Location = new System.Drawing.Point(126, 33);
-            this.BTNConsultarPrecio.Name = "BTNConsultarPrecio";
-            this.BTNConsultarPrecio.Size = new System.Drawing.Size(117, 24);
-            this.BTNConsultarPrecio.TabIndex = 2;
-            this.BTNConsultarPrecio.Text = "F4 - Consultar Precio ";
-            this.BTNConsultarPrecio.UseVisualStyleBackColor = false;
-            this.BTNConsultarPrecio.Click += new System.EventHandler(this.BTNConsultarPrecio_Click);
-            // 
-            // BTNNuevaVenta
-            // 
-            this.BTNNuevaVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNNuevaVenta.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BTNNuevaVenta.BackColor = System.Drawing.Color.Lime;
-            this.BTNNuevaVenta.FlatAppearance.BorderColor = System.Drawing.Color.Green;
-            this.BTNNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNNuevaVenta.Location = new System.Drawing.Point(3, 33);
-            this.BTNNuevaVenta.Name = "BTNNuevaVenta";
-            this.BTNNuevaVenta.Size = new System.Drawing.Size(117, 24);
-            this.BTNNuevaVenta.TabIndex = 1;
-            this.BTNNuevaVenta.Text = "F3 - Nueva Venta";
-            this.BTNNuevaVenta.UseVisualStyleBackColor = false;
-            this.BTNNuevaVenta.Click += new System.EventHandler(this.BTNNuevaVenta_Click);
-            // 
-            // BTNCobrar
-            // 
-            this.BTNCobrar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNCobrar.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.tableLayoutPanel4.SetColumnSpan(this.BTNCobrar, 2);
-            this.BTNCobrar.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
-            this.BTNCobrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNCobrar.ForeColor = System.Drawing.Color.Black;
-            this.BTNCobrar.Location = new System.Drawing.Point(3, 3);
-            this.BTNCobrar.Name = "BTNCobrar";
-            this.BTNCobrar.Size = new System.Drawing.Size(240, 24);
-            this.BTNCobrar.TabIndex = 0;
-            this.BTNCobrar.Text = "F2 - Cobrar";
-            this.BTNCobrar.UseVisualStyleBackColor = false;
-            this.BTNCobrar.Click += new System.EventHandler(this.BTNCobrar_Click);
-            // 
-            // BTNResumenCaja
-            // 
-            this.BTNResumenCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNResumenCaja.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.BTNResumenCaja.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.BTNResumenCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNResumenCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNResumenCaja.Location = new System.Drawing.Point(3, 153);
-            this.BTNResumenCaja.Name = "BTNResumenCaja";
-            this.BTNResumenCaja.Size = new System.Drawing.Size(117, 30);
-            this.BTNResumenCaja.TabIndex = 4;
-            this.BTNResumenCaja.Text = "F9 - Resumen Caja";
-            this.BTNResumenCaja.UseVisualStyleBackColor = false;
-            this.BTNResumenCaja.Click += new System.EventHandler(this.BTNResumenCaja_Click);
-            // 
-            // BTNCerrarCaja
-            // 
-            this.BTNCerrarCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNCerrarCaja.BackColor = System.Drawing.Color.DarkRed;
-            this.BTNCerrarCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNCerrarCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNCerrarCaja.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTNCerrarCaja.Location = new System.Drawing.Point(126, 153);
-            this.BTNCerrarCaja.Name = "BTNCerrarCaja";
-            this.BTNCerrarCaja.Size = new System.Drawing.Size(117, 30);
-            this.BTNCerrarCaja.TabIndex = 5;
-            this.BTNCerrarCaja.Text = "F10 - Cerrar Caja";
-            this.BTNCerrarCaja.UseVisualStyleBackColor = false;
-            this.BTNCerrarCaja.Click += new System.EventHandler(this.BTNCerrarCaja_Click);
-            // 
-            // BTNMenosCantidad
-            // 
-            this.BTNMenosCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNMenosCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.BTNMenosCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
-            this.BTNMenosCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNMenosCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNMenosCantidad.ForeColor = System.Drawing.Color.Black;
-            this.BTNMenosCantidad.Location = new System.Drawing.Point(3, 63);
-            this.BTNMenosCantidad.Name = "BTNMenosCantidad";
-            this.BTNMenosCantidad.Size = new System.Drawing.Size(117, 24);
-            this.BTNMenosCantidad.TabIndex = 0;
-            this.BTNMenosCantidad.Text = "(-) Cantidad";
-            this.BTNMenosCantidad.UseVisualStyleBackColor = false;
-            this.BTNMenosCantidad.Click += new System.EventHandler(this.BTNMenosCantidad_Click);
-            // 
-            // BTNMasCantidad
-            // 
-            this.BTNMasCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNMasCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.BTNMasCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
-            this.BTNMasCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNMasCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BTNMasCantidad.Location = new System.Drawing.Point(126, 63);
-            this.BTNMasCantidad.Name = "BTNMasCantidad";
-            this.BTNMasCantidad.Size = new System.Drawing.Size(117, 24);
-            this.BTNMasCantidad.TabIndex = 1;
-            this.BTNMasCantidad.Text = "(+) Cantidad";
-            this.BTNMasCantidad.UseVisualStyleBackColor = false;
-            this.BTNMasCantidad.Click += new System.EventHandler(this.BTNMasCantidad_Click);
-            // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button8.BackColor = System.Drawing.Color.MintCream;
-            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button8.Location = new System.Drawing.Point(126, 93);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(117, 24);
-            this.button8.TabIndex = 3;
-            this.button8.Text = "F8 - Movimiento Caja";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.BTNMovimientoCaja_Click);
-            // 
-            // button7
-            // 
-            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.button7.Enabled = false;
-            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(3, 93);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(117, 24);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "F7 - Descuento";
-            this.button7.UseVisualStyleBackColor = false;
-            // 
             // panel8
             // 
             this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -538,10 +351,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel8.Controls.Add(this.panel10);
             this.panel8.Controls.Add(this.LDetalleVenta);
-            this.panel8.Location = new System.Drawing.Point(253, 195);
+            this.panel8.Location = new System.Drawing.Point(255, 195);
             this.panel8.Name = "panel8";
             this.tableLayoutPanel2.SetRowSpan(this.panel8, 2);
-            this.panel8.Size = new System.Drawing.Size(245, 186);
+            this.panel8.Size = new System.Drawing.Size(246, 186);
             this.panel8.TabIndex = 5;
             // 
             // panel10
@@ -556,7 +369,7 @@
             this.panel10.Controls.Add(this.label4);
             this.panel10.Location = new System.Drawing.Point(7, 21);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(221, 162);
+            this.panel10.Size = new System.Drawing.Size(236, 162);
             this.panel10.TabIndex = 11;
             // 
             // LDetalleEstado
@@ -615,9 +428,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.DarkSlateGray;
-            this.panel5.Controls.Add(this.BTNBuscarDniCuit);
             this.panel5.Controls.Add(this.panel9);
-            this.panel5.Controls.Add(this.BTNBuscarSku);
+            this.panel5.Controls.Add(this.BTNBuscarDniCuit);
             this.panel5.Controls.Add(this.CBCliente);
             this.panel5.Controls.Add(this.TBDniCuit);
             this.panel5.Controls.Add(this.LCliente);
@@ -626,22 +438,8 @@
             this.panel5.Location = new System.Drawing.Point(3, 195);
             this.panel5.Name = "panel5";
             this.tableLayoutPanel2.SetRowSpan(this.panel5, 2);
-            this.panel5.Size = new System.Drawing.Size(244, 186);
+            this.panel5.Size = new System.Drawing.Size(246, 186);
             this.panel5.TabIndex = 4;
-            // 
-            // BTNBuscarDniCuit
-            // 
-            this.BTNBuscarDniCuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNBuscarDniCuit.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTNBuscarDniCuit.FlatAppearance.BorderSize = 0;
-            this.BTNBuscarDniCuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNBuscarDniCuit.Image = global::WindowsFormsApp1.Properties.Resources.lupa;
-            this.BTNBuscarDniCuit.Location = new System.Drawing.Point(197, 72);
-            this.BTNBuscarDniCuit.Name = "BTNBuscarDniCuit";
-            this.BTNBuscarDniCuit.Size = new System.Drawing.Size(28, 23);
-            this.BTNBuscarDniCuit.TabIndex = 21;
-            this.BTNBuscarDniCuit.UseVisualStyleBackColor = false;
-            this.BTNBuscarDniCuit.Click += new System.EventHandler(this.BTNBuscarDniCuit_Click);
             // 
             // panel9
             // 
@@ -653,9 +451,9 @@
             this.panel9.Controls.Add(this.Telefono);
             this.panel9.Controls.Add(this.LDireccion);
             this.panel9.Controls.Add(this.LTelefono);
-            this.panel9.Location = new System.Drawing.Point(6, 108);
+            this.panel9.Location = new System.Drawing.Point(7, 100);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(219, 75);
+            this.panel9.Size = new System.Drawing.Size(222, 83);
             this.panel9.TabIndex = 10;
             // 
             // Direccion
@@ -663,7 +461,7 @@
             this.Direccion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Direccion.AutoSize = true;
             this.Direccion.ForeColor = System.Drawing.Color.White;
-            this.Direccion.Location = new System.Drawing.Point(85, 38);
+            this.Direccion.Location = new System.Drawing.Point(86, 50);
             this.Direccion.Name = "Direccion";
             this.Direccion.Size = new System.Drawing.Size(10, 13);
             this.Direccion.TabIndex = 3;
@@ -674,7 +472,7 @@
             this.Telefono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Telefono.AutoSize = true;
             this.Telefono.ForeColor = System.Drawing.SystemColors.Control;
-            this.Telefono.Location = new System.Drawing.Point(85, 12);
+            this.Telefono.Location = new System.Drawing.Point(86, 20);
             this.Telefono.Name = "Telefono";
             this.Telefono.Size = new System.Drawing.Size(10, 13);
             this.Telefono.TabIndex = 2;
@@ -686,7 +484,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LDireccion.AutoSize = true;
             this.LDireccion.ForeColor = System.Drawing.Color.White;
-            this.LDireccion.Location = new System.Drawing.Point(3, 38);
+            this.LDireccion.Location = new System.Drawing.Point(3, 50);
             this.LDireccion.Name = "LDireccion";
             this.LDireccion.Size = new System.Drawing.Size(55, 13);
             this.LDireccion.TabIndex = 1;
@@ -698,24 +496,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LTelefono.AutoSize = true;
             this.LTelefono.ForeColor = System.Drawing.SystemColors.Control;
-            this.LTelefono.Location = new System.Drawing.Point(3, 12);
+            this.LTelefono.Location = new System.Drawing.Point(3, 20);
             this.LTelefono.Name = "LTelefono";
             this.LTelefono.Size = new System.Drawing.Size(52, 13);
             this.LTelefono.TabIndex = 0;
             this.LTelefono.Text = "Telefono:";
             // 
-            // BTNBuscarSku
+            // BTNBuscarDniCuit
             // 
-            this.BTNBuscarSku.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BTNBuscarSku.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTNBuscarSku.FlatAppearance.BorderSize = 0;
-            this.BTNBuscarSku.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNBuscarSku.Image = global::WindowsFormsApp1.Properties.Resources.lupa;
-            this.BTNBuscarSku.Location = new System.Drawing.Point(365, 76);
-            this.BTNBuscarSku.Name = "BTNBuscarSku";
-            this.BTNBuscarSku.Size = new System.Drawing.Size(28, 23);
-            this.BTNBuscarSku.TabIndex = 9;
-            this.BTNBuscarSku.UseVisualStyleBackColor = false;
+            this.BTNBuscarDniCuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNBuscarDniCuit.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNBuscarDniCuit.FlatAppearance.BorderSize = 0;
+            this.BTNBuscarDniCuit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNBuscarDniCuit.Image = global::WindowsFormsApp1.Properties.Resources.lupa;
+            this.BTNBuscarDniCuit.Location = new System.Drawing.Point(200, 72);
+            this.BTNBuscarDniCuit.Name = "BTNBuscarDniCuit";
+            this.BTNBuscarDniCuit.Size = new System.Drawing.Size(28, 23);
+            this.BTNBuscarDniCuit.TabIndex = 21;
+            this.BTNBuscarDniCuit.UseVisualStyleBackColor = false;
+            this.BTNBuscarDniCuit.Click += new System.EventHandler(this.BTNBuscarDniCuit_Click);
             // 
             // CBCliente
             // 
@@ -724,7 +523,7 @@
             this.CBCliente.FormattingEnabled = true;
             this.CBCliente.Location = new System.Drawing.Point(64, 32);
             this.CBCliente.Name = "CBCliente";
-            this.CBCliente.Size = new System.Drawing.Size(161, 21);
+            this.CBCliente.Size = new System.Drawing.Size(164, 21);
             this.CBCliente.TabIndex = 1;
             this.CBCliente.SelectedIndexChanged += new System.EventHandler(this.CBCliente_SelectedIndexChanged);
             this.CBCliente.TextChanged += new System.EventHandler(this.CBCliente_TextChanged);
@@ -736,7 +535,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TBDniCuit.Location = new System.Drawing.Point(64, 74);
             this.TBDniCuit.Name = "TBDniCuit";
-            this.TBDniCuit.Size = new System.Drawing.Size(128, 20);
+            this.TBDniCuit.Size = new System.Drawing.Size(130, 20);
             this.TBDniCuit.TabIndex = 4;
             // 
             // LCliente
@@ -784,7 +583,7 @@
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.panel12, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.panel13, 0, 2);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(504, 3);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(507, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel3, 2);
@@ -794,7 +593,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(246, 186);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(247, 186);
             this.tableLayoutPanel3.TabIndex = 8;
             // 
             // panel7
@@ -809,7 +608,7 @@
             this.panel7.Controls.Add(this.LRCantidad);
             this.panel7.Location = new System.Drawing.Point(3, 114);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(240, 31);
+            this.panel7.Size = new System.Drawing.Size(241, 31);
             this.panel7.TabIndex = 9;
             // 
             // LRCantidadValue
@@ -818,7 +617,7 @@
             this.LRCantidadValue.AutoSize = true;
             this.LRCantidadValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRCantidadValue.ForeColor = System.Drawing.Color.Lime;
-            this.LRCantidadValue.Location = new System.Drawing.Point(152, 0);
+            this.LRCantidadValue.Location = new System.Drawing.Point(153, -3);
             this.LRCantidadValue.Name = "LRCantidadValue";
             this.LRCantidadValue.Size = new System.Drawing.Size(15, 15);
             this.LRCantidadValue.TabIndex = 10;
@@ -843,7 +642,7 @@
             this.LRSubtotalValue.AutoSize = true;
             this.LRSubtotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRSubtotalValue.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.LRSubtotalValue.Location = new System.Drawing.Point(152, 18);
+            this.LRSubtotalValue.Location = new System.Drawing.Point(153, 14);
             this.LRSubtotalValue.Name = "LRSubtotalValue";
             this.LRSubtotalValue.Size = new System.Drawing.Size(85, 13);
             this.LRSubtotalValue.TabIndex = 9;
@@ -856,7 +655,7 @@
             this.LRCantidad.AutoSize = true;
             this.LRCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRCantidad.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.LRCantidad.Location = new System.Drawing.Point(2, 0);
+            this.LRCantidad.Location = new System.Drawing.Point(3, 0);
             this.LRCantidad.Name = "LRCantidad";
             this.LRCantidad.Size = new System.Drawing.Size(52, 13);
             this.LRCantidad.TabIndex = 6;
@@ -874,7 +673,7 @@
             this.panel11.Controls.Add(this.LRUnidades);
             this.panel11.Location = new System.Drawing.Point(3, 40);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(240, 31);
+            this.panel11.Size = new System.Drawing.Size(241, 31);
             this.panel11.TabIndex = 10;
             // 
             // LRUnidadesValue
@@ -883,7 +682,7 @@
             this.LRUnidadesValue.AutoSize = true;
             this.LRUnidadesValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRUnidadesValue.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.LRUnidadesValue.Location = new System.Drawing.Point(152, 18);
+            this.LRUnidadesValue.Location = new System.Drawing.Point(153, 21);
             this.LRUnidadesValue.Name = "LRUnidadesValue";
             this.LRUnidadesValue.Size = new System.Drawing.Size(13, 13);
             this.LRUnidadesValue.TabIndex = 4;
@@ -896,7 +695,7 @@
             this.LRProductos.AutoSize = true;
             this.LRProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRProductos.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.LRProductos.Location = new System.Drawing.Point(2, 0);
+            this.LRProductos.Location = new System.Drawing.Point(3, 0);
             this.LRProductos.Name = "LRProductos";
             this.LRProductos.Size = new System.Drawing.Size(58, 13);
             this.LRProductos.TabIndex = 1;
@@ -908,7 +707,7 @@
             this.LRProductosValue.AutoSize = true;
             this.LRProductosValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRProductosValue.ForeColor = System.Drawing.Color.DarkTurquoise;
-            this.LRProductosValue.Location = new System.Drawing.Point(152, 0);
+            this.LRProductosValue.Location = new System.Drawing.Point(153, 0);
             this.LRProductosValue.Name = "LRProductosValue";
             this.LRProductosValue.Size = new System.Drawing.Size(13, 13);
             this.LRProductosValue.TabIndex = 3;
@@ -937,7 +736,7 @@
             this.panel6.Controls.Add(this.LRTotalValue);
             this.panel6.Location = new System.Drawing.Point(3, 151);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(240, 32);
+            this.panel6.Size = new System.Drawing.Size(241, 32);
             this.panel6.TabIndex = 11;
             // 
             // LRTotal
@@ -947,7 +746,7 @@
             this.LRTotal.AutoSize = true;
             this.LRTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRTotal.ForeColor = System.Drawing.Color.Lime;
-            this.LRTotal.Location = new System.Drawing.Point(3, 3);
+            this.LRTotal.Location = new System.Drawing.Point(0, 4);
             this.LRTotal.Name = "LRTotal";
             this.LRTotal.Size = new System.Drawing.Size(72, 25);
             this.LRTotal.TabIndex = 7;
@@ -959,7 +758,7 @@
             this.LRTotalValue.AutoSize = true;
             this.LRTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRTotalValue.ForeColor = System.Drawing.Color.Lime;
-            this.LRTotalValue.Location = new System.Drawing.Point(110, 8);
+            this.LRTotalValue.Location = new System.Drawing.Point(111, 9);
             this.LRTotalValue.Name = "LRTotalValue";
             this.LRTotalValue.Size = new System.Drawing.Size(127, 18);
             this.LRTotalValue.TabIndex = 8;
@@ -974,7 +773,7 @@
             this.panel12.Controls.Add(this.LRTitulo);
             this.panel12.Location = new System.Drawing.Point(3, 3);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(240, 31);
+            this.panel12.Size = new System.Drawing.Size(241, 31);
             this.panel12.TabIndex = 12;
             // 
             // LRTitulo
@@ -997,7 +796,7 @@
             this.panel13.Controls.Add(this.LRProducto);
             this.panel13.Location = new System.Drawing.Point(3, 77);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(240, 31);
+            this.panel13.Size = new System.Drawing.Size(241, 31);
             this.panel13.TabIndex = 13;
             // 
             // LRProducto
@@ -1012,44 +811,257 @@
             this.LRProducto.TabIndex = 0;
             this.LRProducto.Text = "@producto";
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanel4
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 42);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(753, 384);
-            this.tableLayoutPanel1.TabIndex = 1;
+            this.tableLayoutPanel4.BackColor = System.Drawing.SystemColors.ControlText;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.BTNConsultarPrecio, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.BTNNuevaVenta, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.BTNCobrar, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.BTNResumenCaja, 0, 5);
+            this.tableLayoutPanel4.Controls.Add(this.BTNCerrarCaja, 1, 5);
+            this.tableLayoutPanel4.Controls.Add(this.BTNMenosCantidad, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.BTNMasCantidad, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.button8, 1, 3);
+            this.tableLayoutPanel4.Controls.Add(this.button7, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.BTNGestionCajas, 1, 4);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(507, 195);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 6;
+            this.tableLayoutPanel2.SetRowSpan(this.tableLayoutPanel4, 2);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(247, 186);
+            this.tableLayoutPanel4.TabIndex = 7;
+            // 
+            // BTNConsultarPrecio
+            // 
+            this.BTNConsultarPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNConsultarPrecio.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BTNConsultarPrecio.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BTNConsultarPrecio.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.BTNConsultarPrecio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNConsultarPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNConsultarPrecio.Location = new System.Drawing.Point(126, 33);
+            this.BTNConsultarPrecio.Name = "BTNConsultarPrecio";
+            this.BTNConsultarPrecio.Size = new System.Drawing.Size(118, 24);
+            this.BTNConsultarPrecio.TabIndex = 2;
+            this.BTNConsultarPrecio.Text = "F4 - Consultar Precio ";
+            this.BTNConsultarPrecio.UseVisualStyleBackColor = false;
+            this.BTNConsultarPrecio.Click += new System.EventHandler(this.BTNConsultarPrecio_Click);
+            // 
+            // BTNNuevaVenta
+            // 
+            this.BTNNuevaVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNNuevaVenta.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BTNNuevaVenta.BackColor = System.Drawing.Color.Lime;
+            this.BTNNuevaVenta.FlatAppearance.BorderColor = System.Drawing.Color.Green;
+            this.BTNNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNNuevaVenta.Location = new System.Drawing.Point(3, 33);
+            this.BTNNuevaVenta.Name = "BTNNuevaVenta";
+            this.BTNNuevaVenta.Size = new System.Drawing.Size(117, 24);
+            this.BTNNuevaVenta.TabIndex = 1;
+            this.BTNNuevaVenta.Text = "F3 - Nueva Venta";
+            this.BTNNuevaVenta.UseVisualStyleBackColor = false;
+            this.BTNNuevaVenta.Click += new System.EventHandler(this.BTNNuevaVenta_Click);
+            // 
+            // BTNCobrar
+            // 
+            this.BTNCobrar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNCobrar.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.tableLayoutPanel4.SetColumnSpan(this.BTNCobrar, 2);
+            this.BTNCobrar.FlatAppearance.BorderColor = System.Drawing.Color.Cyan;
+            this.BTNCobrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNCobrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNCobrar.ForeColor = System.Drawing.Color.Black;
+            this.BTNCobrar.Location = new System.Drawing.Point(3, 3);
+            this.BTNCobrar.Name = "BTNCobrar";
+            this.BTNCobrar.Size = new System.Drawing.Size(241, 24);
+            this.BTNCobrar.TabIndex = 0;
+            this.BTNCobrar.Text = "F2 - Cobrar";
+            this.BTNCobrar.UseVisualStyleBackColor = false;
+            this.BTNCobrar.Click += new System.EventHandler(this.BTNCobrar_Click);
+            // 
+            // BTNResumenCaja
+            // 
+            this.BTNResumenCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNResumenCaja.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BTNResumenCaja.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.BTNResumenCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNResumenCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNResumenCaja.Location = new System.Drawing.Point(3, 153);
+            this.BTNResumenCaja.Name = "BTNResumenCaja";
+            this.BTNResumenCaja.Size = new System.Drawing.Size(117, 30);
+            this.BTNResumenCaja.TabIndex = 4;
+            this.BTNResumenCaja.Text = "F10 - Resumen Caja";
+            this.BTNResumenCaja.UseVisualStyleBackColor = false;
+            this.BTNResumenCaja.Click += new System.EventHandler(this.BTNResumenCaja_Click);
+            // 
+            // BTNCerrarCaja
+            // 
+            this.BTNCerrarCaja.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNCerrarCaja.BackColor = System.Drawing.Color.DarkRed;
+            this.BTNCerrarCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNCerrarCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNCerrarCaja.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTNCerrarCaja.Location = new System.Drawing.Point(126, 153);
+            this.BTNCerrarCaja.Name = "BTNCerrarCaja";
+            this.BTNCerrarCaja.Size = new System.Drawing.Size(118, 30);
+            this.BTNCerrarCaja.TabIndex = 5;
+            this.BTNCerrarCaja.Text = "F11- Cerrar Caja";
+            this.BTNCerrarCaja.UseVisualStyleBackColor = false;
+            this.BTNCerrarCaja.Click += new System.EventHandler(this.BTNCerrarCaja_Click);
+            // 
+            // BTNMenosCantidad
+            // 
+            this.BTNMenosCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNMenosCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BTNMenosCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BTNMenosCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNMenosCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNMenosCantidad.ForeColor = System.Drawing.Color.Black;
+            this.BTNMenosCantidad.Location = new System.Drawing.Point(3, 63);
+            this.BTNMenosCantidad.Name = "BTNMenosCantidad";
+            this.BTNMenosCantidad.Size = new System.Drawing.Size(117, 24);
+            this.BTNMenosCantidad.TabIndex = 0;
+            this.BTNMenosCantidad.Text = "(-) Cantidad";
+            this.BTNMenosCantidad.UseVisualStyleBackColor = false;
+            this.BTNMenosCantidad.Click += new System.EventHandler(this.BTNMenosCantidad_Click);
+            // 
+            // BTNMasCantidad
+            // 
+            this.BTNMasCantidad.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNMasCantidad.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.BTNMasCantidad.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrange;
+            this.BTNMasCantidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNMasCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNMasCantidad.Location = new System.Drawing.Point(126, 63);
+            this.BTNMasCantidad.Name = "BTNMasCantidad";
+            this.BTNMasCantidad.Size = new System.Drawing.Size(118, 24);
+            this.BTNMasCantidad.TabIndex = 1;
+            this.BTNMasCantidad.Text = "(+) Cantidad";
+            this.BTNMasCantidad.UseVisualStyleBackColor = false;
+            this.BTNMasCantidad.Click += new System.EventHandler(this.BTNMasCantidad_Click);
+            // 
+            // button8
+            // 
+            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button8.BackColor = System.Drawing.Color.MintCream;
+            this.button8.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button8.Location = new System.Drawing.Point(126, 93);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(118, 24);
+            this.button8.TabIndex = 3;
+            this.button8.Text = "F8 - Movimiento Caja";
+            this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.BTNMovimientoCaja_Click);
+            // 
+            // button7
+            // 
+            this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.button7.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.button7.Enabled = false;
+            this.button7.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(3, 93);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(117, 24);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "F7 - Descuento";
+            this.button7.UseVisualStyleBackColor = false;
+            // 
+            // BTNGestionCajas
+            // 
+            this.BTNGestionCajas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.BTNGestionCajas.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BTNGestionCajas.Enabled = false;
+            this.BTNGestionCajas.FlatAppearance.BorderColor = System.Drawing.Color.Blue;
+            this.BTNGestionCajas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNGestionCajas.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BTNGestionCajas.Location = new System.Drawing.Point(126, 123);
+            this.BTNGestionCajas.Name = "BTNGestionCajas";
+            this.BTNGestionCajas.Size = new System.Drawing.Size(118, 24);
+            this.BTNGestionCajas.TabIndex = 6;
+            this.BTNGestionCajas.Text = "F9 - Ver cajas";
+            this.BTNGestionCajas.UseVisualStyleBackColor = false;
+            this.BTNGestionCajas.Click += new System.EventHandler(this.BTNGestionCajas_Click);
             // 
             // panel3
             // 
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.panel3, 3);
+            this.panel3.Controls.Add(this.button1);
+            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.LAnuncio);
             this.panel3.Controls.Add(this.BTNAbrirCaja);
-            this.panel3.Location = new System.Drawing.Point(3, 131);
+            this.panel3.Location = new System.Drawing.Point(10, 42);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(747, 122);
+            this.panel3.Size = new System.Drawing.Size(751, 126);
             this.panel3.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(6, 96);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Ver Cajas";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.BTNGestionCajas_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(3, 76);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(253, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "O puede acceder a las seccion de gestion de cajas.";
             // 
             // LAnuncio
             // 
             this.LAnuncio.AutoSize = true;
             this.LAnuncio.ForeColor = System.Drawing.SystemColors.Control;
-            this.LAnuncio.Location = new System.Drawing.Point(173, 14);
+            this.LAnuncio.Location = new System.Drawing.Point(3, 10);
             this.LAnuncio.Name = "LAnuncio";
             this.LAnuncio.Size = new System.Drawing.Size(422, 13);
             this.LAnuncio.TabIndex = 1;
@@ -1061,7 +1073,7 @@
             this.BTNAbrirCaja.BackColor = System.Drawing.Color.DarkTurquoise;
             this.BTNAbrirCaja.FlatAppearance.BorderSize = 0;
             this.BTNAbrirCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNAbrirCaja.Location = new System.Drawing.Point(356, 64);
+            this.BTNAbrirCaja.Location = new System.Drawing.Point(6, 29);
             this.BTNAbrirCaja.Name = "BTNAbrirCaja";
             this.BTNAbrirCaja.Size = new System.Drawing.Size(75, 23);
             this.BTNAbrirCaja.TabIndex = 0;
@@ -1069,16 +1081,39 @@
             this.BTNAbrirCaja.UseVisualStyleBackColor = false;
             this.BTNAbrirCaja.Click += new System.EventHandler(this.BTNAbrirCaja_Click);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 42);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(757, 384);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // GestionVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DimGray;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(803, 450);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1093,7 +1128,6 @@
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUDCantidad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.tableLayoutPanel4.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel10.ResumeLayout(false);
@@ -1113,7 +1147,7 @@
             this.panel12.PerformLayout();
             this.panel13.ResumeLayout(false);
             this.panel13.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
@@ -1146,7 +1180,6 @@
         private System.Windows.Forms.Label LCliente;
         private System.Windows.Forms.ComboBox CBCliente;
         private System.Windows.Forms.TextBox TBDniCuit;
-        private System.Windows.Forms.Button BTNBuscarSku;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel9;
@@ -1190,5 +1223,9 @@
         private System.Windows.Forms.Label LRCantidadValue;
         private System.Windows.Forms.Label Direccion;
         private System.Windows.Forms.Label Telefono;
+        private System.Windows.Forms.Button BTNGestionCajas;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Timer timer1;
     }
 }
