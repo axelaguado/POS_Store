@@ -25,6 +25,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             InitializeComponent();
             this.cargarPBienvenida();
             this.SetUpTimer();
+            // this.SetUpAvailableMenuEmpleado();
         }
 
         // Permiteel despalzamiento del formulario por la pantalla.
@@ -49,6 +50,11 @@ namespace WindowsFormsApp1.CapaPresentacion
         public int GetIdSession()
         {
             return this.session.id_user;
+        }
+
+        public string GetTipoPerfilSession()
+        {
+            return this.session.tipo_perfil;
         }
 
         // Eventos y configuraciones del reloj
@@ -77,12 +83,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void cargarPBienvenida()
         {
-            BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido;
-
-            if (this.session.tipo_perfil.Equals("Empleado"))
-            {
-                BGestionEmpleados.Enabled = false;
-            }
+            this.BBienvenida.Text = "Bienvenido, " + this.session.nombre + " " + this.session.apellido;
         }
 
         private void BMinimizar_Click(object sender, EventArgs e)
@@ -157,6 +158,8 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void BGestionUsuarios_Click(object sender, EventArgs e)
         {
+            // if (!this.Autorizado()) return;
+
             this.AbrirFormHijo(new Listado(this));
             this.LightOff(sender);
             BGestionEmpleados.BackColor = System.Drawing.Color.DarkTurquoise;
@@ -169,6 +172,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         }
         private void BGestionProveedor_Click(object sender, EventArgs e)
         {
+          //  if (!this.Autorizado()) return;
+
             this.AbrirFormHijo(new GestionProveedor(this));
             this.LightOff(sender);
             BGestionProveedor.BackColor = System.Drawing.Color.DarkTurquoise;
@@ -182,12 +187,16 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void BTGestionCompras_Click(object sender, EventArgs e)
         {
+           // if (!this.Autorizado()) return;
+
             this.AbrirFormHijo(new GestionCompras(this));
             this.LightOff(sender);
             BTGestionCompras.BackColor = System.Drawing.Color.DarkTurquoise;
         } 
         private void BTGastos_Click(object sender, EventArgs e)
         {
+          //  if (!this.Autorizado()) return;
+
             this.AbrirFormHijo(new GestionGastos(this));
             this.LightOff(sender);
             BTGastos.BackColor = System.Drawing.Color.DarkTurquoise;
@@ -198,6 +207,44 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.AbrirFormHijo(new GestionVentas(this));
             this.LightOff(sender);
             BVentas.BackColor = System.Drawing.Color.DarkTurquoise;
+        }
+
+        public bool Autorizado() 
+        {
+            if ((this.GetTipoPerfilSession() == "Administrador") || this.GetTipoPerfilSession() == ("Gerente"))
+            {
+                return true;
+            }
+
+            if (this.GetTipoPerfilSession() == "Empleado") 
+            { 
+                return false;
+            }
+
+            return false;
+        }
+
+        public void SetUpAvailableMenuEmpleado() 
+        {
+            List<Control> available = new List<Control>
+            {
+                this.BGestionClientes,
+                this.BGestionProductos,
+                this.BVentas
+            };
+
+            Control.ControlCollection controles = this.PMenu.Controls;
+
+            // 2. Modificas o seteas propiedades en lote usando un bucle
+            foreach (Control ctrl in controles)
+            {
+                if (!this.Autorizado() && !available.Contains(ctrl)) 
+                { 
+                    ctrl.ForeColor = Color.Gray; // Ejemplo: Desactivar todos
+                }
+            }
+
+            // Faltaria Reportes, BackUp y Cerrar
         }
 
         public void LightOff(object sender) 

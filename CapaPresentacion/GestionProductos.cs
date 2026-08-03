@@ -34,6 +34,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.principal = _principal;
             this.cts = new CancellationTokenSource();
             this.LoadInit();
+            // this.SetUpAvailableControlsEmpleado();
             this.LoadTableProductos();
             this.ConfigWindowState();
             this.CargarCBCategoriaProducto();
@@ -47,6 +48,38 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.LoadTableCategorias();
 
             this.textBox1.Text = "Buscar por marca, producto o codigo ...";
+        }
+
+        public void SetUpAvailableControlsEmpleado() 
+        {
+            List<Control> notAvailable = new List<Control>
+            {
+                this.LPrecio,
+                this.TBPrecioCosto,
+                this.LMargen,
+                this.TBPrecioVenta,
+                this.LStock,
+                this.TBStockProducto,
+                this.LStockMinimo,
+                this.TBStockMinimo,
+                this.LNroCod,
+                this.TBSkuProducto
+            };
+
+            if (!this.principal.Autorizado()) 
+            {
+                foreach (Control ctrl in notAvailable) 
+                {
+                    if (ctrl.Name.StartsWith("L"))
+                    {
+                        ctrl.ForeColor = Color.Gray;
+                    }
+                    else 
+                    { 
+                        ctrl.Enabled = false;
+                    }
+                }
+            }
         }
 
         public void LoadTableCategorias()
@@ -476,6 +509,9 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            // Aplicamos los permisos 
+            if (!this.principal.Autorizado()) return;
+
             producto_editar = null;
             DataGridView dgt = sender as DataGridView;
 
