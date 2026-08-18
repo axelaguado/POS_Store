@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.DTO;
+using System.Threading;
+using System.Security.Cryptography;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -21,14 +24,51 @@ namespace WindowsFormsApp1.CapaDatos
         {
             context.Ventas.Add(nuevaVenta);
         }
+         
+        // ---- Para manejar solamente ventas -----
+        public List<Venta> GetAllVentas()
+        {
+            return context.Ventas.Include(v => v.detalles).ToList();
+        }
 
-        public Venta GetVentaActiva(int id_venta)
+        public List<Venta> GetAllFilterVentas(DateTime desde, DateTime hasta)
+        {
+            return context.Ventas.Include(v => v.detalles).Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta).ToList();
+        }
+
+        // ----- Para manejar solamente empleados y ventas
+        public List<Venta> GetAllVentasEmpleado()
         {
             return context.Ventas.Include(v => v.detalles)
-                                .Include(v => v.caja)
-                                .Include(v => v.cliente)
-                                .FirstOrDefault(v => v.estado_venta == true && v.id_venta == id_venta);
+                                 .Include(v => v.caja)
+                                 .Include(v => v.caja.usuario)
+                                 .Include(v => v.caja.usuario.empleado)
+                                 .Include(v => v.caja.usuario.empleado.persona.persona_fisica)
+                                 .ToList();
         }
+
+        public List<Venta> GetAllFilterVentasEmpleado(DateTime desde, DateTime hasta)
+        {
+            return context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.caja)
+                                 .Include(v => v.caja.usuario)
+                                 .Include(v => v.caja.usuario.empleado) 
+                                 .Include(v => v.caja.usuario.empleado.persona.persona_fisica)
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta)
+                                 .ToList();
+        }
+
+        public async Task<List<Venta>> GetAllFilterPeriodoEmpleado(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            return await context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.caja)
+                                 .Include(v => v.caja.usuario)
+                                 .Include(v => v.caja.usuario.empleado)
+                                 .Include(v => v.caja.usuario.empleado.persona.persona_fisica)
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta < hasta)
+                                 .ToListAsync(token);
+        }
+
 
         // -- UPDATE --
         public void update_centa(Venta datos_modificados)

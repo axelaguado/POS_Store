@@ -151,7 +151,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Manejamos los datos personales del nuevo usaurio. 
             nuevaPersonaFisica.dni_persona = Convert.ToInt32(TBDni.Text);
-            nuevaPersonaFisica.nombre_persona = TBApellido.Text;
+            nuevaPersonaFisica.nombre_persona = TBNombre.Text;
             nuevaPersonaFisica.apellido_persona = TBApellido.Text;
             nuevaPersonaFisica.fecha_nacimiento = DTPFechaNacimiento.Value;
             nuevaPersonaFisica.sexo = sexo;

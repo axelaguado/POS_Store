@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.PHeaderPrincipal = new System.Windows.Forms.Panel();
+            this.LReloj = new System.Windows.Forms.Label();
             this.BBienvenida = new System.Windows.Forms.Button();
             this.PBMaximizar = new System.Windows.Forms.PictureBox();
             this.PBMinimizar = new System.Windows.Forms.PictureBox();
@@ -50,16 +51,15 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BCerrarPrincipal = new System.Windows.Forms.Button();
+            this.BCerrarSession = new System.Windows.Forms.Button();
             this.BBackUp = new System.Windows.Forms.Button();
             this.BReportes = new System.Windows.Forms.Button();
             this.BVentas = new System.Windows.Forms.Button();
             this.BGestionProductos = new System.Windows.Forms.Button();
             this.BGestionClientes = new System.Windows.Forms.Button();
-            this.BGestionEmpleados = new System.Windows.Forms.Button();
+            this.BGestionUsuarios = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.PContenidos = new System.Windows.Forms.Panel();
-            this.LReloj = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.PHeaderPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PBMaximizar)).BeginInit();
@@ -85,6 +85,18 @@
             this.PHeaderPrincipal.Size = new System.Drawing.Size(900, 32);
             this.PHeaderPrincipal.TabIndex = 0;
             this.PHeaderPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PHeaderPrincipal_MouseDown);
+            // 
+            // LReloj
+            // 
+            this.LReloj.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LReloj.AutoSize = true;
+            this.LReloj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LReloj.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.LReloj.Location = new System.Drawing.Point(428, 9);
+            this.LReloj.Name = "LReloj";
+            this.LReloj.Size = new System.Drawing.Size(43, 16);
+            this.LReloj.TabIndex = 15;
+            this.LReloj.Text = "00:00";
             // 
             // BBienvenida
             // 
@@ -168,13 +180,13 @@
             this.PMenu.Controls.Add(this.panel7);
             this.PMenu.Controls.Add(this.panel8);
             this.PMenu.Controls.Add(this.panel1);
-            this.PMenu.Controls.Add(this.BCerrarPrincipal);
+            this.PMenu.Controls.Add(this.BCerrarSession);
             this.PMenu.Controls.Add(this.BBackUp);
             this.PMenu.Controls.Add(this.BReportes);
             this.PMenu.Controls.Add(this.BVentas);
             this.PMenu.Controls.Add(this.BGestionProductos);
             this.PMenu.Controls.Add(this.BGestionClientes);
-            this.PMenu.Controls.Add(this.BGestionEmpleados);
+            this.PMenu.Controls.Add(this.BGestionUsuarios);
             this.PMenu.Controls.Add(this.pictureBox1);
             this.PMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.PMenu.Location = new System.Drawing.Point(0, 32);
@@ -312,21 +324,21 @@
             this.panel1.Size = new System.Drawing.Size(12, 32);
             this.panel1.TabIndex = 0;
             // 
-            // BCerrarPrincipal
+            // BCerrarSession
             // 
-            this.BCerrarPrincipal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BCerrarPrincipal.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BCerrarPrincipal.FlatAppearance.BorderSize = 0;
-            this.BCerrarPrincipal.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.BCerrarPrincipal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BCerrarPrincipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BCerrarPrincipal.ForeColor = System.Drawing.SystemColors.Control;
-            this.BCerrarPrincipal.Location = new System.Drawing.Point(12, 495);
-            this.BCerrarPrincipal.Name = "BCerrarPrincipal";
-            this.BCerrarPrincipal.Size = new System.Drawing.Size(196, 32);
-            this.BCerrarPrincipal.TabIndex = 8;
-            this.BCerrarPrincipal.Text = "Cerrar";
-            this.BCerrarPrincipal.UseVisualStyleBackColor = true;
+            this.BCerrarSession.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BCerrarSession.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BCerrarSession.FlatAppearance.BorderSize = 0;
+            this.BCerrarSession.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BCerrarSession.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BCerrarSession.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BCerrarSession.ForeColor = System.Drawing.SystemColors.Control;
+            this.BCerrarSession.Location = new System.Drawing.Point(12, 495);
+            this.BCerrarSession.Name = "BCerrarSession";
+            this.BCerrarSession.Size = new System.Drawing.Size(196, 32);
+            this.BCerrarSession.TabIndex = 8;
+            this.BCerrarSession.Text = "Cerrar";
+            this.BCerrarSession.UseVisualStyleBackColor = true;
             // 
             // BBackUp
             // 
@@ -357,6 +369,7 @@
             this.BReportes.TabIndex = 6;
             this.BReportes.Text = "Reportes";
             this.BReportes.UseVisualStyleBackColor = true;
+            this.BReportes.Click += new System.EventHandler(this.BReportes_Click);
             // 
             // BVentas
             // 
@@ -406,21 +419,21 @@
             this.BGestionClientes.UseVisualStyleBackColor = true;
             this.BGestionClientes.Click += new System.EventHandler(this.BGestionClientes_Click);
             // 
-            // BGestionEmpleados
+            // BGestionUsuarios
             // 
-            this.BGestionEmpleados.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.BGestionEmpleados.FlatAppearance.BorderSize = 0;
-            this.BGestionEmpleados.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
-            this.BGestionEmpleados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BGestionEmpleados.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BGestionEmpleados.ForeColor = System.Drawing.SystemColors.Control;
-            this.BGestionEmpleados.Location = new System.Drawing.Point(12, 72);
-            this.BGestionEmpleados.Name = "BGestionEmpleados";
-            this.BGestionEmpleados.Size = new System.Drawing.Size(196, 32);
-            this.BGestionEmpleados.TabIndex = 2;
-            this.BGestionEmpleados.Text = "Gestion de Usuarios";
-            this.BGestionEmpleados.UseVisualStyleBackColor = true;
-            this.BGestionEmpleados.Click += new System.EventHandler(this.BGestionUsuarios_Click);
+            this.BGestionUsuarios.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BGestionUsuarios.FlatAppearance.BorderSize = 0;
+            this.BGestionUsuarios.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkTurquoise;
+            this.BGestionUsuarios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BGestionUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BGestionUsuarios.ForeColor = System.Drawing.SystemColors.Control;
+            this.BGestionUsuarios.Location = new System.Drawing.Point(12, 72);
+            this.BGestionUsuarios.Name = "BGestionUsuarios";
+            this.BGestionUsuarios.Size = new System.Drawing.Size(196, 32);
+            this.BGestionUsuarios.TabIndex = 2;
+            this.BGestionUsuarios.Text = "Gestion de Usuarios";
+            this.BGestionUsuarios.UseVisualStyleBackColor = true;
+            this.BGestionUsuarios.Click += new System.EventHandler(this.BGestionUsuarios_Click);
             // 
             // pictureBox1
             // 
@@ -434,7 +447,8 @@
             // 
             // PContenidos
             // 
-            this.PContenidos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.PContenidos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PContenidos.BackColor = System.Drawing.Color.White;
             this.PContenidos.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -442,19 +456,6 @@
             this.PContenidos.Name = "PContenidos";
             this.PContenidos.Size = new System.Drawing.Size(692, 536);
             this.PContenidos.TabIndex = 0;
-            // 
-            // LReloj
-            // 
-            this.LReloj.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LReloj.AutoSize = true;
-            this.LReloj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LReloj.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.LReloj.Location = new System.Drawing.Point(428, 9);
-            this.LReloj.Name = "LReloj";
-            this.LReloj.Size = new System.Drawing.Size(43, 16);
-            this.LReloj.TabIndex = 15;
-            this.LReloj.Text = "00:00";
             // 
             // timer1
             // 
@@ -492,7 +493,7 @@
         private System.Windows.Forms.PictureBox PBRestaurar;
         private System.Windows.Forms.PictureBox PBCerrarPrincipal;
         private System.Windows.Forms.PictureBox PBMinimizar;
-        private System.Windows.Forms.Button BCerrarPrincipal;
+        private System.Windows.Forms.Button BCerrarSession;
         private System.Windows.Forms.Button BBackUp;
         private System.Windows.Forms.Button BReportes;
         private System.Windows.Forms.Button BVentas;
@@ -506,7 +507,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Button BGestionEmpleados;
+        private System.Windows.Forms.Button BGestionUsuarios;
         private System.Windows.Forms.Button BBienvenida;
         private System.Windows.Forms.Button BTGastos;
         private System.Windows.Forms.Button BTGestionCompras;

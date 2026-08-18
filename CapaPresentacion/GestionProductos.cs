@@ -34,7 +34,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.principal = _principal;
             this.cts = new CancellationTokenSource();
             this.LoadInit();
-            // this.SetUpAvailableControlsEmpleado();
+            this.SetUpAvailableControlsEmpleado();
             this.LoadTableProductos();
             this.ConfigWindowState();
             this.CargarCBCategoriaProducto();
@@ -125,6 +125,8 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             // Evitar clics en el encabezado
             if (e.RowIndex < 0) return;
+
+            if (!this.principal.Autorizado()) return;
 
             // Obtener el nombre de la columna clickeada
             string nombreColumna = dgt.Columns[e.ColumnIndex].Name;

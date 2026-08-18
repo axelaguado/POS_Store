@@ -47,7 +47,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             this.LoadTableClientes();
         }
-
+         
         private void LPFisica_Click(object sender, EventArgs e)
         {
             this.PDatosPJuridica.Hide();
@@ -321,7 +321,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             if (e.RowIndex < 0) return;
 
             // Solo usuarios permitidos.
-            // if (!this.principal.Autorizado()) return;
+            if (!this.principal.Autorizado()) return;
 
             // Obtener el nombre de la columna clickeada
             string nombreColumna = dgt.Columns[e.ColumnIndex].Name;
