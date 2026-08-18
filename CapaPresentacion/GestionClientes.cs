@@ -47,7 +47,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             this.LoadTableClientes();
         }
-
+         
         private void LPFisica_Click(object sender, EventArgs e)
         {
             this.PDatosPJuridica.Hide();
@@ -317,8 +317,11 @@ namespace WindowsFormsApp1.CapaPresentacion
             cliente_editar = null;
             DataGridView dgt = sender as DataGridView;
 
-            // Evitar clics en el encabezado
+            // Evitar clics en el encabezado.
             if (e.RowIndex < 0) return;
+
+            // Solo usuarios permitidos.
+            if (!this.principal.Autorizado()) return;
 
             // Obtener el nombre de la columna clickeada
             string nombreColumna = dgt.Columns[e.ColumnIndex].Name;

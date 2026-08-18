@@ -10,6 +10,10 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Runtime.Remoting.Messaging;
+using iTextSharp.text;
+using WindowsFormsApp1.DTO;
+using iTextSharp.tool.xml.html.head;
+using System.Threading;
 
 namespace WindowsFormsApp1.CapaNegocio
 {
@@ -177,6 +181,393 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        // Monto total de Ventas Acumuladas por Periodos.
+        public List<ReporteVentaDTO> VentasPorDia(DateTime desde, DateTime hasta) 
+        {
+            List<Venta> ventas;
+
+            if(desde < hasta) 
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else 
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => v.fecha_venta.Date)
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = g.Key,
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+
+            return datos;
+        }
+
+        public List<ReporteVentaDTO> VentasPorSemana(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => {
+
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int diasDesdeLunes = (int)fecha.DayOfWeek - (int)DayOfWeek.Monday;
+
+                                    if (diasDesdeLunes < 0) diasDesdeLunes += 7;
+
+                                    return fecha.AddDays(-diasDesdeLunes);
+                              })
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+
+            return datos;
+        }
+
+        public List<ReporteVentaDTO> VentasPorMes(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => new 
+                             {
+                                  Año = v.fecha_venta.Year,
+                                  Mes = v.fecha_venta.Month
+                              })
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = new DateTime(g.Key.Año, g.Key.Mes, 1),
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+
+            return datos;
+        }
+
+        public List<ReporteVentaDTO> VentasPorTrimestre(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => {
+
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int trimestre = ((fecha.Month - 1) / 3) * 3 + 1;
+
+                                    return new DateTime(fecha.Year, trimestre, 1);
+                              })
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+            
+            return datos;
+        }
+
+        public List<ReporteVentaDTO> VentasPorSemestre(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => {
+
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int semestre = ((fecha.Month - 1) / 6) * 6 + 1;
+
+                                    return new DateTime(fecha.Year, semestre, 1);
+                              })
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+
+            return datos;
+        }
+
+        public List<ReporteVentaDTO> VentasPorAño(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentas(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentas();
+            }
+
+            List<ReporteVentaDTO> datos = ventas.GroupBy(v => new {
+                                    Año = v.fecha_venta.Year,
+                              })
+                              .Select(g => new ReporteVentaDTO
+                              {
+                                  fecha_acumulada = new DateTime(g.Key.Año, 1, 1),
+                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.fecha_acumulada)
+                              .ToList();
+
+            return datos;
+        }
+
+        // Monto de ventas acumulados por Empleado y Periodo
+        public List<ReporteVentaEmpleadoDTO> VentasDiarioEmpleado(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentasEmpleado(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentasEmpleado();
+            }
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => new {
+                                    Fecha = v.fecha_venta.Date, 
+                                    Empleado = v.caja.id_usuario 
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = g.Key.Fecha,
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.periodo)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoDiarioEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token) 
+        { 
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+             
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => new {
+                                    Fecha = v.fecha_venta.Date,
+                                    Empleado = v.caja.id_usuario
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = g.Key.Fecha,
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoSemanalEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => {
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int diasDesdeLunes =
+                                        (int)fecha.DayOfWeek - (int)DayOfWeek.Monday;
+
+                                    if (diasDesdeLunes < 0)
+                                        diasDesdeLunes += 7;
+
+                                    return new
+                                    {
+                                        Periodo = fecha.AddDays(-diasDesdeLunes),
+                                        Empleado = v.caja.id_usuario
+                                    };
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = g.Key.Periodo,
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoMensualEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => new
+                              {
+                                    Año = v.fecha_venta.Year,
+                                    Mes = v.fecha_venta.Month,
+                                    Empleado = v.caja.id_usuario
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = new DateTime(g.Key.Año, g.Key.Mes, 1),
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoTrimestralEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => {
+
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int trimestre = ((fecha.Month - 1) / 3) * 3 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, trimestre, 1),
+                                        Empleado = v.caja.id_usuario
+                                    };
+                               })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = g.Key.Periodo,
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoSemestralEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => {
+
+                                    DateTime fecha = v.fecha_venta.Date;
+
+                                    int semestre = ((fecha.Month - 1) / 6) * 6 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, semestre, 1),
+                                        Empleado = v.caja.id_usuario
+                                    };
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = g.Key.Periodo,
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaEmpleadoDTO>> VentasPeriodoAnualEmpleadoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoEmpleado(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            List<ReporteVentaEmpleadoDTO> datos = ventas.GroupBy(v => new {
+                                    Año = v.fecha_venta.Year,
+                                    Empleado = v.caja.id_usuario
+                              })
+                              .Select(g => new ReporteVentaEmpleadoDTO
+                              {
+                                  nombreCompleto_empleado = g.First().caja.usuario.empleado.nombreCompleto_empleado,
+                                  periodo = new DateTime(g.Key.Año, 1, 1),
+                                  cantidad_ventas = g.Count(),
+                                  monto_promedio = g.Average(v => v.monto_venta),
+                                  monto_total = g.Sum(v => v.monto_venta)
+                              })
+                              .OrderBy(v => v.monto_total)
+                              .ToList();
+
+            return datos;
+        }
+
+
+        // Validaciones y manejo del diccionario.
         public Dictionary<string, string> ValidadarVenta(Venta _venta)
         {
             this.validacion.Clear();
@@ -233,6 +624,51 @@ namespace WindowsFormsApp1.CapaNegocio
             if (_detalles == null || _detalles.Count == 0)
             {
                 this.validacion.Add("Detalles_venta", "La venta no genero los detalles correspondientes");
+            }
+        }
+
+        public List<Venta> AllVentas() 
+        {
+            using (var context = new MiDbContext()) 
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllVentas();
+            }
+        }
+
+        public List<Venta> AllFilterVentas(DateTime desde, DateTime hasta)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllFilterVentas(desde, hasta);
+            }
+        }
+
+        public List<Venta> AllVentasEmpleado()
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllVentasEmpleado();
+            }
+        }
+
+        public List<Venta> AllFilterVentasEmpleado(DateTime desde, DateTime hasta)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllFilterVentasEmpleado(desde, hasta);
+            }
+        }
+
+        public async Task<List<Venta>> AllFilterPeriodoEmpleado(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return await venta.GetAllFilterPeriodoEmpleado(desde, hasta, token);
             }
         }
 

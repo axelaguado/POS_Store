@@ -26,7 +26,6 @@ namespace WindowsFormsApp1.CapaEntidad
 
         // Propiedad de navegacion --> permite acceder y gestionar entidades relacionadas de forma fácil y eficiente
         // dentro de Entity Framework, manteniendo la relación entre ellas en el nivel de objetos.
-
         [ForeignKey("id_caja")]
         public Caja caja { get; set; }
 
