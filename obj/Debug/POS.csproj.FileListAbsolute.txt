@@ -51,3 +51,4 @@ C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsA
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.MovimientoCaja.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.ResumenCaja.resources
 C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.GestionCajas.resources
+C:\Users\Ryzen\source\repos\Taller2_POS\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.CapaPresentacion.Reportes.resources
