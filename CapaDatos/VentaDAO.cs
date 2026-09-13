@@ -69,6 +69,30 @@ namespace WindowsFormsApp1.CapaDatos
                                  .ToListAsync(token);
         }
 
+        // ----- Para manejar solamente productos y ventas
+
+        public List<Venta> GetAllVentasProducto()
+        {
+            return context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .ToList();
+        }
+
+        public List<Venta> GetAllFilterVentasProducto(DateTime desde, DateTime hasta)
+        {
+            return context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta)
+                                 .ToList();
+        }
+
+        public async Task<List<Venta>> GetAllFilterPeriodoProducto(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            return await context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta < hasta)
+                                 .ToListAsync(token);
+        }
 
         // -- UPDATE --
         public void update_centa(Venta datos_modificados)

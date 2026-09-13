@@ -295,6 +295,7 @@
     <Compile Include="DTO\ProductoDTO.cs" />
     <Compile Include="DTO\ProveedorDTO.cs" />
     <Compile Include="DTO\ReporteVentaEmpleadoDTO.cs" />
+    <Compile Include="DTO\ReporteVentaProductoDTO.cs" />
     <Compile Include="DTO\ShortProveedorDTO.cs" />
     <Compile Include="DTO\UsuarioDTO.cs" />
     <Compile Include="Program.cs" />
