@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.LReportes = new System.Windows.Forms.Label();
@@ -57,13 +57,15 @@
             this.CMontoTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.LPeriodoDesdeHasta = new System.Windows.Forms.Label();
             this.LPeriodo = new System.Windows.Forms.Label();
             this.BTNAdelantePVentaPor = new System.Windows.Forms.Button();
             this.BTNAtrasPVentaPor = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.BTNVentasPorEmpleado = new System.Windows.Forms.Button();
+            this.BTNVentasPorProducto = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -78,7 +80,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.LTitulo = new System.Windows.Forms.Label();
-            this.LPeriodoDesdeHasta = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.TLPVentas.SuspendLayout();
@@ -90,6 +91,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -217,10 +219,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.Teal;
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(22, 3);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
@@ -323,14 +325,14 @@
             this.DGVVentas.BackgroundColor = System.Drawing.Color.PaleTurquoise;
             this.DGVVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.DGVVentas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DGVVentas.ColumnHeadersHeight = 21;
             this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DGVVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -342,20 +344,20 @@
             this.DGVVentas.EnableHeadersVisualStyles = false;
             this.DGVVentas.Location = new System.Drawing.Point(3, 0);
             this.DGVVentas.Name = "DGVVentas";
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DGVVentas.RowHeadersVisible = false;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.DGVVentas.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.DGVVentas.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVVentas.Size = new System.Drawing.Size(368, 153);
             this.DGVVentas.TabIndex = 5;
@@ -417,6 +419,17 @@
             this.panel5.Size = new System.Drawing.Size(368, 32);
             this.panel5.TabIndex = 4;
             // 
+            // LPeriodoDesdeHasta
+            // 
+            this.LPeriodoDesdeHasta.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.LPeriodoDesdeHasta.AutoSize = true;
+            this.LPeriodoDesdeHasta.ForeColor = System.Drawing.SystemColors.Control;
+            this.LPeriodoDesdeHasta.Location = new System.Drawing.Point(123, 8);
+            this.LPeriodoDesdeHasta.Name = "LPeriodoDesdeHasta";
+            this.LPeriodoDesdeHasta.Size = new System.Drawing.Size(132, 13);
+            this.LPeriodoDesdeHasta.TabIndex = 6;
+            this.LPeriodoDesdeHasta.Text = "00/00/0000 - 00/00/0000";
+            // 
             // LPeriodo
             // 
             this.LPeriodo.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -460,53 +473,61 @@
             this.panel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel6.Controls.Add(this.button3);
-            this.panel6.Controls.Add(this.button2);
-            this.panel6.Controls.Add(this.button1);
+            this.panel6.Controls.Add(this.flowLayoutPanel1);
             this.panel6.Controls.Add(this.label4);
             this.panel6.Location = new System.Drawing.Point(3, 3);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(368, 31);
             this.panel6.TabIndex = 3;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.BTNVentasPorEmpleado);
+            this.flowLayoutPanel1.Controls.Add(this.BTNVentasPorProducto);
+            this.flowLayoutPanel1.Controls.Add(this.button3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(89, 1);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 27);
+            this.flowLayoutPanel1.TabIndex = 2;
+            // 
+            // BTNVentasPorEmpleado
+            // 
+            this.BTNVentasPorEmpleado.BackColor = System.Drawing.Color.LightGray;
+            this.BTNVentasPorEmpleado.FlatAppearance.BorderSize = 0;
+            this.BTNVentasPorEmpleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNVentasPorEmpleado.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.BTNVentasPorEmpleado.Location = new System.Drawing.Point(3, 3);
+            this.BTNVentasPorEmpleado.Name = "BTNVentasPorEmpleado";
+            this.BTNVentasPorEmpleado.Size = new System.Drawing.Size(75, 23);
+            this.BTNVentasPorEmpleado.TabIndex = 3;
+            this.BTNVentasPorEmpleado.Text = "Empleado";
+            this.BTNVentasPorEmpleado.UseVisualStyleBackColor = false;
+            this.BTNVentasPorEmpleado.Click += new System.EventHandler(this.BTNVentasPorEmpleado_Click);
+            // 
+            // BTNVentasPorProducto
+            // 
+            this.BTNVentasPorProducto.BackColor = System.Drawing.Color.LightGray;
+            this.BTNVentasPorProducto.FlatAppearance.BorderSize = 0;
+            this.BTNVentasPorProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNVentasPorProducto.Location = new System.Drawing.Point(84, 3);
+            this.BTNVentasPorProducto.Name = "BTNVentasPorProducto";
+            this.BTNVentasPorProducto.Size = new System.Drawing.Size(75, 23);
+            this.BTNVentasPorProducto.TabIndex = 4;
+            this.BTNVentasPorProducto.Text = "Producto";
+            this.BTNVentasPorProducto.UseVisualStyleBackColor = false;
+            this.BTNVentasPorProducto.Click += new System.EventHandler(this.BTNVentasPorProducto_Click);
+            // 
             // button3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.Color.LightGray;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(270, 3);
+            this.button3.Location = new System.Drawing.Point(165, 3);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 5;
             this.button3.Text = "Categoria";
             this.button3.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button2.BackColor = System.Drawing.Color.LightGray;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(180, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Producto";
-            this.button2.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.LightGray;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(90, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Empleado";
-            this.button1.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -672,17 +693,6 @@
             this.LTitulo.TabIndex = 0;
             this.LTitulo.Text = "Reportes";
             // 
-            // LPeriodoDesdeHasta
-            // 
-            this.LPeriodoDesdeHasta.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.LPeriodoDesdeHasta.AutoSize = true;
-            this.LPeriodoDesdeHasta.ForeColor = System.Drawing.SystemColors.Control;
-            this.LPeriodoDesdeHasta.Location = new System.Drawing.Point(123, 8);
-            this.LPeriodoDesdeHasta.Name = "LPeriodoDesdeHasta";
-            this.LPeriodoDesdeHasta.Size = new System.Drawing.Size(132, 13);
-            this.LPeriodoDesdeHasta.TabIndex = 6;
-            this.LPeriodoDesdeHasta.Text = "00/00/0000 - 00/00/0000";
-            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -708,6 +718,7 @@
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();
@@ -741,8 +752,8 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BTNVentasPorProducto;
+        private System.Windows.Forms.Button BTNVentasPorEmpleado;
         private System.Windows.Forms.Label LMontoPromedioTicket;
         private System.Windows.Forms.Label LTotalTickets;
         private System.Windows.Forms.Label label6;
@@ -767,5 +778,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CMontoPromedio;
         private System.Windows.Forms.DataGridViewTextBoxColumn CMontoTotal;
         private System.Windows.Forms.Label LPeriodoDesdeHasta;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

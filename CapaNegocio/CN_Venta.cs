@@ -566,6 +566,430 @@ namespace WindowsFormsApp1.CapaNegocio
             return datos;
         }
 
+        // Monto de ventas acumulados por Empleado y Periodo
+        public List<ReporteVentaProductoDTO> VentasDiarioProducto(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
+
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentasProducto(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentasProducto();
+            }
+  
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => x.Periodo)
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            // Parte dos obtengo todas los producto vendidos en periodo (diario)
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            IdVenta = v.id_venta,
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Producto = d.producto,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => new
+                                                {
+                                                    Periodo = x.Fecha,
+                                                    Producto = x.Producto.id_producto
+                                                })
+                                                .Select(g => new ReporteVentaProductoDTO
+                                                {
+                                                    id_venta = g.First().IdVenta,
+                                                    producto_completo = g.First().Producto.producto_completo,
+                                                    periodo = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100 / totalesPeriodo[g.Key.Periodo]), 2)
+                                                })
+                                                .OrderBy(v => v.periodo)
+                                                .ToList();
+
+            return datos;
+        }
+
+        // ----------
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoDiarioProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            // Parte uno agrupo por periodo para obtener las ventas totales del mismo y poder determinar el porcentaje luego.
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => x.Periodo)
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            // Parte dos obtengo todas los producto vendidos en periodo (diario)
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Producto = d.producto,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => new
+                                                {
+                                                    Periodo = x.Fecha,
+                                                    Producto = x.Producto.id_producto
+                                                })
+                                                .Select(g => new ReporteVentaProductoDTO
+                                                {
+                                                    producto_completo = g.First().Producto.producto_completo,
+                                                    periodo = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100 / totalesPeriodo[g.Key.Periodo]), 2)
+                                                })
+                                                .OrderBy(v => v.periodo)
+                                                .ToList();
+            
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoSemanalProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => {
+                                                    DateTime fecha = v.Periodo;
+
+                                                    int diasDesdeLunes =
+                                                        (int)fecha.DayOfWeek - (int)DayOfWeek.Monday;
+
+                                                    if (diasDesdeLunes < 0)
+                                                        diasDesdeLunes += 7;
+
+                                                    return new
+                                                    {
+                                                        Periodo = fecha.AddDays(-diasDesdeLunes),
+                                                    };
+                                                })
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Producto = d.producto,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => {
+                                                    DateTime fecha = v.Fecha;
+
+                                                    int diasDesdeLunes =
+                                                        (int)fecha.DayOfWeek - (int)DayOfWeek.Monday;
+
+                                                    if (diasDesdeLunes < 0)
+                                                        diasDesdeLunes += 7;
+
+                                                    return new
+                                                    {
+                                                        Periodo = fecha.AddDays(-diasDesdeLunes),
+                                                        Producto = v.Producto.id_producto
+                                                    };
+                                                })
+                                                .Select(g => new ReporteVentaProductoDTO
+                                                {
+                                                    producto_completo = g.First().Producto.producto_completo,
+                                                    periodo = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100 / totalesPeriodo[new {g.Key.Periodo} ]), 2)
+                                                })         
+                                                .OrderBy(v => v.periodo)
+                                                .ToList();                                 
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoMensualProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+            
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => new
+                                                    {
+                                                        Año = v.Periodo.Year,
+                                                        Mes = v.Periodo.Month,
+                                                    }
+                                                )
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                {
+                                                    Fecha = v.fecha_venta.Date,
+                                                    Producto = d.producto,
+                                                    Cantidad = d.cantidad_producto,
+                                                    Subtotal = d.subtotal
+                                                }
+                                        )
+                                )
+                                .GroupBy(v => new
+                                {
+                                    Año = v.Fecha.Year,
+                                    Mes = v.Fecha.Month,
+                                    Producto = v.Producto.id_producto          // Producto vacio                      
+                                })
+                                .Select(g => new ReporteVentaProductoDTO
+                                {
+                                    producto_completo = g.First().Producto.producto_completo,
+                                    periodo = new DateTime(g.Key.Año, g.Key.Mes, 1),
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100) / totalesPeriodo[new { g.Key.Año, g.Key.Mes}], 2),
+                                })
+                                .OrderBy(v => v.periodo)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoTrimestralProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => {
+
+                                                    DateTime fecha = v.Periodo;
+
+                                                    int trimestre = ((fecha.Month - 1) / 3) * 3 + 1;
+
+                                                    return new
+                                                    {
+                                                        Periodo = new DateTime(fecha.Year, trimestre, 1),
+                                                    };
+                                                })
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                            {
+                                                Fecha = v.fecha_venta.Date,
+                                                Producto = d.producto,
+                                                Cantidad = d.cantidad_producto,
+                                                Subtotal = d.subtotal
+                                            }
+                                        )
+                                )
+                                .GroupBy(v => 
+                                {
+
+                                    DateTime fecha = v.Fecha;
+
+                                    int trimestre = ((fecha.Month - 1) / 3) * 3 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, trimestre, 1),
+                                        Producto = v.Producto.id_producto
+                                    };
+                                })
+                                .Select(g => new ReporteVentaProductoDTO
+                                {
+                                    producto_completo = g.First().Producto.producto_completo,
+                                    periodo = g.Key.Periodo,
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100) / totalesPeriodo[new {g.Key.Periodo}], 2),
+                                })
+                                .OrderBy(v => v.periodo)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoSemestralProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => {
+                                                    DateTime fecha = v.Periodo;
+
+                                                    int semestre = ((fecha.Month - 1) / 6) * 6 + 1;
+
+                                                    return new
+                                                    {
+                                                        Periodo = new DateTime(fecha.Year, semestre, 1),
+                                                    };
+                                                })
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                            {
+                                                Fecha = v.fecha_venta.Date,
+                                                Producto = d.producto,
+                                                Cantidad = d.cantidad_producto,
+                                                Subtotal = d.subtotal
+                                            }
+                                        )
+                                )
+                                .GroupBy(v => 
+                                {
+
+                                    DateTime fecha = v.Fecha;
+
+                                    int semestre = ((fecha.Month - 1) / 6) * 6 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, semestre, 1),
+                                        Producto = v.Producto.id_producto
+                                    };
+                                })
+                                .Select(g => new ReporteVentaProductoDTO
+                                {
+                                    producto_completo = g.First().Producto.producto_completo,
+                                    periodo = g.Key.Periodo,
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100) / totalesPeriodo[new { g.Key.Periodo}], 2),
+                                })
+                                .OrderBy(v => v.periodo)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaProductoDTO>> VentasPeriodoAnualProductoAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoProducto(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+
+            var totalesPeriodo = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Periodo = v.fecha_venta.Date,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => new {
+                                                    Año = v.Periodo.Year
+                                                })
+                                                .ToDictionary(
+                                                                g => g.Key,
+                                                                g => g.Sum(x => x.Subtotal)
+                                                );
+
+            List<ReporteVentaProductoDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new 
+                                    { 
+                                        Fecha = v.fecha_venta.Date, 
+                                        Producto = d.producto,
+                                        Cantidad = d.cantidad_producto, 
+                                        Subtotal = d.subtotal 
+                                    }
+                                ))
+                                .GroupBy(v => new 
+                                    {
+                                        Año = v.Fecha.Year,
+                                        Producto = v.Producto.id_producto
+                                    }
+                                )
+                                .Select(g => new ReporteVentaProductoDTO
+                                {
+                                    producto_completo = g.First().Producto.producto_completo,
+                                    periodo = new DateTime(g.Key.Año, 1,  1),
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                    // porcentaje_venta_importe = (g.Sum(x => x.Detalle.subtotal) * 100) / ventas.Sum(v => v.monto_venta)
+
+                                    porcentaje_venta_importe = decimal.Round((g.Sum(x => x.Subtotal) * 100) / totalesPeriodo[new { g.Key.Año}], 2),
+                                })
+                              .OrderBy(v => v.periodo)
+                              .ToList();
+
+            return datos;
+        }
+
 
         // Validaciones y manejo del diccionario.
         public Dictionary<string, string> ValidadarVenta(Venta _venta)
@@ -645,6 +1069,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        // Para empleado y ventas
         public List<Venta> AllVentasEmpleado()
         {
             using (var context = new MiDbContext())
@@ -671,6 +1096,36 @@ namespace WindowsFormsApp1.CapaNegocio
                 return await venta.GetAllFilterPeriodoEmpleado(desde, hasta, token);
             }
         }
+
+        // ----- Para productos y ventas
+        public List<Venta> AllVentasProducto()
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllVentasProducto();
+            }
+        }
+
+        public List<Venta> AllFilterVentasProducto(DateTime desde, DateTime hasta)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllFilterVentasProducto(desde, hasta);
+            }
+        }
+
+        public async Task<List<Venta>> AllFilterPeriodoProducto(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return await venta.GetAllFilterPeriodoProducto(desde, hasta, token);
+            }
+        }
+
+        // -------
 
         public Dictionary<string, string> GetErrors()
         {

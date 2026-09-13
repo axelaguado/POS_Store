@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -24,8 +25,11 @@ namespace WindowsFormsApp1.CapaPresentacion
         public Principal principal;
         public DateTime PEmpleadoPeriodoDesde;
         public DateTime PEmpleadoPeriodoHasta;
-
         public CancellationTokenSource cts;
+
+        public bool BTNEmpleadoActive;
+        public bool BTNProductoActive;
+        public bool BTNCategoriaActive;
 
         public Reportes(Principal _principal)
         {
@@ -213,9 +217,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private async void BTNFiltrar_Click(object sender, EventArgs e)
         {
-            CN_Venta venta = new CN_Venta();
             this.cts.Cancel();
             this.cts = new CancellationTokenSource();
+
+            CN_Venta venta = new CN_Venta();
+            List<ReporteVentaEmpleadoDTO> ventasEmpleado = new List<ReporteVentaEmpleadoDTO>();
+            List<ReporteVentaProductoDTO> ventasProducto = new List<ReporteVentaProductoDTO>();
 
             // Si son iguales ambas fecha significa que no se requiere la utilizacion del filtro
             DateTime desde = this.DTPFiltroDesde.Value;
@@ -238,40 +245,106 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     case "Diario":
                         this.InitDailyChart(desde, hasta);
-                        this.LoadPeriodo(this.PEmpleadoPeriodoDesde);
-                        this.LoadTableEmpleado(await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semanal":
                         this.InitWeeklyChart(desde, hasta);
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemanalProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Mensual":
                         this.InitMonthlyChart(desde, hasta);
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoMensualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Trimestral":
                         this.InitQuarterlyChart(desde, hasta);
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoTrimestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semestral":
                         this.InitSemiannualChart(desde, hasta);
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Anual":
                         this.InitAnnualChart(desde, hasta);
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoAnualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
                         break;
                 }
+
+                this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
+                
+                if (this.BTNEmpleadoActive) 
+                { 
+                    this.LoadTableEmpleado(ventasEmpleado);
+                }
+
+                if (this.BTNProductoActive)
+                {
+                    this.LoadTableProducto(ventasProducto);
+                }
+
             }
             catch (TaskCanceledException)
             {
@@ -332,11 +405,20 @@ namespace WindowsFormsApp1.CapaPresentacion
             List<ReporteVentaEmpleadoDTO> ventas = venta.VentasDiarioEmpleado(DateTime.Now, DateTime.Now);
 
             // this.PEmpleadoPeriodoDesde = ventas.Last().periodo;
-            this.LoadPeriodo(this.PEmpleadoPeriodoDesde); 
+            this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1)); 
 
             this.LoadTableEmpleado(ventas.Where(v => v.periodo == this.PEmpleadoPeriodoDesde).ToList());
-        }
 
+            // Configuramos el boton incialmente.
+            this.BTNVentasPor_SetUpState(this.BTNVentasPorEmpleado);
+
+            this.BTNProductoActive = false;
+            this.BTNCategoriaActive = false;
+
+            this.BTNEmpleadoActive = true;
+        }
+         
+        // ----- Empleado y Ventas
         public object LoadTable(List<ReporteVentaEmpleadoDTO> reporte)
         {
             var tabla = reporte.Select((datos, index) => new
@@ -371,6 +453,46 @@ namespace WindowsFormsApp1.CapaPresentacion
             // Panel Tickets
             this.LVTotalTickets.Text = lista.Sum(l => l.cantidad_ventas).ToString();
             this.LVMontoPromedioTicket.Text = "$" + decimal.Round((lista.Sum(l => l.monto_total) / lista.Sum(l => l.cantidad_ventas)), 2);
+        }
+
+        // ----- Producto y ventas.
+
+        public object LoadTable(List<ReporteVentaProductoDTO> reporte)
+        {
+            var tabla = reporte.Select((datos, index) => new
+            {
+                Producto = datos.producto_completo,
+                Vendidos = datos.cantidad_vendida,
+                ImporteVendido = "$ " + decimal.Round(datos.importe_vendido, 2).ToString(),
+                PocentajeImporteTotal = "% " + datos.porcentaje_venta_importe.ToString(),
+            }).ToList(); // Convierte el resultado a una lista para que se pueda asignar al DataGridView   
+
+            return tabla;
+        }
+
+        public void LoadTableProducto(List<ReporteVentaProductoDTO> lista)
+        {
+            if (lista == null || lista.Count == 0)
+            {
+                List<ReporteVentaProductoDTO> reporte = new List<ReporteVentaProductoDTO>();
+                this.DGVVentas.DataSource = this.LoadTable(reporte);
+
+                this.LVTotalTickets.Text = "-";
+                this.LVMontoPromedioTicket.Text = "-";
+                return;
+            }
+
+            this.DGVVentas.DataSource = null;
+            this.DGVVentas.Columns.Clear();
+            this.DGVVentas.Rows.Clear();
+
+            this.DGVVentas.DataSource = this.LoadTable(lista);
+
+            // Panel Tickets
+            // int cantidad_ventas = lista.GroupBy(l => l.id_venta).Count();
+            // decimal promedio_ticket = decimal.Round((lista.Sum(l => l.importe_vendido) / cantidad_ventas), 2);
+            // this.LVTotalTickets.Text = cantidad_ventas.ToString();
+            // this.LVMontoPromedioTicket.Text = "$" + promedio_ticket;
         }
 
         // ----- Eventos botones Chart -----
@@ -471,13 +593,15 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (this.PEmpleadoPeriodoDesde == null) return;
 
+            // Verificar que la condicion es realmente la que necesitamos
             if (this.PEmpleadoPeriodoHasta == null || this.PEmpleadoPeriodoHasta > DateTime.Now) return;
 
             this.cts.Cancel();
             this.cts = new CancellationTokenSource();
 
             CN_Venta venta = new CN_Venta();
-            List<ReporteVentaEmpleadoDTO> ventas = new List<ReporteVentaEmpleadoDTO>();
+            List<ReporteVentaEmpleadoDTO> ventasEmpleado = new List<ReporteVentaEmpleadoDTO>();
+            List<ReporteVentaProductoDTO> ventasProducto = new List<ReporteVentaProductoDTO>();
 
             try
             {
@@ -486,8 +610,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                     this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(1);
                     this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(1);
 
-                    this.LoadPeriodo(this.PEmpleadoPeriodoDesde);
-                    this.LoadTableEmpleado(await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                    if (this.BTNEmpleadoActive)
+                    {
+                        ventasEmpleado = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                    }
+
+                    if (this.BTNProductoActive)
+                    {
+                        ventasProducto = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                    }
                 }
 
                 // Probablemente la porcion de codigo a estandarizar va ser el manejo mediante el switch. -- Principalmente el PEmpleadoPeriodoDesde y PEmpleadoPeriodoHasta.
@@ -498,49 +629,109 @@ namespace WindowsFormsApp1.CapaPresentacion
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(1);
 
-                        this.LoadPeriodo(this.PEmpleadoPeriodoDesde);
-                        this.LoadTableEmpleado(await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semanal":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(7);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(7);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemanalProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Mensual":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(1);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoMensualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Trimestral":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(3);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(3);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoTrimestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semestral":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(6);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(6);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Anual":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddYears(1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddYears(1);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoAnualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
+                }
+
+                this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
+
+                if (this.BTNEmpleadoActive)
+                {
+                    this.LoadTableEmpleado(ventasEmpleado);
+                }
+
+                if (this.BTNProductoActive)
+                {
+                    this.LoadTableProducto(ventasProducto);
                 }
             }
             catch (TaskCanceledException)
@@ -555,13 +746,16 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private async void BTNAtrasPVentaPor_Click(object sender, EventArgs e)
         {
+            // Podriamos pegar una limpieza al DGV.
+
             if (this.PEmpleadoPeriodoDesde == null) return;
 
             this.cts.Cancel();
             this.cts = new CancellationTokenSource();
 
             CN_Venta venta = new CN_Venta();
-            List<ReporteVentaEmpleadoDTO> ventas = new List<ReporteVentaEmpleadoDTO>();
+            List<ReporteVentaEmpleadoDTO> ventasEmpleado = new List<ReporteVentaEmpleadoDTO>();
+            List<ReporteVentaProductoDTO> ventasProducto = new List<ReporteVentaProductoDTO>();
 
             try
             {
@@ -570,8 +764,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                     this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(-1);
                     this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(-1);
 
-                    this.LoadPeriodo(this.PEmpleadoPeriodoDesde);
-                    this.LoadTableEmpleado(await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                    if (this.BTNEmpleadoActive)
+                    {
+                        ventasEmpleado = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                    }
+
+                    if (this.BTNProductoActive)
+                    {
+                        ventasProducto = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                    }
                 }
 
                 // Probablemente la porcion de codigo a estandarizar va ser el manejo mediante el switch. -- Principalmente el PEmpleadoPeriodoDesde y PEmpleadoPeriodoHasta.
@@ -582,49 +783,109 @@ namespace WindowsFormsApp1.CapaPresentacion
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(-1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(-1);
 
-                        this.LoadPeriodo(this.PEmpleadoPeriodoDesde);
-                        this.LoadTableEmpleado(await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive) 
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive) 
+                        {
+                            ventasProducto = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semanal":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddDays(-7);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddDays(-7);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemanalProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Mensual":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(-1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(-1);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoMensualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Trimestral":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(-3);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(-3);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoTrimestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Semestral":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddMonths(-6);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddMonths(-6);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoSemestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
 
                     case "Anual":
                         this.PEmpleadoPeriodoDesde = this.PEmpleadoPeriodoDesde.AddYears(-1);
                         this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoHasta.AddYears(-1);
 
-                        this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
-                        this.LoadTableEmpleado(await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token));
+                        if (this.BTNEmpleadoActive)
+                        {
+                            ventasEmpleado = await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
+                        if (this.BTNProductoActive)
+                        {
+                            ventasProducto = await venta.VentasPeriodoAnualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        }
+
                         break;
+                }
+
+                this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
+
+                if (this.BTNEmpleadoActive)
+                {
+                    this.LoadTableEmpleado(ventasEmpleado);
+                }
+
+                if (this.BTNProductoActive)
+                {
+                    this.LoadTableProducto(ventasProducto);
                 }
             }
             catch (TaskCanceledException)
@@ -636,19 +897,176 @@ namespace WindowsFormsApp1.CapaPresentacion
                 MessageBox.Show("Error: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        public void LoadPeriodo(DateTime periodo)
-        {
-            this.LPeriodo.Visible = true;
-            this.LPeriodoDesdeHasta.Visible = false;
-            this.LPeriodo.Text = periodo.ToShortDateString();
-        }
-
+         
         public void LoadPeriodoDesdeHasta(DateTime desde, DateTime hasta)
         {
-            this.LPeriodoDesdeHasta.Visible = true;
-            this.LPeriodo.Visible = false;
-            this.LPeriodoDesdeHasta.Text = desde.ToShortDateString() + " - " + hasta.ToShortDateString();
+            if (desde.Date == hasta.Date) 
+            { 
+                this.LPeriodo.Visible = true;
+                this.LPeriodoDesdeHasta.Visible = false;
+                this.LPeriodo.Text = desde.ToShortDateString();
+            }
+            else 
+            { 
+                this.LPeriodoDesdeHasta.Visible = true;
+                this.LPeriodo.Visible = false;
+                this.LPeriodoDesdeHasta.Text = desde.ToShortDateString() + " - " + hasta.ToShortDateString();
+            }
         }
+
+        // En estos dos eventos Cclick nos faltaria tener en cuenta la granularidad, es decir, filtrar de nuevo
+        private async void BTNVentasPorProducto_Click(object sender, EventArgs e)
+        {
+            // Instanciamos algunas variables necesarias.
+            CN_Venta venta = new CN_Venta();
+            List<ReporteVentaProductoDTO> reporte = new List<ReporteVentaProductoDTO>();
+            Button boton = sender as Button; // Recibo el boton que ejecuta el evento
+
+            this.cts.Cancel();
+            this.cts = new CancellationTokenSource();
+
+            // Y lo configuro
+            this.BTNVentasPor_SetUpState(boton);
+
+            // Luego seteo las variables bool para controlar los botones
+            this.BTNEmpleadoActive = false;
+            this.BTNCategoriaActive = false;
+
+            this.BTNProductoActive = true;
+
+            // Segun la granularidad al momento de presionar el boton cargamos los valores correspondientes
+            try 
+            { 
+                switch (this.CBGranularidad.Text) 
+                {
+                    case "":
+                        reporte = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Diario":
+                        reporte = await venta.VentasPeriodoDiarioProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Semanal":
+                        reporte = await venta.VentasPeriodoSemanalProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Mensual":
+                        reporte = await venta.VentasPeriodoMensualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Trimestral":
+                        reporte = await venta.VentasPeriodoTrimestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Semestral":
+                        reporte = await venta.VentasPeriodoSemestralProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Anual":
+                        reporte = await venta.VentasPeriodoAnualProductoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+                }
+                
+                // Cargamos el DGV
+                this.LoadTableProducto(reporte);
+            }
+            catch (TaskCanceledException)
+            {
+                // La consulta fue cancelada, no hacemos nada   
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private async void BTNVentasPorEmpleado_Click(object sender, EventArgs e)
+        {
+            // Instanciamos algunas variables necesarias.
+            CN_Venta venta = new CN_Venta();
+            List<ReporteVentaEmpleadoDTO> reporte = new List<ReporteVentaEmpleadoDTO>();
+            Button boton = sender as Button; // Recibo el boton que ejecuta el evento
+
+            this.cts.Cancel();
+            this.cts = new CancellationTokenSource();
+
+            // Y lo configuro
+            this.BTNVentasPor_SetUpState(boton);
+
+            // Luego seteo las variables bool para controlar los botones
+            this.BTNProductoActive = false;
+            this.BTNCategoriaActive = false;
+
+            this.BTNEmpleadoActive = true;
+
+            // Segun la granularidad al momento de presionar el boton cargamos los valores correspondientes
+            try
+            {
+                switch (this.CBGranularidad.Text)
+                {
+                    case "":
+                        reporte = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Diario":
+                        reporte = await venta.VentasPeriodoDiarioEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Semanal":
+                        reporte = await venta.VentasPeriodoSemanalEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Mensual":
+                        reporte = await venta.VentasPeriodoMensualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Trimestral":
+                        reporte = await venta.VentasPeriodoTrimestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Semestral":
+                        reporte = await venta.VentasPeriodoSemestralEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+
+                    case "Anual":
+                        reporte = await venta.VentasPeriodoAnualEmpleadoAsync(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta, this.cts.Token);
+                        break;
+                }
+
+                // Cargamos el DGV
+                this.LoadTableEmpleado(reporte);
+            }
+            catch (TaskCanceledException)
+            {
+                // La consulta fue cancelada, no hacemos nada   
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        // -------
+        public void BTNVentasPor_SetUpState(Button boton) 
+        {
+            foreach (Control control in this.flowLayoutPanel1.Controls)
+            {
+                if (control is Button)
+                {
+                    if (control.Name != boton.Name)
+                    {
+                        control.BackColor = System.Drawing.Color.LightGray;
+                    }
+                    else 
+                    { 
+                        boton.BackColor = System.Drawing.Color.DarkGray;
+                    }
+                }
+            }
+        }
+
     }
 }
