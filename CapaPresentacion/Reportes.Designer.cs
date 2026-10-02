@@ -30,6 +30,9 @@
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -49,6 +52,7 @@
             this.LTotalTickets = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.chart2 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.DGVVentas = new System.Windows.Forms.DataGridView();
             this.CPeriodo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CEmpleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,7 +69,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.BTNVentasPorEmpleado = new System.Windows.Forms.Button();
             this.BTNVentasPorProducto = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.BTNVentasPorCategoria = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -87,6 +91,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVVentas)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -304,12 +309,38 @@
             this.panel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel7.BackColor = System.Drawing.Color.Teal;
+            this.panel7.Controls.Add(this.chart2);
             this.panel7.Controls.Add(this.DGVVentas);
             this.panel7.Location = new System.Drawing.Point(383, 84);
             this.panel7.Name = "panel7";
             this.TLPVentas.SetRowSpan(this.panel7, 2);
             this.panel7.Size = new System.Drawing.Size(374, 156);
             this.panel7.TabIndex = 4;
+            // 
+            // chart2
+            // 
+            this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart2.BackColor = System.Drawing.Color.Teal;
+            this.chart2.BorderlineColor = System.Drawing.Color.Teal;
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
+            this.chart2.Location = new System.Drawing.Point(3, 3);
+            this.chart2.Name = "chart2";
+            this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart2.Series.Add(series1);
+            this.chart2.Size = new System.Drawing.Size(368, 150);
+            this.chart2.TabIndex = 6;
+            this.chart2.Text = "chart2";
+            this.chart2.Visible = false;
             // 
             // DGVVentas
             // 
@@ -342,7 +373,7 @@
             this.CMontoPromedio,
             this.CMontoTotal});
             this.DGVVentas.EnableHeadersVisualStyles = false;
-            this.DGVVentas.Location = new System.Drawing.Point(3, 0);
+            this.DGVVentas.Location = new System.Drawing.Point(3, 3);
             this.DGVVentas.Name = "DGVVentas";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
@@ -359,7 +390,7 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             this.DGVVentas.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVVentas.Size = new System.Drawing.Size(368, 153);
+            this.DGVVentas.Size = new System.Drawing.Size(368, 150);
             this.DGVVentas.TabIndex = 5;
             // 
             // CPeriodo
@@ -484,7 +515,7 @@
             // 
             this.flowLayoutPanel1.Controls.Add(this.BTNVentasPorEmpleado);
             this.flowLayoutPanel1.Controls.Add(this.BTNVentasPorProducto);
-            this.flowLayoutPanel1.Controls.Add(this.button3);
+            this.flowLayoutPanel1.Controls.Add(this.BTNVentasPorCategoria);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(89, 1);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(276, 27);
@@ -517,17 +548,18 @@
             this.BTNVentasPorProducto.UseVisualStyleBackColor = false;
             this.BTNVentasPorProducto.Click += new System.EventHandler(this.BTNVentasPorProducto_Click);
             // 
-            // button3
+            // BTNVentasPorCategoria
             // 
-            this.button3.BackColor = System.Drawing.Color.LightGray;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(165, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Categoria";
-            this.button3.UseVisualStyleBackColor = false;
+            this.BTNVentasPorCategoria.BackColor = System.Drawing.Color.LightGray;
+            this.BTNVentasPorCategoria.FlatAppearance.BorderSize = 0;
+            this.BTNVentasPorCategoria.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNVentasPorCategoria.Location = new System.Drawing.Point(165, 3);
+            this.BTNVentasPorCategoria.Name = "BTNVentasPorCategoria";
+            this.BTNVentasPorCategoria.Size = new System.Drawing.Size(75, 23);
+            this.BTNVentasPorCategoria.TabIndex = 5;
+            this.BTNVentasPorCategoria.Text = "Categoria";
+            this.BTNVentasPorCategoria.UseVisualStyleBackColor = false;
+            this.BTNVentasPorCategoria.Click += new System.EventHandler(this.BTNVentasPorCategoria_Click);
             // 
             // label4
             // 
@@ -703,6 +735,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Reportes";
             this.Text = "Reportes";
+            this.Resize += new System.EventHandler(this.Reportes_Resize);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
@@ -712,6 +745,7 @@
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVVentas)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
@@ -751,7 +785,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button BTNVentasPorCategoria;
         private System.Windows.Forms.Button BTNVentasPorProducto;
         private System.Windows.Forms.Button BTNVentasPorEmpleado;
         private System.Windows.Forms.Label LMontoPromedioTicket;
@@ -779,5 +813,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CMontoTotal;
         private System.Windows.Forms.Label LPeriodoDesdeHasta;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
     }
 }

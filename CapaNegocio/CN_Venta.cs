@@ -566,7 +566,7 @@ namespace WindowsFormsApp1.CapaNegocio
             return datos;
         }
 
-        // Monto de ventas acumulados por Empleado y Periodo
+        // Monto de ventas acumulados por Producto y Periodo
         public List<ReporteVentaProductoDTO> VentasDiarioProducto(DateTime desde, DateTime hasta)
         {
             List<Venta> ventas;
@@ -989,7 +989,277 @@ namespace WindowsFormsApp1.CapaNegocio
 
             return datos;
         }
+        
+        // Monto de ventas acumulados por Categoria y Periodo
+        public List<ReporteVentaCategoriaDTO> VentasDiarioCategoria(DateTime desde, DateTime hasta)
+        {
+            List<Venta> ventas;
 
+            if (desde < hasta)
+            {
+                ventas = this.AllFilterVentasCategoria(desde, hasta);
+            }
+            else
+            {
+                ventas = this.AllVentasCategoria();
+            } 
+
+            // Parte dos obtengo todas los producto vendidos en periodo (diario)
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Categoria = d.producto.categoria,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => new
+                                                {
+                                                    Periodo = x.Fecha,
+                                                    Categoria = x.Categoria.id_categoria
+                                                })
+                                                .Select(g => new ReporteVentaCategoriaDTO
+                                                {
+                                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                                    periodo_reportado = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                })
+                                                .OrderBy(v => v.periodo_reportado)
+                                                .ToList();
+
+            return datos;
+        }
+
+        // ---------- 
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoDiarioCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+             
+            // Parte dos obtengo todas los producto vendidos en periodo (diario)
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Categoria = d.producto.categoria,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(x => new
+                                                {
+                                                    Periodo = x.Fecha,
+                                                    Categoria = x.Categoria.id_categoria
+                                                })
+                                                .Select(g => new ReporteVentaCategoriaDTO
+                                                {
+                                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                                    periodo_reportado = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                })
+                                                .OrderBy(v => v.periodo_reportado)
+                                                .ToList();
+
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoSemanalCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+            
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                        {
+                                                            Fecha = v.fecha_venta.Date,
+                                                            Categoria = d.producto.categoria,
+                                                            Cantidad = d.cantidad_producto,
+                                                            Subtotal = d.subtotal
+                                                        }
+                                                    )
+                                                )
+                                                .GroupBy(v => {
+                                                    DateTime fecha = v.Fecha;
+
+                                                    int diasDesdeLunes =
+                                                        (int)fecha.DayOfWeek - (int)DayOfWeek.Monday;
+
+                                                    if (diasDesdeLunes < 0)
+                                                        diasDesdeLunes += 7;
+
+                                                    return new
+                                                    {
+                                                        Periodo = fecha.AddDays(-diasDesdeLunes),
+                                                        Categoria = v.Categoria.id_categoria
+                                                    };
+                                                })
+                                                .Select(g => new ReporteVentaCategoriaDTO
+                                                {
+                                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                                    periodo_reportado = g.Key.Periodo,
+                                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                                    importe_vendido = g.Sum(x => x.Subtotal),
+                                                })
+                                                .OrderBy(v => v.periodo_reportado)
+                                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoMensualCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+             
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                                {
+                                                    Fecha = v.fecha_venta.Date,
+                                                    Categoria = d.producto.categoria,
+                                                    Cantidad = d.cantidad_producto,
+                                                    Subtotal = d.subtotal
+                                                }
+                                        )
+                                )
+                                .GroupBy(v => new
+                                {
+                                    Año = v.Fecha.Year,
+                                    Mes = v.Fecha.Month,
+                                    Categoria = v.Categoria.id_categoria          // Producto vacio                      
+                                })
+                                .Select(g => new ReporteVentaCategoriaDTO
+                                {
+                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                    periodo_reportado = new DateTime(g.Key.Año, g.Key.Mes, 1),
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal) 
+                                })
+                                .OrderBy(v => v.periodo_reportado)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoTrimestralCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+             
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                            {
+                                                Fecha = v.fecha_venta.Date,
+                                                Categoria = d.producto.categoria,
+                                                Cantidad = d.cantidad_producto,
+                                                Subtotal = d.subtotal
+                                            }
+                                        )
+                                )
+                                .GroupBy(v =>
+                                {
+
+                                    DateTime fecha = v.Fecha;
+
+                                    int trimestre = ((fecha.Month - 1) / 3) * 3 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, trimestre, 1),
+                                        Categoria = v.Categoria.id_categoria
+                                    };
+                                })
+                                .Select(g => new ReporteVentaCategoriaDTO
+                                {
+                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                    periodo_reportado = g.Key.Periodo,
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal)
+                                })
+                                .OrderBy(v => v.periodo_reportado)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoSemestralCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+  
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                            {
+                                                Fecha = v.fecha_venta.Date,
+                                                Categoria = d.producto.categoria,
+                                                Cantidad = d.cantidad_producto,
+                                                Subtotal = d.subtotal
+                                            }
+                                        )
+                                )
+                                .GroupBy(v =>
+                                {
+
+                                    DateTime fecha = v.Fecha;
+
+                                    int semestre = ((fecha.Month - 1) / 6) * 6 + 1;
+
+                                    return new
+                                    {
+                                        Periodo = new DateTime(fecha.Year, semestre, 1),
+                                        Categoria = v.Categoria.id_categoria
+                                    };
+                                })
+                                .Select(g => new ReporteVentaCategoriaDTO
+                                {
+                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                    periodo_reportado = g.Key.Periodo,
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal)
+                                })
+                                .OrderBy(v => v.periodo_reportado)
+                                .ToList();
+
+            return datos;
+        }
+
+        public async Task<List<ReporteVentaCategoriaDTO>> VentasPeriodoAnualCategoriaAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            List<Venta> ventas = await this.AllFilterPeriodoCategoria(desde, hasta, token);
+
+            if (ventas == null || ventas.Count == 0) return null;
+  
+            List<ReporteVentaCategoriaDTO> datos = ventas.SelectMany(v => v.detalles.Select(d => new
+                                        {
+                                            Fecha = v.fecha_venta.Date,
+                                            Categoria = d.producto.categoria,
+                                            Cantidad = d.cantidad_producto,
+                                            Subtotal = d.subtotal
+                                        }
+                                    )
+                                )
+                                .GroupBy(v => new
+                                {
+                                    Año = v.Fecha.Year,
+                                    Categoria = v.Categoria.id_categoria
+                                }
+                                )
+                                .Select(g => new ReporteVentaCategoriaDTO
+                                {
+                                    nombre_categoria = g.First().Categoria.descripcion_categoria,
+                                    periodo_reportado = new DateTime(g.Key.Año, 1, 1),
+                                    cantidad_vendida = g.Sum(x => x.Cantidad),
+                                    importe_vendido = g.Sum(x => x.Subtotal)
+                                })
+                                .OrderBy(v => v.periodo_reportado)
+                                .ToList();
+
+            return datos;
+        } 
 
         // Validaciones y manejo del diccionario.
         public Dictionary<string, string> ValidadarVenta(Venta _venta)
@@ -1051,6 +1321,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
+        // ------- Consultas 
         public List<Venta> AllVentas() 
         {
             using (var context = new MiDbContext()) 
@@ -1066,6 +1337,15 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 VentaDAO venta = new VentaDAO(context);
                 return venta.GetAllFilterVentas(desde, hasta);
+            }
+        }
+
+        public async Task<List<Venta>> AllFilterVentasAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return await venta.GetAllFilterVentasAsync(desde, hasta, token);
             }
         }
 
@@ -1125,8 +1405,36 @@ namespace WindowsFormsApp1.CapaNegocio
             }
         }
 
-        // -------
+        // ------- Para categorias y ventas
+        public List<Venta> AllVentasCategoria()
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllVentasCategoria();
+            }
+        }
 
+        public List<Venta> AllFilterVentasCategoria(DateTime desde, DateTime hasta)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return venta.GetAllFilterVentasCategoria(desde, hasta);
+            }
+        }
+
+        public async Task<List<Venta>> AllFilterPeriodoCategoria(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            using (var context = new MiDbContext())
+            {
+                VentaDAO venta = new VentaDAO(context);
+                return await venta.GetAllFilterPeriodoCategoria(desde, hasta, token);
+            }
+        }
+
+
+        // ------- Funciones asociadas a validacion y errores.
         public Dictionary<string, string> GetErrors()
         {
             return this.validacion;
