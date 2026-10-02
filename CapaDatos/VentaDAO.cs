@@ -36,8 +36,13 @@ namespace WindowsFormsApp1.CapaDatos
             return context.Ventas.Include(v => v.detalles).Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta).ToList();
         }
 
-        // ----- Para manejar solamente empleados y ventas
-        public List<Venta> GetAllVentasEmpleado()
+        public async Task<List<Venta>> GetAllFilterVentasAsync(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            return await context.Ventas.Include(v => v.detalles).Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta).ToListAsync(token);
+        }
+
+        // ----- Para manejar solamente empleados y ventas    
+        public List<Venta> GetAllVentasEmpleado()    
         {
             return context.Ventas.Include(v => v.detalles)
                                  .Include(v => v.caja)
@@ -90,6 +95,34 @@ namespace WindowsFormsApp1.CapaDatos
         {
             return await context.Ventas.Include(v => v.detalles)
                                  .Include(v => v.detalles.Select(d => d.producto))
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta < hasta)
+                                 .ToListAsync(token);
+        }
+
+        // Para manejar solamente Categorias y ventas
+
+        public List<Venta> GetAllVentasCategoria()
+        {
+            return context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .Include(v => v.detalles.Select(d => d.producto.categoria))
+                                 .ToList();
+        }
+
+        public List<Venta> GetAllFilterVentasCategoria(DateTime desde, DateTime hasta)
+        {
+            return context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .Include(v => v.detalles.Select(d => d.producto.categoria))
+                                 .Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta)
+                                 .ToList();
+        }
+
+        public async Task<List<Venta>> GetAllFilterPeriodoCategoria(DateTime desde, DateTime hasta, CancellationToken token)
+        {
+            return await context.Ventas.Include(v => v.detalles)
+                                 .Include(v => v.detalles.Select(d => d.producto))
+                                 .Include(v => v.detalles.Select(d => d.producto.categoria))
                                  .Where(v => v.fecha_venta >= desde && v.fecha_venta < hasta)
                                  .ToListAsync(token);
         }
