@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
 using System.Windows.Forms;
 using System.Threading;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -81,7 +82,17 @@ namespace WindowsFormsApp1.CapaDatos
                                                                                     || c.proveedor.persona.persona_juridica.razon_social.Contains(buscado)))
                                          .ToListAsync(_ct);    
         }
- 
+
+        // Metodos de filtrado en la BD.
+        public IQueryable<Compra> AllComprasConfirmadas()
+        {
+            return this._context.Compras.Where(c => c.estado_compra == 3);
+        }
+
+        public IQueryable<Compra> GetComprasFilter(DateTime desde, DateTime hasta) 
+        {
+            return this._context.Compras.Where(c => c.estado_compra == 3 && (c.fecha_confirmacion >= desde && c.fecha_confirmacion <= hasta));
+        }
 
         // Update. 
         public void update_StateInactive(long id_pedido)

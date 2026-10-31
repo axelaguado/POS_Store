@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using WindowsFormsApp1.CapaDatos;
 using WindowsFormsApp1.CapaEntidad;
 using WindowsFormsApp1.DTO;
@@ -270,7 +271,6 @@ namespace WindowsFormsApp1.CapaNegocio
                 context.SaveChanges();
             } 
         }
-         
 
         public Compra BuscarCompra(int id_compra)
         {
@@ -279,6 +279,259 @@ namespace WindowsFormsApp1.CapaNegocio
                 CompraDAO pedido = new CompraDAO(context);
                 return pedido.buscarCompra(id_compra);
             } 
-        }  
+        }
+
+        public IQueryable<Compra> ComprasFilter(DateTime desde, DateTime hasta, MiDbContext _dbContext)
+        {
+            CompraDAO compra = new CompraDAO(_dbContext);
+            return compra.GetComprasFilter(desde, hasta);
+        }
+
+        public IQueryable<Compra> GetAllComprasConfirmadas(MiDbContext _dbContext)
+        {
+            CompraDAO compra = new CompraDAO(_dbContext);
+            return compra.AllComprasConfirmadas();
+        }
+
+        // Implementamos el comportamiento para reportes.
+        public List<ReporteComprasDTO> ComprasConfirmadasPorMes(DateTime desde, DateTime hasta)
+        {
+            IQueryable<Compra> compras; 
+
+            List<ReporteComprasDTO> datos = new List<ReporteComprasDTO>();
+
+            using (var context = new MiDbContext()) 
+            { 
+                if (desde < hasta)
+                {
+                    compras = this.ComprasFilter(desde, hasta, context);
+                }
+                else
+                {
+                    compras = this.GetAllComprasConfirmadas(context);
+                }
+
+                datos = this.ReportesAgrupadosMensual(compras);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteComprasDTO> ComprasConfirmadasPorTrimestre(DateTime desde, DateTime hasta)
+        {
+            IQueryable<Compra> compras;
+
+            List<ReporteComprasDTO> datos = new List<ReporteComprasDTO>();
+
+            using (var context = new MiDbContext())
+            {
+                if (desde < hasta)
+                {
+                    compras = this.ComprasFilter(desde, hasta, context);
+                }
+                else
+                {
+                    compras = this.GetAllComprasConfirmadas(context);
+                }
+
+                datos = this.ReportesAgrupadosTrimestre(compras);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteComprasDTO> ComprasConfirmadasPorSemestre(DateTime desde, DateTime hasta)
+        {
+            IQueryable<Compra> compras;
+
+            List<ReporteComprasDTO> datos = new List<ReporteComprasDTO>();
+
+            using (var context = new MiDbContext())
+            {
+                if (desde < hasta)
+                {
+                    compras = this.ComprasFilter(desde, hasta, context);
+                }
+                else
+                {
+                    compras = this.GetAllComprasConfirmadas(context);
+                }
+
+                datos = this.ReportesAgrupadosSemestre(compras);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteComprasDTO> ComprasConfirmadasPorAño(DateTime desde, DateTime hasta)
+        {
+            IQueryable<Compra> compras;
+
+            List<ReporteComprasDTO> datos = new List<ReporteComprasDTO>();
+
+            using (var context = new MiDbContext())
+            {
+                if (desde < hasta)
+                {
+                    compras = this.ComprasFilter(desde, hasta, context);
+                }
+                else
+                {
+                    compras = this.GetAllComprasConfirmadas(context);
+                }
+
+                datos = this.ReportesAgrupadosAnual(compras);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteComprasDTO> ReportesAgrupadosMensual(IQueryable<Compra> _compras)
+        {
+            List<ReporteComprasDTO> resultado = new List<ReporteComprasDTO>();
+
+            if (_compras != null)
+            {
+                // PASO 1: Agrupamos y proyectamos a un objeto temporal. 
+                // Todo esto se traduce a un SQL perfecto y ultra rápido.
+                var datosDesdeBD = _compras
+                .GroupBy(c => new
+                    {
+                        Año = c.fecha_confirmacion.Value.Year,
+                        Mes = c.fecha_confirmacion.Value.Month
+                    }
+                )
+                .Select(g => new
+                    {
+                        Año = g.Key.Año,
+                        Mes = g.Key.Mes,
+                        Monto = g.Sum(v => v.monto_total)
+                    }
+                )
+                .OrderBy(v => v.Año).ThenBy(v => v.Mes)
+                .ToList();
+
+                // PASO 2: Ahora que los datos están en la memoria RAM, 
+                // C# sí puede usar el constructor de DateTime perfectamente.
+                resultado = datosDesdeBD
+                .Select(x => new ReporteComprasDTO
+                {
+                    periodo_reportado = new DateTime(x.Año, x.Mes, 1),
+                    monto_acumulado = x.Monto
+                }
+                )
+                .ToList();
+                
+            }
+            
+            return resultado;
+        }
+
+        public List<ReporteComprasDTO> ReportesAgrupadosTrimestre(IQueryable<Compra> _compras)
+        {
+            List<ReporteComprasDTO> resultado = new List<ReporteComprasDTO>();
+
+            if (_compras != null)
+            {
+                var datosDesdeBD = _compras.GroupBy(c => new
+                    {
+                        Año = c.fecha_confirmacion.Value.Year,
+                        Mes = ((c.fecha_confirmacion.Value.Month - 1) / 3) * 3 + 1,
+                    }
+                )
+                .Select(g => new
+                    {
+                        Año = g.Key.Año,
+                        Mes = g.Key.Mes,
+                        Monto = g.Sum(v => v.monto_total)
+                    }
+                )
+                .OrderBy(v => v.Año).ThenBy(v => v.Mes)
+                .ToList();
+
+                resultado = datosDesdeBD
+                .Select(x => new ReporteComprasDTO
+                    {
+                        periodo_reportado = new DateTime(x.Año, x.Mes, 1),
+                        monto_acumulado = x.Monto
+                    }
+                )
+                .ToList();
+
+            }
+        
+            return resultado;
+
+        }
+
+        public List<ReporteComprasDTO> ReportesAgrupadosSemestre(IQueryable<Compra> _compras)
+        {
+            List<ReporteComprasDTO> resultado = new List<ReporteComprasDTO>();
+
+            if (_compras != null)
+            {
+                var datosDeseBD = _compras.GroupBy(c => new
+                    {
+                        Año = c.fecha_confirmacion.Value.Year,
+                        Mes = ((c.fecha_confirmacion.Value.Month - 1) / 6) * 6 + 1,
+                    }
+                )
+                .Select(g => new
+                    {
+                        Año = g.Key.Año,
+                        Mes = g.Key.Mes,
+                        Monto = g.Sum(v => v.monto_total)
+                    }
+                )
+                .OrderBy(v => v.Año).ThenBy(v => v.Mes)
+                .ToList();
+
+                resultado = datosDeseBD 
+                .Select(g => new ReporteComprasDTO
+                    {
+                        periodo_reportado = new DateTime(g.Año, g.Mes, 1),
+                        monto_acumulado = g.Monto   
+                    }
+                )
+                .OrderBy(v => v.periodo_reportado)
+                .ToList();
+            }
+
+            return resultado;
+        }
+
+        public List<ReporteComprasDTO> ReportesAgrupadosAnual(IQueryable<Compra> _compras)
+        {
+            List<ReporteComprasDTO> resultado = new List<ReporteComprasDTO>();
+
+            if (_compras != null)
+            {
+                var datosDesdeBD = _compras.GroupBy(c => new
+                    {
+                       Año = c.fecha_confirmacion.Value.Year
+                    }
+                )
+                .Select(g => new 
+                    {
+                        Año = g.Key.Año,
+                        Monto = g.Sum(v => v.monto_total)
+                    }
+                )
+                .OrderBy(v => v.Año)
+                .ToList();
+
+                resultado = datosDesdeBD
+                .Select(g => new ReporteComprasDTO
+                    {
+                        periodo_reportado = new DateTime(g.Año, 1, 1),
+                        monto_acumulado = g.Monto
+                    }
+                )
+                .OrderBy(v => v.periodo_reportado)
+                .ToList();
+            }
+
+            return resultado;
+        }
     }
 }

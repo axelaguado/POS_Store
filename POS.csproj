@@ -291,6 +291,8 @@
       <DependentUpon>ResumenCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="DTO\ClienteDTO.cs" />
+    <Compile Include="DTO\ReporteComprasDTO.cs" />
+    <Compile Include="DTO\ReporteGastoCategoriaDTO.cs" />
     <Compile Include="DTO\ReporteVentaCategoriaDTO.cs" />
     <Compile Include="DTO\ReporteVentaDTO.cs" />
     <Compile Include="DTO\ProductoDTO.cs" />

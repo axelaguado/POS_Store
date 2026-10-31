@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1.CapaEntidad;
+using System.Threading;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaDatos
 {
@@ -75,6 +77,14 @@ namespace WindowsFormsApp1.CapaDatos
                                     Where(g => g.periodo_gasto >= periodo_desde && g.periodo_gasto <= periodo_hasta && g.categoria.id_categoria == id_categoria).
                                     OrderBy(g => g.periodo_gasto).
                                     ToList();
+        }
+
+        public async Task<List<Gasto>> get_GastosFilter(DateTime periodo_desde, DateTime periodo_hasta, CancellationToken token)
+        {
+            return await context.Gastos.Include(g => g.categoria).
+                                    Where(g => g.periodo_gasto >= periodo_desde && g.periodo_gasto <= periodo_hasta).
+                                    OrderBy(g => g.periodo_gasto).
+                                    ToListAsync(token);
         }
 
         // ----------------------
