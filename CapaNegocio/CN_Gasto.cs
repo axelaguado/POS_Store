@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaDatos;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaNegocio
 {
@@ -57,85 +61,9 @@ namespace WindowsFormsApp1.CapaNegocio
             }
 
             return 0;
-        }
-         
-        public decimal MontoAcumuladoActivos(List<Gasto> gastos)
-        {
-            if (gastos == null)
-            {
-                return 0;
-            }
+        } 
 
-            return gastos.
-                        Where(g => g.estado_gasto == true).
-                        Sum(g => g.monto_gasto);
-        }
-
-        public Gasto GetGasto(int id_gasto)
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.buscarId(id_gasto);
-            }
-        }
-
-        public List<Gasto> AllGastos() 
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_AllGastos();
-            }
-        }
-
-        // Implementacion de filtrado de gastos
-
-        public List<Gasto> GetGastoFiltro(DateTime periodo) 
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_GastosFilter(periodo);
-            }
-        }
-
-        public List<Gasto> GetGastoFiltro(int id_categoria)
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_GastosFilter(id_categoria);
-            }
-        }
-
-        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, DateTime periodo_hasta)
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_GastosFilter(periodo_desde, periodo_hasta);
-            }
-        }
-
-        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, DateTime periodo_hasta, int id_categoria)
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_GastosFilter(periodo_desde, periodo_hasta, id_categoria);
-            }
-        }
-
-        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, int id_categoria)
-        {
-            using (var _context = new MiDbContext())
-            {
-                GastoDAO gastoDAO = new GastoDAO(_context);
-                return gastoDAO.get_GastosFilter(periodo_desde, id_categoria);
-            }
-        }
-
+        // Validaciones
         public Dictionary<string, string> ValidarGasto(Gasto _gasto) 
         {
             this.validacion.Clear();
@@ -222,5 +150,282 @@ namespace WindowsFormsApp1.CapaNegocio
             return this.validacion;
         }
 
+        // Consultas a la Bases de datos.
+        public decimal MontoAcumuladoActivos(List<Gasto> gastos)
+        {
+            if (gastos == null)
+            {
+                return 0;
+            }
+
+            return gastos.
+                        Where(g => g.estado_gasto == true).
+                        Sum(g => g.monto_gasto);
+        }
+
+        public Gasto GetGasto(int id_gasto)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.buscarId(id_gasto);
+            }
+        }
+
+        public List<Gasto> AllGastos()
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_AllGastos();
+            }
+        }
+
+        // Implementacion de filtrado de gastos
+        public List<Gasto> GetGastoFiltro(DateTime periodo)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_GastosFilter(periodo);
+            }
+        }
+
+        public List<Gasto> GetGastoFiltro(int id_categoria)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_GastosFilter(id_categoria);
+            }
+        }
+
+        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, DateTime periodo_hasta)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_GastosFilter(periodo_desde, periodo_hasta);
+            }
+        }
+
+        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, DateTime periodo_hasta, int id_categoria)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_GastosFilter(periodo_desde, periodo_hasta, id_categoria);
+            }
+        }
+
+        public async Task<List<Gasto>> GetGastoFiltro(DateTime periodo_desde, DateTime periodo_hasta, CancellationToken token)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return await gastoDAO.get_GastosFilter(periodo_desde, periodo_hasta, token);
+            }
+        }
+
+        public List<Gasto> GetGastoFiltro(DateTime periodo_desde, int id_categoria)
+        {
+            using (var _context = new MiDbContext())
+            {
+                GastoDAO gastoDAO = new GastoDAO(_context);
+                return gastoDAO.get_GastosFilter(periodo_desde, id_categoria);
+            }
+        }
+
+        // Implementamos los reportes
+        public List<ReporteGastoCategoriaDTO> GastosCategoriaPorMes(DateTime desde, DateTime hasta)
+        {
+            List<Gasto> gastos = new List<Gasto>();
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (desde < hasta)
+            {
+                gastos = this.GetGastoFiltro(desde, hasta);
+            }
+            else
+            {
+                gastos = this.AllGastos();
+            }
+
+            if (gastos.Count > 0) 
+            {
+                datos = this.ReportesAgrupadosMensual(gastos);                                  
+            }
+
+            return datos;
+        }
+
+        public List<ReporteGastoCategoriaDTO> GastosCategoriaPorTrimestre(DateTime desde, DateTime hasta)
+        {
+            List<Gasto> gastos = new List<Gasto>();
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (desde < hasta)
+            {
+                gastos = this.GetGastoFiltro(desde, hasta);
+            }
+            else
+            {
+                gastos = this.AllGastos();
+            }
+
+            if (gastos.Count > 0)
+            {
+                datos = this.ReportesAgrupadosTrimestral(gastos);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteGastoCategoriaDTO> GastosCategoriaPorSemestre(DateTime desde, DateTime hasta)
+        {
+            List<Gasto> gastos = new List<Gasto>();
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (desde < hasta)
+            {
+                gastos = this.GetGastoFiltro(desde, hasta);
+            }
+            else
+            {
+                gastos = this.AllGastos();
+            }
+
+            if (gastos.Count > 0)
+            {
+                datos = this.ReportesAgrupadosSemestral(gastos);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteGastoCategoriaDTO> GastosCategoriaPorAño(DateTime desde, DateTime hasta)
+        {
+            List<Gasto> gastos = new List<Gasto>();
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (desde < hasta)
+            {
+                gastos = this.GetGastoFiltro(desde, hasta);
+            }
+            else
+            {
+                gastos = this.AllGastos();
+            }
+
+            if (gastos.Count > 0)
+            {
+                datos = this.ReportesAgrupadosAnual(gastos);
+            }
+
+            return datos;
+        }
+
+        public List<ReporteGastoCategoriaDTO> ReportesAgrupadosMensual(List<Gasto> _gastos) 
+        {
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (_gastos != null && _gastos.Count > 0)
+            {
+                datos = _gastos.GroupBy(g => new
+                {
+                    Categoria = g.categoria.descripcion_categoria,
+                    Año = g.periodo_gasto.Year,
+                    Mes = g.periodo_gasto.Month
+                })
+                .Select(g => new ReporteGastoCategoriaDTO
+                    {
+                        nombre_categoria = g.Key.Categoria,
+                        periodo_reportado = new DateTime(g.Key.Año, g.Key.Mes, 1),
+                        gasto_acumulado = g.Sum(v => v.monto_gasto)
+                    }
+                )
+                .OrderBy(v => v.periodo_reportado)
+                .ToList();
+            }
+
+            return datos;
+        }
+        public List<ReporteGastoCategoriaDTO> ReportesAgrupadosTrimestral(List<Gasto> _gastos)
+        {
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (_gastos != null && _gastos.Count > 0)
+            {
+                datos = _gastos.GroupBy(g => new
+                    {
+                        Periodo = new DateTime(g.periodo_gasto.Year, ((g.periodo_gasto.Month - 1) / 3) * 3 + 1, 1),
+                        Categoria = g.categoria.descripcion_categoria
+                    }
+                )
+                .Select(g => new ReporteGastoCategoriaDTO
+                    {
+                        nombre_categoria = g.Key.Categoria,
+                        periodo_reportado = g.Key.Periodo,       // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
+                        gasto_acumulado = g.Sum(v => v.monto_gasto)
+                    }
+                )
+                .OrderBy(v => v.periodo_reportado)
+                .ToList();
+            }
+
+            return datos;    
+        }
+
+        public List<ReporteGastoCategoriaDTO> ReportesAgrupadosSemestral(List<Gasto> _gastos)
+        {
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (_gastos != null && _gastos.Count > 0)
+            {
+                datos = _gastos.GroupBy(g => new
+                {
+                    Periodo = new DateTime(g.periodo_gasto.Year, ((g.periodo_gasto.Month - 1) / 6) * 6 + 1, 1),
+                    Categoria = g.categoria.descripcion_categoria
+                }
+                )
+               .Select(g => new ReporteGastoCategoriaDTO
+               {
+                   nombre_categoria = g.Key.Categoria,
+                   periodo_reportado = g.Key.Periodo,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
+                   gasto_acumulado = g.Sum(v => v.monto_gasto)
+               }
+               )
+               .OrderBy(v => v.periodo_reportado)
+               .ToList();
+            }
+
+            return datos;
+        }   
+
+        public List<ReporteGastoCategoriaDTO> ReportesAgrupadosAnual(List<Gasto> _gastos)
+        {
+            List<ReporteGastoCategoriaDTO> datos = new List<ReporteGastoCategoriaDTO>();
+
+            if (_gastos != null && _gastos.Count > 0)
+            {
+                datos = _gastos.GroupBy(g => new
+                {
+                    Categoria = g.categoria.descripcion_categoria,
+                    Año = g.periodo_gasto.Year
+                }
+                 )
+                 .Select(g => new ReporteGastoCategoriaDTO
+                 {
+                     nombre_categoria = g.Key.Categoria,
+                     periodo_reportado = new DateTime(g.Key.Año, 1, 1),
+                     gasto_acumulado = g.Sum(v => v.monto_gasto)
+                 }
+                 )
+                 .OrderBy(v => v.periodo_reportado)
+                 .ToList();
+            }
+
+            return datos;
+        }
     }
 }
