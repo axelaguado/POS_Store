@@ -68,20 +68,20 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 int confirmacion = caja.CrearCaja(nuevaCaja);
 
-                if (confirmacion != 0) 
+                if (confirmacion != 0)
                 {
                     MessageBox.Show("Apertura de caja exitosa.", "Apertura.", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
-                else 
+                else
                 {
                     // Mensaje de error
                     this.mostrarErrores(caja.GetErrors());
                     MessageBox.Show("Ha ocurrido un error, no se pudo iniciar la apertura de Caja.", "Atencion.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }  
-            } 
+                }
+            }
             catch (ArgumentException ex)
             {
                 MessageBox.Show($"Error de validación: " + ex.Message, "Error.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -97,7 +97,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                             "\nError: " + error.ErrorMessage);
                     }
                 }
-            }  
+            }
         }
 
         public void mostrarErrores(Dictionary<string, string> validacion)

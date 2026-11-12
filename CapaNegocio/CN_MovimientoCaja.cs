@@ -26,8 +26,11 @@ namespace WindowsFormsApp1.CapaNegocio
                 _movimiento.estado_movimiento = true;
 
                 // Realizamos el seguimiento de la caja y del tipo existentes -- Como la Caja esta trayendo todo os chiches vamos a simplificarla
-                CajaDAO caja = new CajaDAO(_context);
-                caja.Attach_caja(_movimiento.caja);
+                _movimiento.id_caja = _movimiento.caja.id_caja;
+                _movimiento.caja = null;
+                
+                // CajaDAO caja = new CajaDAO(_context);
+                // caja.Attach_caja(_movimiento.caja);
 
                 TipoMovimientoDAO tipo = new TipoMovimientoDAO(_context);
                 tipo.Attach_tipo(_movimiento.tipo_movimiento);
@@ -49,8 +52,11 @@ namespace WindowsFormsApp1.CapaNegocio
                     CajaDAO caja = new CajaDAO(context);
                     caja.Attach_caja(_movimiento.caja);
 
-                    TipoMovimientoDAO tipo = new TipoMovimientoDAO(context);
-                    tipo.Attach_tipo(_movimiento.tipo_movimiento);
+
+                    _movimiento.id_tipo = _movimiento.tipo_movimiento.id_tipo;
+                    _movimiento.tipo_movimiento = null;
+                    // TipoMovimientoDAO tipo = new TipoMovimientoDAO(context);
+                    // tipo.Attach_tipo(_movimiento.tipo_movimiento);
 
                     movimiento.AddMoviento(_movimiento);
                      

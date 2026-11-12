@@ -234,7 +234,7 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 this.validacion.Add("TBMarcaProducto", "El campo Marca no puede estar vacio."); 
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(_marca, @"^[a-zA-Z0-9\s\-]+$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(_marca, @"^[a-zA-Z0-9\s/-]+$"))
             {
                 this.validacion.Add("TBMarcaProducto", "El campo Marca solo puede contener caracteres alfabeticos, numericos, espacios y guiones.");
             }
@@ -250,7 +250,7 @@ namespace WindowsFormsApp1.CapaNegocio
             {
                 this.validacion.Add("TBNombreProducto", "El campo Producto no puede estar vacio."); 
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(_nombre, @"^[a-zA-Z\s\-]+$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(_nombre, @"^[a-zA-Z\s-/]+$"))
             {
                 this.validacion.Add("TBNombreProducto", "El campo Producto solo puede contener caracteres alfabeticos, numericos, espacios y guiones.");
             }
@@ -264,7 +264,7 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (!string.IsNullOrEmpty(_descripcion))
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z0-9\s\-,.]+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(_descripcion, @"^[a-zA-Z0-9\s-,./]+$"))
                 {
                     this.validacion.Add("TBDescripcionProducto", "El campo Descripcion solo puede contener caracteres alfabeticos (.,-), numericos y espacios.");
                 }
@@ -335,7 +335,7 @@ namespace WindowsFormsApp1.CapaNegocio
         {
             if (!string.IsNullOrEmpty(_producto.sku_producto))
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(_producto.sku_producto, @"^[a-zA-Z0-9]+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(_producto.sku_producto, @"^[a-zA-Z0-9\s-]+$"))
                 {
                     this.validacion.Add("TBSkuProducto", "El campo Codigo solo puede contener caracteres alfabeticos y numericos.");
                 }

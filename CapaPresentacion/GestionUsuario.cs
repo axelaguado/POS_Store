@@ -15,7 +15,7 @@ namespace WindowsFormsApp1.CapaPresentacion
     {
         protected bool load_ErrorProvider;
 
-        public GestionUsuario( )
+        public GestionUsuario()
         {   
             InitializeComponent();
             cargarElementosCB();  

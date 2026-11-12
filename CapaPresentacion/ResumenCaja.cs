@@ -103,7 +103,14 @@ namespace WindowsFormsApp1.CapaPresentacion
                                       .SelectMany(v => v.pagos)
                                       .ToList();
 
-            this.LVEfectivo.Text = "$" + pagos.Where(p => p.metodo.descripcion_metodo == "Efectivo").Sum(p => p.importe_pago);
+            List<Movimiento_caja> vueltos = this.cajaResumen.movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Vuelto").ToList(); //.Sum(m => m.monto_movimiento);
+            List<Pago> pagos_efectivo = pagos.Where(p => p.metodo.descripcion_metodo == "Efectivo").ToList();
+
+            decimal pagos_totalEfectivo = pagos_efectivo.Sum(p => p.importe_pago);
+            decimal vueltos_total = vueltos.Sum(v => v.monto_movimiento);
+
+
+            this.LVEfectivo.Text = "$" + decimal.Round(pagos_totalEfectivo - vueltos_total, 2);
             this.LVTransferencia.Text = "$" + pagos.Where(p => p.metodo.descripcion_metodo == "Transferencia").Sum(p => p.importe_pago);
             this.LVDebito.Text = "$" + pagos.Where(p => p.metodo.descripcion_metodo == "Debito").Sum(p => p.importe_pago);
             this.LVCredito.Text = "$" + pagos.Where(p => p.metodo.descripcion_metodo == "Credito").Sum(p => p.importe_pago);
@@ -133,7 +140,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 indice = indice + 1;
 
-                if (indice > detalles.Count) return;
+                if (indice > 5) return;
 
                 string nombreControl = "LVTop" + indice;
 

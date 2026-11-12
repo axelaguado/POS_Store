@@ -1696,13 +1696,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         private void Reportes_Resize(object sender, EventArgs e)
         {
+            /*
             if (this.BTNVentasState) return;
 
             this.BTNVentasState = true;
 
-            string serie_name = this.chart1.Series.First().Name;
+            string serie_name = this.chart1.Series.Count > 0 ? this.chart1.Series.First().Name : string.Empty;
 
-            if (this.principal.WindowState == FormWindowState.Maximized)
+            if (this.principal.WindowState == FormWindowState.Maximized && !string.IsNullOrEmpty(serie_name))
             {
                 this.chart1.Series[serie_name].CustomProperties = "PixelPointWidth=30";
             }
@@ -1710,6 +1711,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 this.chart1.Series[serie_name].CustomProperties = "PixelPointWidth=8";
             }
+            */
         }
 
         // Tratamiento y eventos asociados al control principal de los reportes.

@@ -79,8 +79,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             List<Movimiento_caja> movimientos = this.cajaCierre.movimientos.ToList();
 
             // Movimientos.
-            this.Ingresos.Text = movimientos.Where(m => m.id_tipo == 2).Sum(m => m.monto_movimiento).ToString();
-            this.Egresos.Text = movimientos.Where(m => m.id_tipo == 1).Sum(m => m.monto_movimiento).ToString();
+            this.Ingresos.Text = movimientos.Where(m => m.id_tipo == 3).Sum(m => m.monto_movimiento).ToString();
+            this.Egresos.Text = movimientos.Where(m => m.id_tipo == 2).Sum(m => m.monto_movimiento).ToString();
 
             // Necesito un metodo para calcular movimientos. --> esto quedo, no se a que hace referencia.
         }
@@ -106,8 +106,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                                         .SelectMany(v => v.pagos)
                                         .ToList();
 
+            // Para podercalcular las compras en efectivo a los pagos debemos restarle los vueltos dados del mismo.
+            List<Movimiento_caja> movimientos = this.cajaCierre.movimientos.ToList();
+
+            decimal pagos_efectivo = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago);
+            decimal vueltos = movimientos.Where(m => m.id_tipo == 4).Sum(m => m.monto_movimiento);
+
             // Pagos.
-            this.Efectivo.Text = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago).ToString();
+            this.Efectivo.Text = decimal.Round((pagos_efectivo - vueltos), 2).ToString();
+
             this.Otros.Text = pagos.Where(p => p.id_metodo != 1).Sum(p => p.importe_pago).ToString();
 
             // Necesito un metodo para calcular pagos.
@@ -124,17 +131,19 @@ namespace WindowsFormsApp1.CapaPresentacion
                                         .ToList();
 
             List<Movimiento_caja> movimientos = this.cajaCierre.movimientos.ToList();
-                                        
+
+            decimal pagos_efectivo = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago);
+            decimal vueltos = movimientos.Where(m => m.id_tipo == 4).Sum(p => p.monto_movimiento);
 
             // Saldo.
             this.SaldoInicial.Text = this.cajaCierre.saldo_inicial.ToString();
 
             // Valores asociados
-            decimal pagosEfect = pagos.Where(p => p.id_metodo == 1).Sum(p => p.importe_pago);
-            decimal ingresosTotal = movimientos.Where(m => m.id_tipo == 2).Sum(p => p.monto_movimiento);
-            decimal egresosTotal = movimientos.Where(m => m.id_tipo == 1).Sum(p => p.monto_movimiento);
+            decimal ventas_efectivo = pagos_efectivo - vueltos;
+            decimal ingresosTotal = movimientos.Where(m => m.id_tipo == 3).Sum(p => p.monto_movimiento);
+            decimal egresosTotal = movimientos.Where(m => m.id_tipo == 2).Sum(p => p.monto_movimiento);
 
-            this.SaldoEsperado.Text = (this.cajaCierre.saldo_inicial + pagosEfect + ingresosTotal - egresosTotal).ToString();
+            this.SaldoEsperado.Text = (this.cajaCierre.saldo_inicial + ventas_efectivo + ingresosTotal - egresosTotal).ToString();
 
             this.LVDiferencia.Text = string.Empty;
 
