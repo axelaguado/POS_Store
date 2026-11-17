@@ -38,7 +38,7 @@ namespace WindowsFormsApp1.CapaDatos
 
         public async Task<List<Venta>> GetAllFilterVentasAsync(DateTime desde, DateTime hasta, CancellationToken token)
         {
-            return await context.Ventas.Include(v => v.detalles).Where(v => v.fecha_venta >= desde && v.fecha_venta <= hasta).ToListAsync(token);
+            return await context.Ventas.Include(v => v.detalles).Where(v => v.fecha_venta.Date >= desde.Date && v.fecha_venta.Date <= hasta.Date).ToListAsync(token);
         }
 
         // ----- Para manejar solamente empleados y ventas    

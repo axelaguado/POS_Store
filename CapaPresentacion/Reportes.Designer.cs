@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApp1.CapaPresentacion
+﻿using System.Drawing;
+
+namespace WindowsFormsApp1.CapaPresentacion
 {
     partial class Reportes
     {
@@ -28,41 +30,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend6 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend9 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend10 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend11 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.TLPGastosCompras = new System.Windows.Forms.TableLayoutPanel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.BTNGastosComprasAdelante = new System.Windows.Forms.Button();
-            this.BTNGastosComprasAtras = new System.Windows.Forms.Button();
-            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel17 = new System.Windows.Forms.Panel();
-            this.LMontoGastosEgresos = new System.Windows.Forms.Label();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel16 = new System.Windows.Forms.Panel();
-            this.LGestosComprasHasta = new System.Windows.Forms.Label();
-            this.BTNFiltrarGastosCompras = new System.Windows.Forms.Button();
-            this.CBMesHastaGastoCompra = new System.Windows.Forms.ComboBox();
-            this.CBAnioHastaGastoCompra = new System.Windows.Forms.ComboBox();
-            this.panel15 = new System.Windows.Forms.Panel();
-            this.LGestosComprasDesde = new System.Windows.Forms.Label();
-            this.CBMesDesdeGastoCompra = new System.Windows.Forms.ComboBox();
-            this.CBAnioDesdeGastoCompra = new System.Windows.Forms.ComboBox();
-            this.CBGranularidadGastosCompras = new System.Windows.Forms.ComboBox();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.LMes = new System.Windows.Forms.Label();
-            this.LAño = new System.Windows.Forms.Label();
+            this.TLPGanancias = new System.Windows.Forms.TableLayoutPanel();
+            this.panel18 = new System.Windows.Forms.Panel();
+            this.BTNAdelanteGanancias = new System.Windows.Forms.Button();
+            this.BTNAtrasGanancias = new System.Windows.Forms.Button();
+            this.chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel19 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel20 = new System.Windows.Forms.Panel();
+            this.LTituloGanancias = new System.Windows.Forms.Label();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel22 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BTNFIltrarGanancias = new System.Windows.Forms.Button();
+            this.CBHastaMesGanancias = new System.Windows.Forms.ComboBox();
+            this.CBHastaAñoGanancias = new System.Windows.Forms.ComboBox();
+            this.panel23 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.CBDesdeMesGanancias = new System.Windows.Forms.ComboBox();
+            this.CBDesdeAñoGanancias = new System.Windows.Forms.ComboBox();
+            this.CBGranularidadGanancias = new System.Windows.Forms.ComboBox();
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.BTNGanancias = new System.Windows.Forms.Button();
             this.BTNGastosCompras = new System.Windows.Forms.Button();
@@ -112,18 +115,43 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.LTitulo = new System.Windows.Forms.Label();
+            this.TLPGastosCompras = new System.Windows.Forms.TableLayoutPanel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.BTNGastosComprasAdelante = new System.Windows.Forms.Button();
+            this.BTNGastosComprasAtras = new System.Windows.Forms.Button();
+            this.chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel17 = new System.Windows.Forms.Panel();
+            this.LMontoGastosEgresos = new System.Windows.Forms.Label();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.LGestosComprasHasta = new System.Windows.Forms.Label();
+            this.BTNFiltrarGastosCompras = new System.Windows.Forms.Button();
+            this.CBMesHastaGastoCompra = new System.Windows.Forms.ComboBox();
+            this.CBAnioHastaGastoCompra = new System.Windows.Forms.ComboBox();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.LGestosComprasDesde = new System.Windows.Forms.Label();
+            this.CBMesDesdeGastoCompra = new System.Windows.Forms.ComboBox();
+            this.CBAnioDesdeGastoCompra = new System.Windows.Forms.ComboBox();
+            this.CBGranularidadGastosCompras = new System.Windows.Forms.ComboBox();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.LMes = new System.Windows.Forms.Label();
+            this.LAño = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.TLPGastosCompras.SuspendLayout();
-            this.panel12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
-            this.panel11.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.panel17.SuspendLayout();
-            this.panel13.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
-            this.panel16.SuspendLayout();
-            this.panel15.SuspendLayout();
-            this.panel14.SuspendLayout();
+            this.TLPGanancias.SuspendLayout();
+            this.panel18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).BeginInit();
+            this.panel19.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.panel20.SuspendLayout();
+            this.panel21.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
+            this.panel22.SuspendLayout();
+            this.panel23.SuspendLayout();
+            this.panel24.SuspendLayout();
             this.panel3.SuspendLayout();
             this.TLPVentas.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -140,6 +168,17 @@
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.TLPGastosCompras.SuspendLayout();
+            this.panel12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).BeginInit();
+            this.panel11.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.panel17.SuspendLayout();
+            this.panel13.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
+            this.panel16.SuspendLayout();
+            this.panel15.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -148,6 +187,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.Controls.Add(this.TLPGanancias);
             this.panel1.Controls.Add(this.TLPGastosCompras);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.TLPVentas);
@@ -158,362 +198,337 @@
             this.panel1.Size = new System.Drawing.Size(1162, 654);
             this.panel1.TabIndex = 0;
             // 
-            // TLPGastosCompras
+            // TLPGanancias
             // 
-            this.TLPGastosCompras.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.TLPGanancias.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TLPGastosCompras.ColumnCount = 2;
-            this.TLPGastosCompras.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPGastosCompras.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.TLPGastosCompras.Controls.Add(this.panel12, 0, 2);
-            this.TLPGastosCompras.Controls.Add(this.panel11, 0, 0);
-            this.TLPGastosCompras.Location = new System.Drawing.Point(10, 140);
-            this.TLPGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.TLPGastosCompras.Name = "TLPGastosCompras";
-            this.TLPGastosCompras.RowCount = 6;
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.TLPGastosCompras.Size = new System.Drawing.Size(1140, 500);
-            this.TLPGastosCompras.TabIndex = 7;
+            this.TLPGanancias.ColumnCount = 2;
+            this.TLPGanancias.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TLPGanancias.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TLPGanancias.Controls.Add(this.panel18, 0, 2);
+            this.TLPGanancias.Controls.Add(this.panel19, 0, 0);
+            this.TLPGanancias.Location = new System.Drawing.Point(14, 139);
+            this.TLPGanancias.Name = "TLPGanancias";
+            this.TLPGanancias.RowCount = 6;
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGanancias.Size = new System.Drawing.Size(1140, 498);
+            this.TLPGanancias.TabIndex = 8;
             // 
-            // panel12
+            // panel18
             // 
-            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel18.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel12.BackColor = System.Drawing.Color.Teal;
-            this.TLPGastosCompras.SetColumnSpan(this.panel12, 2);
-            this.panel12.Controls.Add(this.BTNGastosComprasAdelante);
-            this.panel12.Controls.Add(this.BTNGastosComprasAtras);
-            this.panel12.Controls.Add(this.chart3);
-            this.panel12.Location = new System.Drawing.Point(4, 171);
-            this.panel12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel12.Name = "panel12";
-            this.TLPGastosCompras.SetRowSpan(this.panel12, 4);
-            this.panel12.Size = new System.Drawing.Size(1132, 324);
-            this.panel12.TabIndex = 1;
+            this.panel18.BackColor = System.Drawing.Color.Teal;
+            this.TLPGanancias.SetColumnSpan(this.panel18, 2);
+            this.panel18.Controls.Add(this.BTNAdelanteGanancias);
+            this.panel18.Controls.Add(this.BTNAtrasGanancias);
+            this.panel18.Controls.Add(this.chart4);
+            this.panel18.Location = new System.Drawing.Point(3, 169);
+            this.panel18.Name = "panel18";
+            this.TLPGanancias.SetRowSpan(this.panel18, 4);
+            this.panel18.Size = new System.Drawing.Size(1134, 326);
+            this.panel18.TabIndex = 1;
             // 
-            // BTNGastosComprasAdelante
+            // BTNAdelanteGanancias
             // 
-            this.BTNGastosComprasAdelante.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.BTNGastosComprasAdelante.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTNGastosComprasAdelante.FlatAppearance.BorderSize = 0;
-            this.BTNGastosComprasAdelante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNGastosComprasAdelante.Location = new System.Drawing.Point(1103, 158);
-            this.BTNGastosComprasAdelante.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.BTNGastosComprasAdelante.Name = "BTNGastosComprasAdelante";
-            this.BTNGastosComprasAdelante.Size = new System.Drawing.Size(24, 35);
-            this.BTNGastosComprasAdelante.TabIndex = 3;
-            this.BTNGastosComprasAdelante.Text = ">>";
-            this.BTNGastosComprasAdelante.UseVisualStyleBackColor = false;
-            this.BTNGastosComprasAdelante.Click += new System.EventHandler(this.BTNGastosComprasAdelante_Click);
+            this.BTNAdelanteGanancias.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.BTNAdelanteGanancias.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNAdelanteGanancias.FlatAppearance.BorderSize = 0;
+            this.BTNAdelanteGanancias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNAdelanteGanancias.Location = new System.Drawing.Point(1115, 158);
+            this.BTNAdelanteGanancias.Name = "BTNAdelanteGanancias";
+            this.BTNAdelanteGanancias.Size = new System.Drawing.Size(16, 23);
+            this.BTNAdelanteGanancias.TabIndex = 3;
+            this.BTNAdelanteGanancias.Text = ">>";
+            this.BTNAdelanteGanancias.UseVisualStyleBackColor = false;
+            this.BTNAdelanteGanancias.Click += new System.EventHandler(this.BTNGananciasAdelante_Click);
             // 
-            // BTNGastosComprasAtras
+            // BTNAtrasGanancias
             // 
-            this.BTNGastosComprasAtras.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.BTNGastosComprasAtras.BackColor = System.Drawing.Color.DarkTurquoise;
-            this.BTNGastosComprasAtras.FlatAppearance.BorderSize = 0;
-            this.BTNGastosComprasAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNGastosComprasAtras.Location = new System.Drawing.Point(4, 158);
-            this.BTNGastosComprasAtras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.BTNGastosComprasAtras.Name = "BTNGastosComprasAtras";
-            this.BTNGastosComprasAtras.Size = new System.Drawing.Size(24, 35);
-            this.BTNGastosComprasAtras.TabIndex = 2;
-            this.BTNGastosComprasAtras.Text = "<<";
-            this.BTNGastosComprasAtras.UseVisualStyleBackColor = false;
-            this.BTNGastosComprasAtras.Click += new System.EventHandler(this.BTNGastosComprasAtras_Click);
+            this.BTNAtrasGanancias.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.BTNAtrasGanancias.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNAtrasGanancias.FlatAppearance.BorderSize = 0;
+            this.BTNAtrasGanancias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNAtrasGanancias.Location = new System.Drawing.Point(3, 158);
+            this.BTNAtrasGanancias.Name = "BTNAtrasGanancias";
+            this.BTNAtrasGanancias.Size = new System.Drawing.Size(16, 23);
+            this.BTNAtrasGanancias.TabIndex = 2;
+            this.BTNAtrasGanancias.Text = "<<";
+            this.BTNAtrasGanancias.UseVisualStyleBackColor = false;
+            this.BTNAtrasGanancias.Click += new System.EventHandler(this.BTNGananciasAtras_Click);
             // 
-            // chart3
+            // chart4
             // 
-            this.chart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.chart4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chart3.BackColor = System.Drawing.Color.Teal;
-            this.chart3.BorderlineColor = System.Drawing.SystemColors.Control;
-            legend4.Name = "Legend1";
-            this.chart3.Legends.Add(legend4);
-            this.chart3.Location = new System.Drawing.Point(33, 5);
-            this.chart3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chart3.Name = "chart3";
-            this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            this.chart3.Size = new System.Drawing.Size(1061, 314);
-            this.chart3.TabIndex = 0;
-            this.chart3.Text = "chart3";
+            this.chart4.BackColor = System.Drawing.Color.Teal;
+            this.chart4.BorderlineColor = System.Drawing.SystemColors.Control;
+            legend9.Name = "Legend1";
+            this.chart4.Legends.Add(legend9);
+            this.chart4.Location = new System.Drawing.Point(22, 3);
+            this.chart4.Name = "chart4";
+            this.chart4.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            this.chart4.Size = new System.Drawing.Size(1087, 315);
+            this.chart4.TabIndex = 0;
+            this.chart4.Text = "chart4";
             // 
-            // panel11
+            // panel19
             // 
-            this.panel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel19.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TLPGastosCompras.SetColumnSpan(this.panel11, 2);
-            this.panel11.Controls.Add(this.tableLayoutPanel3);
-            this.panel11.Location = new System.Drawing.Point(4, 5);
-            this.panel11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel11.Name = "panel11";
-            this.TLPGastosCompras.SetRowSpan(this.panel11, 2);
-            this.panel11.Size = new System.Drawing.Size(1132, 156);
-            this.panel11.TabIndex = 0;
+            this.TLPGanancias.SetColumnSpan(this.panel19, 2);
+            this.panel19.Controls.Add(this.tableLayoutPanel6);
+            this.panel19.Location = new System.Drawing.Point(3, 3);
+            this.panel19.Name = "panel19";
+            this.TLPGanancias.SetRowSpan(this.panel19, 2);
+            this.panel19.Size = new System.Drawing.Size(1134, 160);
+            this.panel19.TabIndex = 0;
             // 
-            // tableLayoutPanel3
+            // tableLayoutPanel6
             // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel6.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
-            this.tableLayoutPanel3.Controls.Add(this.panel17, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.panel13, 1, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 6);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52632F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.47368F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1123, 145);
-            this.tableLayoutPanel3.TabIndex = 12;
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel6.Controls.Add(this.panel20, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.panel21, 1, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(7, 5);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52632F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.47368F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1124, 161);
+            this.tableLayoutPanel6.TabIndex = 12;
             // 
-            // panel17
+            // panel20
             // 
-            this.panel17.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel20.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel17.Controls.Add(this.LMontoGastosEgresos);
-            this.panel17.Location = new System.Drawing.Point(4, 5);
-            this.panel17.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel17.Name = "panel17";
-            this.panel17.Size = new System.Drawing.Size(328, 63);
-            this.panel17.TabIndex = 1;
+            this.panel20.Controls.Add(this.LTituloGanancias);
+            this.panel20.Location = new System.Drawing.Point(3, 3);
+            this.panel20.Name = "panel20";
+            this.panel20.Size = new System.Drawing.Size(331, 75);
+            this.panel20.TabIndex = 1;
             // 
-            // LMontoGastosEgresos
+            // LTituloGanancias
             // 
-            this.LMontoGastosEgresos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.LTituloGanancias.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.LMontoGastosEgresos.AutoSize = true;
-            this.LMontoGastosEgresos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.LMontoGastosEgresos.ForeColor = System.Drawing.SystemColors.Control;
-            this.LMontoGastosEgresos.Location = new System.Drawing.Point(-3, 6);
-            this.LMontoGastosEgresos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LMontoGastosEgresos.Name = "LMontoGastosEgresos";
-            this.LMontoGastosEgresos.Size = new System.Drawing.Size(293, 25);
-            this.LMontoGastosEgresos.TabIndex = 0;
-            this.LMontoGastosEgresos.Text = "Monto de Gastos y Compras:";
+            this.LTituloGanancias.AutoSize = true;
+            this.LTituloGanancias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.LTituloGanancias.ForeColor = System.Drawing.SystemColors.Control;
+            this.LTituloGanancias.Location = new System.Drawing.Point(-2, 4);
+            this.LTituloGanancias.Name = "LTituloGanancias";
+            this.LTituloGanancias.Size = new System.Drawing.Size(218, 25);
+            this.LTituloGanancias.TabIndex = 0;
+            this.LTituloGanancias.Text = "Monto de Ganancias:";
             // 
-            // panel13
+            // panel21
             // 
-            this.panel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel21.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.SetColumnSpan(this.panel13, 2);
-            this.panel13.Controls.Add(this.tableLayoutPanel4);
-            this.panel13.Location = new System.Drawing.Point(340, 5);
-            this.panel13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel13.Name = "panel13";
-            this.tableLayoutPanel3.SetRowSpan(this.panel13, 2);
-            this.panel13.Size = new System.Drawing.Size(779, 135);
-            this.panel13.TabIndex = 0;
+            this.tableLayoutPanel6.SetColumnSpan(this.panel21, 2);
+            this.panel21.Controls.Add(this.tableLayoutPanel7);
+            this.panel21.Location = new System.Drawing.Point(340, 3);
+            this.panel21.Name = "panel21";
+            this.tableLayoutPanel6.SetRowSpan(this.panel21, 2);
+            this.panel21.Size = new System.Drawing.Size(781, 155);
+            this.panel21.TabIndex = 0;
             // 
-            // tableLayoutPanel4
+            // tableLayoutPanel7
             // 
-            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tableLayoutPanel7.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Controls.Add(this.panel16, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.panel15, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.panel14, 0, 0);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 5);
-            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(772, 130);
-            this.tableLayoutPanel4.TabIndex = 0;
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.panel22, 0, 2);
+            this.tableLayoutPanel7.Controls.Add(this.panel23, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.panel24, 0, 0);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 3);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 3;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(776, 172);
+            this.tableLayoutPanel7.TabIndex = 0;
             // 
-            // panel16
+            // panel22
             // 
-            this.panel16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel22.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.SetColumnSpan(this.panel16, 2);
-            this.panel16.Controls.Add(this.LGestosComprasHasta);
-            this.panel16.Controls.Add(this.BTNFiltrarGastosCompras);
-            this.panel16.Controls.Add(this.CBMesHastaGastoCompra);
-            this.panel16.Controls.Add(this.CBAnioHastaGastoCompra);
-            this.panel16.Location = new System.Drawing.Point(4, 91);
-            this.panel16.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel16.Name = "panel16";
-            this.panel16.Size = new System.Drawing.Size(764, 34);
-            this.panel16.TabIndex = 2;
+            this.tableLayoutPanel7.SetColumnSpan(this.panel22, 2);
+            this.panel22.Controls.Add(this.label9);
+            this.panel22.Controls.Add(this.BTNFIltrarGanancias);
+            this.panel22.Controls.Add(this.CBHastaMesGanancias);
+            this.panel22.Controls.Add(this.CBHastaAñoGanancias);
+            this.panel22.Location = new System.Drawing.Point(3, 117);
+            this.panel22.Name = "panel22";
+            this.panel22.Size = new System.Drawing.Size(770, 52);
+            this.panel22.TabIndex = 2;
             // 
-            // LGestosComprasHasta
+            // label9
             // 
-            this.LGestosComprasHasta.AutoSize = true;
-            this.LGestosComprasHasta.ForeColor = System.Drawing.SystemColors.Control;
-            this.LGestosComprasHasta.Location = new System.Drawing.Point(4, 12);
-            this.LGestosComprasHasta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LGestosComprasHasta.Name = "LGestosComprasHasta";
-            this.LGestosComprasHasta.Size = new System.Drawing.Size(56, 20);
-            this.LGestosComprasHasta.TabIndex = 2;
-            this.LGestosComprasHasta.Text = "Hasta:";
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.SystemColors.Control;
+            this.label9.Location = new System.Drawing.Point(3, 8);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(56, 20);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Hasta:";
             // 
-            // BTNFiltrarGastosCompras
+            // BTNFIltrarGanancias
             // 
-            this.BTNFiltrarGastosCompras.BackColor = System.Drawing.Color.Gray;
-            this.BTNFiltrarGastosCompras.FlatAppearance.BorderSize = 0;
-            this.BTNFiltrarGastosCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BTNFiltrarGastosCompras.ForeColor = System.Drawing.SystemColors.Control;
-            this.BTNFiltrarGastosCompras.Location = new System.Drawing.Point(345, 3);
-            this.BTNFiltrarGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.BTNFiltrarGastosCompras.Name = "BTNFiltrarGastosCompras";
-            this.BTNFiltrarGastosCompras.Size = new System.Drawing.Size(136, 35);
-            this.BTNFiltrarGastosCompras.TabIndex = 9;
-            this.BTNFiltrarGastosCompras.Text = "Filtrar";
-            this.BTNFiltrarGastosCompras.UseVisualStyleBackColor = false;
-            this.BTNFiltrarGastosCompras.Click += new System.EventHandler(this.BTNFiltrarGastosCompras_Click);
+            this.BTNFIltrarGanancias.BackColor = System.Drawing.Color.Gray;
+            this.BTNFIltrarGanancias.FlatAppearance.BorderSize = 0;
+            this.BTNFIltrarGanancias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNFIltrarGanancias.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTNFIltrarGanancias.Location = new System.Drawing.Point(400, 3);
+            this.BTNFIltrarGanancias.Name = "BTNFIltrarGanancias";
+            this.BTNFIltrarGanancias.Size = new System.Drawing.Size(147, 32);
+            this.BTNFIltrarGanancias.TabIndex = 9;
+            this.BTNFIltrarGanancias.Text = "Filtrar";
+            this.BTNFIltrarGanancias.UseVisualStyleBackColor = false;
+            this.BTNFIltrarGanancias.Click += new System.EventHandler(this.BTNFiltrarGanancias_Click);
             // 
-            // CBMesHastaGastoCompra
+            // CBHastaMesGanancias
             // 
-            this.CBMesHastaGastoCompra.FormattingEnabled = true;
-            this.CBMesHastaGastoCompra.Location = new System.Drawing.Point(75, 5);
-            this.CBMesHastaGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBMesHastaGastoCompra.Name = "CBMesHastaGastoCompra";
-            this.CBMesHastaGastoCompra.Size = new System.Drawing.Size(134, 28);
-            this.CBMesHastaGastoCompra.TabIndex = 3;
+            this.CBHastaMesGanancias.FormattingEnabled = true;
+            this.CBHastaMesGanancias.Location = new System.Drawing.Point(77, 3);
+            this.CBHastaMesGanancias.Name = "CBHastaMesGanancias";
+            this.CBHastaMesGanancias.Size = new System.Drawing.Size(149, 28);
+            this.CBHastaMesGanancias.TabIndex = 3;
             // 
-            // CBAnioHastaGastoCompra
+            // CBHastaAñoGanancias
             // 
-            this.CBAnioHastaGastoCompra.FormattingEnabled = true;
-            this.CBAnioHastaGastoCompra.IntegralHeight = false;
-            this.CBAnioHastaGastoCompra.Location = new System.Drawing.Point(220, 5);
-            this.CBAnioHastaGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBAnioHastaGastoCompra.MaxDropDownItems = 6;
-            this.CBAnioHastaGastoCompra.Name = "CBAnioHastaGastoCompra";
-            this.CBAnioHastaGastoCompra.Size = new System.Drawing.Size(96, 28);
-            this.CBAnioHastaGastoCompra.TabIndex = 5;
+            this.CBHastaAñoGanancias.FormattingEnabled = true;
+            this.CBHastaAñoGanancias.IntegralHeight = false;
+            this.CBHastaAñoGanancias.Location = new System.Drawing.Point(249, 3);
+            this.CBHastaAñoGanancias.MaxDropDownItems = 6;
+            this.CBHastaAñoGanancias.Name = "CBHastaAñoGanancias";
+            this.CBHastaAñoGanancias.Size = new System.Drawing.Size(118, 28);
+            this.CBHastaAñoGanancias.TabIndex = 5;
             // 
-            // panel15
+            // panel23
             // 
-            this.panel15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel23.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.SetColumnSpan(this.panel15, 2);
-            this.panel15.Controls.Add(this.LGestosComprasDesde);
-            this.panel15.Controls.Add(this.CBMesDesdeGastoCompra);
-            this.panel15.Controls.Add(this.CBAnioDesdeGastoCompra);
-            this.panel15.Controls.Add(this.CBGranularidadGastosCompras);
-            this.panel15.Location = new System.Drawing.Point(4, 48);
-            this.panel15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(764, 33);
-            this.panel15.TabIndex = 1;
+            this.tableLayoutPanel7.SetColumnSpan(this.panel23, 2);
+            this.panel23.Controls.Add(this.label10);
+            this.panel23.Controls.Add(this.CBDesdeMesGanancias);
+            this.panel23.Controls.Add(this.CBDesdeAñoGanancias);
+            this.panel23.Controls.Add(this.CBGranularidadGanancias);
+            this.panel23.Location = new System.Drawing.Point(3, 60);
+            this.panel23.Name = "panel23";
+            this.panel23.Size = new System.Drawing.Size(770, 51);
+            this.panel23.TabIndex = 1;
             // 
-            // LGestosComprasDesde
+            // label10
             // 
-            this.LGestosComprasDesde.AutoSize = true;
-            this.LGestosComprasDesde.ForeColor = System.Drawing.SystemColors.Control;
-            this.LGestosComprasDesde.Location = new System.Drawing.Point(4, 12);
-            this.LGestosComprasDesde.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LGestosComprasDesde.Name = "LGestosComprasDesde";
-            this.LGestosComprasDesde.Size = new System.Drawing.Size(60, 20);
-            this.LGestosComprasDesde.TabIndex = 1;
-            this.LGestosComprasDesde.Text = "Desde:";
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.Control;
+            this.label10.Location = new System.Drawing.Point(3, 11);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(60, 20);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Desde:";
             // 
-            // CBMesDesdeGastoCompra
+            // CBDesdeMesGanancias
             // 
-            this.CBMesDesdeGastoCompra.FormattingEnabled = true;
-            this.CBMesDesdeGastoCompra.Location = new System.Drawing.Point(75, 5);
-            this.CBMesDesdeGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBMesDesdeGastoCompra.Name = "CBMesDesdeGastoCompra";
-            this.CBMesDesdeGastoCompra.Size = new System.Drawing.Size(134, 28);
-            this.CBMesDesdeGastoCompra.TabIndex = 4;
+            this.CBDesdeMesGanancias.FormattingEnabled = true;
+            this.CBDesdeMesGanancias.Location = new System.Drawing.Point(77, 11);
+            this.CBDesdeMesGanancias.Name = "CBDesdeMesGanancias";
+            this.CBDesdeMesGanancias.Size = new System.Drawing.Size(149, 28);
+            this.CBDesdeMesGanancias.TabIndex = 4;
             // 
-            // CBAnioDesdeGastoCompra
+            // CBDesdeAñoGanancias
             // 
-            this.CBAnioDesdeGastoCompra.FormattingEnabled = true;
-            this.CBAnioDesdeGastoCompra.IntegralHeight = false;
-            this.CBAnioDesdeGastoCompra.Location = new System.Drawing.Point(220, 5);
-            this.CBAnioDesdeGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBAnioDesdeGastoCompra.MaxDropDownItems = 6;
-            this.CBAnioDesdeGastoCompra.Name = "CBAnioDesdeGastoCompra";
-            this.CBAnioDesdeGastoCompra.Size = new System.Drawing.Size(96, 28);
-            this.CBAnioDesdeGastoCompra.TabIndex = 6;
+            this.CBDesdeAñoGanancias.FormattingEnabled = true;
+            this.CBDesdeAñoGanancias.IntegralHeight = false;
+            this.CBDesdeAñoGanancias.Location = new System.Drawing.Point(249, 11);
+            this.CBDesdeAñoGanancias.MaxDropDownItems = 6;
+            this.CBDesdeAñoGanancias.Name = "CBDesdeAñoGanancias";
+            this.CBDesdeAñoGanancias.Size = new System.Drawing.Size(118, 28);
+            this.CBDesdeAñoGanancias.TabIndex = 6;
             // 
-            // CBGranularidadGastosCompras
+            // CBGranularidadGanancias
             // 
-            this.CBGranularidadGastosCompras.BackColor = System.Drawing.SystemColors.Control;
-            this.CBGranularidadGastosCompras.FormattingEnabled = true;
-            this.CBGranularidadGastosCompras.Items.AddRange(new object[] {
+            this.CBGranularidadGanancias.BackColor = System.Drawing.SystemColors.Control;
+            this.CBGranularidadGanancias.FormattingEnabled = true;
+            this.CBGranularidadGanancias.Items.AddRange(new object[] {
             "Mensual",
             "Trimestral",
             "Semestral",
             "Anual"});
-            this.CBGranularidadGastosCompras.Location = new System.Drawing.Point(345, 5);
-            this.CBGranularidadGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBGranularidadGastosCompras.Name = "CBGranularidadGastosCompras";
-            this.CBGranularidadGastosCompras.Size = new System.Drawing.Size(134, 28);
-            this.CBGranularidadGastosCompras.TabIndex = 10;
+            this.CBGranularidadGanancias.Location = new System.Drawing.Point(396, 11);
+            this.CBGranularidadGanancias.Name = "CBGranularidadGanancias";
+            this.CBGranularidadGanancias.Size = new System.Drawing.Size(151, 28);
+            this.CBGranularidadGanancias.TabIndex = 10;
             // 
-            // panel14
+            // panel24
             // 
-            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel24.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel4.SetColumnSpan(this.panel14, 2);
-            this.panel14.Controls.Add(this.label7);
-            this.panel14.Controls.Add(this.LMes);
-            this.panel14.Controls.Add(this.LAño);
-            this.panel14.Location = new System.Drawing.Point(4, 5);
-            this.panel14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(764, 33);
-            this.panel14.TabIndex = 0;
+            this.tableLayoutPanel7.SetColumnSpan(this.panel24, 2);
+            this.panel24.Controls.Add(this.label11);
+            this.panel24.Controls.Add(this.label12);
+            this.panel24.Controls.Add(this.label13);
+            this.panel24.Location = new System.Drawing.Point(3, 3);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(770, 51);
+            this.panel24.TabIndex = 0;
             // 
-            // label7
+            // label11
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.ForeColor = System.Drawing.SystemColors.Control;
-            this.label7.Location = new System.Drawing.Point(340, 13);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(107, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Acumular por:";
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.SystemColors.Control;
+            this.label11.Location = new System.Drawing.Point(392, 31);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(107, 20);
+            this.label11.TabIndex = 11;
+            this.label11.Text = "Acumular por:";
             // 
-            // LMes
+            // label12
             // 
-            this.LMes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LMes.AutoSize = true;
-            this.LMes.ForeColor = System.Drawing.SystemColors.Control;
-            this.LMes.Location = new System.Drawing.Point(70, 13);
-            this.LMes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LMes.Name = "LMes";
-            this.LMes.Size = new System.Drawing.Size(39, 20);
-            this.LMes.TabIndex = 7;
-            this.LMes.Text = "Mes";
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.Control;
+            this.label12.Location = new System.Drawing.Point(73, 31);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(39, 20);
+            this.label12.TabIndex = 7;
+            this.label12.Text = "Mes";
             // 
-            // LAño
+            // label13
             // 
-            this.LAño.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LAño.AutoSize = true;
-            this.LAño.ForeColor = System.Drawing.SystemColors.Control;
-            this.LAño.Location = new System.Drawing.Point(216, 13);
-            this.LAño.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.LAño.Name = "LAño";
-            this.LAño.Size = new System.Drawing.Size(38, 20);
-            this.LAño.TabIndex = 8;
-            this.LAño.Text = "Año";
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.SystemColors.Control;
+            this.label13.Location = new System.Drawing.Point(245, 31);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(38, 20);
+            this.label13.TabIndex = 8;
+            this.label13.Text = "Año";
             // 
             // panel3
             // 
@@ -661,12 +676,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.BackColor = System.Drawing.Color.Teal;
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
-            this.chart1.Location = new System.Drawing.Point(33, 5);
-            this.chart1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend10.Name = "Legend1";
+            this.chart1.Legends.Add(legend10);
+            this.chart1.Location = new System.Drawing.Point(22, 3);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             this.chart1.PaletteCustomColors = new System.Drawing.Color[] {
@@ -770,20 +784,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart2.BackColor = System.Drawing.Color.Teal;
             this.chart2.BorderlineColor = System.Drawing.Color.Teal;
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
-            legend6.Name = "Legend1";
-            this.chart2.Legends.Add(legend6);
-            this.chart2.Location = new System.Drawing.Point(4, 5);
-            this.chart2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            chartArea6.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea6);
+            legend11.Name = "Legend1";
+            this.chart2.Legends.Add(legend11);
+            this.chart2.Location = new System.Drawing.Point(3, 3);
             this.chart2.Name = "chart2";
             this.chart2.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.SeaGreen;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chart2.Series.Add(series2);
-            this.chart2.Size = new System.Drawing.Size(553, 231);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart2.Series.Add(series3);
+            this.chart2.Size = new System.Drawing.Size(554, 233);
             this.chart2.TabIndex = 6;
             this.chart2.Text = "chart2";
             this.chart2.Visible = false;
@@ -802,14 +815,14 @@
             this.DGVVentas.BackgroundColor = System.Drawing.Color.PaleTurquoise;
             this.DGVVentas.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.DGVVentas.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.DarkTurquoise;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.DGVVentas.ColumnHeadersHeight = 21;
             this.DGVVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DGVVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -822,21 +835,21 @@
             this.DGVVentas.Location = new System.Drawing.Point(4, 5);
             this.DGVVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DGVVentas.Name = "DGVVentas";
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.DGVVentas.RowHeadersVisible = false;
             this.DGVVentas.RowHeadersWidth = 62;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            this.DGVVentas.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            this.DGVVentas.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.DGVVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVVentas.Size = new System.Drawing.Size(553, 231);
             this.DGVVentas.TabIndex = 5;
@@ -1203,6 +1216,362 @@
             this.LTitulo.TabIndex = 0;
             this.LTitulo.Text = "Reportes";
             // 
+            // TLPGastosCompras
+            // 
+            this.TLPGastosCompras.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TLPGastosCompras.ColumnCount = 2;
+            this.TLPGastosCompras.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TLPGastosCompras.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TLPGastosCompras.Controls.Add(this.panel12, 0, 2);
+            this.TLPGastosCompras.Controls.Add(this.panel11, 0, 0);
+            this.TLPGastosCompras.Location = new System.Drawing.Point(14, 140);
+            this.TLPGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TLPGastosCompras.Name = "TLPGastosCompras";
+            this.TLPGastosCompras.RowCount = 6;
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 17.14286F));
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.91837F));
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGastosCompras.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.TLPGastosCompras.Size = new System.Drawing.Size(1136, 497);
+            this.TLPGastosCompras.TabIndex = 7;
+            // 
+            // panel12
+            // 
+            this.panel12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel12.BackColor = System.Drawing.Color.Teal;
+            this.TLPGastosCompras.SetColumnSpan(this.panel12, 2);
+            this.panel12.Controls.Add(this.BTNGastosComprasAdelante);
+            this.panel12.Controls.Add(this.BTNGastosComprasAtras);
+            this.panel12.Controls.Add(this.chart3);
+            this.panel12.Location = new System.Drawing.Point(4, 171);
+            this.panel12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel12.Name = "panel12";
+            this.TLPGastosCompras.SetRowSpan(this.panel12, 4);
+            this.panel12.Size = new System.Drawing.Size(1128, 321);
+            this.panel12.TabIndex = 1;
+            // 
+            // BTNGastosComprasAdelante
+            // 
+            this.BTNGastosComprasAdelante.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.BTNGastosComprasAdelante.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNGastosComprasAdelante.FlatAppearance.BorderSize = 0;
+            this.BTNGastosComprasAdelante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNGastosComprasAdelante.Location = new System.Drawing.Point(1099, 156);
+            this.BTNGastosComprasAdelante.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTNGastosComprasAdelante.Name = "BTNGastosComprasAdelante";
+            this.BTNGastosComprasAdelante.Size = new System.Drawing.Size(24, 35);
+            this.BTNGastosComprasAdelante.TabIndex = 3;
+            this.BTNGastosComprasAdelante.Text = ">>";
+            this.BTNGastosComprasAdelante.UseVisualStyleBackColor = false;
+            this.BTNGastosComprasAdelante.Click += new System.EventHandler(this.BTNGastosComprasAdelante_Click);
+            // 
+            // BTNGastosComprasAtras
+            // 
+            this.BTNGastosComprasAtras.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.BTNGastosComprasAtras.BackColor = System.Drawing.Color.DarkTurquoise;
+            this.BTNGastosComprasAtras.FlatAppearance.BorderSize = 0;
+            this.BTNGastosComprasAtras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNGastosComprasAtras.Location = new System.Drawing.Point(4, 156);
+            this.BTNGastosComprasAtras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTNGastosComprasAtras.Name = "BTNGastosComprasAtras";
+            this.BTNGastosComprasAtras.Size = new System.Drawing.Size(24, 35);
+            this.BTNGastosComprasAtras.TabIndex = 2;
+            this.BTNGastosComprasAtras.Text = "<<";
+            this.BTNGastosComprasAtras.UseVisualStyleBackColor = false;
+            this.BTNGastosComprasAtras.Click += new System.EventHandler(this.BTNGastosComprasAtras_Click);
+            // 
+            // chart3
+            // 
+            this.chart3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart3.BackColor = System.Drawing.Color.Teal;
+            this.chart3.BorderlineColor = System.Drawing.SystemColors.Control;
+            legend12.Name = "Legend1";
+            this.chart3.Legends.Add(legend12);
+            this.chart3.Location = new System.Drawing.Point(22, 3);
+            this.chart3.Name = "chart3";
+            this.chart3.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
+            this.chart3.Size = new System.Drawing.Size(1057, 311);
+            this.chart3.TabIndex = 0;
+            this.chart3.Text = "chart3";
+            // 
+            // panel11
+            // 
+            this.panel11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TLPGastosCompras.SetColumnSpan(this.panel11, 2);
+            this.panel11.Controls.Add(this.tableLayoutPanel3);
+            this.panel11.Location = new System.Drawing.Point(4, 5);
+            this.panel11.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel11.Name = "panel11";
+            this.TLPGastosCompras.SetRowSpan(this.panel11, 2);
+            this.panel11.Size = new System.Drawing.Size(1128, 156);
+            this.panel11.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 3;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel3.Controls.Add(this.panel17, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.panel13, 1, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(4, 6);
+            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.52632F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.47368F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1119, 145);
+            this.tableLayoutPanel3.TabIndex = 12;
+            // 
+            // panel17
+            // 
+            this.panel17.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel17.Controls.Add(this.LMontoGastosEgresos);
+            this.panel17.Location = new System.Drawing.Point(4, 5);
+            this.panel17.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel17.Name = "panel17";
+            this.panel17.Size = new System.Drawing.Size(327, 63);
+            this.panel17.TabIndex = 1;
+            // 
+            // LMontoGastosEgresos
+            // 
+            this.LMontoGastosEgresos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LMontoGastosEgresos.AutoSize = true;
+            this.LMontoGastosEgresos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
+            this.LMontoGastosEgresos.ForeColor = System.Drawing.SystemColors.Control;
+            this.LMontoGastosEgresos.Location = new System.Drawing.Point(-3, 6);
+            this.LMontoGastosEgresos.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LMontoGastosEgresos.Name = "LMontoGastosEgresos";
+            this.LMontoGastosEgresos.Size = new System.Drawing.Size(293, 25);
+            this.LMontoGastosEgresos.TabIndex = 0;
+            this.LMontoGastosEgresos.Text = "Monto de Gastos y Compras:";
+            // 
+            // panel13
+            // 
+            this.panel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.SetColumnSpan(this.panel13, 2);
+            this.panel13.Controls.Add(this.tableLayoutPanel4);
+            this.panel13.Location = new System.Drawing.Point(339, 5);
+            this.panel13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel13.Name = "panel13";
+            this.tableLayoutPanel3.SetRowSpan(this.panel13, 2);
+            this.panel13.Size = new System.Drawing.Size(776, 135);
+            this.panel13.TabIndex = 0;
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel4.Controls.Add(this.panel16, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.panel15, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.panel14, 0, 0);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 5);
+            this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 3;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(769, 130);
+            this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // panel16
+            // 
+            this.panel16.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.SetColumnSpan(this.panel16, 2);
+            this.panel16.Controls.Add(this.LGestosComprasHasta);
+            this.panel16.Controls.Add(this.BTNFiltrarGastosCompras);
+            this.panel16.Controls.Add(this.CBMesHastaGastoCompra);
+            this.panel16.Controls.Add(this.CBAnioHastaGastoCompra);
+            this.panel16.Location = new System.Drawing.Point(4, 91);
+            this.panel16.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(761, 34);
+            this.panel16.TabIndex = 2;
+            // 
+            // LGestosComprasHasta
+            // 
+            this.LGestosComprasHasta.AutoSize = true;
+            this.LGestosComprasHasta.ForeColor = System.Drawing.SystemColors.Control;
+            this.LGestosComprasHasta.Location = new System.Drawing.Point(4, 12);
+            this.LGestosComprasHasta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LGestosComprasHasta.Name = "LGestosComprasHasta";
+            this.LGestosComprasHasta.Size = new System.Drawing.Size(56, 20);
+            this.LGestosComprasHasta.TabIndex = 2;
+            this.LGestosComprasHasta.Text = "Hasta:";
+            // 
+            // BTNFiltrarGastosCompras
+            // 
+            this.BTNFiltrarGastosCompras.BackColor = System.Drawing.Color.Gray;
+            this.BTNFiltrarGastosCompras.FlatAppearance.BorderSize = 0;
+            this.BTNFiltrarGastosCompras.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BTNFiltrarGastosCompras.ForeColor = System.Drawing.SystemColors.Control;
+            this.BTNFiltrarGastosCompras.Location = new System.Drawing.Point(376, 1);
+            this.BTNFiltrarGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTNFiltrarGastosCompras.Name = "BTNFiltrarGastosCompras";
+            this.BTNFiltrarGastosCompras.Size = new System.Drawing.Size(136, 35);
+            this.BTNFiltrarGastosCompras.TabIndex = 9;
+            this.BTNFiltrarGastosCompras.Text = "Filtrar";
+            this.BTNFiltrarGastosCompras.UseVisualStyleBackColor = false;
+            this.BTNFiltrarGastosCompras.Click += new System.EventHandler(this.BTNFiltrarGastosCompras_Click);
+            // 
+            // CBMesHastaGastoCompra
+            // 
+            this.CBMesHastaGastoCompra.FormattingEnabled = true;
+            this.CBMesHastaGastoCompra.Location = new System.Drawing.Point(75, 5);
+            this.CBMesHastaGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBMesHastaGastoCompra.Name = "CBMesHastaGastoCompra";
+            this.CBMesHastaGastoCompra.Size = new System.Drawing.Size(134, 28);
+            this.CBMesHastaGastoCompra.TabIndex = 3;
+            // 
+            // CBAnioHastaGastoCompra
+            // 
+            this.CBAnioHastaGastoCompra.FormattingEnabled = true;
+            this.CBAnioHastaGastoCompra.IntegralHeight = false;
+            this.CBAnioHastaGastoCompra.Location = new System.Drawing.Point(229, 5);
+            this.CBAnioHastaGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBAnioHastaGastoCompra.MaxDropDownItems = 6;
+            this.CBAnioHastaGastoCompra.Name = "CBAnioHastaGastoCompra";
+            this.CBAnioHastaGastoCompra.Size = new System.Drawing.Size(116, 28);
+            this.CBAnioHastaGastoCompra.TabIndex = 5;
+            // 
+            // panel15
+            // 
+            this.panel15.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.SetColumnSpan(this.panel15, 2);
+            this.panel15.Controls.Add(this.LGestosComprasDesde);
+            this.panel15.Controls.Add(this.CBMesDesdeGastoCompra);
+            this.panel15.Controls.Add(this.CBAnioDesdeGastoCompra);
+            this.panel15.Controls.Add(this.CBGranularidadGastosCompras);
+            this.panel15.Location = new System.Drawing.Point(4, 48);
+            this.panel15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(761, 33);
+            this.panel15.TabIndex = 1;
+            // 
+            // LGestosComprasDesde
+            // 
+            this.LGestosComprasDesde.AutoSize = true;
+            this.LGestosComprasDesde.ForeColor = System.Drawing.SystemColors.Control;
+            this.LGestosComprasDesde.Location = new System.Drawing.Point(4, 12);
+            this.LGestosComprasDesde.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LGestosComprasDesde.Name = "LGestosComprasDesde";
+            this.LGestosComprasDesde.Size = new System.Drawing.Size(60, 20);
+            this.LGestosComprasDesde.TabIndex = 1;
+            this.LGestosComprasDesde.Text = "Desde:";
+            // 
+            // CBMesDesdeGastoCompra
+            // 
+            this.CBMesDesdeGastoCompra.FormattingEnabled = true;
+            this.CBMesDesdeGastoCompra.Location = new System.Drawing.Point(75, 5);
+            this.CBMesDesdeGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBMesDesdeGastoCompra.Name = "CBMesDesdeGastoCompra";
+            this.CBMesDesdeGastoCompra.Size = new System.Drawing.Size(134, 28);
+            this.CBMesDesdeGastoCompra.TabIndex = 4;
+            // 
+            // CBAnioDesdeGastoCompra
+            // 
+            this.CBAnioDesdeGastoCompra.FormattingEnabled = true;
+            this.CBAnioDesdeGastoCompra.IntegralHeight = false;
+            this.CBAnioDesdeGastoCompra.Location = new System.Drawing.Point(229, 5);
+            this.CBAnioDesdeGastoCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBAnioDesdeGastoCompra.MaxDropDownItems = 6;
+            this.CBAnioDesdeGastoCompra.Name = "CBAnioDesdeGastoCompra";
+            this.CBAnioDesdeGastoCompra.Size = new System.Drawing.Size(116, 28);
+            this.CBAnioDesdeGastoCompra.TabIndex = 6;
+            // 
+            // CBGranularidadGastosCompras
+            // 
+            this.CBGranularidadGastosCompras.BackColor = System.Drawing.SystemColors.Control;
+            this.CBGranularidadGastosCompras.FormattingEnabled = true;
+            this.CBGranularidadGastosCompras.Items.AddRange(new object[] {
+            "Mensual",
+            "Trimestral",
+            "Semestral",
+            "Anual"});
+            this.CBGranularidadGastosCompras.Location = new System.Drawing.Point(376, 5);
+            this.CBGranularidadGastosCompras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBGranularidadGastosCompras.Name = "CBGranularidadGastosCompras";
+            this.CBGranularidadGastosCompras.Size = new System.Drawing.Size(134, 28);
+            this.CBGranularidadGastosCompras.TabIndex = 10;
+            // 
+            // panel14
+            // 
+            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel4.SetColumnSpan(this.panel14, 2);
+            this.panel14.Controls.Add(this.label7);
+            this.panel14.Controls.Add(this.LMes);
+            this.panel14.Controls.Add(this.LAño);
+            this.panel14.Location = new System.Drawing.Point(4, 5);
+            this.panel14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(761, 33);
+            this.panel14.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.Control;
+            this.label7.Location = new System.Drawing.Point(372, 13);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 20);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Acumular por:";
+            // 
+            // LMes
+            // 
+            this.LMes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LMes.AutoSize = true;
+            this.LMes.ForeColor = System.Drawing.SystemColors.Control;
+            this.LMes.Location = new System.Drawing.Point(70, 13);
+            this.LMes.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LMes.Name = "LMes";
+            this.LMes.Size = new System.Drawing.Size(39, 20);
+            this.LMes.TabIndex = 7;
+            this.LMes.Text = "Mes";
+            // 
+            // LAño
+            // 
+            this.LAño.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LAño.AutoSize = true;
+            this.LAño.ForeColor = System.Drawing.SystemColors.Control;
+            this.LAño.Location = new System.Drawing.Point(225, 13);
+            this.LAño.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LAño.Name = "LAño";
+            this.LAño.Size = new System.Drawing.Size(38, 20);
+            this.LAño.TabIndex = 8;
+            this.LAño.Text = "Año";
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -1216,21 +1585,21 @@
             this.Text = "Reportes";
             this.Resize += new System.EventHandler(this.Reportes_Resize);
             this.panel1.ResumeLayout(false);
-            this.TLPGastosCompras.ResumeLayout(false);
-            this.panel12.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
-            this.panel11.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.panel17.ResumeLayout(false);
-            this.panel17.PerformLayout();
-            this.panel13.ResumeLayout(false);
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.panel16.ResumeLayout(false);
-            this.panel16.PerformLayout();
-            this.panel15.ResumeLayout(false);
-            this.panel15.PerformLayout();
-            this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
+            this.TLPGanancias.ResumeLayout(false);
+            this.panel18.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart4)).EndInit();
+            this.panel19.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.panel20.ResumeLayout(false);
+            this.panel20.PerformLayout();
+            this.panel21.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.panel22.ResumeLayout(false);
+            this.panel22.PerformLayout();
+            this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.TLPVentas.ResumeLayout(false);
@@ -1254,6 +1623,21 @@
             this.panel9.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.TLPGastosCompras.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart3)).EndInit();
+            this.panel11.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.panel17.ResumeLayout(false);
+            this.panel17.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.panel16.ResumeLayout(false);
+            this.panel16.PerformLayout();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1335,5 +1719,30 @@
         private System.Windows.Forms.Panel panel17;
         private System.Windows.Forms.Button BTNGastosComprasAdelante;
         private System.Windows.Forms.Button BTNGastosComprasAtras;
+        private System.Windows.Forms.TableLayoutPanel TLPGanancias;
+        private System.Windows.Forms.Panel panel18;
+        private System.Windows.Forms.Button BTNAdelanteGanancias;
+        private System.Windows.Forms.Button BTNAtrasGanancias;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private System.Windows.Forms.Panel panel19;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Panel panel20;
+        private System.Windows.Forms.Label LTituloGanancias;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button BTNFIltrarGanancias;
+        private System.Windows.Forms.ComboBox CBHastaMesGanancias;
+        private System.Windows.Forms.ComboBox CBHastaAñoGanancias;
+        private System.Windows.Forms.Panel panel23;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox CBDesdeMesGanancias;
+        private System.Windows.Forms.ComboBox CBDesdeAñoGanancias;
+        private System.Windows.Forms.ComboBox CBGranularidadGanancias;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
     }
 }

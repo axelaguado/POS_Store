@@ -48,12 +48,28 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.principal = _principal;
             this.cts = new CancellationTokenSource();
             this.DisplayVentasPanel();
-            this.InitDailyChart(DateTime.Now, DateTime.Now);
+            this.InitDailyChart(DateTime.Now.Date, DateTime.Now.Date);
             this.LoadInit();
         }
 
+        /*
+         * 
+         * Seccion Panel Reportes Ventas:
+         * . Filtro por periodo. 
+         * . Chart1 --> Carga de ventas por periodo
+         * . Tables (Ventas / Empleado, Ventas / Productos, Ventas / Categorias)
+        */
+
         public void InitDailyChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date) 
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
             List<ReporteVentaDTO> ventas = venta.VentasPorDia(desde, hasta);
@@ -65,8 +81,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 this.SetUpChart1(serie, ventas);
 
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
                 // Cargamos el PEmpleadoPeriodoHasta 
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
                 this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddDays(1);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
@@ -96,21 +116,32 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void InitWeeklyChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date)
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
-
             List<ReporteVentaDTO> ventas = venta.VentasPorSemana(desde, hasta);
 
             if (ventas != null && ventas.Count > 0)
             {
-                // Definimos la cantidad de periodos acumulados que se muestra
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
-                this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddDays(7).AddMilliseconds(-1);
-
                 // Definimos la serie.
                 string serie = "Ventas Semanales";
 
                 this.SetUpChart1(serie, ventas);
+
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
+                // Cargamos el PEmpleadoPeriodoHasta 
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
+                this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddDays(7).AddMilliseconds(-1);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
                 DateTime fechaFin = this.PEmpleadoPeriodoDesde;
@@ -135,6 +166,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void InitMonthlyChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date)
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
             List<ReporteVentaDTO> ventas = venta.VentasPorMes(desde, hasta);
@@ -146,7 +185,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 this.SetUpChart1(serie, ventas);
 
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
+                // Cargamos el PEmpleadoPeriodoHasta 
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
                 this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddMonths(1).AddMilliseconds(-1);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
@@ -169,6 +213,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void InitQuarterlyChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date)
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
             List<ReporteVentaDTO> ventas = venta.VentasPorTrimestre(desde, hasta);
@@ -180,7 +232,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 this.SetUpChart1(serie, ventas);
 
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
+                // Cargamos el PEmpleadoPeriodoHasta 
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
                 this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddMonths(3);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
@@ -203,6 +260,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void InitSemiannualChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date)
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
             List<ReporteVentaDTO> ventas = venta.VentasPorSemestre(desde, hasta);
@@ -214,7 +279,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 this.SetUpChart1(serie, ventas);
 
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
+                // Cargamos el PEmpleadoPeriodoHasta 
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
                 this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddMonths(6);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
@@ -237,6 +307,14 @@ namespace WindowsFormsApp1.CapaPresentacion
 
         public void InitAnnualChart(DateTime desde, DateTime hasta)
         {
+            // Tenemos que aplicar un correcto tratamiento para el caso en que las fechas recibidas no sean iguales, lo que significa que se van a filtar las ventas 
+            // Por lo tanto la fecha hasta debe ocupar todo su periodo correspondiente o la consulta nos corta ese ultimo tramo
+            // Preguntamos si son distintos debido a que si son iguales trae todas las ventas.
+            if (desde.Date != hasta.Date)
+            {
+                hasta = hasta.AddDays(1).AddMilliseconds(-1);
+            }
+
             // Traemos los datos que necesitamos.
             CN_Venta venta = new CN_Venta();
             List<ReporteVentaDTO> ventas = venta.VentasPorAño(desde, hasta);
@@ -248,7 +326,12 @@ namespace WindowsFormsApp1.CapaPresentacion
 
                 this.SetUpChart1(serie, ventas);
 
-                this.PEmpleadoPeriodoDesde = ventas.Last().fecha_acumulada;
+                // Seteamos el panel Ticjet con el reporte mas reciente
+                ReporteVentaDTO last_reporte = ventas.Last();
+                this.LoadPanelTicket(last_reporte);
+
+                // Cargamos el PEmpleadoPeriodoHasta 
+                this.PEmpleadoPeriodoDesde = last_reporte.fecha_acumulada;
                 this.PEmpleadoPeriodoHasta = this.PEmpleadoPeriodoDesde.AddYears(1);
 
                 // DateTime fechaFin = ventas.Last().fecha_acumulada;
@@ -526,13 +609,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                     this.LoadChartVentaCategoria(ventasCategoria);
                 }
 
-                // Cargamos el Panel Tickets.
+                /* 
+                // Cargamos el Panel Tickets. Me parece que deberia estar asociado directamente a los InitChart
                 List<Venta> all_ventasPorPeriodo = venta.AllFilterVentas(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta);
 
                 if (all_ventasPorPeriodo != null && all_ventasPorPeriodo.Count > 0)
                 {
                     this.LoadPanelTicket(all_ventasPorPeriodo);
                 }
+                */ 
             }
             catch (TaskCanceledException)
             {
@@ -600,8 +685,8 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void LoadInit()
         {
             CN_Venta venta = new CN_Venta();
-            List<ReporteVentaEmpleadoDTO> ventas_agrupadas = venta.VentasDiarioEmpleado(DateTime.Now, DateTime.Now);
-            List<Venta> all_ventas = venta.AllFilterVentas(DateTime.Now, DateTime.Now);
+            List<ReporteVentaEmpleadoDTO> ventas_agrupadas = venta.VentasDiarioEmpleado(DateTime.Now.Date, DateTime.Now.Date);
+            // List<Venta> all_ventas = venta.AllFilterVentas(DateTime.Now, DateTime.Now);
 
             // Configuramos el boton incialmente.
             this.BTNVentasPor_SetUpState(this.BTNVentasPorEmpleado);
@@ -611,16 +696,19 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             this.BTNEmpleadoActive = true;
 
+
             if (ventas_agrupadas != null && ventas_agrupadas.Count > 0)
             {
                 this.LoadPeriodoDesdeHasta(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta.AddMilliseconds(-1));
                 this.LoadTableEmpleado(ventas_agrupadas.Where(v => v.periodo == this.PEmpleadoPeriodoDesde).ToList());
             }
 
+            /*
             if (all_ventas != null && all_ventas.Count > 0)
             {
                 this.LoadPanelTicket(all_ventas);
             }
+            */
         }
 
         // ----- Empleado y Ventas
@@ -681,9 +769,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             {
                 List<ReporteVentaProductoDTO> reporte = new List<ReporteVentaProductoDTO>();
                 this.DGVVentas.DataSource = this.LoadTable(reporte);
-
-                this.LVTotalTickets.Text = "-";
-                this.LVMontoPromedioTicket.Text = "-";
+                 
                 return;
             }
 
@@ -692,6 +778,9 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.DGVVentas.Rows.Clear();
 
             this.DGVVentas.DataSource = this.LoadTable(lista);
+
+            this.LVTotalTickets.Text = "-";
+            this.LVMontoPromedioTicket.Text = "-";
         }
 
         // ----- Eventos botones Chart -----
@@ -825,7 +914,6 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (this.PEmpleadoPeriodoDesde == null)
             {
-                MessageBox.Show("Y que hijodbeuu");
                 return;
             }
 
@@ -1089,6 +1177,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     this.LoadChartVentaCategoria(ventasCategoria);
                 }
 
+                /*
                 // Cargamos el Panel Tickets.
                 List<Venta> all_ventasPorPeriodo = venta.AllFilterVentas(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta);
 
@@ -1096,6 +1185,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     this.LoadPanelTicket(all_ventasPorPeriodo);
                 }
+                */
 
             }
             catch (TaskCanceledException)
@@ -1376,6 +1466,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                     this.LoadChartVentaCategoria(ventasCategoria);
                 }
 
+                /*
                 // Cargamos el Panel Tickets.
                 List<Venta> all_ventasPorPeriodo = venta.AllFilterVentas(this.PEmpleadoPeriodoDesde, this.PEmpleadoPeriodoHasta);
 
@@ -1383,6 +1474,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 {
                     this.LoadPanelTicket(all_ventasPorPeriodo);
                 }
+                */
             }
             catch (TaskCanceledException)
             {
@@ -1638,11 +1730,15 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         }
+
         public void LoadChartVentaCategoria(List<ReporteVentaCategoriaDTO> reporte)
         {
             string serie = "Ventas por Categoria";
 
             this.SetUpChart2(serie, reporte);
+
+            this.LVTotalTickets.Text = "-";
+            this.LVMontoPromedioTicket.Text = "-";
         }
 
         public void SetUpChart2(string serie_name, List<ReporteVentaCategoriaDTO> reportes)
@@ -1679,6 +1775,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.chart2.Series[serie_name].ChartType = SeriesChartType.Pie;
         }
 
+        public void LoadPanelTicket(ReporteVentaDTO reporte)
+        {
+            if (reporte == null)
+            {
+                this.LVTotalTickets.Text = "-";
+                this.LVMontoPromedioTicket.Text = "-";
+            }
+            else
+            {
+                decimal monto_acumulado = reporte.monto_acumulado;
+                this.LVTotalTickets.Text = "$" + monto_acumulado;
+                this.LVMontoPromedioTicket.Text = "$" + decimal.Round((monto_acumulado / reporte.cantidad_ventas), 2);
+            }
+        }
+
+        /*
         public void LoadPanelTicket(List<Venta> _ventas)
         {
             if (_ventas == null || _ventas.Count == 0)
@@ -1692,7 +1804,8 @@ namespace WindowsFormsApp1.CapaPresentacion
                 this.LVTotalTickets.Text = "$" + monto_acumulado;
                 this.LVMontoPromedioTicket.Text = "$" + decimal.Round((monto_acumulado / _ventas.Count), 2);
             }
-        }
+        } 
+        */
 
         private void Reportes_Resize(object sender, EventArgs e)
         {
@@ -1730,12 +1843,14 @@ namespace WindowsFormsApp1.CapaPresentacion
         private void BTNGanancias_Click(object sender, EventArgs e)
         {
             this.DisplayGananciasPanel();
+            this.LoadInitTLPGanancias();
+            this.LoadCBAñoGanancias();
         }
 
         public void DisplayVentasPanel()
         {
             this.TLPGastosCompras.Visible = false;
-            // this.TLPGanancia.Visible = false;
+            this.TLPGanancias.Visible = false;
 
             this.TLPVentas.Visible = true;
         }
@@ -1743,7 +1858,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         public void DisplayGastosComprasPanel()
         {
             this.TLPVentas.Visible = false;
-            // this.TLPGanancia.Visible = false;
+            this.TLPGanancias.Visible = false;
 
             this.TLPGastosCompras.Visible = true;
         }
@@ -1753,7 +1868,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.TLPVentas.Visible = false;
             this.TLPGastosCompras.Visible = false;
 
-            // this.TLPGanancia.Visible = true;
+            this.TLPGanancias.Visible = true;
         }
 
         // Cargamos los CB para el Panel Gastos / Compras
@@ -2305,5 +2420,496 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.CBMesDesdeGastoCompra.SelectedIndex = DateTime.Now.Date.Month - 1;
             this.CBMesHastaGastoCompra.SelectedIndex = DateTime.Now.Date.Month - 1;
         }
+
+        // Metodos asociados con el Reporte Ganancias.
+        public void InitMonthlyChartGanancias(DateTime desde, DateTime hasta)
+        {
+            // Traemos los datos que necesitamos. -- Aca vamos a consultar los gastos y las compras
+            CN_Gasto gasto = new CN_Gasto();
+            CN_Compra compra = new CN_Compra();
+            CN_Venta venta = new CN_Venta();
+
+            List<ReporteVentaDTO> reporte_ventas = venta.VentasPorMes(desde, hasta);
+            List<ReporteGastoCategoriaDTO> reportes_gastos = gasto.GastosCategoriaPorMes(desde, hasta);
+            List<ReporteComprasDTO> reportes_compras = compra.ComprasConfirmadasPorMes(desde, hasta);
+
+            bool exist_ventas = reporte_ventas != null && reporte_ventas.Count > 0? true : false;
+            bool exist_gastos = reportes_gastos != null && reportes_gastos.Count > 0? true : false;
+            bool exist_compras = reportes_compras != null && reportes_compras.Count > 0? true : false;
+
+
+            if (exist_ventas || exist_compras || exist_gastos)//(reportes_gastos != null && reportes_gastos.Count > 0) || (reportes_compras != null && reportes_compras.Count > 0))
+            {
+                // Definimos la serie.
+                this.SetUpChartGanancias(reporte_ventas, reportes_gastos, reportes_compras);
+
+                DateTime fechaFin = this.PEmpleadoPeriodoDesde.AddMonths(1);
+                DateTime fechaInit = fechaFin.AddMonths(-6);
+
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.ToOADate();
+
+                // Debemos rellenar los Points que no tengan periodo acumulado
+
+                this.chart4.ChartAreas[0].AxisX.LabelStyle.Format = "MM/yy";
+
+                this.chart4.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Months;
+                this.chart4.ChartAreas[0].AxisX.Interval = 1;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void InitQuarterlyChartGanancias(DateTime desde, DateTime hasta)
+        {
+            // Traemos los datos que necesitamos. -- Aca vamos a consultar los gastos y las compras
+            CN_Gasto gasto = new CN_Gasto();
+            CN_Compra compra = new CN_Compra();
+            CN_Venta venta = new CN_Venta();
+
+            List<ReporteVentaDTO> reporte_ventas = venta.VentasPorTrimestre(desde, hasta);
+            List<ReporteGastoCategoriaDTO> reportes_gastos = gasto.GastosCategoriaPorTrimestre(desde, hasta);
+            List<ReporteComprasDTO> reportes_compras = compra.ComprasConfirmadasPorTrimestre(desde, hasta);
+
+            bool exist_ventas = reporte_ventas != null && reporte_ventas.Count > 0 ? true : false;
+            bool exist_gastos = reportes_gastos != null && reportes_gastos.Count > 0 ? true : false;
+            bool exist_compras = reportes_compras != null && reportes_compras.Count > 0 ? true : false;
+
+            if (exist_ventas || exist_compras || exist_gastos)//(reportes_gastos != null && reportes_gastos.Count > 0) || (reportes_compras != null && reportes_compras.Count > 0))
+            {
+                // Definimos la serie.
+                this.SetUpChartGanancias(reporte_ventas, reportes_gastos, reportes_compras);
+
+                // DateTime fechaFin = ventas.Last().fecha_acumulada;
+                DateTime fechaFin = this.PEmpleadoPeriodoDesde.AddMonths(3);
+                DateTime fechaInit = fechaFin.AddMonths(-18);
+
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.ToOADate();
+
+                this.chart4.ChartAreas[0].AxisX.LabelStyle.Format = "MM-yyyy";
+
+                this.chart4.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Months;
+                this.chart4.ChartAreas[0].AxisX.Interval = 3;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void InitSemiannualChartGanancias(DateTime desde, DateTime hasta)
+        {
+            // Traemos los datos que necesitamos. -- Aca vamos a consultar los gastos y las compras
+            CN_Gasto gasto = new CN_Gasto();
+            CN_Compra compra = new CN_Compra();
+            CN_Venta venta = new CN_Venta();
+
+            List<ReporteVentaDTO> reporte_ventas = venta.VentasPorSemestre(desde, hasta);
+            List<ReporteGastoCategoriaDTO> reportes_gastos = gasto.GastosCategoriaPorSemestre(desde, hasta);
+            List<ReporteComprasDTO> reportes_compras = compra.ComprasConfirmadasPorSemestre(desde, hasta);
+
+            bool exist_ventas = reporte_ventas != null && reporte_ventas.Count > 0 ? true : false;
+            bool exist_gastos = reportes_gastos != null && reportes_gastos.Count > 0 ? true : false;
+            bool exist_compras = reportes_compras != null && reportes_compras.Count > 0 ? true : false;
+
+            if (exist_ventas || exist_compras || exist_gastos)//(reportes_gastos != null && reportes_gastos.Count > 0) || (reportes_compras != null && reportes_compras.Count > 0))
+            {
+                // Definimos la serie.
+                this.SetUpChartGanancias(reporte_ventas, reportes_gastos, reportes_compras);
+
+                DateTime fechaFin = this.PEmpleadoPeriodoDesde.AddMonths(6);
+                DateTime fechaInit = fechaFin.AddMonths(-36);
+
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.ToOADate();
+
+                this.chart4.ChartAreas[0].AxisX.LabelStyle.Format = "MM-yyyy";
+
+                this.chart4.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Months;
+                this.chart4.ChartAreas[0].AxisX.Interval = 6;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void InitAnnualChartGanancias(DateTime desde, DateTime hasta)
+        {
+            // Traemos los datos que necesitamos. -- Aca vamos a consultar los gastos y las compras
+            CN_Gasto gasto = new CN_Gasto();
+            CN_Compra compra = new CN_Compra();
+            CN_Venta venta = new CN_Venta();
+
+            List<ReporteVentaDTO> reporte_ventas = venta.VentasPorAño(desde, hasta);
+            List<ReporteGastoCategoriaDTO> reportes_gastos = gasto.GastosCategoriaPorAño(desde, hasta);
+            List<ReporteComprasDTO> reportes_compras = compra.ComprasConfirmadasPorAño(desde, hasta);
+
+            bool exist_ventas = reporte_ventas != null && reporte_ventas.Count > 0 ? true : false;
+            bool exist_gastos = reportes_gastos != null && reportes_gastos.Count > 0 ? true : false;
+            bool exist_compras = reportes_compras != null && reportes_compras.Count > 0 ? true : false;
+
+            if (exist_ventas || exist_compras || exist_gastos)//(reportes_gastos != null && reportes_gastos.Count > 0) || (reportes_compras != null && reportes_compras.Count > 0))
+            {
+                // Definimos la serie.
+                this.SetUpChartGanancias(reporte_ventas, reportes_gastos, reportes_compras);
+
+                DateTime fechaFin = this.PEmpleadoPeriodoDesde.AddYears(1);
+                DateTime fechaInit = fechaFin.AddYears(-6);
+
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.ToOADate();
+
+                this.chart4.ChartAreas[0].AxisX.LabelStyle.Format = "yyyy";
+
+                this.chart4.ChartAreas[0].AxisX.IntervalType = DateTimeIntervalType.Years;
+                this.chart4.ChartAreas[0].AxisX.Interval = 1;
+            }
+            else
+            {
+                MessageBox.Show("No se han encontrado elementos que cumplan con la condicion de filtrado.", "Busqueda sin resultados.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        public void SetUpChartGanancias(List<ReporteVentaDTO> reportes_ventas, List<ReporteGastoCategoriaDTO> reportes_gastos, List<ReporteComprasDTO> reportes_compras)
+        {
+            DateTime fechaInit = new DateTime();
+            DateTime fechaFin = new DateTime();
+
+            this.chart4.Series.Clear();
+            this.chart4.ChartAreas.Clear();
+
+            bool exist_ventas = reportes_ventas != null && reportes_ventas.Count > 0? true : false;
+            bool exist_gastos = reportes_gastos != null && reportes_gastos.Count > 0 ? true : false;
+            bool exist_compras = reportes_compras != null && reportes_compras.Count > 0 ? true : false;
+
+            // Aca realizamos el manejo correspondiente de la fecha.
+            DateTime old_ventaReportada = exist_ventas ? reportes_ventas.First().fecha_acumulada : DateTime.Now;
+            DateTime old_gastoReportada = exist_gastos ? reportes_gastos.First().periodo_reportado : DateTime.Now;
+            DateTime old_compraReportada = exist_compras ? reportes_compras.First().periodo_reportado : DateTime.Now;
+
+            DateTime current_ventaReportada = exist_ventas ? reportes_ventas.Last().fecha_acumulada : DateTime.Now;
+            DateTime current_gastoReportada = exist_gastos ? reportes_gastos.Last().periodo_reportado : DateTime.Now;
+            DateTime current_compraReportada = exist_compras ? reportes_compras.Last().periodo_reportado : DateTime.Now;
+
+            List<DateTime> periodos_reportados = new List<DateTime>();
+            periodos_reportados.Add(old_ventaReportada);
+            periodos_reportados.Add(old_gastoReportada);
+            periodos_reportados.Add(old_compraReportada);
+            periodos_reportados.Add(current_ventaReportada);
+            periodos_reportados.Add(current_gastoReportada);
+            periodos_reportados.Add(current_compraReportada);
+
+            this.PEmpleadoPeriodoDesde = periodos_reportados != null && periodos_reportados.Count > 0 ? periodos_reportados.Max() : DateTime.Now;
+            fechaFin = this.PEmpleadoPeriodoDesde;
+            fechaInit = periodos_reportados != null && periodos_reportados.Count > 0 ? periodos_reportados.Min() : DateTime.Now;
+             
+            // ChartArea --> Es el área donde se dibuja el gráfico. Pensalo como el "lienzo" o "panel" donde se representan una o varias series.
+            this.chart4.ChartAreas.Add("ChartArea4");
+
+            // Iniciamos Series para Compras y todas las categorias de gasto.
+            this.chart4.Series.Add("Ganancias Netas");// this.chart3.Series.Add("Compras");
+            this.chart4.Series["Ganancias Netas"].XValueType = ChartValueType.Date;
+            this.chart4.Series["Ganancias Netas"].YValueType = ChartValueType.Double;
+            this.chart4.Series["Ganancias Netas"].ChartType = SeriesChartType.Line;
+
+            this.chart4.Series["Ganancias Netas"].Font = new System.Drawing.Font("Arial", 6.5f, System.Drawing.FontStyle.Bold);
+            this.chart4.Series["Ganancias Netas"].LabelForeColor = System.Drawing.Color.Black;
+
+            int intervalo = this.SetIntervaloGanancias();
+              
+            // Esto obviamente tiene que rajar de aca;
+            for (DateTime i = fechaInit.Date; i <= fechaFin; i = i.AddMonths(intervalo))
+            {
+                var reportePeriodo_ventas = exist_ventas? reportes_ventas.Where(rg => rg.fecha_acumulada == i) : null;
+                var reportePeriodo_compras = exist_compras? reportes_compras.Where(rg => rg.periodo_reportado == i) : null;
+                var reportePeriodo_gastos = exist_gastos? reportes_gastos.Where(rg => rg.periodo_reportado == i) : null;
+
+                bool exist_reporteVentas = reportePeriodo_ventas != null && reportePeriodo_ventas.Count() > 0? true : false;
+                bool exist_reporteCompras = reportePeriodo_compras != null && reportePeriodo_compras.Count() > 0 ? true : false;
+                bool exist_reporteGastos = reportePeriodo_gastos != null && reportePeriodo_gastos.Count() > 0 ? true : false;
+
+                // Aca deberiamos tener una clase que realice estas operaciones y que simplemente nos devuelva la ganancia.
+                decimal acum_ventas = exist_reporteVentas ? reportePeriodo_ventas.First().monto_acumulado : 0;
+                decimal acum_compras = exist_reporteCompras ? reportePeriodo_compras.First().monto_acumulado : 0;
+                decimal acum_gastos = exist_reporteGastos ? reportePeriodo_gastos.Sum(rg => rg.gasto_acumulado) : 0;
+
+                decimal ganancia_neta = acum_ventas - acum_compras - acum_gastos;
+
+                // Ahora ya son netas
+                this.chart4.Series["Ganancias Netas"].Points.AddXY(
+                        i.Date,
+                        ganancia_neta
+                );
+            }
+              
+            // 1. ACTIVAMOS EL MARCADOR (Elegimos una forma: Círculo, Cuadrado, Diamante, etc.)
+            this.chart4.Series["Ganancias Netas"].MarkerStyle = MarkerStyle.Circle;
+
+            // 2. CONFIGURAMOS EL TAMAÑO (Un tamaño de entre 6 y 10 píxeles es el ideal)
+            this.chart4.Series["Ganancias Netas"].MarkerSize = 8;
+
+            // 3. COLOR DEL MARCADOR (Podés usar un color que contraste con la línea)
+            this.chart4.Series["Ganancias Netas"].MarkerColor = Color.Black;
+            this.chart4.Series["Ganancias Netas"].MarkerBorderColor = Color.Red;
+            this.chart4.Series["Ganancias Netas"].MarkerBorderWidth = 1;
+
+            // Opcional: El grosor de la línea para que acompañe bien al marcador
+            this.chart4.Series["Ganancias Netas"].BorderWidth = 3;
+            this.chart4.Series["Ganancias Netas"].BorderColor = Color.Red;
+            this.chart4.Series["Ganancias Netas"].Color = Color.Red;
+
+            this.chart4.ChartAreas[0].AxisX.IntervalAutoMode = IntervalAutoMode.FixedCount;
+
+            // Seteamos el color de las etiquetas que se utilzan en los ejes.
+            this.chart4.ChartAreas[0].AxisX.LabelStyle.ForeColor = Color.White;
+            this.chart4.ChartAreas[0].AxisY.LabelStyle.ForeColor = Color.White;
+
+            // Determinamos que el eje Y va mostrar el double segun la CultureInfo determinada en la maquina donde se ejecuta la aplicacion --> $ en ARG
+            this.chart4.ChartAreas[0].AxisY.LabelStyle.Format = "C0";
+            this.chart4.ChartAreas[0].AxisY.Interval = double.NaN;
+
+            // Configuramos como se ve el ChartArea
+            this.chart4.ChartAreas[0].BackColor = Color.PaleTurquoise;
+            this.chart4.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.Gray;
+            this.chart4.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.Gray;
+        }
+
+        private void BTNFiltrarGanancias_Click(object sender, EventArgs e)
+        {                
+            DateTime fechaFin = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Maximum);
+            DateTime fechaInit = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Minimum);
+
+            int.TryParse(this.CBDesdeAñoGanancias.Text, out int añoDesde);
+            int.TryParse(this.CBHastaAñoGanancias.Text, out int añoHasta);
+
+            int mesDesde = this.CBDesdeMesGanancias.SelectedIndex + 1;
+            int mesHasta = this.CBHastaMesGanancias.SelectedIndex + 1;
+
+            DateTime fechaDesde = new DateTime(añoDesde, mesDesde, 1);
+            DateTime fechaHasta = new DateTime(añoHasta, mesHasta, 1);
+
+            bool filterActive = fechaDesde < fechaHasta;
+
+            if (filterActive)
+            {
+                fechaHasta = fechaHasta.AddMonths(1).AddMilliseconds(-1);
+            }
+
+            if (fechaDesde == fechaHasta && this.CBGranularidadGanancias.SelectedIndex < 0) return;
+
+            switch (this.CBGranularidadGanancias.Text)
+            {
+                case "":  
+                    this.InitMonthlyChartGanancias(fechaDesde, fechaHasta);
+                    break;
+
+                case "Mensual":
+                    this.InitMonthlyChartGanancias(fechaDesde, fechaHasta);
+                    break;
+
+                case "Trimestral":
+                    this.InitQuarterlyChartGanancias(fechaDesde, fechaHasta);
+                    break;
+
+                case "Semestral":
+                    this.InitSemiannualChartGanancias(fechaDesde, fechaHasta);
+                    break;
+
+                case "Anual":
+                    this.InitAnnualChartGanancias(fechaDesde, fechaHasta);
+                    break;
+            }
+        }
+
+        public void LoadInitTLPGanancias()
+        {
+            // Periodo mes.
+            Dictionary<int, string> meses = new Dictionary<int, string>();
+
+            meses.Add(1, "Enero");
+            meses.Add(2, "Febrero");
+            meses.Add(3, "Marzo");
+            meses.Add(4, "Abril");
+            meses.Add(5, "Mayo");
+            meses.Add(6, "Junio");
+            meses.Add(7, "Julio");
+            meses.Add(8, "Agosto");
+            meses.Add(9, "Septiembre");
+            meses.Add(10, "Octubre");
+            meses.Add(11, "Noviembre");
+            meses.Add(12, "Diciembre");
+
+            this.CBDesdeMesGanancias.DisplayMember = "Value";
+            this.CBDesdeMesGanancias.ValueMember = "Key";
+            this.CBDesdeMesGanancias.DataSource = meses.ToList();
+            this.CBDesdeMesGanancias.SelectedIndex = -1;
+
+            this.CBHastaMesGanancias.DisplayMember = "Value";
+            this.CBHastaMesGanancias.ValueMember = "Key";
+            this.CBHastaMesGanancias.DataSource = meses.ToList();
+            this.CBHastaMesGanancias.SelectedIndex = -1;
+
+            this.InitMonthlyChartGanancias(DateTime.Now, DateTime.Now);
+        }
+
+        public void LoadCBAñoGanancias()
+        {
+            for (int i = 2000; i <= DateTime.Now.Year; i++)
+            {
+                this.CBDesdeAñoGanancias.Items.Add(i);
+                this.CBHastaAñoGanancias.Items.Add(i);
+            }
+
+            this.CBDesdeAñoGanancias.SelectedIndex = this.CBDesdeAñoGanancias.FindString("" + DateTime.Now.Year);
+            this.CBHastaAñoGanancias.SelectedIndex = this.CBHastaAñoGanancias.FindString("" + DateTime.Now.Year);
+
+            this.CBDesdeMesGanancias.SelectedIndex = DateTime.Now.Date.Month - 1;
+            this.CBHastaMesGanancias.SelectedIndex = DateTime.Now.Date.Month - 1;
+        }
+
+        public int SetIntervaloGanancias()
+        {
+            int intervalo = 1;
+
+            switch (this.CBGranularidadGanancias.Text)
+            {
+                case "Mensual":
+                    intervalo = 1;
+                    break;
+                case "Trimestral":
+                    intervalo = 3;
+                    break;
+                case "Semestral":
+                    intervalo = 6;
+                    break;
+                case "Anual":
+                    intervalo = 12;
+                    break;
+            }
+
+            return intervalo;
+        }
+
+        private void BTNGananciasAdelante_Click(object sender, EventArgs e)
+        {
+            DateTime fechaFin = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Maximum);
+            DateTime fechaInit = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Minimum);
+
+            int anioDesde = int.TryParse(this.CBDesdeAñoGanancias.Text, out int anio)? anio : DateTime.Now.Year;
+            int mesDesde = int.TryParse(this.CBDesdeAñoGanancias.ValueMember, out int mes)? mes : DateTime.Now.Month; 
+
+            int anioHasta = int.TryParse(this.CBDesdeAñoGanancias.Text, out int anio_hasta) ? anio_hasta : DateTime.Now.Year;
+            int mesHasta = int.TryParse(this.CBDesdeAñoGanancias.ValueMember, out int mes_hasta) ? mes_hasta : DateTime.Now.Month; ;
+             
+            DateTime fechaDesde = new DateTime(anioDesde, mesDesde, 1);
+            DateTime fechaHasta = new DateTime(anioHasta, mesHasta, 1);
+
+            bool filter_active = fechaDesde < fechaHasta;
+
+            if (filter_active)
+            {
+                if (fechaFin > fechaHasta)
+                {
+                    return;
+                }
+            }
+
+            if (fechaFin > DateTime.Now.Date) return;
+
+            // En caso de que no haya seleccionada ninguna granularidad
+            if (this.CBGranularidadGanancias.SelectedIndex < 0)// && this.chart3.ChartAreas[0].AxisX.Minimum > 0)
+            {
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(1).ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(1).ToOADate();
+
+                return;
+            }
+
+            switch (this.CBGranularidadGanancias.Text)
+            {
+                case "Mensual":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(1).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(1).ToOADate();
+                    break;
+
+                case "Trimestral":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(3).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(3).ToOADate();
+                    break;
+
+                case "Semestral":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(6).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(6).ToOADate();
+                    break;
+
+                case "Anual":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddYears(1).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddYears(1).ToOADate();
+                    break;
+            }
+        }
+
+        private void BTNGananciasAtras_Click(object sender, EventArgs e)
+        {
+            DateTime fechaFin = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Maximum);
+            DateTime fechaInit = DateTime.FromOADate(this.chart4.ChartAreas[0].AxisX.Minimum);
+
+            int anioDesde = int.TryParse(this.CBDesdeAñoGanancias.Text, out int anio) ? anio : DateTime.Now.Year;
+            int mesDesde = int.TryParse(this.CBDesdeAñoGanancias.ValueMember, out int mes) ? mes : DateTime.Now.Month;
+
+            int anioHasta = int.TryParse(this.CBDesdeAñoGanancias.Text, out int anio_hasta) ? anio_hasta : DateTime.Now.Year;
+            int mesHasta = int.TryParse(this.CBDesdeAñoGanancias.ValueMember, out int mes_hasta) ? mes_hasta : DateTime.Now.Month; ;
+
+            DateTime fechaDesde = new DateTime(anioDesde, mesDesde, 1);
+            DateTime fechaHasta = new DateTime(anioHasta, mesHasta, 1);
+
+            bool filter_active = fechaDesde < fechaHasta;
+
+            if (filter_active)
+            {
+                if (fechaInit < fechaDesde)
+                {
+                    return;
+                }
+            }
+
+            // En caso de que no haya seleccionada ninguna granularidad
+            if (this.CBGranularidadGanancias.SelectedIndex < 0 && this.chart4.ChartAreas[0].AxisX.Minimum > 0)
+            {
+                this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(-1).ToOADate();
+                this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(-1).ToOADate();
+
+                return;
+            }
+
+            switch (this.CBGranularidadGanancias.Text)
+            {
+                case "Mensual":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(-1).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(-1).ToOADate();
+                    break;
+
+                case "Trimestral":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(-3).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(-3).ToOADate();
+                    break;
+
+                case "Semestral":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddMonths(-6).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddMonths(-6).ToOADate();
+                    break;
+
+                case "Anual":
+                    this.chart4.ChartAreas[0].AxisX.Minimum = fechaInit.AddYears(-1).ToOADate();
+                    this.chart4.ChartAreas[0].AxisX.Maximum = fechaFin.AddYears(-1).ToOADate();
+                    break;
+            }
+        }
+
     }
 }

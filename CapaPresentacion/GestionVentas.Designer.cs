@@ -220,7 +220,7 @@
             this.TBPrecio.Location = new System.Drawing.Point(346, 52);
             this.TBPrecio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.TBPrecio.Name = "TBPrecio";
-            this.TBPrecio.Size = new System.Drawing.Size(95, 26);
+            this.TBPrecio.Size = new System.Drawing.Size(96, 26);
             this.TBPrecio.TabIndex = 8;
             this.TBPrecio.Validating += new System.ComponentModel.CancelEventHandler(this.TBPrecio_Validating);
             // 
@@ -250,7 +250,7 @@
             0,
             0});
             this.NUDCantidad.Name = "NUDCantidad";
-            this.NUDCantidad.Size = new System.Drawing.Size(95, 26);
+            this.NUDCantidad.Size = new System.Drawing.Size(94, 26);
             this.NUDCantidad.TabIndex = 6;
             this.NUDCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.NUDCantidad.ThousandsSeparator = true;
@@ -411,7 +411,7 @@
             this.panel10.Location = new System.Drawing.Point(10, 32);
             this.panel10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(355, 250);
+            this.panel10.Size = new System.Drawing.Size(355, 249);
             this.panel10.TabIndex = 11;
             // 
             // LDetalleEstado
@@ -817,7 +817,7 @@
             this.LRTotal.AutoSize = true;
             this.LRTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRTotal.ForeColor = System.Drawing.Color.Lime;
-            this.LRTotal.Location = new System.Drawing.Point(0, 7);
+            this.LRTotal.Location = new System.Drawing.Point(0, 9);
             this.LRTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LRTotal.Name = "LRTotal";
             this.LRTotal.Size = new System.Drawing.Size(104, 37);
@@ -830,7 +830,7 @@
             this.LRTotalValue.AutoSize = true;
             this.LRTotalValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRTotalValue.ForeColor = System.Drawing.Color.Lime;
-            this.LRTotalValue.Location = new System.Drawing.Point(168, 15);
+            this.LRTotalValue.Location = new System.Drawing.Point(167, 16);
             this.LRTotalValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LRTotalValue.Name = "LRTotalValue";
             this.LRTotalValue.Size = new System.Drawing.Size(195, 29);
@@ -881,7 +881,7 @@
             this.LRProducto.AutoSize = true;
             this.LRProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LRProducto.ForeColor = System.Drawing.Color.Lime;
-            this.LRProducto.Location = new System.Drawing.Point(4, 10);
+            this.LRProducto.Location = new System.Drawing.Point(4, 8);
             this.LRProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LRProducto.Name = "LRProducto";
             this.LRProducto.Size = new System.Drawing.Size(117, 25);
