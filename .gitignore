@@ -1,0 +1,11 @@
+# Carpetas de compilación de Visual Studio
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+
+# Carpeta oculta de configuración local de Visual Studio
+.vs/
+
+# Paquetes NuGet locales (se restauran solos)
+packages/
