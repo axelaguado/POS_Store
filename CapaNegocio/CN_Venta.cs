@@ -199,7 +199,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = g.Key,
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();
@@ -233,7 +234,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();
@@ -262,7 +264,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = new DateTime(g.Key.Año, g.Key.Mes, 1),
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();
@@ -294,7 +297,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();
@@ -326,7 +330,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = g.Key,                        // CultureInfo --> CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday = Indica que la primera semana de la año --> es la primera semana con cuatro o mas dias antes del primer dia de la semana asignado
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();
@@ -353,7 +358,8 @@ namespace WindowsFormsApp1.CapaNegocio
                               .Select(g => new ReporteVentaDTO
                               {
                                   fecha_acumulada = new DateTime(g.Key.Año, 1, 1),
-                                  monto_acumulado = g.Sum(v => v.monto_venta)
+                                  monto_acumulado = g.Sum(v => v.monto_venta),
+                                  cantidad_ventas = g.Count()
                               })
                               .OrderBy(v => v.fecha_acumulada)
                               .ToList();

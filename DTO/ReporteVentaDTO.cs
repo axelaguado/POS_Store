@@ -11,5 +11,7 @@ namespace WindowsFormsApp1.DTO
         public DateTime fecha_acumulada { get; set; }
 
         public decimal monto_acumulado { get; set; }
+
+        public int cantidad_ventas { get; set; }
     }
 }

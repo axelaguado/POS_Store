@@ -9,6 +9,7 @@ using System.util.collections;
 using System.Windows.Forms;
 using WindowsFormsApp1.CapaDatos;
 using WindowsFormsApp1.CapaEntidad;
+using WindowsFormsApp1.DTO;
 
 namespace WindowsFormsApp1.CapaNegocio
 {
@@ -110,7 +111,6 @@ namespace WindowsFormsApp1.CapaNegocio
         public Dictionary<string, string> GetErrors()
         {
             return this.validacion;
-        }
-          
+        } 
     }
 }
