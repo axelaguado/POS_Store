@@ -280,8 +280,8 @@ namespace WindowsFormsApp1.CapaPresentacion
             List<ReporteVentaCategoriaDTO> ventasCategoria = new List<ReporteVentaCategoriaDTO>();
 
             // Si son iguales ambas fecha significa que no se requiere la utilizacion del filtro
-            DateTime desde = this.DTPFiltroDesde.Value;
-            DateTime hasta = this.DTPFiltroHasta.Value;
+            DateTime desde = this.DTPFiltroDesde.Value.Date;
+            DateTime hasta = this.DTPFiltroHasta.Value.Date;
 
             this.FiltroDesdeHasta = desde < hasta;
             bool load_granularidad = this.CBGranularidad.SelectedIndex > -1;

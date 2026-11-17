@@ -76,7 +76,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             int tickets = this.cajaResumen.ventas.Count;
             decimal total = this.cajaResumen.ventas.Sum(v => v.monto_venta);
-            decimal promedio = decimal.Round((total / tickets), 2);
+            decimal promedio = tickets > 0 ? decimal.Round((total / tickets), 2) : 0;
 
             this.LVTickets.Text = tickets.ToString();
             this.LVTicketPromedio.Text = "$ " + promedio;
