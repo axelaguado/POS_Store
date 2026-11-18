@@ -57,7 +57,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 Apertura = caja.fecha_apertura.ToShortDateString() + " - " + caja.fecha_apertura.ToShortTimeString(),
                 Estado = caja.estado_caja == true ? "Abierta" : "Cerrada",
                 EfectivoApertura = "$ " + caja.saldo_inicial,
-                EfectivoActual = "$ " + (caja.saldo_inicial + caja.ventas.SelectMany(v => v.pagos).Where(p => p.metodo.descripcion_metodo == "Efectivo").Sum(p => p.importe_pago) + cn_caja.ObtenerImporteIngresos(caja) - cn_caja.ObtenerMontoEgresos(caja)),
+                EfectivoActual = "$ " + (caja.saldo_inicial + caja.ventas.SelectMany(v => v.pagos).Where(p => p.metodo.descripcion_metodo == "Efectivo").Sum(p => p.importe_pago) + cn_caja.ObtenerImporteIngresos(caja) - cn_caja.ObtenerMontoEgresos(caja) - cn_caja.ObtenerMontoVueltos(caja)),
                 Ventas = "$ " + caja.ventas.Sum(v => v.monto_venta),
                 Ganancias = "$ " + ( caja.ventas.SelectMany(v => v.detalles).Sum(d => d.subtotal) - caja.ventas.SelectMany(v => v.detalles).Sum(d => (d.precio_costo * d.cantidad_producto))),
             }).ToList();
@@ -107,5 +107,6 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             this.actual.principal.AbrirFormHijo(this.actual);
         }
+ 
     }
 }

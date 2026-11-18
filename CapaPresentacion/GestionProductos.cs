@@ -717,7 +717,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 this.errorProvider1.SetError(TBMarcaProducto, "El campo Marca no puede estar vacio.");
                 this.load_errorProviderProducto = true;
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBMarcaProducto.Text, @"^[a-zA-Z0-9\s\-]+$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBMarcaProducto.Text, @"^[a-zA-Z0-9\s/-]+$"))
             {
                 this.errorProvider1.SetError(TBMarcaProducto, "El campo Marca solo puede caracteres alfabeticos, numericos, espacios y guiones.");
                 this.load_errorProviderProducto = true;
@@ -735,7 +735,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 this.errorProvider1.SetError(TBNombreProducto, "El campo Producto no puede estar vacio.");
                 this.load_errorProviderProducto = true;
             }
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBNombreProducto.Text, @"^[a-zA-Z0-9\s\-]+$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBNombreProducto.Text, @"^[a-zA-Z0-9\s/-]+$"))
             {
                 this.errorProvider1.SetError(TBNombreProducto, "El campo Producto solo puede caracteres alfabeticos, numericos, espacios y guiones.");
                 this.load_errorProviderProducto = true;
@@ -750,7 +750,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (!string.IsNullOrEmpty(this.TBDescripcionProducto.Text))
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBDescripcionProducto.Text, @"^[a-zA-Z0-9\s,.]+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBDescripcionProducto.Text, @"^[a-zA-Z0-9\s,./]+$"))
                 {
                     this.errorProvider1.SetError(TBDescripcionProducto, "El campo Descripcion solo puede contener caracteres alfabeticos (.,), numericos, espacios.");
                     this.load_errorProviderProducto = true;
@@ -881,7 +881,7 @@ namespace WindowsFormsApp1.CapaPresentacion
         {
             if (!string.IsNullOrEmpty(this.TBSkuProducto.Text))
             {
-                if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBSkuProducto.Text, @"^[a-zA-Z0-9]+$"))
+                if (!System.Text.RegularExpressions.Regex.IsMatch(this.TBSkuProducto.Text, @"^[a-zA-Z0-9\s-]+$"))
                 {
                     this.errorProvider1.SetError(TBSkuProducto, "El campo Codigo solo puede contener caracteres alfabeticos y numericos.");
                     this.load_errorProviderProducto = true;
@@ -1001,5 +1001,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         }
+
+         
     }
 }

@@ -578,7 +578,7 @@ namespace WindowsFormsApp1.CapaPresentacion
             Detalle_compra item = new Detalle_compra();
             item.producto = producto_seleccionado;
             item.subtotal_producto = Convert.ToDecimal(this.TBProductoPrecio.Text);
-            item.cantidad_producto = Convert.ToInt16(this.TBProductoCantidad.Text);
+            item.cantidad_producto = Convert.ToInt32(this.TBProductoCantidad.Text);
             item.informacion_acerca = this.TBProductoInformacion.Text;
              
             carrito.Add(item);

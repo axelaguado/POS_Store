@@ -46,6 +46,7 @@ namespace WindowsFormsApp1.CapaNegocio
             return movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Egreso").Sum(m => m.monto_movimiento);
         }
 
+
         public decimal ObtenerImporteIngresos(Caja _caja)
         {
             List<Movimiento_caja> movimientos = _caja.movimientos.ToList();
@@ -53,6 +54,14 @@ namespace WindowsFormsApp1.CapaNegocio
             if (movimientos == null || movimientos.Count == 0) return 0;
 
             return movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Ingreso").Sum(m => m.monto_movimiento);
+        }
+        public decimal ObtenerMontoVueltos(Caja _caja)
+        {
+            List<Movimiento_caja> movimientos = _caja.movimientos.ToList();
+
+            if (movimientos == null || movimientos.Count == 0) return 0;
+
+            return movimientos.Where(m => m.tipo_movimiento.descripcion_tipo == "Vuelto").Sum(m => m.monto_movimiento);
         }
 
         public int UpdateCaja(Caja _caja)

@@ -124,10 +124,10 @@ namespace WindowsFormsApp1.CapaPresentacion
             Metodo_pago metodo = this.CBMetodoPago.SelectedItem as Metodo_pago;
 
             Pago pago = new Pago();
-            pago.id_venta = this.venta.id_venta;
+            // pago.id_venta = this.venta.id_venta;
             pago.venta = this.venta;
             pago.importe_pago = Convert.ToDecimal(this.TBImporte.Text);
-            pago.id_metodo = metodo.id_metodo;
+            // pago.id_metodo = metodo.id_metodo;
             pago.metodo = metodo;
 
             this.pagos.Add(pago);
@@ -158,7 +158,7 @@ namespace WindowsFormsApp1.CapaPresentacion
 
             CN_Venta cn_venta = new CN_Venta();
             
-            // Debemos cargar el pago tambien, jijooo falta una bandeja de coordinacion 
+            // Debemos cargar el pago tambien.
             this.venta.pagos = this.pagos;
 
             try

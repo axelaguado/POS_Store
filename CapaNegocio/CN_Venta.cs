@@ -29,11 +29,19 @@ namespace WindowsFormsApp1.CapaNegocio
         public void GuardarVenta(Venta _venta, MiDbContext _context)
         {
             // El cliente se supone ya en existencia entonces necesitaremos enlazarlo
-            ClienteDAO cliente = new ClienteDAO(_context);
-            cliente.Attach_cliente(_venta.cliente);
+            // Aca tenemos un problema porque cuando queremos volver a realizar una compra aparentemenete esta quedando cargado el valor en el contexto.
 
-            CajaDAO caja = new CajaDAO(_context);
-            caja.Attach_caja(_venta.caja);
+            // ClienteDAO cliente = new ClienteDAO(_context);
+            // cliente.Attach_cliente(_venta.cliente);
+
+            _venta.id_cliente = _venta.cliente.id_cliente;
+            _venta.cliente = null;
+
+            // CajaDAO caja = new CajaDAO(_context);
+            // caja.Attach_caja(_venta.caja);
+
+            _venta.id_caja = _venta.caja.id_caja;
+            _venta.caja = null;
 
             VentaDAO venta = new VentaDAO(_context);
             venta.CrearVenta(_venta);
@@ -46,6 +54,7 @@ namespace WindowsFormsApp1.CapaNegocio
             CN_Pago pago = new CN_Pago();
             CN_MovimientoCaja movimiento_caja = new CN_MovimientoCaja();
             CN_DetalleVenta detalle_venta = new CN_DetalleVenta();
+            Movimiento_caja nuevoMovimiento;
 
             if (this.ValidadarVenta(nuevaVenta).Count > 0)
             {
@@ -74,7 +83,7 @@ namespace WindowsFormsApp1.CapaNegocio
             }
 
             // Faltaria registrar el movimiento en caso de que haya vuelto.
-            Movimiento_caja nuevoMovimiento = this.GenerarVueltoPago(nuevaVenta);
+            nuevoMovimiento = this.GenerarVueltoPago(nuevaVenta);
             
             if (nuevoMovimiento != null && movimiento_caja.ValidarMovimiento(nuevoMovimiento).Count > 0) 
             {
@@ -132,8 +141,11 @@ namespace WindowsFormsApp1.CapaNegocio
 
                         await _context.SaveChangesAsync();
 
-                        nuevoMovimiento.descripcion_movimiento = nuevoMovimiento.descripcion_movimiento.Replace("#0", "#" + nuevaVenta.id_venta);
-                        movimiento_caja.RegistrarMovimiento(nuevoMovimiento, _context);
+                        if (nuevoMovimiento != null) 
+                        { 
+                            nuevoMovimiento.descripcion_movimiento = nuevoMovimiento.descripcion_movimiento.Replace("#0", "#" + nuevaVenta.id_venta);
+                            movimiento_caja.RegistrarMovimiento(nuevoMovimiento, _context);
+                        }
                          
                         await _context.SaveChangesAsync();
 
@@ -153,7 +165,7 @@ namespace WindowsFormsApp1.CapaNegocio
         public Movimiento_caja GenerarVueltoPago(Venta nuevaVenta) 
         {
             CN_TipoMovimiento tipo = new CN_TipoMovimiento();
-            Tipo_movimiento tipo_egreso = tipo.ObtenerTipo("Egreso");
+            Tipo_movimiento tipo_egreso = tipo.ObtenerTipo("Vuelto");
 
             if(nuevaVenta.pagos.Sum(p => p.importe_pago) > nuevaVenta.monto_venta)
             {
