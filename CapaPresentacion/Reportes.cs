@@ -2910,6 +2910,6 @@ namespace WindowsFormsApp1.CapaPresentacion
                     break;
             }
         }
-
+ 
     }
 }
