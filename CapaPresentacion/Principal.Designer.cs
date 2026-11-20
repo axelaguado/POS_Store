@@ -87,7 +87,7 @@
             this.PHeaderPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PHeaderPrincipal_MouseDown);
             // 
             // LReloj
-            //  
+            // 
             this.LReloj.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LReloj.AutoSize = true;
             this.LReloj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -354,6 +354,7 @@
             this.BBackUp.TabIndex = 7;
             this.BBackUp.Text = "Back Up";
             this.BBackUp.UseVisualStyleBackColor = true;
+            this.BBackUp.Click += new System.EventHandler(this.BBackUp_Click);
             // 
             // BReportes
             // 
