@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using System.Reflection.Emit;
 using WindowsFormsApp1.CapaEntidad;
 using Org.BouncyCastle.Crypto.Engines;
+using WindowsFormsApp1.CapaDatos;
 
 
 namespace WindowsFormsApp1.CapaPresentacion
@@ -223,6 +224,22 @@ namespace WindowsFormsApp1.CapaPresentacion
             this.BReportes.BackColor = System.Drawing.Color.DarkTurquoise;
         }
 
+        private void BBackUp_Click(object sender, EventArgs e)
+        {
+            if (!this.Autorizado()) return;
+
+            this.AbrirFormHijo(new BackUp(this));
+            this.LightOff(sender);
+            this.BBackUp.BackColor = System.Drawing.Color.DarkTurquoise;
+
+            /*
+            using (var context = new MiDbContext()) 
+            {
+                string name_dbactive = context.Database.Connection.Database;
+            }
+            */
+        }
+
         public bool Autorizado() 
         {
             if ((this.GetTipoPerfilSession() == "Administrador") || this.GetTipoPerfilSession() == ("Gerente"))
@@ -314,6 +331,7 @@ namespace WindowsFormsApp1.CapaPresentacion
                 }
             }
         
-        }  
+        }
+         
     }
  }
