@@ -119,9 +119,10 @@ namespace WindowsFormsApp1.CapaPresentacion
                 return;
             }
 
+            // Si la ruta existe leemos su contenido
             string Texto_Html = File.ReadAllText(ruta);
 
-            // Manemos los datos.   
+            // Manejamos los datos.   
             //Nro. Pedido. 
             string id = Convert.ToString(this.compra.id_compra);
             int cifras = id.Count(); 
